@@ -1,5 +1,5 @@
-DataSift API
-============
+DataSift PHP Client Library
+===========================
 
 This is the official PHP library for accessing [Datasift](http://www.datasift.net/). See the examples
 folder for some simple example usage. Full documentation is in the doc folder.
@@ -18,9 +18,9 @@ prints the content to the screen as they come in.
   $user = new DataSift_User('your username', 'your api_key');
   $def = $user->createDefinition('interaction.content contains "datasift"');
   $consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP,
-                function($consumer, $data) {
-                  echo $data['interaction']['content']."\n";
-                });
+      function($consumer, $data) {
+      echo $data['interaction']['content']."\n";
+  });
   $consumer->consume();
 ?>
 ```
@@ -30,3 +30,11 @@ Requirements
 
 * PHP 5
 * JSON (included in PHP 5.2+, otherwise use http://pecl.php.net/package/json)
+
+
+License
+-------
+
+All code contained in this repository is Copyright 2011 MediaSift Ltd.
+
+This code is released under the BSD license. Please see the LICENSE file for more details.
