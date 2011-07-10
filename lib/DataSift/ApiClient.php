@@ -1,0 +1,119 @@
+<?php
+/**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ * Distribution of this software is strictly forbidden under the terms of this license.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
+
+/**
+ * The DataSift_ApiClient class wraps access to the DataSift API.
+ *
+ * @category DataSift
+ * @package  PHP-client
+ * @author   Stuart Dallas <stuart@3ft9.com>
+ * @license  http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link     http://www.mediasift.com
+ */
+class DataSift_ApiClient
+{
+	/**
+	 * Make a call to a DataSift API endpoint.
+	 *
+	 * @param string $username The user's username.
+	 * @param string $api_key  The user's API key.
+	 * @param string $endpoint The endpoint of the API call.
+	 * @param array  $params   The parameters to be passed along with the request.
+	 *
+	 * @return array The response from the server.
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_RateLimitExceeded
+	 */
+	static public function call($username, $api_key, $endpoint, $params = array(), $user_agent = 'DataSiftPHP/1.0')
+	{
+		// Curl is required
+		if (!function_exists('curl_init')) {
+			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_User::callAPI');
+		}
+
+		// Build the full endpoint URL
+		$url = 'http://'.DataSift_User::API_BASE_URL.$endpoint.'.json?'.http_build_query($params);
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$username.':'.$api_key));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+		$res = curl_exec($ch);
+		$info = curl_getinfo($ch);
+		curl_close($ch);
+
+		if (!$res) {
+			throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
+		}
+
+		$res = self::parseHTTPResponse($res);
+
+		$retval = array(
+			'response_code'        => $info['http_code'],
+			'data'                 => json_decode($res['body'], true),
+			'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
+			'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
+		);
+
+		if (!$retval['data']) {
+			throw new DataSift_Exception_APIError('Failed to decode the response', -1);
+		}
+
+		return $retval;
+	}
+
+	/**
+	 * Parse an HTTP response. Separates the headers from the body and puts
+	 * the headers into an associative array.
+	 *
+	 * @param string $str The HTTP response to be parsed.
+	 * @return array An array containing headers => array(header => value), and body.
+	 */
+	static private function parseHTTPResponse($str)
+	{
+		$retval = array(
+			'headers' => array(), 
+			'body'    => '',
+		);
+		$lastfield = false;
+		$fields    = explode("\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $str));
+		foreach ($fields as $field) {
+			if (strlen(trim($field)) == 0) {
+				$lastfield = ':body';
+			} elseif ($lastfield == ':body') {
+				$retval['body'] .= $field."\n";
+			} else {
+				if (($field[0] == ' ' or $field[0] == "\t") and $lastfield !== false) {
+					$retval['headers'][$lastfield] .= ' '.$field;
+				} elseif (preg_match('/([^:]+): (.+)/m', $field, $match)) {
+					$match[1] = strtolower(preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1]))));
+					if (isset($retval['headers'][$match[1]])) {
+						if (is_array($retval['headers'][$match[1]])) {
+							$retval['headers'][$match[1]][] = $match[2];
+						} else {
+							$retval['headers'][$match[1]] = array($retval['headers'][$match[1]], $match[2]);
+						}
+					} else {
+						$retval['headers'][$match[1]] = trim($match[2]);
+					}
+				}
+			}
+		}
+		return $retval;
+	}
+}

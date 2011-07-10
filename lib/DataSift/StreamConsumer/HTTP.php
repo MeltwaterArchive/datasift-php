@@ -175,8 +175,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		$url = parse_url('http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash());
 
 		// Fill in some defaults if any required bits are missing
-		if (empty($url['port']))
-		{
+		if (empty($url['port'])) {
 			$url['port'] = 80;
 		}
 
@@ -216,7 +215,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 				// Read the response headers
 				$response = array();
-				while ($line = trim(fgets($this->_conn, $this->_max_line_length))) {
+				$line = true;
+				while ($line) {
+					$line = trim(fgets($this->_conn, $this->_max_line_length));
 					$response[] = $line;
 				}
 			}

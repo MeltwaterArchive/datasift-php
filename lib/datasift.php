@@ -26,10 +26,12 @@ if (function_exists('spl_autoload_register')) {
 } else {
 	$datasift_classes = array(
 		'DataSift_User',
+		'DataSift_ApiClient',
 		'DataSift_Definition',
 		'DataSift_Stream',
 		'DataSift_StreamVersion',
 		'DataSift_StreamConsumer',
+		'DataSift_StreamConsumer_HTTP',
 		'DataSift_Exception_AccessDenied',
 		'DataSift_Exception_APIError',
 		'DataSift_Exception_CompileFailed',

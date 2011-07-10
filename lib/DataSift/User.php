@@ -57,6 +57,13 @@ class DataSift_User
 	protected $_rate_limit_remaining = -1;
 
 	/**
+	 * The class to use as the API client
+	 *.
+	 * @var string
+	 */
+	protected $_api_client = 'DataSift_ApiClient';
+
+	/**
 	 * Constructor. A username and API key are required when constructing an
 	 * instance of this class.
 	 *
@@ -77,6 +84,22 @@ class DataSift_User
 
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
+	}
+	
+	/**
+	 * Set the class to use when calling the API
+	 *
+	 * @param string $api_client The class to use.
+	 *
+	 * @return void
+	 * @throws DataSift_Exception_InvalidData
+	 */
+	public function setApiClient($api_client)
+	{
+		if (!class_exists($api_client) or !method_exists($api_client, 'call')) {
+			throw new DataSift_Exception_InvalidData('Class "'.$api_client.'" does not exist');
+		}
+		$this->_api_client = $api_client;
 	}
 
 	/**
@@ -153,61 +176,37 @@ class DataSift_User
 	 */
 	public function callAPI($endpoint, $params = array())
 	{
-		$retval = false;
+		$res = call_user_func(
+			array($this->_api_client, 'call'), 
+			$this->_username, 
+			$this->_api_key, 
+			$endpoint, 
+			$params, 
+			$this->getUserAgent()
+		);
 
-		$params['username'] = $this->_username;
-		$params['api_key'] = $this->_api_key;
-
-		// Build the full endpoint URL
-		$url = 'http://'.self::API_BASE_URL.$endpoint.'.json?'.http_build_query($params);
-
-		// Use curl if it's available
-		if (function_exists('curl_init')) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HEADER, true);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$this->_username.':'.$this->_api_key));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_USERAGENT, $this->getUserAgent());
-			$res = curl_exec($ch);
-			$info = curl_getinfo($ch);
-			curl_close($ch);
-
-			if ($res === false) {
-				throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
-			}
-
-			$res = $this->parseHTTPResponse($res);
-
-			$this->_rate_limit = (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1);
-			$this->_rate_limit_remaining = (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1);
-
-			$retval = json_decode($res['body'], true);
-			if (!$retval) {
-				throw new DataSift_Exception_APIError('Failed to decode the response', -1);
-			}
-
-			switch ($info['http_code']) {
+		$this->_rate_limit = $res['rate_limit'];
+		$this->_rate_limit_remaining = $res['rate_limit_remaining'];
+		
+		switch ($res['response_code']) {
 				case 200:
-					// Success, do nothing
+					$retval = $res['data'];
 					break;
-
 				case 401:
-					throw new DataSift_Exception_AccessDenied(empty($retval['error']) ? 'Authentication failed' : $retval['error']);
-
+					throw new DataSift_Exception_AccessDenied(
+						empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
+					);
 				case 403:
 					if ($this->_rate_limit_remaining == 0) {
-						throw new DataSift_Exception_RateLimitExceeded($retval['comment']);
+						throw new DataSift_Exception_RateLimitExceeded($res['data']['comment']);
 					}
 					// Deliberate fall-through
-
 				default:
-					throw new DataSift_Exception_APIError(empty($retval['error']) ? 'Unknown error' : $retval['error'], $info['http_code']);
-			}
-		} else {
-			throw new DataSift_Exception_NotYetImplemented('Curl is currently required for DataSift_User::callAPI');
+					throw new DataSift_Exception_APIError(
+						empty($res['data']['error']) ? 'Unknown error' : $res['data']['error'], $res['response_code']
+					);
 		}
-
+		
 		return $retval;
 	}
 
