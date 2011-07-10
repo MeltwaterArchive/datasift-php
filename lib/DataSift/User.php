@@ -209,43 +209,4 @@ class DataSift_User
 		
 		return $retval;
 	}
-
-	/**
-	 * Parse an HTTP response. Separates the headers from the body and puts
-	 * the headers into an associative array.
-	 *
-	 * @param string $str The HTTP response to be parsed.
-	 *
-	 * @return array An array containing headers => array(header => value), and body.
-	 */
-	private function parseHTTPResponse($str)
-	{
-		//var_dump($str);
-		$retval = array('headers' => array(), 'body' => '');
-		$lastfield = false;
-		$fields = explode("\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $str));
-		foreach ($fields as $field) {
-			if (strlen(trim($field)) == 0) {
-				$lastfield = ':body';
-			} elseif ($lastfield == ':body') {
-				$retval['body'] .= $field."\n";
-			} else {
-				if (($field[0] == ' ' or $field[0] == "\t") and $lastfield !== false) {
-					$retval['headers'][$lastfield] .= ' '.$field;
-				} elseif (preg_match('/([^:]+): (.+)/m', $field, $match)) {
-					$match[1] = strtolower(preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1]))));
-					if (isset($retval['headers'][$match[1]])) {
-						if (is_array($retval['headers'][$match[1]])) {
-							$retval['headers'][$match[1]][] = $match[2];
-						} else {
-							$retval['headers'][$match[1]] = array($retval['headers'][$match[1]], $match[2]);
-						}
-					} else {
-						$retval['headers'][$match[1]] = trim($match[2]);
-					}
-				}
-			}
-		}
-		return $retval;
-	}
 }
