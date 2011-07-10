@@ -6,6 +6,8 @@ folder for some simple example usage. Full documentation is in the doc folder.
 
 The unit tests should be run with phpunit.
 
+All examples and tests use the username and API key in config.php.
+
 Simple example
 --------------
 
@@ -19,11 +21,15 @@ prints the content to the screen as they come in.
   $def = $user->createDefinition('interaction.content contains "datasift"');
   $consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP,
       function($consumer, $data) {
-      echo $data['interaction']['content']."\n";
-  });
+          echo $data['interaction']['content']."\n";
+      }
+  );
   $consumer->consume();
 ?>
 ```
+
+See the DataSift documentation for full details of the data contained within each interaction: http://support.datasift.net/help/kb/rest-api/return-objects
+
 
 Requirements
 ------------
