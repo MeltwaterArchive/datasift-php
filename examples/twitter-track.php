@@ -17,7 +17,7 @@ require dirname(__FILE__).'/../lib/datasift.php';
 // Include the configuration - put your username and API key in this file
 require dirname(__FILE__).'/../config.php';
 
-if ($_SERVER['argc']) < 2) {
+if ($_SERVER['argc'] < 2) {
 	die("ERR: Please specify the words and/or phrases to track!\n\n");
 }
 
