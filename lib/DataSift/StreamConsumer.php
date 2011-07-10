@@ -98,12 +98,12 @@ abstract class DataSift_StreamConsumer
 	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false)
 	{
 		if (!($user instanceof DataSift_User)) {
-			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_Definition object.');
+			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
 		}
 
 		if (is_string($definition)) {
 			// Convert the CSDL into a Definition object
-			$this->_definition = new DataSift_Definition($definition);
+			$this->_definition = $user->createDefinition($definition);
 		} elseif ($definition instanceof DataSift_Definition) {
 			// Already a Definition object
 			$this->_definition = $definition;
