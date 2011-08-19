@@ -16,7 +16,7 @@
 
 /**
  * The DataSift_Definition class represents a stream definition.
- * 
+ *
  * @category DataSift
  * @package  PHP-client
  * @author   Stuart Dallas <stuart@3ft9.com>
@@ -363,5 +363,25 @@ class DataSift_Definition
 	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $onInteraction = false, $onStopped = false)
 	{
 		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $onInteraction, $onStopped);
+	}
+
+	/**
+	 * Returns the usage for this definition.
+	 *
+	 * @return array The usage data from the API.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_CompileError
+	 */
+	public function getUsage()
+	{
+		$retval = false;
+
+		if (strlen(trim($this->_csdl)) == 0) {
+			throw new DataSift_Exception_InvalidData('Cannot get the usage for an empty definition.');
+		}
+
+		$retval = $this->_user->callAPI('usage', array('hash' => $this->getHash()));
+		return $retval;
 	}
 }

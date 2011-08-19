@@ -73,7 +73,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'rate_limit_remaining' => 150,
 		);
 		DataSift_MockApiClient::setResponse($response);
-		
+
 		$def = new DataSift_Definition($this->user, testdata('definition'));
 		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
@@ -109,7 +109,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'rate_limit_remaining' => 150,
 		);
 		DataSift_MockApiClient::setResponse($response);
-		
+
 		$this->setExpectedException('DataSift_Exception_CompileFailed');
 
 		$def = new DataSift_Definition($this->user, testdata('invalid_definition'));
@@ -122,9 +122,9 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		} catch (DataSift_Exception_APIError $e) {
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		}
-		
-		
-		
+
+
+
 	}
 
 	public function testCompile_SuccessThenFailure()
@@ -155,8 +155,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->assertEquals(
-			$response['data']['hash'], 
-			$def->getHash(), 
+			$response['data']['hash'],
+			$def->getHash(),
 			'Hash is not correct'
 		);
 
@@ -359,5 +359,22 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			$consumer,
 			'Failed to get an HTTP stream consumer object'
 		);
+	}
+
+	public function testGetUsage()
+	{
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"processed":2494,"delivered":2700,"types":{"buzz":{"processed":247,"delivered":350},"twitter":{"processed":2247,"delivered":2350}}}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$this->assertEquals($def->get(), testdata('definition'));
+
+		$usage = $def->getUsage();
+		$this->assertEquals($response['data'], $usage, 'Usage data is not as expected');
 	}
 }
