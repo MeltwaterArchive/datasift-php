@@ -363,6 +363,25 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 
 	public function testGetUsage()
 	{
+		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$this->assertEquals($def->get(), testdata('definition'));
+
+		// This is the response for the compile call, which will be peformed
+		// by $def->getHash()
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'hash'       => testdata('definition_hash'),
+				'created_at' => date('Y-m-d H:i:s', time()),
+				'cost'       => 10,
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+		$def->getHash();
+
+		// And this is the response for the $def->getUsage() calls.
 		$response = array(
 			'response_code' => 200,
 			'data' => json_decode('{"processed":2494,"delivered":2700,"types":{"buzz":{"processed":247,"delivered":350},"twitter":{"processed":2247,"delivered":2350}}}', true),
@@ -371,10 +390,13 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		);
 		DataSift_MockApiClient::setResponse($response);
 
-		$def = new DataSift_Definition($this->user, testdata('definition'));
-		$this->assertEquals($def->get(), testdata('definition'));
-
 		$usage = $def->getUsage();
-		$this->assertEquals($response['data'], $usage, 'Usage data is not as expected');
+		$this->assertEquals($response['data'], $usage, 'Usage data for the past 24 hours is not as expected');
+
+		$usage = $def->getUsage(time() - (86400 * 2), time() - 86400);
+		$this->assertEquals($response['data'], $usage, 'Usage data for 24 hours from 48 hours ago is not as expected');
+
+		// Note that failure conditions for the getUsage call are tested in the
+		// UserTest class.
 	}
 }

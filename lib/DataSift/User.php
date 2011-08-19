@@ -44,14 +44,14 @@ class DataSift_User
 
 	/**
 	 * Stores the X-RateLimit-Limit value from the last API call.
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $_rate_limit = -1;
 
 	/**
 	 * Stores the X-RateLimit-Remaining value from the last API call.
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $_rate_limit_remaining = -1;
@@ -69,7 +69,7 @@ class DataSift_User
 	 *
 	 * @param string $username The user's username.
 	 * @param string $api_key  The user's API key.
-	 * 
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function __construct($username, $api_key)
@@ -85,7 +85,7 @@ class DataSift_User
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
 	}
-	
+
 	/**
 	 * Set the class to use when calling the API
 	 *
@@ -143,6 +143,54 @@ class DataSift_User
 	}
 
 	/**
+	 * Returns the usage data for this user. If a hash is provided then a more
+	 * detailed breakdown using interaction types is retrieved and returned.
+	 *
+	 * @param int $start An optional timestamp to specify the start of the period
+	 *                   in which we're interested.
+	 * @param int $end An optional timestamp to specify the end of the period
+	 *                 in which we're interested.
+	 * @param string $hash An optional hash for which to retrieve usage data.
+	 *
+	 * @return array The usage data from the API.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 */
+	public function getUsage($start = false, $end = false, $hash = false)
+	{
+		$retval = false;
+
+		$params = array();
+
+		if ($start !== false) {
+			if (intval($start) != $start or $start < 0) {
+				throw new DataSift_Exception_InvalidData('The start parameter must be a positive integer');
+			}
+			if ($end !== false and $start > $end) {
+				throw new DataSift_Exception_InvalidData('The start timestamp must not be later than the end timestamp');
+			}
+			$param['start'] = $start;
+		}
+
+		if ($end !== false) {
+			if (intval($end) != $end or $end < 0) {
+				throw new DataSift_Exception_InvalidData('The end parameter must be a positive integer');
+			}
+			$param['end'] = $end;
+		}
+
+		if ($hash !== false) {
+			if (!is_string($hash)) {
+				throw new DataSift_Exception_InvalidData('The hash parameter must be a string');
+			}
+			$param['hash'] = $hash;
+		}
+
+		$retval = $this->callAPI('usage', $params);
+		return $retval;
+	}
+
+	/**
 	 * Creates and returns an empty Definition object.
 	 *
 	 * @param string $definition Optional definition with which to prime the object.
@@ -177,17 +225,17 @@ class DataSift_User
 	public function callAPI($endpoint, $params = array())
 	{
 		$res = call_user_func(
-			array($this->_api_client, 'call'), 
-			$this->_username, 
-			$this->_api_key, 
-			$endpoint, 
-			$params, 
+			array($this->_api_client, 'call'),
+			$this->_username,
+			$this->_api_key,
+			$endpoint,
+			$params,
 			$this->getUserAgent()
 		);
 
 		$this->_rate_limit = $res['rate_limit'];
 		$this->_rate_limit_remaining = $res['rate_limit_remaining'];
-		
+
 		switch ($res['response_code']) {
 				case 200:
 					$retval = $res['data'];
@@ -206,7 +254,7 @@ class DataSift_User
 						empty($res['data']['error']) ? 'Unknown error' : $res['data']['error'], $res['response_code']
 					);
 		}
-		
+
 		return $retval;
 	}
 }
