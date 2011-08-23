@@ -191,6 +191,37 @@ class DataSift_User
 	}
 
 	/**
+	 * Returns the recordings stored in this user's DataSift account.
+	 *
+	 * @param int $page The page to return.
+	 * @param int $count The number of items per page.
+	 *
+	 * @return array An array of DataSift_Recording objects.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 */
+	public function getRecordings($page = 1, $count = 20)
+	{
+		if (intval($page) != $page or $page < 1) {
+			throw new DataSift_Exception_InvalidData('The page parameter must be an integer > 0');
+		}
+		if (intval($count) != $count or $count < 1) {
+			throw new DataSift_Exception_InvalidData('The count parameter must be an integer > 0');
+		}
+
+		$recordings = self::callAPI('recording', array('page' => intval($page), 'count' => intval($count)));
+
+		$retval = array();
+
+		foreach ($recordings['recordings'] as $recording)
+		{
+			$retval[] = new DataSift_Recording($this, $recording);
+		}
+
+		return $retval;
+	}
+
+	/**
 	 * Creates and returns an empty Definition object.
 	 *
 	 * @param string $definition Optional definition with which to prime the object.
