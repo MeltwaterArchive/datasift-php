@@ -341,4 +341,322 @@ class UserTest extends PHPUnit_Framework_TestCase
 			$this->assertEquals($response['data']['error'], $e->getMessage(), '500 exception message is not as expected');
 		}
 	}
+
+	public function testGetRecording()
+	{
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"id":"47ce46821c942ff42f8e","start_time":1313055762,"finish_time":null,"name":"Inherit everything 123","hash":"9e2e0ba334ee76aa06ef42d5565dbb70"}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		// This will be the object we expect
+		$expected_recording = new DataSift_Recording($this->user, $response['data']);
+
+		// Make the call
+		$recording = $this->user->getRecording('47ce46821c942ff42f8e');
+
+		// Check the result
+		$this->assertEquals($expected_recording, $recording, 'Recording object is not as expected');
+	}
+
+	public function testGetRecordingErrors()
+	{
+		// Invalid id argument - boolean
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording(false);
+			$this->fail('Expected InvalidData exception due to an invalid id argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Invalid count argument
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording(1234);
+			// Should have had an exception
+			$this->fail('Expected InvalidData exception due to an invalid id argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Bad request from user supplied data
+		try {
+			$response = array(
+				'response_code' => 400,
+				'data' => array(
+					'error' => 'Bad request from user supplied data',
+				),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording('abcd');
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '400 exception message is not as expected');
+		}
+
+		// Unauthorised or banned
+		try {
+			$response = array(
+				'response_code' => 401,
+				'data' => array(
+					'error' => 'User banned because they are a very bad person',
+				),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording('abcd');
+			// Should have had an exception
+			$this->fail('Expected AccessDenied exception did not get thrown');
+		} catch (DataSift_Exception_AccessDenied $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '401 exception message is not as expected');
+		}
+
+		// Endpoint or data not found
+		try {
+			$response = array(
+				'response_code' => 404,
+				'data'          => array(
+					'error' => 'Endpoint or data not found',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording('abcd');
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '404 exception message is not as expected');
+		}
+
+		// Problem with an internal service
+		try {
+			$response = array(
+				'response_code' => 500,
+				'data'          => array(
+					'error' => 'Problem with an internal service',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->getRecording('abcd');
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '500 exception message is not as expected');
+		}
+	}
+
+	public function testScheduleRecording()
+	{
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"id":"79b0e0217227d3f1d237","start_time":1313401533,"finish_time":1333878300,"name":"ApiDocs","hash":"9e2e0ba334ee76aa06ef42d5565dbb70"}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		// This will be the object we expect
+		$expected_recording = new DataSift_Recording($this->user, $response['data']);
+
+		// Make the call
+		$recording = $this->user->scheduleRecording('9e2e0ba334ee76aa06ef42d5565dbb70', 'ApiDocs', 1313401533, 1333878300);
+
+		// Check the result
+		$this->assertEquals($expected_recording, $recording, 'Recording object is not as expected');
+	}
+
+	public function testScheduleRecordingErrors()
+	{
+		// Invalid hash argument
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording(false);
+			$this->fail('Expected InvalidData exception due to an invalid hash argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Invalid name argument
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', false);
+			// Should have had an exception
+			$this->fail('Expected InvalidData exception due to an invalid name argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Invalid start argument
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', false);
+			// Should have had an exception
+			$this->fail('Expected InvalidData exception due to an invalid start argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Invalid end argument
+		try {
+			$response = array(
+				'response_code' => 200,
+				'data' => array(),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', time(), false);
+			// Should have had an exception
+			$this->fail('Expected InvalidData exception due to an invalid end argument did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			// This is the expected exception
+		}
+
+		// Bad request from user supplied data
+		try {
+			$response = array(
+				'response_code' => 400,
+				'data' => array(
+					'error' => 'Bad request from user supplied data',
+				),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', time(), time() + 3600);
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '400 exception message is not as expected');
+		}
+
+		// Unauthorised or banned
+		try {
+			$response = array(
+				'response_code' => 401,
+				'data' => array(
+					'error' => 'User banned because they are a very bad person',
+				),
+				'rate_limit' => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', time(), time() + 3600);
+			// Should have had an exception
+			$this->fail('Expected AccessDenied exception did not get thrown');
+		} catch (DataSift_Exception_AccessDenied $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '401 exception message is not as expected');
+		}
+
+		// Endpoint or data not found
+		try {
+			$response = array(
+				'response_code' => 404,
+				'data'          => array(
+					'error' => 'Endpoint or data not found',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', time(), time() + 3600);
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '404 exception message is not as expected');
+		}
+
+		// Problem with an internal service
+		try {
+			$response = array(
+				'response_code' => 500,
+				'data'          => array(
+					'error' => 'Problem with an internal service',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+
+			$this->user->scheduleRecording('abcd', 'efgh', time(), time() + 3600);
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '500 exception message is not as expected');
+		}
+	}
+
+	public function testGetExports()
+	{
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"count":"1","exports":[{"id":"102","recording_id":"47ce46821c942ff42f8e","name":"Unnamed export 47ce46821c942ff42f8e","start":1313055762,"end":1313405342,"status":"killed"}]}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		// Create the exported export object
+		$expected_exports = array(new DataSift_RecordingExport($this->user, $response['data']['exports'][0]));
+
+		// Make the call
+		$exports = $this->user->getExports();
+
+		// Check the result
+		$this->assertEquals($expected_exports, $exports, 'Exports array is not as expected');
+	}
 }
