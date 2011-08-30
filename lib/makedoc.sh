@@ -42,7 +42,7 @@ PACKAGES="datasift"
 #  *
 #  * @var               string PATH_PROJECT
 #  */
-PATH_PROJECT=$PWD/lib
+PATH_PROJECT=$PWD/../lib
 
 
 #/**
@@ -57,7 +57,7 @@ PATH_PHPDOC=phpdoc
 #  *
 #  * @var               string PATH_DOCS
 #  */
-PATH_DOCS=$PWD/doc
+PATH_DOCS=$PWD/../doc
 
 #/**
 #  * what outputformat to use (html/pdf)

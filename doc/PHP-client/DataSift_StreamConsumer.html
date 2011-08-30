@@ -1,0 +1,755 @@
+<html>
+<head>
+<title>Docs For Class DataSift_StreamConsumer</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">PHP-client</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                    
+                              		  [ <a href="../classtrees_PHP-client.html" class="menu">class tree: PHP-client</a> ]
+		  [ <a href="../elementindex_PHP-client.html" class="menu">index: PHP-client</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_PHP-client.html">PHP-client</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../PHP-client/_DataSift---Exception---AccessDenied.php.html">		AccessDenied.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---ApiClient.php.html">		ApiClient.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---APIError.php.html">		APIError.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---CompileFailed.php.html">		CompileFailed.php
+		</a><br>
+			<a href="../PHP-client/_datasift.php.html">		datasift.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Definition.php.html">		Definition.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---StreamConsumer---HTTP.php.html">		HTTP.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---InvalidData.php.html">		InvalidData.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---MockApiClient.php.html">		MockApiClient.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---NotYetImplemented.php.html">		NotYetImplemented.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---RateLimitExceeded.php.html">		RateLimitExceeded.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Recording.php.html">		Recording.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---RecordingExport.php.html">		RecordingExport.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---StreamConsumer.php.html">		StreamConsumer.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---Exception---StreamError.php.html">		StreamError.php
+		</a><br>
+			<a href="../PHP-client/_DataSift---User.php.html">		User.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../PHP-client/DataSift_ApiClient.html">DataSift_ApiClient</a><br />
+	    		<a href="../PHP-client/DataSift_Definition.html">DataSift_Definition</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_AccessDenied.html">DataSift_Exception_AccessDenied</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_APIError.html">DataSift_Exception_APIError</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_CompileFailed.html">DataSift_Exception_CompileFailed</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_InvalidData.html">DataSift_Exception_InvalidData</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_NotYetImplemented.html">DataSift_Exception_NotYetImplemented</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_RateLimitExceeded.html">DataSift_Exception_RateLimitExceeded</a><br />
+	    		<a href="../PHP-client/DataSift_Exception_StreamError.html">DataSift_Exception_StreamError</a><br />
+	    		<a href="../PHP-client/DataSift_MockApiClient.html">DataSift_MockApiClient</a><br />
+	    		<a href="../PHP-client/DataSift_Recording.html">DataSift_Recording</a><br />
+	    		<a href="../PHP-client/DataSift_RecordingExport.html">DataSift_RecordingExport</a><br />
+	    		<a href="../PHP-client/DataSift_StreamConsumer.html">DataSift_StreamConsumer</a><br />
+	    		<a href="../PHP-client/DataSift_StreamConsumer_HTTP.html">DataSift_StreamConsumer_HTTP</a><br />
+	    		<a href="../PHP-client/DataSift_User.html">DataSift_User</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: DataSift_StreamConsumer</h1>
+Source Location: /DataSift/StreamConsumer.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">The DataSift_StreamConsumer class is an abstract base class for various  stream consumers.</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Stuart Dallas &lt;<a href="mailto:stuart@3ft9.com">stuart@3ft9.com</a>&gt;</li>
+                        </ul>
+
+
+
+
+                
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_auto_reconnect">$_auto_reconnect</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_definition">$_definition</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_onInteraction">$_onInteraction</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_onStopped">$_onStopped</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_state">$_state</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#var$_user">$_user</a></li>
+  </ul>
+</td>
+
+<td valign="top">
+<h3><a href="#class_consts">Constants</a></h3>
+<ul>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#constSTATE_RUNNING">STATE_RUNNING</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#constSTATE_STARTING">STATE_STARTING</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#constSTATE_STOPPED">STATE_STOPPED</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#constSTATE_STOPPING">STATE_STOPPING</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#constTYPE_HTTP">TYPE_HTTP</a></li>
+  </ul>
+</td>
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#method__construct">__construct</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodconsume">consume</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodfactory">factory</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodonInteraction">onInteraction</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodonStart">onStart</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodonStop">onStop</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodonStopped">onStopped</a></li>
+    <li><a href="../PHP-client/DataSift_StreamConsumer.html#methodstop">stop</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+<td valign="top">
+<h3>Child classes:</h3>
+<div class="tags">
+<dl>
+<dt><a href="../PHP-client/DataSift_StreamConsumer_HTTP.html">DataSift_StreamConsumer_HTTP</a></dt>
+	<dd>The DataSift_StreamConsumer_HTTP class extends DataSift_StreamConsumer  and implements HTTP streaming.</dd>
+</dl>
+</div>
+</td>
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a27">27</a>]<br />
+The DataSift_StreamConsumer class is an abstract base class for various  stream consumers.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Stuart Dallas &lt;<a href="mailto:stuart@3ft9.com">stuart@3ft9.com</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>link:</b>&nbsp;&nbsp;</td><td><a href="http://www.mediasift.com">http://www.mediasift.com</a></td>
+  </tr>
+  <tr>
+    <td><b>abstract:</b>&nbsp;&nbsp;</td><td></td>
+  </tr>
+  <tr>
+    <td><b>license:</b>&nbsp;&nbsp;</td><td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$_auto_reconnect"></a>
+	<p></p>
+	<h4>$_auto_reconnect = <span class="value">&nbsp;true</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a49">49</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>bool</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_definition"></a>
+	<p></p>
+	<h4>$_definition = <span class="value">&nbsp;false</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a44">44</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td><a href="../PHP-client/DataSift_Definition.html">DataSift_Definition</a></td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_onInteraction"></a>
+	<p></p>
+	<h4>$_onInteraction = <span class="value">&nbsp;false</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a59">59</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>var:</b>&nbsp;&nbsp;</td><td>A function name or array(class/object, method)</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_onStopped"></a>
+	<p></p>
+	<h4>$_onStopped = <span class="value">&nbsp;false</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a64">64</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>var:</b>&nbsp;&nbsp;</td><td>A function name or array(class/object, method)</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_state"></a>
+	<p></p>
+	<h4>$_state = <span class="value">&nbsp;self::STATE_STOPPED</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a54">54</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>bool</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_user"></a>
+	<p></p>
+	<h4>$_user = <span class="value">&nbsp;null</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a39">39</a>]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td><a href="../PHP-client/DataSift_User.html">DataSift_User</a></td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+  <hr />
+	<a name="methodfactory"></a>
+	<h3>static method factory <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a76">76</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static <a href="../PHP-client/DataSift_StreamConsumer.html">DataSift_StreamConsumer</a> factory(
+
+$user, string
+$type, mixed
+$definition, [
+$onInteraction = false], [
+$onStopped = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Factory function. Creates a StreamConsumer-derived object for the given  type.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The consumer object</td>
+  </tr>
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$type</b>&nbsp;&nbsp;</td>
+        <td>Use the TYPE_ constants</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$definition</b>&nbsp;&nbsp;</td>
+        <td>CSDL string or a Definition object.</td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$user</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$onInteraction</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$onStopped</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+
+  <hr />
+	<a name="method__construct"></a>
+	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a98">98</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>DataSift_StreamConsumer __construct(
+<a href="../PHP-client/DataSift_User.html">DataSift_User</a>
+$user, mixed
+$definition, [string
+$onInteraction = false], [string
+$onStopped = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Constructor. Do not use this directly, use the factory method instead.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
+  </tr>
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSiftExceotion_CompileFailed</td>
+  </tr>
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../PHP-client/DataSift_StreamConsumer_HTTP.html#method__construct">DataSift_StreamConsumer_HTTP::__construct()</a></dt>
+		<dd>Constructor.</dd>
+	</dl>
+	</p>
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type"><a href="../PHP-client/DataSift_User.html">DataSift_User</a>&nbsp;&nbsp;</td>
+        <td><b>$user</b>&nbsp;&nbsp;</td>
+        <td>The user this consumer will run as.</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$definition</b>&nbsp;&nbsp;</td>
+        <td>CSDL string or a Definition object.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$onInteraction</b>&nbsp;&nbsp;</td>
+        <td>The function to be called for each interaction.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$onStopped</b>&nbsp;&nbsp;</td>
+        <td>The function to be called when the consumer stops.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodconsume"></a>
+	<h3>method consume <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a165">165</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void consume(
+[boolean
+$auto_reconnect = true])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Once an instance of a StreamConsumer is ready for use, call this to  start consuming. Extending classes should implement onStart to handle  actually starting.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$auto_reconnect</b>&nbsp;&nbsp;</td>
+        <td>Whether to reconnect automatically</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodonInteraction"></a>
+	<h3>method onInteraction <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a133">133</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void onInteraction(
+array
+$interaction)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		This is called for each interaction received from the stream and must  be implemented in extending classes.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$interaction</b>&nbsp;&nbsp;</td>
+        <td>The interaction data structure</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodonStart"></a>
+	<h3>method onStart <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a181">181</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void onStart(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Called when the consumer should start consuming the stream.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>abstract:</b>&nbsp;&nbsp;</td><td></td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../PHP-client/DataSift_StreamConsumer_HTTP.html#methodonStart">DataSift_StreamConsumer_HTTP::onStart()</a></dt>
+		<dd>SetUp</dd>
+	</dl>
+	</p>
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodonStop"></a>
+	<h3>method onStop <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a210">210</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void onStop(
+[string
+$reason = ''])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Default implementation of onStop. It's unlikely that this method will  ever be used in isolation, but rather it should be called as the final  step in the extending class's implementation.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$reason</b>&nbsp;&nbsp;</td>
+        <td>Reason why the stream was stopped</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodonStopped"></a>
+	<h3>method onStopped <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a148">148</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void onStopped(
+[string
+$reason = ''])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		This is called when the consumer is stopped.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$reason</b>&nbsp;&nbsp;</td>
+        <td>Reason to stop the stream</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodstop"></a>
+	<h3>method stop <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a192">192</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void stop(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		This method can be called at any time to *request* that the consumer  stop consuming. This method sets the state to STATE_STOPPING and it's  up to the consumer implementation to notice that this has changed, stop  consuming and call the onStopped method.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InalidData</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+<hr />
+<a name="class_consts"></a>
+<h3>Class Constants</h3>
+<div class="tags">
+	<a name="constSTATE_RUNNING"></a>
+	<p></p>
+	<h4>STATE_RUNNING = <span class="value">&nbsp;2</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a33">33</a>]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constSTATE_STARTING"></a>
+	<p></p>
+	<h4>STATE_STARTING = <span class="value">&nbsp;1</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a32">32</a>]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constSTATE_STOPPED"></a>
+	<p></p>
+	<h4>STATE_STOPPED = <span class="value">&nbsp;0</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a31">31</a>]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constSTATE_STOPPING"></a>
+	<p></p>
+	<h4>STATE_STOPPING = <span class="value">&nbsp;3</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a34">34</a>]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constTYPE_HTTP"></a>
+	<p></p>
+	<h4>TYPE_HTTP = <span class="value">&nbsp;'HTTP'</span></h4>
+	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftStreamConsumer.php.html#a29">29</a>]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Tue, 30 Aug 2011 10:14:48 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
