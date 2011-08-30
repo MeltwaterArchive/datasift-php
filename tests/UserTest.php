@@ -89,7 +89,7 @@ class UserTest extends PHPUnit_Framework_TestCase
 	{
 		$response = array(
 			'response_code' => 200,
-			'data' => json_decode('{"processed":9999,"delivered":10800,"streams":[{"hash":"a123ab20f37f333824159b8868ad3827","processed":7505,"delivered":8100},{"hash":"c369ab20f37f333824159b8868ad3827","processed":2494,"delivered":2700}]}', true),
+			'data' => json_decode('{"processed":9999,"delivered":10800,"streams":{"a123ab20f37f333824159b8868ad3827":{"processed":7505,"delivered":8100},"c369ab20f37f333824159b8868ad3827":{"processed":2494,"delivered":2700}}}', true),
 			'rate_limit' => 200,
 			'rate_limit_remaining' => 150,
 		);
