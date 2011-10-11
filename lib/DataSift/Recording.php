@@ -116,6 +116,7 @@
 		 * checking to make sure all parts of a recording are present.
 		 *
 		 * @param array $data An array containing all or part of the recording data.
+		 * @param bool $check_for_missing_values Set to false to ignore missing data.
 		 *
 		 * @throws DataSift_Exception_InvalidData
 		 */
@@ -366,58 +367,3 @@
 			return new DataSift_RecordingExport($this->_user, $res);
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

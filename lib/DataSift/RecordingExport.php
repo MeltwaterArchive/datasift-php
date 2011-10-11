@@ -55,11 +55,6 @@
 		protected $_user = null;
 
 		/**
-		 * @var DataSift_Recording
-		 */
-		protected $_recording = null;
-
-		/**
 		 * @var string
 		 */
 		protected $_id = null;
@@ -291,57 +286,3 @@
 			$this->_deleted = true;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
