@@ -181,9 +181,13 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 		// Build the request headers
 		$request   = array();
-		$request[] = 'GET '.$url['path'].'?api_key='.$this->_user->getAPIKey().' HTTP/1.1';
-		$request[] = 'Host: '.$url['host'];
-		$request[] = 'User-Agent: '.$this->_user->getUserAgent();
+		$params = array(
+			'api_key'  => $this->_user->getAPIKey(),
+			'username' => $this->_user->getUsername(),
+		);
+		$request[] = 'GET ' . $url['path'] . '?' . http_build_query($params) . ' HTTP/1.1';
+		$request[] = 'Host: ' . $url['host'];
+		$request[] = 'User-Agent: ' . $this->_user->getUserAgent();
 		$request[] = 'Accept: */*';
 
 		$connection_delay = 0;
