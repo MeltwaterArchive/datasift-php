@@ -45,12 +45,14 @@ class DataSift_ApiClient
 		}
 
 		// Build the full endpoint URL
-		$url = 'http://'.DataSift_User::API_BASE_URL.$endpoint.'.json?'.http_build_query($params);
+		$url = 'http://'.DataSift_User::API_BASE_URL.$endpoint.'.json';
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$username.':'.$api_key));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$username.':'.$api_key, 'Expect:'));
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 		$res = curl_exec($ch);
@@ -87,7 +89,7 @@ class DataSift_ApiClient
 	static private function parseHTTPResponse($str)
 	{
 		$retval = array(
-			'headers' => array(), 
+			'headers' => array(),
 			'body'    => '',
 		);
 		$lastfield = false;
