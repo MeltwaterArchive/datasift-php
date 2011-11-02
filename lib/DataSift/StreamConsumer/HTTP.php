@@ -181,7 +181,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 		// Build the request headers
 		$request   = array();
-		$request[] = 'GET '.$url['path'].'?api_key='.$this->_user->getAPIKey().' HTTP/1.1';
+		$request[] = 'GET '.$url['path'].'?username='.urlencode($this->_user->getUsername()).'&api_key='.urlencode($this->_user->getAPIKey()).' HTTP/1.1';
 		$request[] = 'Host: '.$url['host'];
 		$request[] = 'User-Agent: '.$this->_user->getUserAgent();
 		$request[] = 'Accept: */*';
@@ -240,6 +240,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				if ($code == '200') {
 					// Success!
 					$this->_state = parent::STATE_RUNNING;
+				} elseif ($code == '401') {
+					// The hash doesn't exist
+					throw new DataSift_Exception_StreamError('Access denied!');
 				} elseif ($code == '404') {
 					// The hash doesn't exist
 					throw new DataSift_Exception_StreamError('Hash not found!');
