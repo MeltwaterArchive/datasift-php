@@ -53,6 +53,18 @@ class UserTest extends PHPUnit_Framework_TestCase
 
 	public function testRateLimits()
 	{
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'hash'       => testdata('definition_hash'),
+				'created_at' => date('Y-m-d H:i:s', time()),
+				'dpu'        => 10,
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
 		$def = $this->user->createDefinition(testdata('definition'));
 
 		try {
