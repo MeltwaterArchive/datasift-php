@@ -26,7 +26,7 @@ This example looks for anything that contains the word "datasift" and simply pri
 ?>
 ```
 
-See the DataSift documentation for full details of the data contained within each interaction. For example, here is an example tweet: http://dev.datasift.com/docs/targets/twitter/twitter-output-format
+See the DataSift documentation for full details of the data contained within each interaction. See this page on our developer site for an example tweet: http://dev.datasift.com/docs/targets/twitter/twitter-output-format
 
 
 Requirements
