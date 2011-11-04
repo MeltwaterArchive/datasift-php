@@ -1,7 +1,7 @@
 DataSift PHP Client Library
 ===========================
 
-This is the official PHP library for accessing [Datasift](http://www.datasift.net/). See the examples folder for some simple example usage. Full documentation is in the doc folder.
+This is the official PHP library for accessing [Datasift](http://datasift.com/). See the examples folder for some simple example usage. Full documentation is in the doc folder.
 
 The unit tests should be run with phpunit.
 
