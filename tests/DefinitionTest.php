@@ -67,13 +67,13 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'data'          => array(
 				'hash'       => testdata('definition_hash'),
 				'created_at' => date('Y-m-d H:i:s', time()),
-				'cost'       => 10,
+				'dpu'        => 10,
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
 		);
 		DataSift_MockApiClient::setResponse($response);
-		
+
 		$def = new DataSift_Definition($this->user, testdata('definition'));
 		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
@@ -94,8 +94,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(testdata('definition_hash'), $def->getHash(), 'Incorrect hash');
 		// And a created_at date
 		$this->assertEquals($response['data']['created_at'], date('Y-m-d H:i:s', $def->getCreatedAt()), 'Incorrect created_at date');
-		// And a cost
-		$this->assertEquals($response['data']['cost'], $def->getTotalCost(), 'Incorrect total cost');
+		// And a DPU
+		$this->assertEquals($response['data']['dpu'], $def->getTotalDPU(), 'Incorrect total DPU');
 	}
 
 	public function testCompile_Failure()
@@ -109,7 +109,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'rate_limit_remaining' => 150,
 		);
 		DataSift_MockApiClient::setResponse($response);
-		
+
 		$this->setExpectedException('DataSift_Exception_CompileFailed');
 
 		$def = new DataSift_Definition($this->user, testdata('invalid_definition'));
@@ -122,9 +122,9 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		} catch (DataSift_Exception_APIError $e) {
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		}
-		
-		
-		
+
+
+
 	}
 
 	public function testCompile_SuccessThenFailure()
@@ -137,7 +137,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'data'          => array(
 				'hash'       => testdata('definition_hash'),
 				'created_at' => date('Y-m-d H:i:s', time()),
-				'cost'       => 10,
+				'dpu'        => 10,
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
@@ -155,8 +155,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->assertEquals(
-			$response['data']['hash'], 
-			$def->getHash(), 
+			$response['data']['hash'],
+			$def->getHash(),
 			'Hash is not correct'
 		);
 
@@ -195,7 +195,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'response_code' => 200,
 			'data'          => array(
 				'created_at' => date('Y-m-d H:i:s', time()),
-				'cost'       => 10,
+				'dpu'        => 10,
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
@@ -208,13 +208,13 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(strtotime($response['data']['created_at']), $def->getCreatedAt(), 'The created_at date is incorrect');
 	}
 
-	public function testGetTotalCost()
+	public function testGetTotalDPU()
 	{
 		$response = array(
 			'response_code' => 200,
 			'data'          => array(
 				'created_at' => date('Y-m-d H:i:s', time()),
-				'cost'       => 10,
+				'dpu'        => 10,
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
@@ -224,22 +224,38 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		$def = new DataSift_Definition($this->user, testdata('definition'));
 		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
-		$this->assertEquals($response['data']['cost'], $def->getTotalCost(), 'The total cost is incorrect');
+		$this->assertEquals($response['data']['dpu'], $def->getTotalDPU(), 'The total DPU is incorrect');
 	}
 
-	public function testGetCostBreakdown()
+	public function testGetDPUBreakdown()
 	{
 		$response = array(
 			'response_code' => 200,
 			'data'          => array(
-				'costs' => array(
+				'hash'       => testdata('definition_hash'),
+				'created_at' => date('Y-m-d H:i:s', time()),
+				'dpu'        => 10,
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
+		$def->getHash();
+
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'dpu' => array(
 					'contains' => array(
 						'count'   => 1,
-						'cost'    => 4,
+						'dpu'     => 4,
 						'targets' => array(
 							'interaction.content' => array(
 								'count' => 1,
-								'cost'  => 4,
+								'dpu'   => 4,
 							),
 						),
 					),
@@ -251,17 +267,30 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		);
 		DataSift_MockApiClient::setResponse($response);
 
-		$def = new DataSift_Definition($this->user, testdata('definition'));
-		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
+		$dpu = $def->getDPUBreakdown();
 
-		$cost = $def->getCostBreakdown();
-
-		$this->assertEquals(array(), array_diff($cost, $response['data']), 'The cost breakdown is not what was expected');
-		$this->assertEquals($response['data']['total'], 4, 'The total cost is incorrect');
+		$this->assertEquals(array(), array_diff($dpu, $response['data']), 'The DPU breakdown is not what was expected');
+		$this->assertEquals($response['data']['total'], 4, 'The total DPU is incorrect');
 	}
 
 	public function testGetBuffered()
 	{
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'hash'       => testdata('definition_hash'),
+				'created_at' => date('Y-m-d H:i:s', time()),
+				'dpu'        => 10,
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
+		$def->getHash();
+
 		$response = array(
 			'response_code' => 200,
 			'data'          => array(
@@ -328,9 +357,6 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		);
 		DataSift_MockApiClient::setResponse($response);
 
-		$def = new DataSift_Definition($this->user, testdata('definition'));
-		$this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
-
 		$interactions = $def->getBuffered();
 
 		$this->assertEquals($response['data']['stream'], $interactions, 'Buffered interactions are not as expected');
@@ -343,7 +369,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			'data'          => array(
 				'hash'       => testdata('definition_hash'),
 				'created_at' => date('Y-m-d H:i:s', time()),
-				'cost'       => 10,
+				'dpu'        => 10,
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
@@ -359,5 +385,74 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			$consumer,
 			'Failed to get an HTTP stream consumer object'
 		);
+	}
+
+	public function testGetUsage()
+	{
+		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$this->assertEquals($def->get(), testdata('definition'));
+
+		// This is the response for the compile call, which will be peformed
+		// by $def->getHash()
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'hash'       => testdata('definition_hash'),
+				'created_at' => date('Y-m-d H:i:s', time()),
+				'dpu'        => 10,
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+		$def->getHash();
+
+		// And this is the response for the $def->getUsage() calls.
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"processed":2494,"delivered":2700,"types":{"buzz":{"processed":247,"delivered":350},"twitter":{"processed":2247,"delivered":2350}}}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$usage = $def->getUsage();
+		$this->assertEquals($response['data'], $usage, 'Usage data for the past 24 hours is not as expected');
+
+		$usage = $def->getUsage(time() - (86400 * 2), time() - 86400);
+		$this->assertEquals($response['data'], $usage, 'Usage data for 24 hours from 48 hours ago is not as expected');
+
+		// Note that failure conditions for the getUsage call are tested in the
+		// UserTest class.
+	}
+
+	public function testGetDPUBreakdownOnInvalidDefinition()
+	{
+		$def = new DataSift_Definition($this->user, testdata('invalid_definition'));
+		$this->assertEquals($def->get(), testdata('invalid_definition'));
+
+		$response = array(
+			'response_code' => 400,
+			'data'          => array(
+				'error' => 'The target interactin.content does not exist',
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		try {
+			$def->getDPUBreakdown();
+			$this->fail('CompileFailed exception expected, but not thrown');
+		} catch (DataSift_Exception_CompileFailed $e) {
+			// Check the error message
+			$this->assertEquals($e->getMessage(), $response['data']['error']);
+		} catch (DataSift_Exception_InvalidData $e) {
+			$this->fail('InvalidData: '.$e->getMessage().' ('.$e->getCode().')');
+		} catch (DataSift_Exception_APIError $e) {
+			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
+		} catch (Exception $e) {
+			$this->fail('Unhandled exception: '.$e->getMessage().' ('.$e->getCode().')');
+		}
 	}
 }
