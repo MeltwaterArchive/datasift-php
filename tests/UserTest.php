@@ -10,6 +10,8 @@ class UserTest extends PHPUnit_Framework_TestCase
 		require_once(dirname(__FILE__).'/../config.php');
 		require_once(dirname(__FILE__).'/testdata.php');
 		$this->user = new DataSift_User(USERNAME, API_KEY);
+		$this->user->setApiClient('DataSift_MockApiClient');
+		DataSift_MockApiClient::setResponse(false);
 	}
 
 	public function testConstruction()
@@ -87,17 +89,14 @@ class UserTest extends PHPUnit_Framework_TestCase
 	{
 		$response = array(
 			'response_code' => 200,
-			'data' => json_decode('{"processed":9999,"delivered":10800,"streams":{"a123ab20f37f333824159b8868ad3827":{"processed":7505,"delivered":8100},"c369ab20f37f333824159b8868ad3827":{"processed":2494,"delivered":2700}}}', true),
+			'data' => json_decode('{"start":"Mon, 07 Nov 2011 10:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000","streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"twitter":3},"seconds":300}}}', true),
 			'rate_limit' => 200,
 			'rate_limit_remaining' => 150,
 		);
 		DataSift_MockApiClient::setResponse($response);
 
 		$usage = $this->user->getUsage();
-		$this->assertEquals($response['data'], $usage, 'Usage data for the past 24 hours is not as expected');
-
-		$usage = $this->user->getUsage(time() - (86400 * 2), time() - 86400);
-		$this->assertEquals($response['data'], $usage, 'Usage data for 24 hours from 48 hours ago is not as expected');
+		$this->assertEquals($response['data'], $usage, 'Usage data for the specified 24 hours is not as expected');
 	}
 
 	public function testGetUsageWithInvalidStart()
