@@ -229,7 +229,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 			// If the connection failed or
 			if ($this->_conn and count($response) == 1 and strlen(trim($response[0])) == 0) {
 				// Connection failed or timed out
-				// Timings from http://support.datasift.net/help/kb/rest-api/http-streaming-api
+				// Timings from http://dev.datasift.com/docs/streaming-api
 				if ($connection_delay == 0) {
 					$connection_delay = 1;
 				} elseif ($connection_delay < 16) {
@@ -249,10 +249,10 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 					throw new DataSift_Exception_StreamError('Hash not found!');
 				} else {
 					// Connection failed, back off a bit and try again
-					// Timings from http://support.datasift.net/help/kb/rest-api/http-streaming-api
+					// Timings from http://dev.datasift.com/docs/streaming-api
 					if ($connection_delay == 0) {
 						$connection_delay = 10;
-					} elseif ($connection_delay < 240) {
+					} elseif ($connection_delay < 320) {
 						$connection_delay *= 2;
 					} else {
 						throw new DataSift_Exception_StreamError('Connection failed: '.$code.' '.$message);

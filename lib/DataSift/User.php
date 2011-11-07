@@ -44,14 +44,14 @@ class DataSift_User
 
 	/**
 	 * Stores the X-RateLimit-Limit value from the last API call.
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $_rate_limit = -1;
 
 	/**
 	 * Stores the X-RateLimit-Remaining value from the last API call.
-	 * 
+	 *
 	 * @var int
 	 */
 	protected $_rate_limit_remaining = -1;
@@ -69,7 +69,7 @@ class DataSift_User
 	 *
 	 * @param string $username The user's username.
 	 * @param string $api_key  The user's API key.
-	 * 
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function __construct($username, $api_key)
@@ -85,7 +85,7 @@ class DataSift_User
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
 	}
-	
+
 	/**
 	 * Set the class to use when calling the API
 	 *
@@ -143,6 +143,27 @@ class DataSift_User
 	}
 
 	/**
+	 * Returns the usage data for this user.
+	 *
+	 * @param string $period Either 'hour' or 'day'.
+	 *
+	 * @return array The usage data from the API.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 */
+	public function getUsage($period = 'hour')
+	{
+		$retval = false;
+
+		if (!in_array($period, array('hour', 'day'))) {
+			throw new DataSift_Exception_InvalidData('The period parameter must be either "hour" or "day"!');
+		}
+
+		$retval = $this->callAPI('usage', array('period' => $period));
+		return $retval;
+	}
+
+	/**
 	 * Creates and returns an empty Definition object.
 	 *
 	 * @param string $definition Optional definition with which to prime the object.
@@ -177,17 +198,17 @@ class DataSift_User
 	public function callAPI($endpoint, $params = array())
 	{
 		$res = call_user_func(
-			array($this->_api_client, 'call'), 
-			$this->_username, 
-			$this->_api_key, 
-			$endpoint, 
-			$params, 
+			array($this->_api_client, 'call'),
+			$this->_username,
+			$this->_api_key,
+			$endpoint,
+			$params,
 			$this->getUserAgent()
 		);
 
 		$this->_rate_limit = $res['rate_limit'];
 		$this->_rate_limit_remaining = $res['rate_limit_remaining'];
-		
+
 		switch ($res['response_code']) {
 				case 200:
 					$retval = $res['data'];
@@ -206,7 +227,7 @@ class DataSift_User
 						empty($res['data']['error']) ? 'Unknown error' : $res['data']['error'], $res['response_code']
 					);
 		}
-		
+
 		return $retval;
 	}
 }
