@@ -359,26 +359,4 @@ class DataSift_Definition
 	{
 		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $onInteraction, $onStopped);
 	}
-
-	/**
-	 * Returns the usage for this definition.
-	 *
-	 * @param int $start An optional timestamp to specify the start of the period
-	 *                   in which we're interested.
-	 * @param int $end An optional timestamp to specify the end of the period
-	 *                 in which we're interested.
-	 *
-	 * @return array The usage data from the API.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 * @throws DataSift_Exception_CompileError
-	 */
-	public function getUsage($start = false, $end = false)
-	{
-		if (strlen(trim($this->_csdl)) == 0) {
-			throw new DataSift_Exception_InvalidData('Cannot get the usage for an empty definition.');
-		}
-
-		return $this->_user->getUsage($start, $end, $this->getHash());
-	}
 }

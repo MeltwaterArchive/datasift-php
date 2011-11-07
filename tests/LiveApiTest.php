@@ -131,6 +131,6 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
 		$usage = $this->user->getUsage();
 		$this->assertTrue(isset($usage['start']), 'Usage data does not contain a start date');
 		$this->assertTrue(isset($usage['end']), 'Usage data does not contain a start date');
-		$this->assertInternalType('array', $usage['streams'], 'Usage data does not contain any streams');
+		$this->assertInternalType('array', $usage['streams'], 'Usage data does not contain a valid stream array');
 	}
 }

@@ -96,25 +96,24 @@ class UserTest extends PHPUnit_Framework_TestCase
 		DataSift_MockApiClient::setResponse($response);
 
 		$usage = $this->user->getUsage();
-		$this->assertEquals($response['data'], $usage, 'Usage data for the specified 24 hours is not as expected');
+		$this->assertEquals($response['data'], $usage, 'Usage data for the specified hour is not as expected');
+
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"start":"Mon, 06 Nov 2011 11:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000","streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"twitter":1354},"seconds":34035}}}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$usage = $this->user->getUsage('day');
+		$this->assertEquals($response['data'], $usage, 'Usage data for the specified day is not as expected');
 	}
 
-	public function testGetUsageWithInvalidStart()
+	public function testGetUsageWithInvalidPeriod()
 	{
 		$this->setExpectedException('DataSift_Exception_InvalidData');
-		$usage = $this->user->getUsage(-500, time());
-	}
-
-	public function testGetUsageWithInvalidEnd()
-	{
-		$this->setExpectedException('DataSift_Exception_InvalidData');
-		$usage = $this->user->getUsage(time(), -500);
-	}
-
-	public function testGetUsageWithEndBeforeStart()
-	{
-		$this->setExpectedException('DataSift_Exception_InvalidData');
-		$usage = $this->user->getUsage(time(), time() - 86400);
+		$usage = $this->user->getUsage(time());
 	}
 
 	public function testGetUsageApiErrors()

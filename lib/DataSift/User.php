@@ -143,50 +143,23 @@ class DataSift_User
 	}
 
 	/**
-	 * Returns the usage data for this user. If a hash is provided then a more
-	 * detailed breakdown using interaction types is retrieved and returned.
+	 * Returns the usage data for this user.
 	 *
-	 * @param int $start An optional timestamp to specify the start of the period
-	 *                   in which we're interested.
-	 * @param int $end An optional timestamp to specify the end of the period
-	 *                 in which we're interested.
-	 * @param string $hash An optional hash for which to retrieve usage data.
+	 * @param string $period Either 'hour' or 'day'.
 	 *
 	 * @return array The usage data from the API.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
 	 */
-	public function getUsage($start = false, $end = false, $hash = false)
+	public function getUsage($period = 'hour')
 	{
 		$retval = false;
 
-		$params = array();
-
-		if ($start !== false) {
-			if (intval($start) != $start or $start < 0) {
-				throw new DataSift_Exception_InvalidData('The start parameter must be a positive integer');
-			}
-			if ($end !== false and $start > $end) {
-				throw new DataSift_Exception_InvalidData('The start timestamp must not be later than the end timestamp');
-			}
-			$param['start'] = $start;
+		if (!in_array($period, array('hour', 'day'))) {
+			throw new DataSift_Exception_InvalidData('The period parameter must be either "hour" or "day"!');
 		}
 
-		if ($end !== false) {
-			if (intval($end) != $end or $end < 0) {
-				throw new DataSift_Exception_InvalidData('The end parameter must be a positive integer');
-			}
-			$param['end'] = $end;
-		}
-
-		if ($hash !== false) {
-			if (!is_string($hash)) {
-				throw new DataSift_Exception_InvalidData('The hash parameter must be a string');
-			}
-			$param['hash'] = $hash;
-		}
-
-		$retval = $this->callAPI('usage', $params);
+		$retval = $this->callAPI('usage', array('period' => $period));
 		return $retval;
 	}
 
