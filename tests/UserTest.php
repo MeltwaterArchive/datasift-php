@@ -82,4 +82,114 @@ class UserTest extends PHPUnit_Framework_TestCase
 		$this->assertNotEquals($this->user->getRateLimit(), -1, 'Rate limit is -1 after calling the API');
 		$this->assertNotEquals($this->user->getRateLimitRemaining(), -1, 'Rate limit remaining is -1 after calling the API');
 	}
+
+	public function testGetUsage()
+	{
+		$response = array(
+			'response_code' => 200,
+			'data' => json_decode('{"processed":9999,"delivered":10800,"streams":{"a123ab20f37f333824159b8868ad3827":{"processed":7505,"delivered":8100},"c369ab20f37f333824159b8868ad3827":{"processed":2494,"delivered":2700}}}', true),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150,
+		);
+		DataSift_MockApiClient::setResponse($response);
+
+		$usage = $this->user->getUsage();
+		$this->assertEquals($response['data'], $usage, 'Usage data for the past 24 hours is not as expected');
+
+		$usage = $this->user->getUsage(time() - (86400 * 2), time() - 86400);
+		$this->assertEquals($response['data'], $usage, 'Usage data for 24 hours from 48 hours ago is not as expected');
+	}
+
+	public function testGetUsageWithInvalidStart()
+	{
+		$this->setExpectedException('DataSift_Exception_InvalidData');
+		$usage = $this->user->getUsage(-500, time());
+	}
+
+	public function testGetUsageWithInvalidEnd()
+	{
+		$this->setExpectedException('DataSift_Exception_InvalidData');
+		$usage = $this->user->getUsage(time(), -500);
+	}
+
+	public function testGetUsageWithEndBeforeStart()
+	{
+		$this->setExpectedException('DataSift_Exception_InvalidData');
+		$usage = $this->user->getUsage(time(), time() - 86400);
+	}
+
+	public function testGetUsageApiErrors()
+	{
+		// Bad request from user supplied data
+		try {
+			$response = array(
+				'response_code' => 400,
+				'data'          => array(
+					'error' => 'Bad request from user supplied data',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+			$usage = $this->user->getUsage();
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '400 exception message is not as expected');
+		}
+
+		// Unauthorised or banned
+		try {
+			$response = array(
+				'response_code' => 401,
+				'data'          => array(
+					'error' => 'User banned because they are a very bad person',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+			$usage = $this->user->getUsage();
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_AccessDenied $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '401 exception message is not as expected');
+		}
+
+		// Endpoint or data not found
+		try {
+			$response = array(
+				'response_code' => 404,
+				'data'          => array(
+					'error' => 'Endpoint or data not found',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+			$usage = $this->user->getUsage();
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '404 exception message is not as expected');
+		}
+
+		// Problem with an internal service
+		try {
+			$response = array(
+				'response_code' => 500,
+				'data'          => array(
+					'error' => 'Problem with an internal service',
+				),
+				'rate_limit'           => 200,
+				'rate_limit_remaining' => 150,
+			);
+			DataSift_MockApiClient::setResponse($response);
+			$usage = $this->user->getUsage();
+			// Should have had an exception
+			$this->fail('Expected ApiError exception did not get thrown');
+		} catch (DataSift_Exception_ApiError $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), '500 exception message is not as expected');
+		}
+	}
 }
