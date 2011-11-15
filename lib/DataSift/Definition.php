@@ -303,7 +303,7 @@ class DataSift_Definition
 		}
 
 		$retval = $this->_user->callAPI('dpu', array('hash' => $this->getHash()));
-		$this->_total_dpu = $retval['total'];
+		$this->_total_dpu = $retval['dpu'];
 		return $retval;
 	}
 
