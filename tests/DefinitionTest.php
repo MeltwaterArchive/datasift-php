@@ -260,7 +260,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 						),
 					),
 				),
-				'total' => 4
+				'dpu' => 4
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
@@ -270,7 +270,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		$dpu = $def->getDPUBreakdown();
 
 		$this->assertEquals(array(), array_diff($dpu, $response['data']), 'The DPU breakdown is not what was expected');
-		$this->assertEquals($response['data']['total'], 4, 'The total DPU is incorrect');
+		$this->assertEquals($response['data']['dpu'], 4, 'The total DPU is incorrect');
 	}
 
 	public function testGetBuffered()
