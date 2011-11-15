@@ -114,6 +114,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(count($dpu['detail']), 1, 'The DPU breakdown is not what was expected');
 		$this->assertTrue($dpu['dpu'] > 0, 'The total DPU is not positive');
+		$this->assertEquals($dpu['dpu'], $def->getTotalDPU(), 'The total DPU returned by the definition is not correct');
 	}
 
 	public function testGetBuffered()
