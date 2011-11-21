@@ -77,9 +77,13 @@ class DataSift_Definition
 	 * Returns the definition string.
 	 *
 	 * @return string The definition.
+	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function get()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('CSDL not available');
+		}
 		return $this->_csdl;
 	}
 
@@ -93,19 +97,23 @@ class DataSift_Definition
 	 */
 	public function set($csdl)
 	{
-		if (!is_string($csdl)) {
-			throw new DataSift_Exception_InvalidData('Definitions must be strings.');
+		if ($csdl === false) {
+			$this->_csdl = false;
+		} else {
+			if (!is_string($csdl)) {
+				throw new DataSift_Exception_InvalidData('Definitions must be strings.');
+			}
+
+			// Trim the incoming string
+			$csdl = trim($csdl);
+
+			// If the string has changed, reset the hash
+			if ($this->_csdl != $csdl) {
+				$this->clearHash();
+			}
+
+			$this->_csdl = $csdl;
 		}
-
-		// Trim the incoming string
-		$csdl = trim($csdl);
-
-		// If the string has changed, reset the hash
-		if ($this->_csdl != $csdl) {
-			$this->clearHash();
-		}
-
-		$this->_csdl = $csdl;
 	}
 
 	/**
@@ -134,6 +142,9 @@ class DataSift_Definition
 	 */
 	protected function clearHash()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Cannot clear the hash of a hash-only definition object');
+		}
 		$this->_hash       = false;
 		$this->_created_at = false;
 		$this->_total_dpu = false;
@@ -150,6 +161,9 @@ class DataSift_Definition
 	 */
 	public function getCreatedAt()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Created at date not available');
+		}
 		if ($this->_created_at === false) {
 			// Catch any compilation errors so they don't pass up to the caller
 			try {
@@ -171,6 +185,9 @@ class DataSift_Definition
 	 */
 	public function getTotalDPU()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Total DPU not available');
+		}
 		if ($this->_total_dpu === false) {
 			// Catch any compilation errors so they don't pass up to the caller
 			try {

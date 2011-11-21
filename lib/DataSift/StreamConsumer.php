@@ -118,8 +118,9 @@ abstract class DataSift_StreamConsumer
 		$this->_onInteraction = $onInteraction;
 		$this->_onStopped = $onStopped;
 
-		// Compile the definition to ensure it's valid for use
-		$this->_definition->compile();
+		// Ask for the definition hash - this will compile the definition if
+		// necessary
+		$this->_definition->getHash();
 	}
 
 	/**

@@ -176,6 +176,22 @@ class DataSift_User
 	}
 
 	/**
+	 * Returns a DataSift_StreamConsumer-derived object for the given hash,
+	 * for the given type.
+	 *
+	 * @param string $type The consumer type for which to construct a consumer.
+	 * @param string $hash The hash to be consumed.
+	 *
+	 * @return DataSift_StreamConsumer The consumer object.
+	 * @throws DataSift_Exception_InvalidData
+	 * @see DataSift_StreamConsumer
+	 */
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false)
+	{
+		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped);
+	}
+
+	/**
 	 * Returns the user agent this library should use for all API calls.
 	 *
 	 * @return string
