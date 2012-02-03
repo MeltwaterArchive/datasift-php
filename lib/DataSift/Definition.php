@@ -48,7 +48,7 @@ class DataSift_Definition
 	/**
 	 * @var int
 	 */
-	protected $_total_cost = false;
+	protected $_total_dpu = false;
 
 	/**
 	 * Constructor. A DataSift_User object is required, and you can optionally
@@ -77,9 +77,13 @@ class DataSift_Definition
 	 * Returns the definition string.
 	 *
 	 * @return string The definition.
+	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function get()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('CSDL not available');
+		}
 		return $this->_csdl;
 	}
 
@@ -93,19 +97,23 @@ class DataSift_Definition
 	 */
 	public function set($csdl)
 	{
-		if (!is_string($csdl)) {
-			throw new DataSift_Exception_InvalidData('Definitions must be strings.');
+		if ($csdl === false) {
+			$this->_csdl = false;
+		} else {
+			if (!is_string($csdl)) {
+				throw new DataSift_Exception_InvalidData('Definitions must be strings.');
+			}
+
+			// Trim the incoming string
+			$csdl = trim($csdl);
+
+			// If the string has changed, reset the hash
+			if ($this->_csdl != $csdl) {
+				$this->clearHash();
+			}
+
+			$this->_csdl = $csdl;
 		}
-
-		// Trim the incoming string
-		$csdl = trim($csdl);
-
-		// If the string has changed, reset the hash
-		if ($this->_csdl != $csdl) {
-			$this->clearHash();
-		}
-
-		$this->_csdl = $csdl;
 	}
 
 	/**
@@ -120,11 +128,7 @@ class DataSift_Definition
 	public function getHash()
 	{
 		if ($this->_hash === false) {
-			// Catch any compilation errors so they don't pass up to the caller
-			try {
-				$this->compile();
-			} catch (DataSift_Exception_CompileFailed $e) {
-			}
+			$this->compile();
 		}
 		return $this->_hash;
 	}
@@ -138,9 +142,12 @@ class DataSift_Definition
 	 */
 	protected function clearHash()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Cannot clear the hash of a hash-only definition object');
+		}
 		$this->_hash       = false;
 		$this->_created_at = false;
-		$this->_total_cost = false;
+		$this->_total_dpu = false;
 	}
 
 	/**
@@ -154,6 +161,9 @@ class DataSift_Definition
 	 */
 	public function getCreatedAt()
 	{
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Created at date not available');
+		}
 		if ($this->_created_at === false) {
 			// Catch any compilation errors so they don't pass up to the caller
 			try {
@@ -165,7 +175,7 @@ class DataSift_Definition
 	}
 
 	/**
-	 * Returns the total cost of the stream. If the cost has not yet been
+	 * Returns the total DPU of the stream. If the DPU has not yet been
 	 * obtained it validates the definition first.
 	 *
 	 * @return int The date as a unix timestamp.
@@ -173,16 +183,19 @@ class DataSift_Definition
 	 * @throws DataSift_Exception_RateLimitExceeded
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public function getTotalCost()
+	public function getTotalDPU()
 	{
-		if ($this->_total_cost === false) {
+		if ($this->_csdl === false) {
+			throw new DataSift_Exception_InvalidData('Total DPU not available');
+		}
+		if ($this->_total_dpu === false) {
 			// Catch any compilation errors so they don't pass up to the caller
 			try {
 				$this->validate();
 			} catch (DataSift_Exception_CompileFailed $e) {
 			}
 		}
-		return $this->_total_cost;
+		return $this->_total_dpu;
 	}
 
 	/**
@@ -203,7 +216,6 @@ class DataSift_Definition
 
 		try {
 			$res = $this->_user->callAPI('compile', array('csdl' => $this->_csdl));
-
 			if (isset($res['hash'])) {
 				$this->_hash = $res['hash'];
 			} else {
@@ -216,10 +228,10 @@ class DataSift_Definition
 				throw new DataSift_Exception_CompileFailed('Compiled successfully but no created_at in the response');
 			}
 
-			if (isset($res['cost'])) {
-				$this->_total_cost = $res['cost'];
+			if (isset($res['dpu'])) {
+				$this->_total_dpu = $res['dpu'];
 			} else {
-				throw new DataSift_Exception_CompileFailed('Compiled successfully but no cost in the response');
+				throw new DataSift_Exception_CompileFailed('Compiled successfully but no DPU in the response');
 			}
 		} catch (DataSift_Exception_APIError $e) {
 			// Reset the hash
@@ -263,10 +275,10 @@ class DataSift_Definition
 				throw new DataSift_Exception_CompileFailed('Compiled successfully but no created_at in the response');
 			}
 
-			if (isset($res['cost'])) {
-				$this->_total_cost = $res['cost'];
+			if (isset($res['dpu'])) {
+				$this->_total_dpu = $res['dpu'];
 			} else {
-				throw new DataSift_Exception_CompileFailed('Compiled successfully but no cost in the response');
+				throw new DataSift_Exception_CompileFailed('Compiled successfully but no DPU in the response');
 			}
 		} catch (DataSift_Exception_APIError $e) {
 			// Reset the hash
@@ -289,26 +301,26 @@ class DataSift_Definition
 	}
 
 	/**
-	 * Call the DataSift API to get the cost for this definition. Returns an
+	 * Call the DataSift API to get the DPU for this definition. Returns an
 	 * array containing...
-	 *   costs => The breakdown of running the rule
-	 *   total => The total cost of the rule
+	 *   dpu => The breakdown of running the rule
+	 *   total => The total dpu of the rule
 	 *
 	 * @return array
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_CompileError
 	 */
-	public function getCostBreakdown()
+	public function getDPUBreakdown()
 	{
 		$retval = false;
 
 		if (strlen(trim($this->_csdl)) == 0) {
-			throw new DataSift_Exception_InvalidData('Cannot get the cost for an empty definition.');
+			throw new DataSift_Exception_InvalidData('Cannot get the DPU for an empty definition.');
 		}
 
-		$retval = $this->_user->callAPI('cost', array('hash' => $this->getHash()));
-		$this->_total_cost = $retval['total'];
+		$retval = $this->_user->callAPI('dpu', array('hash' => $this->getHash()));
+		$this->_total_dpu = $retval['dpu'];
 		return $retval;
 	}
 
@@ -363,27 +375,5 @@ class DataSift_Definition
 	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $onInteraction = false, $onStopped = false)
 	{
 		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $onInteraction, $onStopped);
-	}
-
-	/**
-	 * Returns the usage for this definition.
-	 *
-	 * @param int $start An optional timestamp to specify the start of the period
-	 *                   in which we're interested.
-	 * @param int $end An optional timestamp to specify the end of the period
-	 *                 in which we're interested.
-	 *
-	 * @return array The usage data from the API.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 * @throws DataSift_Exception_CompileError
-	 */
-	public function getUsage($start = false, $end = false)
-	{
-		if (strlen(trim($this->_csdl)) == 0) {
-			throw new DataSift_Exception_InvalidData('Cannot get the usage for an empty definition.');
-		}
-
-		return $this->_user->getUsage($start, $end, $this->getHash());
 	}
 }

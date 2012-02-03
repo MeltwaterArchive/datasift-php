@@ -1,12 +1,12 @@
 <?php
 /**
- * This example gets the cost associated with the stream given on the command
+ * This example gets the DPU associated with the stream given on the command
  * line or piped/typed into STDIN. It  presents it in a nice ASCII table.]
  * Note that the CSDL must be enclosed in quotes if given on the command line.
  *
- * php cost.php 'interaction.content contains "football"'
+ * php dpu.php 'interaction.content contains "football"'
  *  or
- * cat football.csdl | php cost.php
+ * cat football.csdl | php dpu.php
  *
  * NB: Most of the error handling (exception catching) has been removed for
  * the sake of simplicity. Nearly everything in this library may throw
@@ -47,43 +47,43 @@ $user = new DataSift_User(USERNAME, API_KEY);
 echo "Creating definition...\n";
 $definition = new DataSift_Definition($user, $csdl);
 
-// Get the cost. This will compile the definition, so we catch potential
+// Get the DPU. This will compile the definition, so we catch potential
 // errors from that.
-echo "Getting cost...\n";
+echo "Getting DPU...\n";
 try {
-	$cost = $definition->getCostBreakdown();
+	$dpu = $definition->getDPUBreakdown();
 } catch (DataSift_Exception_CompileFailed $e) {
 	die("CSDL compilation failed: ".$e->getMessage()."\n\n");
 }
 
-// Format the cost details for output in a table
-$costtable = array();
+// Format the DPU details for output in a table
+$dputable = array();
 $maxlength = array('target' => strlen('Target'), 'times used' => strlen('Times used'), 'complexity' => strlen('Complexity'));
-foreach ($cost['costs'] as $tgt => $c) {
+foreach ($dpu['detail'] as $tgt => $c) {
 	$maxlength['target'] = max($maxlength['target'], strlen($tgt));
 	$maxlength['times used'] = max($maxlength['times used'], strlen(number_format($c['count'])));
-	$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($c['cost'])));
+	$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($c['dpu'], 2)));
 
-	$costtable[] = array(
+	$dputable[] = array(
 		'target'     => $tgt,
 		'times used' => number_format($c['count']),
-		'complexity' => number_format($c['cost']),
+		'complexity' => number_format($c['dpu'], 2),
 	);
 
 	foreach ($c['targets'] as $tgt => $d) {
 		$maxlength['target']     = max($maxlength['target'], 2 + strlen($tgt));
 		$maxlength['times used'] = max($maxlength['times used'], strlen(number_format($d['count'])));
-		$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($d['cost'])));
+		$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($d['dpu'], 2)));
 
-		$costtable[] = array(
+		$dputable[] = array(
 			'target'     => '  '.$tgt,
 			'times used' => number_format($d['count']),
-			'complexity' => number_format($d['cost']),
+			'complexity' => number_format($d['dpu'], 2),
 		);
 	}
 }
 
-$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($cost['total'])));
+$maxlength['complexity'] = max($maxlength['complexity'], strlen(number_format($dpu['dpu'], 2)));
 
 echo "\n";
 echo '/-'.str_repeat('-', $maxlength['target']).'---';
@@ -98,7 +98,7 @@ echo '|-'.str_repeat('-', $maxlength['target']).'-+-';
 echo str_repeat('-', $maxlength['times used']).'-+-';
 echo str_repeat('-', $maxlength['complexity'])."-|\n";
 
-foreach ($costtable as $row) {
+foreach ($dputable as $row) {
 	echo '| '.str_pad($row['target'], $maxlength['target']).' | ';
 	echo str_pad($row['times used'], $maxlength['times used'], ' ', STR_PAD_LEFT).' | ';
 	echo str_pad($row['complexity'], $maxlength['complexity'], ' ', STR_PAD_LEFT)." |\n";
@@ -110,23 +110,10 @@ echo str_repeat('-', $maxlength['complexity'])."-|\n";
 
 echo '| '.str_repeat(' ', $maxlength['target'] + 3);
 echo str_pad('Total', $maxlength['times used'], ' ', STR_PAD_LEFT).' = ';
-echo str_pad($cost['total'], $maxlength['complexity'], ' ', STR_PAD_LEFT)." |\n";
+echo str_pad(number_format($dpu['dpu'], 2), $maxlength['complexity'], ' ', STR_PAD_LEFT)." |\n";
 
 echo '\\-'.str_repeat('-', $maxlength['target']).'---';
 echo str_repeat('-', $maxlength['times used']).'---';
 echo str_repeat('-', $maxlength['complexity'])."-/\n";
 
 echo "\n";
-
-if ($cost['total'] > 1000) {
-	$tiernum = 3;
-	$tierdesc = 'high complexity';
-} elseif ($cost['total'] > 100) {
-	$tiernum = 2;
-	$tierdesc = 'medium complexity';
-} else {
-	$tiernum = 1;
-	$tierdesc = 'simple complexity';
-}
-
-echo 'A total cost of '.number_format($cost['total']).' puts this stream in tier '.$tiernum.', '.$tierdesc."\n\n";

@@ -52,10 +52,6 @@
 		</a><br>
 			<a href="../PHP-client/_DataSift---Exception---RateLimitExceeded.php.html">		RateLimitExceeded.php
 		</a><br>
-			<a href="../PHP-client/_DataSift---Recording.php.html">		Recording.php
-		</a><br>
-			<a href="../PHP-client/_DataSift---RecordingExport.php.html">		RecordingExport.php
-		</a><br>
 			<a href="../PHP-client/_DataSift---StreamConsumer.php.html">		StreamConsumer.php
 		</a><br>
 			<a href="../PHP-client/_DataSift---Exception---StreamError.php.html">		StreamError.php
@@ -77,8 +73,6 @@
 	    		<a href="../PHP-client/DataSift_Exception_RateLimitExceeded.html">DataSift_Exception_RateLimitExceeded</a><br />
 	    		<a href="../PHP-client/DataSift_Exception_StreamError.html">DataSift_Exception_StreamError</a><br />
 	    		<a href="../PHP-client/DataSift_MockApiClient.html">DataSift_MockApiClient</a><br />
-	    		<a href="../PHP-client/DataSift_Recording.html">DataSift_Recording</a><br />
-	    		<a href="../PHP-client/DataSift_RecordingExport.html">DataSift_RecordingExport</a><br />
 	    		<a href="../PHP-client/DataSift_StreamConsumer.html">DataSift_StreamConsumer</a><br />
 	    		<a href="../PHP-client/DataSift_StreamConsumer_HTTP.html">DataSift_StreamConsumer_HTTP</a><br />
 	    		<a href="../PHP-client/DataSift_User.html">DataSift_User</a><br />
@@ -137,16 +131,12 @@ Source Location: /DataSift/User.php<br /><br />
     <li><a href="../PHP-client/DataSift_User.html#methodcallAPI">callAPI</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodcreateDefinition">createDefinition</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetAPIKey">getAPIKey</a></li>
-    <li><a href="../PHP-client/DataSift_User.html#methodgetExport">getExport</a></li>
-    <li><a href="../PHP-client/DataSift_User.html#methodgetExports">getExports</a></li>
+    <li><a href="../PHP-client/DataSift_User.html#methodgetConsumer">getConsumer</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetRateLimit">getRateLimit</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetRateLimitRemaining">getRateLimitRemaining</a></li>
-    <li><a href="../PHP-client/DataSift_User.html#methodgetRecording">getRecording</a></li>
-    <li><a href="../PHP-client/DataSift_User.html#methodgetRecordings">getRecordings</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetUsage">getUsage</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetUserAgent">getUserAgent</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodgetUsername">getUsername</a></li>
-    <li><a href="../PHP-client/DataSift_User.html#methodscheduleRecording">scheduleRecording</a></li>
     <li><a href="../PHP-client/DataSift_User.html#methodsetApiClient">setApiClient</a></li>
   </ul>
 </td>
@@ -364,7 +354,7 @@ $api_key)</code>
   </div>
   <hr />
 	<a name="methodcallAPI"></a>
-	<h3>method callAPI <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a372">372</a>]</span></h3>
+	<h3>method callAPI <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a214">214</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -415,7 +405,7 @@ $params = array()])</code>
   </div>
   <hr />
 	<a name="methodcreateDefinition"></a>
-	<h3>method createDefinition <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a347">347</a>]</span></h3>
+	<h3>method createDefinition <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a173">173</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -481,26 +471,29 @@ $definition = ''])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
-	<a name="methodgetExport"></a>
-	<h3>method getExport <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a329">329</a>]</span></h3>
+	<a name="methodgetConsumer"></a>
+	<h3>method getConsumer <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a189">189</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code><a href="../PHP-client/DataSift_Recording.html">DataSift_Recording</a> getExport(
-string
-$id)</code>
+		<code><a href="../PHP-client/DataSift_StreamConsumer.html">DataSift_StreamConsumer</a> getConsumer(
+[string
+$type = DataSift_StreamConsumer::TYPE_HTTP], string
+$hash, [
+$onInteraction = false], [
+$onStopped = false])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
-		Returns a single export stored in this user's DataSift account.<br /><br /><br /><br />
+		Returns a DataSift_StreamConsumer-derived object for the given hash,  for the given type.<br /><br /><br /><br />
 <h4>Tags:</h4>
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><b>return:</b>&nbsp;&nbsp;</td><td>A DataSift_Recording object representing the requested recording.</td>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The consumer object.</td>
   </tr>
   <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
+    <td><b>see:</b>&nbsp;&nbsp;</td><td><a href="../PHP-client/DataSift_StreamConsumer.html">DataSift_StreamConsumer</a></td>
   </tr>
   <tr>
     <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
@@ -518,59 +511,23 @@ $id)</code>
     <table border="0" cellspacing="0" cellpadding="0">
           <tr>
         <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$id</b>&nbsp;&nbsp;</td>
-        <td>The ID of the recording to return.</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="methodgetExports"></a>
-	<h3>method getExports <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a299">299</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>array getExports(
-[int
-$page = 1], [int
-$count = 20])</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Returns the exports stored in this user's DataSift account.<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of DataSift_RecordingExport objects.</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
-  </tr>
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$page</b>&nbsp;&nbsp;</td>
-        <td>The page to return.</td>
+        <td><b>$type</b>&nbsp;&nbsp;</td>
+        <td>The consumer type for which to construct a consumer.</td>
       </tr>
           <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$count</b>&nbsp;&nbsp;</td>
-        <td>The number of items per page.</td>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$hash</b>&nbsp;&nbsp;</td>
+        <td>The hash to be consumed.</td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$onInteraction</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$onStopped</b>&nbsp;&nbsp;</td>
+        <td></td>
       </tr>
         </table>
     </div><br />
@@ -633,116 +590,18 @@ $count = 20])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
-	<a name="methodgetRecording"></a>
-	<h3>method getRecording <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a233">233</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code><a href="../PHP-client/DataSift_Recording.html">DataSift_Recording</a> getRecording(
-string
-$id)</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Returns a single recording stored in this user's DataSift account.<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>return:</b>&nbsp;&nbsp;</td><td>A DataSift_Recording object representing the requested recording.</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
-  </tr>
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$id</b>&nbsp;&nbsp;</td>
-        <td>The ID of the recording to return.</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="methodgetRecordings"></a>
-	<h3>method getRecordings <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a203">203</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>array getRecordings(
-[int
-$page = 1], [int
-$count = 20])</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Returns the recordings stored in this user's DataSift account.<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of DataSift_Recording objects.</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
-  </tr>
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$page</b>&nbsp;&nbsp;</td>
-        <td>The page to return.</td>
-      </tr>
-          <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$count</b>&nbsp;&nbsp;</td>
-        <td>The number of items per page.</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
 	<a name="methodgetUsage"></a>
-	<h3>method getUsage <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a159">159</a>]</span></h3>
+	<h3>method getUsage <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a154">154</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code>array getUsage(
-[int
-$start = false], [int
-$end = false], [string
-$hash = false])</code>
+[string
+$period = 'hour'])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
-		Returns the usage data for this user. If a hash is provided then a more  detailed breakdown using interaction types is retrieved and returned.<br /><br /><br /><br />
+		Returns the usage data for this user.<br /><br /><br /><br />
 <h4>Tags:</h4>
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
@@ -767,19 +626,9 @@ $hash = false])</code>
     <div class="tags">
     <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$start</b>&nbsp;&nbsp;</td>
-        <td>An optional timestamp to specify the start of the period                    in which we're interested.</td>
-      </tr>
-          <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
-        <td><b>$end</b>&nbsp;&nbsp;</td>
-        <td>An optional timestamp to specify the end of the period                  in which we're interested.</td>
-      </tr>
-          <tr>
         <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$hash</b>&nbsp;&nbsp;</td>
-        <td>An optional hash for which to retrieve usage data.</td>
+        <td><b>$period</b>&nbsp;&nbsp;</td>
+        <td>Either 'hour' or 'day'.</td>
       </tr>
         </table>
     </div><br />
@@ -787,7 +636,7 @@ $hash = false])</code>
   </div>
   <hr />
 	<a name="methodgetUserAgent"></a>
-	<h3>method getUserAgent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a357">357</a>]</span></h3>
+	<h3>method getUserAgent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a199">199</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -836,69 +685,6 @@ $hash = false])</code>
 <br /><br />
 
 	
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="methodscheduleRecording"></a>
-	<h3>method scheduleRecording <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a256">256</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code><a href="../PHP-client/DataSift_Recording.html">DataSift_Recording</a> scheduleRecording(
-string
-$hash, [string
-$name = ''], [string
-$start = false], [string
-$end = false])</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Schedule a new recording.<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>return:</b>&nbsp;&nbsp;</td><td>A DataSift_Recording object representing the newly created recording.</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_APIError</td>
-  </tr>
-  <tr>
-    <td><b>throws:</b>&nbsp;&nbsp;</td><td>DataSift_Exception_InvalidData</td>
-  </tr>
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$hash</b>&nbsp;&nbsp;</td>
-        <td>The hash of the stream to record.</td>
-      </tr>
-          <tr>
-        <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$name</b>&nbsp;&nbsp;</td>
-        <td>An optional name for the recording.</td>
-      </tr>
-          <tr>
-        <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$start</b>&nbsp;&nbsp;</td>
-        <td>An optional unix timestamp defining when the recording should start.</td>
-      </tr>
-          <tr>
-        <td class="type">string&nbsp;&nbsp;</td>
-        <td><b>$end</b>&nbsp;&nbsp;</td>
-        <td>An optional unix timestamp defining when the recording should end.</td>
-      </tr>
-        </table>
-    </div><br />
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
@@ -962,7 +748,7 @@ $api_client)</code>
 	<div class="top">[ <a href="#top">Top</a> ]</div><br />
 	<a name="constUSER_AGENT"></a>
 	<p></p>
-	<h4>USER_AGENT = <span class="value">&nbsp;'DataSiftPHP/0.96'</span></h4>
+	<h4>USER_AGENT = <span class="value">&nbsp;'DataSiftPHP/1.0.0'</span></h4>
 	<p>[line <a href="../__filesource/fsource_PHP-client__DataSiftUser.php.html#a31">31</a>]</p>
   
   <br />
@@ -971,7 +757,7 @@ $api_client)</code>
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Tue, 30 Aug 2011 10:14:48 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+		    Documentation generated on Mon, 21 Nov 2011 11:26:07 +0000 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

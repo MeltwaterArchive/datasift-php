@@ -57,11 +57,12 @@ class DataSift_ApiClient
 		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 		$res = curl_exec($ch);
 		$info = curl_getinfo($ch);
-		curl_close($ch);
 
 		if (!$res) {
 			throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
 		}
+
+		curl_close($ch);
 
 		$res = self::parseHTTPResponse($res);
 
