@@ -147,7 +147,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				}
 
 				// Set the stream as non-blocking
-				stream_set_blocking($this->_conn, 0);
+				if ($this->_conn) {
+					stream_set_blocking($this->_conn, 0);
+				}
 			}
 		} while ($this->_conn && !feof($this->_conn) and $this->_auto_reconnect and $this->_state == parent::STATE_RUNNING);
 
