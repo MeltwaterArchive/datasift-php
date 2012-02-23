@@ -58,15 +58,16 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 * @param mixed         $definition    CSDL string or a Definition object
 	 * @param mixed         $onInteraction A function name or array(class/object, method)
 	 * @param mixed         $onStopped     A function name or array(class/object, method)
+	 * @param mixed         $onDeleted     A function name or array(class/object, method)
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 * @see DataSift_StreamConsumer::__construct
 	 */
-	public function __construct($user, $definition, $onInteraction = false, $onStopped = false)
+	public function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
 	{
-		parent::__construct($user, $definition, $onInteraction, $onStopped);
+		parent::__construct($user, $definition, $onInteraction, $onStopped, $onDeleted);
 	}
 
 	/**
@@ -137,7 +138,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 					// If the interaction is valid, pass it to the event handler
 					if ($interaction) {
 						// Ignore ticks
-						if (!empty($interaction['interaction'])) {
+						if (isset($interaction['deleted'])) {
+							$this->onDeleted($interaction);
+						} else if (!empty($interaction['interaction'])) {
 							$this->onInteraction($interaction);
 						}
 					}

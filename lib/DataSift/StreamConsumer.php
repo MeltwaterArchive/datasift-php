@@ -64,23 +64,31 @@ abstract class DataSift_StreamConsumer
 	protected $_onStopped = false;
 
 	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onDeleted = false;
+
+	/**
 	 * Factory function. Creates a StreamConsumer-derived object for the given
 	 * type.
 	 *
-	 * @param string $type       Use the TYPE_ constants
-	 * @param mixed  $definition CSDL string or a Definition object.
+	 * @param string $type          Use the TYPE_ constants
+	 * @param mixed  $definition    CSDL string or a Definition object.
+	 * @param string $onInteraction The function to be called for each interaction.
+	 * @param string $onStopped     The function to be called when the consumer stops.
+	 * @param string $onDeleted     The function to be called for each DELETE request.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false)
+	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
 	{
 		$classname = 'DataSift_StreamConsumer_'.$type;
 		if (!class_exists($classname)) {
 			throw new DataSift_Exception_InvalidData('Consumer type "'.$type.'" is unknown');
 		}
 
-		return new $classname($user, $definition, $onInteraction, $onStopped);
+		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted);
 	}
 
 	/**
@@ -90,12 +98,13 @@ abstract class DataSift_StreamConsumer
 	 * @param mixed         $definition    CSDL string or a Definition object.
 	 * @param string        $onInteraction The function to be called for each interaction.
 	 * @param string        $onStopped     The function to be called when the consumer stops.
+	 * @param string        $onDeleted     The function to be called for each DELETE request.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSiftExceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 */
-	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false)
+	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
@@ -116,7 +125,8 @@ abstract class DataSift_StreamConsumer
 
 		// Set the event handlers
 		$this->_onInteraction = $onInteraction;
-		$this->_onStopped = $onStopped;
+		$this->_onStopped     = $onStopped;
+		$this->_onDeleted     = $onDeleted;
 
 		// Ask for the definition hash - this will compile the definition if
 		// necessary
@@ -137,6 +147,22 @@ abstract class DataSift_StreamConsumer
 			throw new DataSift_Exception_InvalidData('You must provide an onInteraction method');
 		}
 		call_user_func($this->_onInteraction, $this, $interaction);
+	}
+
+	/**
+	 * This is called for each DELETE request received from the stream and must
+	 * be implemented in extending classes.
+	 *
+	 * @param array $interaction The interaction data structure
+	 *
+	 * @return void
+	 */
+	protected function onDeleted($interaction)
+	{
+		if ($this->_onDeleted === false) {
+			throw new DataSift_Exception_InvalidData('You must provide an onDelete method');
+		}
+		call_user_func($this->_onDeleted, $this, $interaction);
 	}
 
 	/**
