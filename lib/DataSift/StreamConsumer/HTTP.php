@@ -137,8 +137,8 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 					// If the interaction is valid, pass it to the event handler
 					if ($interaction) {
-						// Ignore ticks
-						if (isset($interaction['deleted'])) {
+						// Ignore ticks and handle delete requests
+						if (!empty($interaction['deleted'])) {
 							$this->onDeleted($interaction);
 						} else if (!empty($interaction['interaction'])) {
 							$this->onInteraction($interaction);
