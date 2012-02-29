@@ -1,7 +1,8 @@
 <?php
 /**
  * This simple example demonstrates how to consume a stream using the stream
- * hash.
+ * hash. You can pass multiple hashes to this script to consume multiple
+ * streams through the same connection.
  *
  * NB: Most of the error handling (exception catching) has been removed for
  * the sake of simplicity. Nearly everything in this library may throw
@@ -28,7 +29,7 @@ $user = new DataSift_User(USERNAME, API_KEY);
 
 // Create the consumer
 echo "Getting the consumer...\n";
-$consumer = $user->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, $_SERVER['argv'][0], 'display', 'stopped', 'processDeleteReq');
+$consumer = $user->getMultiConsumer(DataSift_StreamConsumer::TYPE_HTTP, $_SERVER['argv'], 'display', 'stopped', 'processDeleteReq');
 
 // And start consuming
 echo "Consuming...\n--\n";
@@ -41,10 +42,11 @@ $consumer->consume();
  *
  * @param DataSift_StreamConsumer $consumer The consumer object
  * @param array $interaction The interaction data
+ * @param string $hash The hash of the stream the matched this interaction.
  */
-function display($consumer, $interaction)
+function display($consumer, $interaction, $hash)
 {
-	echo $interaction['interaction']['content']."\n--\n";
+	echo $hash.': '.$interaction['interaction']['content']."\n--\n";
 }
 
 /**
@@ -52,12 +54,13 @@ function display($consumer, $interaction)
  *
  * @param DataSift_StreamConsumer $consumer The consumer object.
  * @param array $interaction The interaction data.
+ * @param string $hash The hash of the stream the matched this interaction.
  */
-function processDeleteReq($consumer, $interaction)
+function processDeleteReq($consumer, $interaction, $hash)
 {
 	echo 'DELETE request for interaction ' . $interaction['interaction']['id']
 		. ' of type ' . $interaction['interaction']['type']
-		. '. Please delete it from your archive.';
+		. ' from stream ' . $hash . '. Please delete it from your archive.'."\n--\n";
 }
 
 /**
