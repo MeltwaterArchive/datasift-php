@@ -1,4 +1,8 @@
 <?php
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
 class LiveApiTest extends PHPUnit_Framework_TestCase
 {
 	/**
