@@ -28,7 +28,7 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/1.1.0';
+	const USER_AGENT      = 'DataSiftPHP/1.2.0';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 
@@ -189,6 +189,22 @@ class DataSift_User
 	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false, $onDeleted = false)
 	{
 		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped, $onDeleted);
+	}
+
+	/**
+	 * Returns a DataSift_StreamConsumer-derived object for the given hashes,
+	 * for the given type.
+	 *
+	 * @param string $type The consumer type for which to construct a consumer.
+	 * @param string $hashes An array containing hashes and/or Definition objects to be consumed.
+	 *
+	 * @return DataSift_StreamConsumer The consumer object.
+	 * @throws DataSift_Exception_InvalidData
+	 * @see DataSift_StreamConsumer
+	 */
+	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	{
+		return DataSift_StreamConsumer::factory($this, $type, $hashes, $onInteraction, $onStopped, $onDeleted);
 	}
 
 	/**

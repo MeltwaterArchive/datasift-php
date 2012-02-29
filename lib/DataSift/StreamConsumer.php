@@ -49,6 +49,16 @@ abstract class DataSift_StreamConsumer
 	protected $_auto_reconnect = true;
 
 	/**
+	 * @var bool True if this is consuming multiple hashes
+	 */
+	protected $_is_multi = false;
+
+	/**
+	 * @var array The array of hashes to be consumed if using multi
+	 */
+	protected $_hashes = array();
+
+	/**
 	 * @var bool
 	 */
 	protected $_state = self::STATE_STOPPED;
@@ -95,7 +105,7 @@ abstract class DataSift_StreamConsumer
 	 * Constructor. Do not use this directly, use the factory method instead.
 	 *
 	 * @param DataSift_User $user          The user this consumer will run as.
-	 * @param mixed         $definition    CSDL string or a Definition object.
+	 * @param mixed         $definition    CSDL string, a Definition object, or an array of hashes.
 	 * @param string        $onInteraction The function to be called for each interaction.
 	 * @param string        $onStopped     The function to be called when the consumer stops.
 	 * @param string        $onDeleted     The function to be called for each DELETE request.
@@ -110,14 +120,25 @@ abstract class DataSift_StreamConsumer
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
 		}
 
-		if (is_string($definition)) {
+		if (is_array($definition) && count($definition) > 0) {
+			// Yes, we're multi
+			$this->_is_multi = true;
+			// Get the hashes
+			foreach ($definition as $d) {
+				if ($d instanceof DataSift_Definition) {
+					$this->_hashes[] = $d->getHash();
+				} else {
+					$this->_hashes[] = $d;
+				}
+			}
+		} elseif (is_string($definition)) {
 			// Convert the CSDL into a Definition object
 			$this->_definition = $user->createDefinition($definition);
 		} elseif ($definition instanceof DataSift_Definition) {
 			// Already a Definition object
 			$this->_definition = $definition;
 		} else {
-			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string or a DataSift_Definition object');
+			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string, a DataSift_Definition object, or an array of stream hashes.');
 		}
 
 		// Set the user
@@ -130,7 +151,9 @@ abstract class DataSift_StreamConsumer
 
 		// Ask for the definition hash - this will compile the definition if
 		// necessary
-		$this->_definition->getHash();
+		if (!$this->_is_multi) {
+			$this->_definition->getHash();
+		}
 	}
 
 	/**
@@ -141,12 +164,12 @@ abstract class DataSift_StreamConsumer
 	 *
 	 * @return void
 	 */
-	protected function onInteraction($interaction)
+	protected function onInteraction($interaction, $hash = false)
 	{
 		if ($this->_onInteraction === false) {
 			throw new DataSift_Exception_InvalidData('You must provide an onInteraction method');
 		}
-		call_user_func($this->_onInteraction, $this, $interaction);
+		call_user_func($this->_onInteraction, $this, $interaction, $hash);
 	}
 
 	/**
@@ -157,12 +180,12 @@ abstract class DataSift_StreamConsumer
 	 *
 	 * @return void
 	 */
-	protected function onDeleted($interaction)
+	protected function onDeleted($interaction, $hash = false)
 	{
 		if ($this->_onDeleted === false) {
 			throw new DataSift_Exception_InvalidData('You must provide an onDelete method');
 		}
-		call_user_func($this->_onDeleted, $this, $interaction);
+		call_user_func($this->_onDeleted, $this, $interaction, $hash);
 	}
 
 	/**
