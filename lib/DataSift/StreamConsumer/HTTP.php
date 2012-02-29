@@ -55,7 +55,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 * Constructor.
 	 *
 	 * @param DataSift_User $user          The authenticated user
-	 * @param mixed         $definition    CSDL string or a Definition object
+	 * @param mixed         $definition    CSDL string, Definition object, or array of hashes
 	 * @param mixed         $onInteraction A function name or array(class/object, method)
 	 * @param mixed         $onStopped     A function name or array(class/object, method)
 	 * @param mixed         $onDeleted     A function name or array(class/object, method)
@@ -137,11 +137,17 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 					// If the interaction is valid, pass it to the event handler
 					if ($interaction) {
+						// Extract the hash and the data if present
+						$hash = false;
+						if (isset($interaction['hash'])) {
+							$hash = $interaction['hash'];
+							$interaction = $interaction['data'];
+						}
 						// Ignore ticks and handle delete requests
 						if (!empty($interaction['deleted'])) {
-							$this->onDeleted($interaction);
+							$this->onDeleted($interaction, $hash);
 						} else if (!empty($interaction['interaction'])) {
-							$this->onInteraction($interaction);
+							$this->onInteraction($interaction, $hash);
 						}
 					}
 				}
@@ -177,7 +183,12 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		$this->_state = parent::STATE_STARTING;
 
 		// Build the URL and parse it
-		$url = parse_url('http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash());
+		if ($this->_is_multi) {
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.'multi';
+		} else {
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash();
+		}
+		$url = parse_url($url);
 
 		// Fill in some defaults if any required bits are missing
 		if (empty($url['port'])) {
@@ -190,6 +201,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 			'api_key'  => $this->_user->getAPIKey(),
 			'username' => $this->_user->getUsername(),
 		);
+		if ($this->_is_multi) {
+			$params['hashes'] = implode(',', $this->_hashes);
+		}
 		$request[] = 'GET ' . $url['path'] . '?' . http_build_query($params) . ' HTTP/1.1';
 		$request[] = 'Host: ' . $url['host'];
 		$request[] = 'User-Agent: ' . $this->_user->getUserAgent();
