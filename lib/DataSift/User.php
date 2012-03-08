@@ -28,7 +28,7 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/1.2.0';
+	const USER_AGENT      = 'DataSiftPHP/1.3.0';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 

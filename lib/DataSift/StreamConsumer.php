@@ -79,6 +79,16 @@ abstract class DataSift_StreamConsumer
 	protected $_onDeleted = false;
 
 	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onError = false;
+
+	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onWarning = false;
+
+	/**
 	 * Factory function. Creates a StreamConsumer-derived object for the given
 	 * type.
 	 *
@@ -91,14 +101,14 @@ abstract class DataSift_StreamConsumer
 	 * @return DataSift_StreamConsumer The consumer object
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
 		$classname = 'DataSift_StreamConsumer_'.$type;
 		if (!class_exists($classname)) {
 			throw new DataSift_Exception_InvalidData('Consumer type "'.$type.'" is unknown');
 		}
 
-		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted);
+		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
 	}
 
 	/**
@@ -114,7 +124,7 @@ abstract class DataSift_StreamConsumer
 	 * @throws DataSiftExceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 */
-	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
@@ -148,6 +158,8 @@ abstract class DataSift_StreamConsumer
 		$this->_onInteraction = $onInteraction;
 		$this->_onStopped     = $onStopped;
 		$this->_onDeleted     = $onDeleted;
+		$this->_onError       = $onError;
+		$this->_onWarning     = $onWarning;
 
 		// Ask for the definition hash - this will compile the definition if
 		// necessary
@@ -186,6 +198,36 @@ abstract class DataSift_StreamConsumer
 			throw new DataSift_Exception_InvalidData('You must provide an onDelete method');
 		}
 		call_user_func($this->_onDeleted, $this, $interaction, $hash);
+	}
+
+	/**
+	 * This is called when an error notification is received on a stream
+	 * connection.
+	 *
+	 * @param string $message The error message
+	 *
+	 * @return void
+	 */
+	protected function onError($message)
+	{
+		if ($this->_onError !== false) {
+			call_user_func($this->_onError, $this, $message);
+		}
+	}
+
+	/**
+	 * This is called when a warning notification is received on a scream
+	 * connection.
+	 *
+	 * @param string $message The warning message
+	 *
+	 * @return void
+	 */
+	protected function onWarning($message)
+	{
+		if ($this->_onWarning !== false) {
+			call_user_func($this->_onWarning, $this, $message);
+		}
 	}
 
 	/**
