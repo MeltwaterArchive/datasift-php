@@ -65,9 +65,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 * @throws DataSift_Exception_APIError
 	 * @see DataSift_StreamConsumer::__construct
 	 */
-	public function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
-		parent::__construct($user, $definition, $onInteraction, $onStopped, $onDeleted);
+		parent::__construct($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
 	}
 
 	/**
@@ -137,17 +137,32 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 					// If the interaction is valid, pass it to the event handler
 					if ($interaction) {
-						// Extract the hash and the data if present
-						$hash = false;
-						if (isset($interaction['hash'])) {
-							$hash = $interaction['hash'];
-							$interaction = $interaction['data'];
-						}
-						// Ignore ticks and handle delete requests
-						if (!empty($interaction['deleted'])) {
-							$this->onDeleted($interaction, $hash);
-						} else if (!empty($interaction['interaction'])) {
-							$this->onInteraction($interaction, $hash);
+						if (isset($interaction['status'])) {
+							switch ($interaction['status']) {
+								case 'error':
+								case 'failure':
+									$this->onError($interaction['message']);
+									break;
+								case 'warning':
+									$this->onWarning($interaction['message']);
+									break;
+								default:
+									// Ticks
+									break;
+							}
+						} else {
+							// Extract the hash and the data if present
+							$hash = false;
+							if (isset($interaction['hash'])) {
+								$hash = $interaction['hash'];
+								$interaction = $interaction['data'];
+							}
+							// Ignore ticks and handle delete requests
+							if (!empty($interaction['deleted'])) {
+								$this->onDeleted($interaction, $hash);
+							} else if (!empty($interaction['interaction'])) {
+								$this->onInteraction($interaction, $hash);
+							}
 						}
 					}
 				}
@@ -263,9 +278,18 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				if ($code == '200') {
 					// Success!
 					$this->_state = parent::STATE_RUNNING;
-				} elseif ($code == '404') {
-					// The hash doesn't exist
-					throw new DataSift_Exception_StreamError('Hash not found!');
+				} elseif ($code >= '400' && $code < 500 && $code != 420) {
+					// Connection refused, find out why
+					$line = '';
+					while (strlen($line) < 10) {
+						$line = trim(fgets($this->_conn, $this->_max_line_length));
+					}
+					$data = json_decode($line, true);
+					if (isset($data['message'])) {
+						throw new DataSift_Exception_StreamError($data['message']);
+					} else {
+						throw new DataSift_Exception_StreamError('Connection refused: '.$code.' '.$message);
+					}
 				} else {
 					// Connection failed, back off a bit and try again
 					// Timings from http://dev.datasift.com/docs/streaming-api

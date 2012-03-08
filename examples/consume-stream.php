@@ -29,7 +29,7 @@ $user = new DataSift_User(USERNAME, API_KEY);
 
 // Create the consumer
 echo "Getting the consumer...\n";
-$consumer = $user->getMultiConsumer(DataSift_StreamConsumer::TYPE_HTTP, $_SERVER['argv'], 'display', 'stopped', 'processDeleteReq');
+$consumer = $user->getMultiConsumer(DataSift_StreamConsumer::TYPE_HTTP, $_SERVER['argv'], 'display', 'stopped', 'processDeleteReq', 'handleError', 'handleWarning');
 
 // And start consuming
 echo "Consuming...\n--\n";
@@ -72,4 +72,26 @@ function processDeleteReq($consumer, $interaction, $hash)
 function stopped($consumer, $reason)
 {
 	echo "\nStopped: $reason\n\n";
+}
+
+/**
+ * Called when an error message is received.
+ *
+ * @param DataSift_StreamConsumer $consumer The consumer object.
+ * @param string $message The message.
+ */
+function handleError($consumer, $message)
+{
+	echo "ERROR: $message\n--\n";
+}
+
+/**
+ * Called when a warning message is received.
+ *
+ * @param DataSift_StreamConsumer $consumer The consumer object.
+ * @param string $message The message.
+ */
+function handleWarning($consumer, $message)
+{
+	echo "WARNING: $message\n--\n";
 }
