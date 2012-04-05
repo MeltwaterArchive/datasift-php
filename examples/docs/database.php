@@ -48,12 +48,9 @@ function display($consumer, $interaction)
 {
 	$sentiment = isset($interaction['salience']['content']['sentiment']) ? $interaction['salience']['content']['sentiment'] : '';
 	$lang = isset($interaction['language']['tag']) ? $interaction['language']['tag'] : '';
-	$pscore = isset($interaction['peerindex']['score']) ? $interaction['peerindex']['score'] : '';
-	$auth = isset($interaction['peerindex']['authority']) ? $interaction['peerindex']['authority'] : '';
 	$kscore = isset($interaction['klout']['score']) ? $interaction['klout']['score'] : '';
-	$kclass = isset($interaction['klout']['class']) ? $interaction['klout']['class'] : '';
 
-	$query = "INSERT INTO datasiftStreamExample (id,content,source,username,name,type,link,created_at,sentiment,language,peerindex_score,peerindex_authority,klout_score,klout_class)
+	$query = "INSERT INTO datasiftStreamExample (id,content,source,username,name,type,link,created_at,sentiment,language,klout_score)
 			VALUES ('" . $interaction['interaction']['id']
 			. "','" . $interaction['interaction']['content']
 			. "','" . $interaction['interaction']['source']
@@ -64,10 +61,7 @@ function display($consumer, $interaction)
 			. "','" . $interaction['interaction']['created_at']
 			. "','" . $sentiment
 			. "','" . $lang
-			. "','" . $pscore
-			. "','" . $auth
 			. "','" . $kscore
-			. "','" . $kclass
 			. "');";
 	mysql_query($query);
 	print $interaction['interaction']['content'] . '<br />';
