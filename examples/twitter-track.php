@@ -1,5 +1,5 @@
 <?php
-	/**
+/**
  * This example mimics the Twitter track functionality. Run the script with
  * any number of words or phrases as arguments and the script will create
  * the equivalent CSDL and consume it as a stream, displaying matching

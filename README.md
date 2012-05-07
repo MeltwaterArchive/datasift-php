@@ -2,7 +2,7 @@ DataSift PHP Client Library
 ===========================
 
 This is the official PHP library for accessing [Datasift](http://datasift.com/). See the examples
-folder for some simple example usage. Full documentation is in the doc folder.
+folder for some simple example usage.
 
 The unit tests should be run with phpunit.
 
@@ -52,7 +52,7 @@ Changelog
 
 * v.1.3.0 Improved error handling (2012-03-08)
 
-  Added onError and onWarning events - see examples/consumer-stream.php for an
+  Added onError and onWarning events - see examples/consume-stream.php for an
   example.
 
   Stopped the HTTP consumer from attempting to reconnect when it receives a
