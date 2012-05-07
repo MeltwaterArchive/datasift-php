@@ -1,4 +1,8 @@
 <?php
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
 class DefinitionTest extends PHPUnit_Framework_TestCase
 {
 	protected $user = false;

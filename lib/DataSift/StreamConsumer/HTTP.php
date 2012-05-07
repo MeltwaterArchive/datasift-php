@@ -55,18 +55,19 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 * Constructor.
 	 *
 	 * @param DataSift_User $user          The authenticated user
-	 * @param mixed         $definition    CSDL string or a Definition object
+	 * @param mixed         $definition    CSDL string, Definition object, or array of hashes
 	 * @param mixed         $onInteraction A function name or array(class/object, method)
 	 * @param mixed         $onStopped     A function name or array(class/object, method)
+	 * @param mixed         $onDeleted     A function name or array(class/object, method)
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 * @see DataSift_StreamConsumer::__construct
 	 */
-	public function __construct($user, $definition, $onInteraction = false, $onStopped = false)
+	public function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
-		parent::__construct($user, $definition, $onInteraction, $onStopped);
+		parent::__construct($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
 	}
 
 	/**
@@ -136,15 +137,40 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 					// If the interaction is valid, pass it to the event handler
 					if ($interaction) {
-						// Ignore ticks
-						if (!empty($interaction['interaction'])) {
-							$this->onInteraction($interaction);
+						if (isset($interaction['status'])) {
+							switch ($interaction['status']) {
+								case 'error':
+								case 'failure':
+									$this->onError($interaction['message']);
+									break;
+								case 'warning':
+									$this->onWarning($interaction['message']);
+									break;
+								default:
+									// Ticks
+									break;
+							}
+						} else {
+							// Extract the hash and the data if present
+							$hash = false;
+							if (isset($interaction['hash'])) {
+								$hash = $interaction['hash'];
+								$interaction = $interaction['data'];
+							}
+							// Ignore ticks and handle delete requests
+							if (!empty($interaction['deleted'])) {
+								$this->onDeleted($interaction, $hash);
+							} else if (!empty($interaction['interaction'])) {
+								$this->onInteraction($interaction, $hash);
+							}
 						}
 					}
 				}
 
 				// Set the stream as non-blocking
-				stream_set_blocking($this->_conn, 0);
+				if ($this->_conn) {
+					stream_set_blocking($this->_conn, 0);
+				}
 			}
 		} while ($this->_conn && !feof($this->_conn) and $this->_auto_reconnect and $this->_state == parent::STATE_RUNNING);
 
@@ -172,7 +198,12 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		$this->_state = parent::STATE_STARTING;
 
 		// Build the URL and parse it
-		$url = parse_url('http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash());
+		if ($this->_is_multi) {
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.'multi';
+		} else {
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash();
+		}
+		$url = parse_url($url);
 
 		// Fill in some defaults if any required bits are missing
 		if (empty($url['port'])) {
@@ -185,6 +216,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 			'api_key'  => $this->_user->getAPIKey(),
 			'username' => $this->_user->getUsername(),
 		);
+		if ($this->_is_multi) {
+			$params['hashes'] = implode(',', $this->_hashes);
+		}
 		$request[] = 'GET ' . $url['path'] . '?' . http_build_query($params) . ' HTTP/1.1';
 		$request[] = 'Host: ' . $url['host'];
 		$request[] = 'User-Agent: ' . $this->_user->getUserAgent();
@@ -244,12 +278,18 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				if ($code == '200') {
 					// Success!
 					$this->_state = parent::STATE_RUNNING;
-				} elseif ($code == '401') {
-					// The hash doesn't exist
-					throw new DataSift_Exception_StreamError('Access denied!');
-				} elseif ($code == '404') {
-					// The hash doesn't exist
-					throw new DataSift_Exception_StreamError('Hash not found!');
+				} elseif ($code >= '400' && $code < 500 && $code != 420) {
+					// Connection refused, find out why
+					$line = '';
+					while (strlen($line) < 10) {
+						$line = trim(fgets($this->_conn, $this->_max_line_length));
+					}
+					$data = json_decode($line, true);
+					if (isset($data['message'])) {
+						throw new DataSift_Exception_StreamError($data['message']);
+					} else {
+						throw new DataSift_Exception_StreamError('Connection refused: '.$code.' '.$message);
+					}
 				} else {
 					// Connection failed, back off a bit and try again
 					// Timings from http://dev.datasift.com/docs/streaming-api

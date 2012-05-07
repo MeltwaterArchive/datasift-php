@@ -28,7 +28,7 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/1.0.0';
+	const USER_AGENT      = 'DataSiftPHP/1.3.0';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 
@@ -143,130 +143,6 @@ class DataSift_User
 	}
 
 	/**
-	 * Returns the recordings stored in this user's DataSift account.
-	 *
-	 * @param int $page The page to return.
-	 * @param int $count The number of items per page.
-	 *
-	 * @return array An array of DataSift_Recording objects.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 */
-	public function getRecordings($page = 1, $count = 20)
-	{
-		if (intval($page) != $page or $page < 1) {
-			throw new DataSift_Exception_InvalidData('The page parameter must be an integer > 0');
-		}
-		if (intval($count) != $count or $count < 1) {
-			throw new DataSift_Exception_InvalidData('The count parameter must be an integer > 0');
-		}
-
-		$recordings = $this->callAPI('recording', array('page' => intval($page), 'count' => intval($count)));
-
-		$retval = array();
-
-		foreach ($recordings['recordings'] as $recording)
-		{
-			$retval[] = new DataSift_Recording($this, $recording);
-		}
-
-		return $retval;
-	}
-
-	/**
-	 * Returns a single recording stored in this user's DataSift account.
-	 *
-	 * @param string $id The ID of the recording to return.
-	 *
-	 * @return DataSift_Recording A DataSift_Recording object representing the requested recording.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 */
-	public function getRecording($id)
-	{
-		if (!is_string($id)) {
-			throw new DataSift_Exception_InvalidData('The ID parameter must be a string');
-		}
-
-		$recording = $this->callAPI('recording', array('id' => $id));
-
-		return new DataSift_Recording($this, $recording);
-	}
-
-	/**
-	 * Schedule a new recording.
-	 *
-	 * @param string $hash The hash of the stream to record.
-	 * @param string $name An optional name for the recording.
-	 * @param string $start An optional unix timestamp defining when the recording should start.
-	 * @param string $end An optional unix timestamp defining when the recording should end.
-	 *
-	 * @return DataSift_Recording A DataSift_Recording object representing the newly created recording.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 */
-	public function scheduleRecording($hash, $name = '', $start = false, $end = false)
-	{
-		// Validate the parameters
-		if (!is_string($hash)) {
-			throw new DataSift_Exception_InvalidData('The hash parameter must be a string');
-		}
-		if (!is_string($name)) {
-			throw new DataSift_Exception_InvalidData('The name parameter must be a string');
-		}
-		if ($start !== false and !is_integer($start)) {
-			throw new DataSift_Exception_InvalidData('The start parameter must be an integer timestamp');
-		}
-		if ($end !== false and !is_integer($end)) {
-			throw new DataSift_Exception_InvalidData('The end parameter must be an integer timestamp');
-		}
-
-		// Build the parameters
-		$params = array('hash' => $hash);
-		if (strlen($name) > 0) {
-			$params['name'] = $name;
-		}
-		if ($start !== false) {
-			$params['start'] = $start;
-		}
-		if ($end !== false) {
-			$params['end'] = $end;
-		}
-
-		$recording = $this->callAPI('recording/schedule', $params);
-
-		return new DataSift_Recording($this, $recording);
-	}
-
-	/**
-	 * Returns the exports stored in this user's DataSift account.
-	 *
-	 * @param int $page The page to return.
-	 * @param int $count The number of items per page.
-	 *
-	 * @return array An array of DataSift_RecordingExport objects.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 */
-	public function getExports($page = 1, $count = 20)
-	{
-		if (intval($page) != $page or $page < 1) {
-			throw new DataSift_Exception_InvalidData('The page parameter must be an integer > 0');
-		}
-		if (intval($count) != $count or $count < 1) {
-			throw new DataSift_Exception_InvalidData('The count parameter must be an integer > 0');
-		}
-
-		$exports = $this->callAPI('recording/export', array('page' => intval($page), 'count' => intval($count)));
-
-		$retval = array();
-
-		foreach ($exports['exports'] as $export)
-		{
-			$retval[] = new DataSift_RecordingExport($this, $export);
-		}
-
-	/**
 	 * Returns the usage data for this user.
 	 *
 	 * @param string $period Either 'hour' or 'day'.
@@ -285,26 +161,6 @@ class DataSift_User
 
 		$retval = $this->callAPI('usage', array('period' => $period));
 		return $retval;
-	}
-
-	/**
-	 * Returns a single export stored in this user's DataSift account.
-	 *
-	 * @param string $id The ID of the recording to return.
-	 *
-	 * @return DataSift_Recording A DataSift_Recording object representing the requested recording.
-	 * @throws DataSift_Exception_InvalidData
-	 * @throws DataSift_Exception_APIError
-	 */
-	public function getExport($id)
-	{
-		if (!is_string($id)) {
-			throw new DataSift_Exception_InvalidData('The ID parameter must be a string');
-		}
-
-		$export = $this->callAPI('recording/export', array('id' => $id));
-
-		return new DataSift_Recording($this, $export);
 	}
 
 	/**
@@ -330,9 +186,25 @@ class DataSift_User
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false)
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false, $onDeleted = false)
 	{
-		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped);
+		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped, $onDeleted);
+	}
+
+	/**
+	 * Returns a DataSift_StreamConsumer-derived object for the given hashes,
+	 * for the given type.
+	 *
+	 * @param string $type The consumer type for which to construct a consumer.
+	 * @param string $hashes An array containing hashes and/or Definition objects to be consumed.
+	 *
+	 * @return DataSift_StreamConsumer The consumer object.
+	 * @throws DataSift_Exception_InvalidData
+	 * @see DataSift_StreamConsumer
+	 */
+	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	{
+		return DataSift_StreamConsumer::factory($this, $type, $hashes, $onInteraction, $onStopped, $onDeleted);
 	}
 
 	/**

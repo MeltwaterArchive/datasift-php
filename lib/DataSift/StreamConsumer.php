@@ -49,6 +49,16 @@ abstract class DataSift_StreamConsumer
 	protected $_auto_reconnect = true;
 
 	/**
+	 * @var bool True if this is consuming multiple hashes
+	 */
+	protected $_is_multi = false;
+
+	/**
+	 * @var array The array of hashes to be consumed if using multi
+	 */
+	protected $_hashes = array();
+
+	/**
 	 * @var bool
 	 */
 	protected $_state = self::STATE_STOPPED;
@@ -64,51 +74,81 @@ abstract class DataSift_StreamConsumer
 	protected $_onStopped = false;
 
 	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onDeleted = false;
+
+	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onError = false;
+
+	/**
+	 * @var mixed A function name or array(class/object, method)
+	 */
+	protected $_onWarning = false;
+
+	/**
 	 * Factory function. Creates a StreamConsumer-derived object for the given
 	 * type.
 	 *
-	 * @param string $type       Use the TYPE_ constants
-	 * @param mixed  $definition CSDL string or a Definition object.
+	 * @param string $type          Use the TYPE_ constants
+	 * @param mixed  $definition    CSDL string or a Definition object.
+	 * @param string $onInteraction The function to be called for each interaction.
+	 * @param string $onStopped     The function to be called when the consumer stops.
+	 * @param string $onDeleted     The function to be called for each DELETE request.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false)
+	public static function factory($user, $type, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
 		$classname = 'DataSift_StreamConsumer_'.$type;
 		if (!class_exists($classname)) {
 			throw new DataSift_Exception_InvalidData('Consumer type "'.$type.'" is unknown');
 		}
 
-		return new $classname($user, $definition, $onInteraction, $onStopped);
+		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
 	}
 
 	/**
 	 * Constructor. Do not use this directly, use the factory method instead.
 	 *
 	 * @param DataSift_User $user          The user this consumer will run as.
-	 * @param mixed         $definition    CSDL string or a Definition object.
+	 * @param mixed         $definition    CSDL string, a Definition object, or an array of hashes.
 	 * @param string        $onInteraction The function to be called for each interaction.
 	 * @param string        $onStopped     The function to be called when the consumer stops.
+	 * @param string        $onDeleted     The function to be called for each DELETE request.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSiftExceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 */
-	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false)
+	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
 		}
 
-		if (is_string($definition)) {
+		if (is_array($definition) && count($definition) > 0) {
+			// Yes, we're multi
+			$this->_is_multi = true;
+			// Get the hashes
+			foreach ($definition as $d) {
+				if ($d instanceof DataSift_Definition) {
+					$this->_hashes[] = $d->getHash();
+				} else {
+					$this->_hashes[] = $d;
+				}
+			}
+		} elseif (is_string($definition)) {
 			// Convert the CSDL into a Definition object
 			$this->_definition = $user->createDefinition($definition);
 		} elseif ($definition instanceof DataSift_Definition) {
 			// Already a Definition object
 			$this->_definition = $definition;
 		} else {
-			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string or a DataSift_Definition object');
+			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string, a DataSift_Definition object, or an array of stream hashes.');
 		}
 
 		// Set the user
@@ -116,11 +156,16 @@ abstract class DataSift_StreamConsumer
 
 		// Set the event handlers
 		$this->_onInteraction = $onInteraction;
-		$this->_onStopped = $onStopped;
+		$this->_onStopped     = $onStopped;
+		$this->_onDeleted     = $onDeleted;
+		$this->_onError       = $onError;
+		$this->_onWarning     = $onWarning;
 
 		// Ask for the definition hash - this will compile the definition if
 		// necessary
-		$this->_definition->getHash();
+		if (!$this->_is_multi) {
+			$this->_definition->getHash();
+		}
 	}
 
 	/**
@@ -131,12 +176,58 @@ abstract class DataSift_StreamConsumer
 	 *
 	 * @return void
 	 */
-	protected function onInteraction($interaction)
+	protected function onInteraction($interaction, $hash = false)
 	{
 		if ($this->_onInteraction === false) {
 			throw new DataSift_Exception_InvalidData('You must provide an onInteraction method');
 		}
-		call_user_func($this->_onInteraction, $this, $interaction);
+		call_user_func($this->_onInteraction, $this, $interaction, $hash);
+	}
+
+	/**
+	 * This is called for each DELETE request received from the stream and must
+	 * be implemented in extending classes.
+	 *
+	 * @param array $interaction The interaction data structure
+	 *
+	 * @return void
+	 */
+	protected function onDeleted($interaction, $hash = false)
+	{
+		if ($this->_onDeleted === false) {
+			throw new DataSift_Exception_InvalidData('You must provide an onDelete method');
+		}
+		call_user_func($this->_onDeleted, $this, $interaction, $hash);
+	}
+
+	/**
+	 * This is called when an error notification is received on a stream
+	 * connection.
+	 *
+	 * @param string $message The error message
+	 *
+	 * @return void
+	 */
+	protected function onError($message)
+	{
+		if ($this->_onError !== false) {
+			call_user_func($this->_onError, $this, $message);
+		}
+	}
+
+	/**
+	 * This is called when a warning notification is received on a scream
+	 * connection.
+	 *
+	 * @param string $message The warning message
+	 *
+	 * @return void
+	 */
+	protected function onWarning($message)
+	{
+		if ($this->_onWarning !== false) {
+			call_user_func($this->_onWarning, $this, $message);
+		}
 	}
 
 	/**

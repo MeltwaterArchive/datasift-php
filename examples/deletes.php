@@ -1,9 +1,7 @@
 <?php
 /**
- * This example constructs a DataSift_Definition object with CSDL that looks
- * for anything containing the word "football". It then gets an HTTP
- * consumer for that definition and displays matching interactions to the
- * screen as they come in. It will display 10 interactions and then stop.
+ * This example consumes 1% of the Twitter stream and outputs a . for each
+ * interaction received, and an X for each delete notification.
  *
  * NB: Most of the error handling (exception catching) has been removed for
  * the sake of simplicity. Nearly everything in this library may throw
@@ -22,7 +20,7 @@ echo "Creating user...\n";
 $user = new DataSift_User(USERNAME, API_KEY);
 
 // Create the definition
-$csdl = 'interaction.content contains "football"';
+$csdl = 'interaction.type == "twitter" and interaction.sample < 1.0';
 echo "Creating definition...\n  $csdl\n";
 $definition = new DataSift_Definition($user, $csdl);
 
@@ -44,16 +42,7 @@ echo "Finished consuming\n\n";
  */
 function display($consumer, $interaction)
 {
-	static $num = 10;
-
-	echo 'Type: '.$interaction['interaction']['type']."\n";
-	echo 'Content: '.$interaction['interaction']['content']."\n--\n";
-
-	// Stop after 10
-	if ($num-- == 1) {
-		echo "Stopping consumer...\n";
-		$consumer->stop();
-	}
+	echo '.';
 }
 
 /**
@@ -64,9 +53,7 @@ function display($consumer, $interaction)
  */
 function processDeleteReq($consumer, $interaction)
 {
-	echo 'DELETE request for interaction ' . $interaction['interaction']['id']
-		. ' of type ' . $interaction['interaction']['type']
-		. '. Please delete it from your archive.';
+	echo 'X';
 }
 
 /**
