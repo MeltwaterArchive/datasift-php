@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../../config.php';
 /**
  * This example mimics the Twitter track functionality. Run the script with
  * any number of words or phrases as arguments and the script will create
@@ -26,7 +26,7 @@ echo "\nCreating definition...\n  $csdl\n";
 $definition = new DataSift_Definition($user, $csdl);
 // Create the consumer
 echo "Getting the consumer...\n";
-$consumer = $definition->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, 'display', 'stopped');
+$consumer = $definition->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, 'display', 'stopped', 'processDeleteReq');
 
 // And start consuming
 echo "Consuming...\n--\n";
@@ -54,4 +54,17 @@ function display($consumer, $interaction)
 function stopped($consumer, $reason)
 {
 	echo "\nStopped: $reason\n\n";
+}
+
+/**
+ * Handle DELETE requests.
+ *
+ * @param DataSift_StreamConsumer $consumer The consumer object.
+ * @param array $interaction The interaction data.
+ */
+function processDeleteReq($consumer, $interaction)
+{
+	echo 'DELETE request for interaction ' . $interaction['interaction']['id']
+		. ' of type ' . $interaction['interaction']['type']
+		. '. Please delete it from your archive.';
 }
