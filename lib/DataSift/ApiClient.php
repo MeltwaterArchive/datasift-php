@@ -58,22 +58,21 @@ class DataSift_ApiClient
 		$res = curl_exec($ch);
 		$info = curl_getinfo($ch);
 
-		if (!$res) {
+		if ($info['http_code'] != 204 && !$res) {
 			throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
 		}
 
 		curl_close($ch);
-
 		$res = self::parseHTTPResponse($res);
 
 		$retval = array(
 			'response_code'        => $info['http_code'],
-			'data'                 => json_decode($res['body'], true),
+			'data'                 => (strlen($res['body']) == 0 ? array() : json_decode($res['body'], true)),
 			'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
 			'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
 		);
 
-		if (!$retval['data']) {
+		if ($info['http_code'] != 204 && !$retval['data']) {
 			throw new DataSift_Exception_APIError('Failed to decode the response', -1);
 		}
 

@@ -54,6 +54,11 @@ abstract class DataSift_StreamConsumer
 	protected $_is_multi = false;
 
 	/**
+	 * @var bool True if this is a historic consumer
+	 */
+	protected $_is_historic = false;
+
+	/**
 	 * @var array The array of hashes to be consumed if using multi
 	 */
 	protected $_hashes = array();
@@ -111,6 +116,16 @@ abstract class DataSift_StreamConsumer
 		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
 	}
 
+	public static function historicFactory($user, $type, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
+	{
+		$classname = 'DataSift_StreamConsumer_'.$type;
+		if (!class_exists($classname)) {
+			throw new DataSift_Exception_InvalidData('Consumer type "'.$type.'" is unknown');
+		}
+
+		return new $classname($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning, true);
+	}
+
 	/**
 	 * Constructor. Do not use this directly, use the factory method instead.
 	 *
@@ -124,7 +139,7 @@ abstract class DataSift_StreamConsumer
 	 * @throws DataSiftExceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 */
-	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
+	protected function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false, $historic = false)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
@@ -147,6 +162,11 @@ abstract class DataSift_StreamConsumer
 		} elseif ($definition instanceof DataSift_Definition) {
 			// Already a Definition object
 			$this->_definition = $definition;
+		} elseif ($definition instanceof DataSift_Historic) {
+			// Already a Historic object, implements the interface we need
+			$this->_definition = $definition;
+			// Override the historic flag
+			$historic = true;
 		} else {
 			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string, a DataSift_Definition object, or an array of stream hashes.');
 		}
@@ -166,6 +186,9 @@ abstract class DataSift_StreamConsumer
 		if (!$this->_is_multi) {
 			$this->_definition->getHash();
 		}
+
+		// Set whether this is a historic query
+		$this->_is_historic = $historic;
 	}
 
 	/**
@@ -257,6 +280,11 @@ abstract class DataSift_StreamConsumer
 	public function consume($auto_reconnect = true)
 	{
 		$this->_auto_reconnect = $auto_reconnect;
+
+		// If this is a historic, start it
+		if ($this->_is_historic) {
+			$this->_definition->start();
+		}
 
 		// Start consuming
 		$this->_state = self::STATE_STARTING;

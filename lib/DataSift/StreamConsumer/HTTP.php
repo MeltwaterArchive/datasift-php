@@ -142,6 +142,8 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 								case 'error':
 								case 'failure':
 									$this->onError($interaction['message']);
+									// Stop the consumer when an error is received
+									$this->stop();
 									break;
 								case 'warning':
 									$this->onWarning($interaction['message']);
@@ -199,9 +201,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 		// Build the URL and parse it
 		if ($this->_is_multi) {
-			$url = 'http://'.DataSift_User::STREAM_BASE_URL.'multi';
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').'multi';
 		} else {
-			$url = 'http://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash();
+			$url = 'http://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
 		}
 		$url = parse_url($url);
 

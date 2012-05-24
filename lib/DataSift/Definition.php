@@ -363,6 +363,24 @@ class DataSift_Definition
 	}
 
 	/**
+	 * Create a historic based on this CSDL.
+	 *
+	 * @param int    $from  The timestamp from which to start the query.
+	 * @param int    $to    The timestamp at which to end the query.
+	 * @param array  $feeds An array of feed types required.
+	 * @param string $name  An optional name for this historic.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_CompileError
+	 */
+	public function createHistoric($from, $to, $feeds, $name = false)
+	{
+		return new DataSift_Historic($this->_user, $this->getHash(), $from, $to, $feeds, $name);
+	}
+
+	/**
 	 * Returns a DataSift_StreamConsumer-derived object for this definition,
 	 * for the given type.
 	 *

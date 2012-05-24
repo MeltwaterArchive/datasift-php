@@ -243,6 +243,8 @@ class DataSift_User
 
 		switch ($res['response_code']) {
 				case 200:
+				case 202:
+				case 204:
 					$retval = $res['data'];
 					break;
 				case 401:
