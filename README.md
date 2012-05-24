@@ -8,6 +8,8 @@ The unit tests should be run with phpunit.
 
 All examples and tests use the username and API key in config.php.
 
+Note that we use [git flow](https://github.com/nvie/gitflow) to manage development.
+
 Simple example
 --------------
 
@@ -49,6 +51,8 @@ more details.
 
 Changelog
 ---------
+
+* Added the develop branch as required by git flow (2012-05-24)
 
 * v.1.3.0 Improved error handling (2012-03-08)
 
