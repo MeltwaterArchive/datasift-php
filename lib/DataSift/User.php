@@ -29,8 +29,8 @@
 class DataSift_User
 {
 	const USER_AGENT      = 'DataSiftPHP/1.3.0';
-	const API_BASE_URL    = 'api.datasift.com/';
-	const STREAM_BASE_URL = 'stream.datasift.com/';
+	const API_BASE_URL    = 'api.stagingdatasift.com/';
+	const STREAM_BASE_URL = 'stream.stagingdatasift.com/';
 
 	/**
 	 * @var string
@@ -186,9 +186,9 @@ class DataSift_User
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $eventHandler);
 	}
 
 	/**
@@ -202,9 +202,9 @@ class DataSift_User
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this, $type, $hashes, $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
 	}
 
 	/**

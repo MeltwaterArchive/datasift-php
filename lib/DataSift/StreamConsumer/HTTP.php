@@ -94,6 +94,12 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 			// Disconnect and reconnect
 			$this->reconnect();
 
+			// If we successfully connected and we're supposed to be running,
+			// call the onConnect event
+			if ($this->_conn && !feof($this->_conn) && $this->_state == parent::STATE_RUNNING) {
+				$this->onConnect();
+			}
+
 			// Params for stream_select
 			$read   = array($this->_conn);
 			$write  = null;
@@ -131,6 +137,8 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 						// End of the chunk
 						break;
 					}
+
+					echo 'RAW: '.trim($line).PHP_EOL;
 
 					// Decode the JSON
 					$interaction = json_decode(trim($line), true);
@@ -174,6 +182,8 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 					stream_set_blocking($this->_conn, 0);
 				}
 			}
+
+			$this->onDisconnect();
 		} while ($this->_conn && !feof($this->_conn) and $this->_auto_reconnect and $this->_state == parent::STATE_RUNNING);
 
 		// Make sure we're properly disconnected and in a known state
@@ -205,6 +215,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		} else {
 			$url = 'http://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
 		}
+		echo 'URL: '.$url.PHP_EOL;
 		$url = parse_url($url);
 
 		// Fill in some defaults if any required bits are missing
@@ -215,8 +226,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		// Build the request headers
 		$request   = array();
 		$params = array(
-			'api_key'  => $this->_user->getAPIKey(),
-			'username' => $this->_user->getUsername(),
+			'statuses'  => '1',
 		);
 		if ($this->_is_multi) {
 			$params['hashes'] = implode(',', $this->_hashes);
@@ -224,6 +234,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		$request[] = 'GET ' . $url['path'] . '?' . http_build_query($params) . ' HTTP/1.1';
 		$request[] = 'Host: ' . $url['host'];
 		$request[] = 'User-Agent: ' . $this->_user->getUserAgent();
+		$request[] = 'Auth: '.$this->_user->getUsername().':'.$this->_user->getAPIKey();
 		$request[] = 'Accept: */*';
 
 		$connection_delay = 0;
@@ -258,6 +269,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				$line = true;
 				while ($line) {
 					$line = trim(fgets($this->_conn, $this->_max_line_length));
+					echo 'HEADER: '.trim($line).PHP_EOL;
 					$response[] = $line;
 				}
 			}
