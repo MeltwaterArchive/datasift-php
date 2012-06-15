@@ -1,4 +1,8 @@
 <?php
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
 /**
  * This example gets the DPU associated with the stream given on the command
  * line or piped/typed into STDIN. It  presents it in a nice ASCII table.]
