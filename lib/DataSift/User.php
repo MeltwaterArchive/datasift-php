@@ -28,9 +28,9 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/1.3.0';
-	const API_BASE_URL    = 'api.stagingdatasift.com/';
-	const STREAM_BASE_URL = 'stream.stagingdatasift.com/';
+	const USER_AGENT      = 'DataSiftPHP/2.0.0';
+	const API_BASE_URL    = 'api.datasift.com/';
+	const STREAM_BASE_URL = 'stream.datasift.com/';
 
 	/**
 	 * @var string
@@ -41,6 +41,11 @@ class DataSift_User
 	 * @var string
 	 */
 	protected $_api_key = '';
+
+	/**
+	 * @var boolean
+	 */
+	protected $_use_ssl = true;
 
 	/**
 	 * Stores the X-RateLimit-Limit value from the last API call.
@@ -72,7 +77,7 @@ class DataSift_User
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public function __construct($username, $api_key)
+	public function __construct($username, $api_key, $use_ssl = true)
 	{
 		if (strlen(trim($username)) == 0) {
 			throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
@@ -84,6 +89,7 @@ class DataSift_User
 
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
+		$this->_use_ssl  = $use_ssl;
 	}
 
 	/**
@@ -120,6 +126,27 @@ class DataSift_User
 	public function getAPIKey()
 	{
 		return $this->_api_key;
+	}
+
+	/**
+	 * Set whether stream connections should use SSL.
+	 *
+	 * @param bool $enable_ssl Set to true to enable SSL.
+	 *
+	 * @return void
+	 */
+	public function enableSSL($use_ssl = true)
+	{
+		$this->_use_ssl = $use_ssl;
+	}
+
+	/**
+	 * Returns whether SSL should be used where supported.
+	 * 
+	 * @return bool True if SSL should be used.
+	 */
+	public function useSSL() {
+		return $this->_use_ssl;
 	}
 
 	/**

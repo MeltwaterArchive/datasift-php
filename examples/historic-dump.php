@@ -88,6 +88,36 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
+	 * Called when a status message is received.
+	 *
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param string                  $type        The status type.
+	 * @param array                   $info        The data sent with the
+	 *                                             status message.
+	 */
+	public function onStatus($consumer, $type, $info)
+	{
+		switch ($type) {
+			case 'initialised':
+			case 'connected':
+				// Ignored
+				break;
+
+			case 'info':
+				if (isset($info['progress'])) {
+					echo $info['progress'].'% complete'.PHP_EOL;
+					break;
+				}
+				// Deliberate fall-through
+
+			default:
+				echo 'STATUS: '.$type.PHP_EOL;
+				break;
+		}
+	}
+
+	/**
 	 * Called when a warning occurs or is received down the stream.
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer object.

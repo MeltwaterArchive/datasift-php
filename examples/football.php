@@ -29,7 +29,9 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	/**
 	 * Called when the stream is connected.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
+	 *
+	 * @return void
 	 */
 	public function onConnect($consumer)
 	{
@@ -37,10 +39,15 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
-	 * Handle incoming data.
+	 * Called for each interaction consumed.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
-	 * @param array $interaction The interaction data.
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param array                   $interaction The interaction data.
+	 * @param string                  $hash        The hash of the stream that
+	 *                                             matched this interaction.
+	 *
+	 * @return void
 	 */
 	public function onInteraction($consumer, $interaction, $hash)
 	{
@@ -55,10 +62,15 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
-	 * Handle DELETE requests.
+	 * Called for each deletion notification consumed.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
-	 * @param array $interaction The interaction data.
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param array                   $interaction The interaction data.
+	 * @param string                  $hash        The hash of the stream that
+	 *                                             matched this interaction.
+	 *
+	 * @return void
 	 */
 	public function onDeleted($consumer, $interaction, $hash)
 	{
@@ -68,10 +80,30 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
+	 * Called when a status message is received.
+	 *
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param string                  $type        The status type.
+	 * @param array                   $info        The data sent with the
+	 *                                             status message.
+	 */
+	public function onStatus($consumer, $type, $info)
+	{
+		switch ($type) {
+			default:
+				echo 'STATUS: '.$type.PHP_EOL;
+				break;
+		}
+	}
+
+	/**
 	 * Called when a warning occurs or is received down the stream.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
 	 * @param string $message The warning message.
+	 *
+	 * @return void
 	 */
 	public function onWarning($consumer, $message)
 	{
@@ -79,10 +111,12 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
-	 * Called when a error occurs or is received down the stream.
+	 * Called when an error occurs or is received down the stream.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param DataSift_StreamConsumer consumer The consumer sending the event.
 	 * @param string $message The error message.
+	 *
+	 * @return void
 	 */
 	public function onError($consumer, $message)
 	{
@@ -92,7 +126,9 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	/**
 	 * Called when the stream is disconnected.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
+	 *
+	 * @return void
 	 */
 	public function onDisconnect($consumer)
 	{
@@ -100,10 +136,12 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	}
 
 	/**
-	 * Called when the consumer has stopped.
+	 * Called when the consumer stops for some reason.
 	 *
-	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param DataSift_StreamConsumer consumer The consumer sending the event.
 	 * @param string $reason The reason the consumer stopped.
+	 *
+	 * @return void
 	 */
 	public function onStopped($consumer, $reason)
 	{

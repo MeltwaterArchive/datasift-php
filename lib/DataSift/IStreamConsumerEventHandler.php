@@ -62,6 +62,19 @@ interface DataSift_IStreamConsumerEventHandler
 	public function onDeleted($consumer, $interaction, $hash);
 
 	/**
+	 * Called for each status message received.
+	 *
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param string                  $type        The status type.
+	 * @param array                   $info        The data sent with the
+	 *                                             status message.
+	 *
+	 * @return void
+	 */
+	public function onStatus($consumer, $type, $info);
+
+	/**
 	 * Called when a warning occurs or is received down the stream.
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.

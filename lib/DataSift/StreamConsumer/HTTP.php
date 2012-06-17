@@ -56,18 +56,16 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 *
 	 * @param DataSift_User $user          The authenticated user
 	 * @param mixed         $definition    CSDL string, Definition object, or array of hashes
-	 * @param mixed         $onInteraction A function name or array(class/object, method)
-	 * @param mixed         $onStopped     A function name or array(class/object, method)
-	 * @param mixed         $onDeleted     A function name or array(class/object, method)
+	 * @param mixed         $eventHandler  An object that implements IStreamConsumerEventHandler
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 * @see DataSift_StreamConsumer::__construct
 	 */
-	public function __construct($user, $definition, $onInteraction = false, $onStopped = false, $onDeleted = false, $onError = false, $onWarning = false)
+	public function __construct($user, $definition, $eventHandler)
 	{
-		parent::__construct($user, $definition, $onInteraction, $onStopped, $onDeleted, $onError, $onWarning);
+		parent::__construct($user, $definition, $eventHandler);
 	}
 
 	/**
@@ -138,8 +136,6 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 						break;
 					}
 
-					echo 'RAW: '.trim($line).PHP_EOL;
-
 					// Decode the JSON
 					$interaction = json_decode(trim($line), true);
 
@@ -157,7 +153,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 									$this->onWarning($interaction['message']);
 									break;
 								default:
-									// Ticks
+									$type = $interaction['status'];
+									unset($interaction['status']);
+									$this->onStatus($type, $interaction);
 									break;
 							}
 						} else {
@@ -210,10 +208,11 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		$this->_state = parent::STATE_STARTING;
 
 		// Build the URL and parse it
+		$protocol = 'http'.($this->_user->useSSL() ? 's' : '');
 		if ($this->_is_multi) {
-			$url = 'http://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').'multi';
+			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').'multi';
 		} else {
-			$url = 'http://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
+			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
 		}
 		echo 'URL: '.$url.PHP_EOL;
 		$url = parse_url($url);
@@ -224,9 +223,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		}
 
 		// Build the request headers
-		$request   = array();
+		$request = array();
 		$params = array(
-			'statuses'  => '1',
+			'statuses'  => 'true',
 		);
 		if ($this->_is_multi) {
 			$params['hashes'] = implode(',', $this->_hashes);
@@ -269,7 +268,6 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 				$line = true;
 				while ($line) {
 					$line = trim(fgets($this->_conn, $this->_max_line_length));
-					echo 'HEADER: '.trim($line).PHP_EOL;
 					$response[] = $line;
 				}
 			}

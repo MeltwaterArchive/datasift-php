@@ -41,7 +41,7 @@ class DataSift_ApiClient
 	{
 		// Curl is required
 		if (!function_exists('curl_init')) {
-			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_User::callAPI');
+			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_ApiClient');
 		}
 
 		// Build the full endpoint URL

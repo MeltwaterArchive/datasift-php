@@ -216,6 +216,19 @@ abstract class DataSift_StreamConsumer
 	}
 
 	/**
+	 * Called for each status message received from the stream.
+	 *
+	 * @param string $type The status type.
+	 * @param array  $info The data received along with the status message.
+	 *
+	 * @return void
+	 */
+	protected function onStatus($type, $info = array())
+	{
+		$this->_eventHandler->onStatus($this, $type, $info);
+	}
+
+	/**
 	 * This is called when an error notification is received on a stream
 	 * connection.
 	 *
