@@ -203,6 +203,16 @@ class DataSift_User
 	}
 
 	/**
+	 * Creates and returns a new Push_Definition object.
+	 *
+	 * @return DataSift_Push_Definition
+	 */
+	public function createPushDefinition()
+	{
+		return new DataSift_Push_Definition($this);
+	}
+
+	/**
 	 * Returns a DataSift_StreamConsumer-derived object for the given hash,
 	 * for the given type.
 	 *
@@ -232,6 +242,51 @@ class DataSift_User
 	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $eventHandler)
 	{
 		return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
+	}
+
+    /**
+     * Get a single push subscription.
+     * 
+     * @param string $id The ID of the subscription to fetch.
+     * @return DataSift_Push_Subscription
+     * @throws DataSift_Exception_InvalidData 
+     * @throws DataSift_Exception_AccessDenied 
+     * @throws DataSift_Exception_APIError 
+     */
+    public function getPushSubscription($id)
+    {
+    	return DataSift_Push_Subscription::get($this, $id);
+    }
+    
+	/**
+	 * Get a list of push subscriptions in your account.
+	 * 
+	 * @return array Of DataSift_Push_Subscription objects.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function listPushSubscriptions($page = 1, $per_page = 100, $order_by = DataSift_Push_Subscription::ORDERBY_CREATED_AT, $order_dir = DataSift_Push_Subscription::ORDERDIR_ASC, $include_finished = false)
+	{
+		return DataSift_Push_Subscription::listSubscriptions($this, $page, $per_page, $order_by, $order_dir, $include_finished);
+	}
+
+	/**
+	 * Page throu gh recent push subscription log entries, specifying the sort
+	 * order.
+	 * 
+	 * @param int    page      Which page to fetch.
+	 * @param int    per_page  Based on this page size.
+	 * @param String order_by  Which field to sort by.
+	 * @param String order_dir In asc[ending] or desc[ending] order.
+	 * @return ArrayList<LogEntry>
+	 * @throws DataSift_Exception_AccessDenied 
+	 * @throws DataSift_Exception_InvalidData 
+	 * @throws DataSift_Exception_APIError 
+	 */
+	public function getPushSubscriptionLogs($page = 1, $per_page = 100, $order_by = DataSift_Push_Subscription::ORDERBY_REQUEST_TIME, $order_dir = DataSift_Push_Subscription::ORDERDIR_DESC)
+	{
+		return DataSift_Push_Subscription::getLogs($this, $page, $per_page, $order_by, $order_dir);
 	}
 
 	/**

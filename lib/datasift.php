@@ -25,12 +25,6 @@ if (function_exists('spl_autoload_register')) {
 	assert(spl_autoload_register('datasift_autoloader'));
 } else {
 	$datasift_classes = array(
-		'DataSift_User',
-		'DataSift_ApiClient',
-		'DataSift_Definition',
-		'DataSift_IStreamConsumerEventHandler',
-		'DataSift_StreamConsumer',
-		'DataSift_StreamConsumer_HTTP',
 		'DataSift_Exception_AccessDenied',
 		'DataSift_Exception_APIError',
 		'DataSift_Exception_CompileFailed',
@@ -38,6 +32,16 @@ if (function_exists('spl_autoload_register')) {
 		'DataSift_Exception_NotYetImplemented',
 		'DataSift_Exception_RateLimitExceeded',
 		'DataSift_Exception_StreamError',
+		'DataSift_Push_Definition',
+		'DataSift_Push_LogEntry',
+		'DataSift_Push_Subscription',
+		'DataSift_StreamConsumer_HTTP',
+		'DataSift_ApiClient',
+		'DataSift_Definition',
+		'DataSift_Historic',
+		'DataSift_IStreamConsumerEventHandler',
+		'DataSift_StreamConsumer',
+		'DataSift_User',
 	);
 
 	foreach ($datasift_classes as $class) {

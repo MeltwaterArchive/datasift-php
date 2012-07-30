@@ -118,11 +118,9 @@ abstract class DataSift_StreamConsumer
 	/**
 	 * Constructor. Do not use this directly, use the factory method instead.
 	 *
-	 * @param DataSift_User $user          The user this consumer will run as.
-	 * @param mixed         $definition    CSDL string, a Definition object, or an array of hashes.
-	 * @param string        $onInteraction The function to be called for each interaction.
-	 * @param string        $onStopped     The function to be called when the consumer stops.
-	 * @param string        $onDeleted     The function to be called for each DELETE request.
+	 * @param DataSift_User                        $user         The user this consumer will run as.
+	 * @param mixed                                $definition   CSDL string, a Definition object, or an array of hashes.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSiftExceotion_CompileFailed
@@ -177,6 +175,53 @@ abstract class DataSift_StreamConsumer
 
 		// Set whether this is a historic query
 		$this->_is_historic = $historic;
+	}
+
+	/**
+	 * This is called when a complete JSON item is received.
+	 *
+	 * @param $json The JSON data.
+	 * @return void
+	 */
+	protected function onData($json)
+	{
+		// Decode the JSON
+		$interaction = json_decode(trim($json), true);
+
+		// If the interaction is valid, pass it to the event handler
+		if ($interaction) {
+			if (isset($interaction['status'])) {
+				switch ($interaction['status']) {
+					case 'error':
+					case 'failure':
+						$this->onError($interaction['message']);
+						// Stop the consumer when an error is received
+						$this->stop();
+						break;
+					case 'warning':
+						$this->onWarning($interaction['message']);
+						break;
+					default:
+						$type = $interaction['status'];
+						unset($interaction['status']);
+						$this->onStatus($type, $interaction);
+						break;
+				}
+			} else {
+				// Extract the hash and the data if present
+				$hash = false;
+				if (isset($interaction['hash'])) {
+					$hash = $interaction['hash'];
+					$interaction = $interaction['data'];
+				}
+				// Ignore ticks and handle delete requests
+				if (!empty($interaction['deleted'])) {
+					$this->onDeleted($interaction, $hash);
+				} else if (!empty($interaction['interaction'])) {
+					$this->onInteraction($interaction, $hash);
+				}
+			}
+		}
 	}
 
 	/**
@@ -288,11 +333,6 @@ abstract class DataSift_StreamConsumer
 	public function consume($auto_reconnect = true)
 	{
 		$this->_auto_reconnect = $auto_reconnect;
-
-		// If this is a historic, start it
-		if ($this->_is_historic) {
-			$this->_definition->start();
-		}
 
 		// Start consuming
 		$this->_state = self::STATE_STARTING;

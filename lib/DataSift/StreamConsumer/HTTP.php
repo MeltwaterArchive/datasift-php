@@ -136,43 +136,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 						break;
 					}
 
-					// Decode the JSON
-					$interaction = json_decode(trim($line), true);
-
-					// If the interaction is valid, pass it to the event handler
-					if ($interaction) {
-						if (isset($interaction['status'])) {
-							switch ($interaction['status']) {
-								case 'error':
-								case 'failure':
-									$this->onError($interaction['message']);
-									// Stop the consumer when an error is received
-									$this->stop();
-									break;
-								case 'warning':
-									$this->onWarning($interaction['message']);
-									break;
-								default:
-									$type = $interaction['status'];
-									unset($interaction['status']);
-									$this->onStatus($type, $interaction);
-									break;
-							}
-						} else {
-							// Extract the hash and the data if present
-							$hash = false;
-							if (isset($interaction['hash'])) {
-								$hash = $interaction['hash'];
-								$interaction = $interaction['data'];
-							}
-							// Ignore ticks and handle delete requests
-							if (!empty($interaction['deleted'])) {
-								$this->onDeleted($interaction, $hash);
-							} else if (!empty($interaction['interaction'])) {
-								$this->onInteraction($interaction, $hash);
-							}
-						}
-					}
+					$this->onData($line);
 				}
 
 				// Set the stream as non-blocking
@@ -214,7 +178,6 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		} else {
 			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
 		}
-		echo 'URL: '.$url.PHP_EOL;
 		$url = parse_url($url);
 
 		// Fill in some defaults if any required bits are missing

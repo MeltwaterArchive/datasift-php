@@ -66,12 +66,14 @@ class DataSift_Historic
 	protected $_name = false;
 
 	/**
-	 * Constructor. A DataSift_User object is required, and you can optionally
-	 * supply a default definition string.
+	 * Constructor.
 	 *
-	 * @param DataSift_User $user The user object.
-	 * @param string        $csdl An optional default definition string.
-	 * @param string        $hash An optional hash for the passed definition.
+	 * @param DataSift_User $user  The user object.
+	 * @param string        $hash  The stream hash for the query.
+	 * @param int           $start The start timestamp.
+	 * @param int           $end   The end timestamp.
+	 * @param array         $feeds The interaction types to match.
+	 * @param string        $name  An optional name for this query.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
@@ -160,7 +162,7 @@ class DataSift_Historic
 	}
 
 	/**
-	 * Call the DataSift API to prepare this history query.
+	 * Call the DataSift API to prepare this historic query.
 	 *
 	 * @return void
 	 * @throws DataSift_Exception_APIError
@@ -257,8 +259,8 @@ class DataSift_Historic
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $eventHandler)
 	{
-		return DataSift_StreamConsumer::historicFactory($this->_user, $type, $this, $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::historicFactory($this->_user, $type, $this, $eventHandler);
 	}
 }

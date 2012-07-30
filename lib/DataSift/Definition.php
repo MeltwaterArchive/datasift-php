@@ -390,8 +390,8 @@ class DataSift_Definition
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $eventHandler);
 	}
 }

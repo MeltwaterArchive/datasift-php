@@ -1,0 +1,36 @@
+<?php
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
+/**
+ * This script lists push subscriptions in your account.
+ *
+ * NB: Most of the error handling (exception catching) has been removed for
+ * the sake of simplicity. Nearly everything in this library may throw
+ * exceptions, and production code should catch them. See the documentation
+ * for full details.
+ */
+
+// Include the shared convenience class
+require dirname(__FILE__).'/env.php';
+
+// Create the env object. This reads the command line arguments, creates the
+// user object, and provides access to both along with helper functions
+$env = new Env();
+
+// Get subscriptions
+try {
+	$subscriptions = $env->user->listPushSubscriptions();
+
+	if (count($subscriptions['subscriptions']) == 0) {
+		echo 'No subscriptions exist in your account.'.PHP_EOL;
+	} else {
+		foreach ($subscriptions['subscriptions'] as $sub) {
+			$env->displaySubscriptionDetails($sub);
+			echo '--'.PHP_EOL;
+		}
+	}
+} catch (Exception $e) {
+	echo 'ERR: '.$e->getMessage().PHP_EOL;
+}
