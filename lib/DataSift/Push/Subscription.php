@@ -38,19 +38,20 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	const STATUS_STOPPED   = 'stopped';
 	const STATUS_FINISHING = 'finishing';
 	const STATUS_FINISHED  = 'finished';
+	const STATUS_FAILED    = 'failed';
 	const STATUS_DELETED   = 'deleted';
 	
 	/**
 	 * Order by constants.
 	 */
-	const ORDERBY_ID = 'id';
-	const ORDERBY_CREATED_AT = 'created_at';
+	const ORDERBY_ID           = 'id';
+	const ORDERBY_CREATED_AT   = 'created_at';
 	const ORDERBY_REQUEST_TIME = 'request_time';
 	
 	/**
 	 * Order direction constants.
 	 */
-	const ORDERDIR_ASC = 'asc';
+	const ORDERDIR_ASC  = 'asc';
 	const ORDERDIR_DESC = 'desc';
 	
 	/**
@@ -192,7 +193,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
     	$params = array();
 
 		if ($id !== false && strlen($id) > 0) {
-			$$pparams['id'] = $id;
+			$params['id'] = $id;
 		}
 		$params['page'] = $page;
 		$params['per_page'] = $per_page;
@@ -349,7 +350,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	}
 	
 	/**
-	 * Re-fetch this subscription from the DataSift API.
+	 * Re-fetch this subscription from the API.
 	 *  
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -407,7 +408,8 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	}
 
 	/**
-	 * Get the current status of this subscription.
+	 * Get the current status of this subscription. Make sure you call reload
+	 * to get the latest data for this subscription first.
 	 * 
 	 * @return string
 	 * @see self::STATUS_*

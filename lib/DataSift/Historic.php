@@ -58,7 +58,7 @@ class DataSift_Historic
 	/**
 	 * @var string
 	 */
-	protected $_feeds = array();
+	protected $_sources = array();
 
 	/**
 	 * @var array
@@ -68,16 +68,16 @@ class DataSift_Historic
 	/**
 	 * Constructor.
 	 *
-	 * @param DataSift_User $user  The user object.
-	 * @param string        $hash  The stream hash for the query.
-	 * @param int           $start The start timestamp.
-	 * @param int           $end   The end timestamp.
-	 * @param array         $feeds The interaction types to match.
-	 * @param string        $name  An optional name for this query.
+	 * @param DataSift_User $user    The user object.
+	 * @param string        $hash    The stream hash for the query.
+	 * @param int           $start   The start timestamp.
+	 * @param int           $end     The end timestamp.
+	 * @param array         $sources The interaction types to match.
+	 * @param string        $name    A name for this query.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public function __construct($user, $hash, $start, $end, $feeds, $name = false)
+	public function __construct($user, $hash, $start, $end, $sources, $name)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData(
@@ -109,21 +109,17 @@ class DataSift_Historic
 			);
 		}
 
-		if (empty($feeds) || !is_array($feeds)) {
+		if (empty($sources) || !is_array($sources)) {
 			throw new DataSift_Exception_InvalidData(
-				'Please supply a valid array of feeds types.'
+				'Please supply a valid array of sources.'
 			);
-		}
-
-		if ($name === false) {
-			$name = tempnam('', 'historic_');
 		}
 
 		$this->_user = $user;
 		$this->_hash = $hash;
 		$this->_start = $start;
 		$this->_end = $end;
-		$this->_feeds = $feeds;
+		$this->_sources = $sources;
 		$this->_name = $name;
 	}
 
@@ -182,7 +178,7 @@ class DataSift_Historic
 					'start' => $this->_start,
 					'end' => $this->_end,
 					'name' => $this->_name,
-					'feed' => implode(',', $this->_feeds),
+					'sources' => implode(',', $this->_sources),
 				)
 			);
 
@@ -221,7 +217,7 @@ class DataSift_Historic
 	public function start()
 	{
 		if ($this->_playback_id === false || strlen($this->_playback_id) == 0) {
-			throw new DataSift_Exception_InvalidData('Cannot start a historic that hasn\'t been prepared.');
+			throw new DataSift_Exception_InvalidData('Cannot start a historic query that hasn\'t been prepared.');
 		}
 
 		try {
@@ -250,16 +246,17 @@ class DataSift_Historic
 	}
 
 	/**
-	 * Returns a DataSift_StreamConsumer-derived object for this definition,
+	 * Returns a DataSift_StreamConsumer-derived object for this historic,
 	 * for the given type.
 	 *
-	 * @param string $type The consumer type for which to construct a consumer.
+	 * @param string                      $type         The consumer type for which to construct a consumer.
+	 * @param IStreamConsumerEventHandler $eventHandler The object that will handle events.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $eventHandler)
+	public function getConsumer($type, $eventHandler)
 	{
 		return DataSift_StreamConsumer::historicFactory($this->_user, $type, $this, $eventHandler);
 	}

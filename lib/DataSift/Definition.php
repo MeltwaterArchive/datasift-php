@@ -365,19 +365,19 @@ class DataSift_Definition
 	/**
 	 * Create a historic based on this CSDL.
 	 *
-	 * @param int    $from  The timestamp from which to start the query.
-	 * @param int    $to    The timestamp at which to end the query.
-	 * @param array  $feeds An array of feed types required.
-	 * @param string $name  An optional name for this historic.
+	 * @param int    $start   The timestamp from which to start the query.
+	 * @param int    $end     The timestamp at which to end the query.
+	 * @param array  $sources An array of sources required.
+	 * @param string $name    An optional name for this historic.
 	 *
 	 * @return DataSift_Historic
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_CompileError
 	 */
-	public function createHistoric($from, $to, $feeds, $name = false)
+	public function createHistoric($start, $end, $sources, $name = false)
 	{
-		return new DataSift_Historic($this->_user, $this->getHash(), $from, $to, $feeds, $name);
+		return new DataSift_Historic($this->_user, $this->getHash(), $start, $end, $sources, $name);
 	}
 
 	/**
