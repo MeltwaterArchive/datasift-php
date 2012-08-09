@@ -244,20 +244,4 @@ class DataSift_Historic
 			}
 		}
 	}
-
-	/**
-	 * Returns a DataSift_StreamConsumer-derived object for this historic,
-	 * for the given type.
-	 *
-	 * @param string                      $type         The consumer type for which to construct a consumer.
-	 * @param IStreamConsumerEventHandler $eventHandler The object that will handle events.
-	 *
-	 * @return DataSift_StreamConsumer The consumer object.
-	 * @throws DataSift_Exception_InvalidData
-	 * @see DataSift_StreamConsumer
-	 */
-	public function getConsumer($type, $eventHandler)
-	{
-		return DataSift_StreamConsumer::historicFactory($this->_user, $type, $this, $eventHandler);
-	}
 }

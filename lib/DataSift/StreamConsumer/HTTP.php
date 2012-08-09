@@ -174,9 +174,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 		// Build the URL and parse it
 		$protocol = 'http'.($this->_user->useSSL() ? 's' : '');
 		if ($this->_is_multi) {
-			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').'multi';
+			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.'multi';
 		} else {
-			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.($this->_is_historic ? 'historics/' : '').$this->_definition->getHash();
+			$url = $protocol.'://'.DataSift_User::STREAM_BASE_URL.$this->_definition->getHash();
 		}
 		$url = parse_url($url);
 

@@ -54,11 +54,6 @@ abstract class DataSift_StreamConsumer
 	protected $_is_multi = false;
 
 	/**
-	 * @var bool True if this is a historic consumer
-	 */
-	protected $_is_historic = false;
-
-	/**
 	 * @var array The array of hashes to be consumed if using multi
 	 */
 	protected $_hashes = array();
@@ -95,27 +90,6 @@ abstract class DataSift_StreamConsumer
 	}
 
 	/**
-	 * Factory function for historic streams. Creates a StreamConsumer-derived
-	 * object for the given type.
-	 *
-	 * @param string $type         Use the TYPE_ constants
-	 * @param mixed  $definition   CSDL string or a Definition object.
-	 * @param string $eventHandler The object that will receive events.
-	 *
-	 * @return DataSift_StreamConsumer The consumer object
-	 * @throws DataSift_Exception_InvalidData
-	 */
-	public static function historicFactory($user, $type, $definition, $eventHandler)
-	{
-		$classname = 'DataSift_StreamConsumer_'.$type;
-		if (!class_exists($classname)) {
-			throw new DataSift_Exception_InvalidData('Consumer type "'.$type.'" is unknown');
-		}
-
-		return new $classname($user, $definition, $eventHandler, true);
-	}
-
-	/**
 	 * Constructor. Do not use this directly, use the factory method instead.
 	 *
 	 * @param DataSift_User                        $user         The user this consumer will run as.
@@ -126,7 +100,7 @@ abstract class DataSift_StreamConsumer
 	 * @throws DataSiftExceotion_CompileFailed
 	 * @throws DataSift_Exception_APIError
 	 */
-	protected function __construct($user, $definition, $eventHandler, $historic = false)
+	protected function __construct($user, $definition, $eventHandler)
 	{
 		if (!($user instanceof DataSift_User)) {
 			throw new DataSift_Exception_InvalidData('Please supply a valid DataSift_User object when creating a DataSift_StreamConsumer object.');
@@ -149,11 +123,6 @@ abstract class DataSift_StreamConsumer
 		} elseif ($definition instanceof DataSift_Definition) {
 			// Already a Definition object
 			$this->_definition = $definition;
-		} elseif ($definition instanceof DataSift_Historic) {
-			// Already a Historic object, implements the interface we need
-			$this->_definition = $definition;
-			// Override the historic flag
-			$historic = true;
 		} else {
 			throw new DataSift_Exception_InvalidData('The definition must be a CSDL string, a DataSift_Definition object, or an array of stream hashes.');
 		}
@@ -172,9 +141,6 @@ abstract class DataSift_StreamConsumer
 		if (!$this->_is_multi) {
 			$this->_definition->getHash();
 		}
-
-		// Set whether this is a historic query
-		$this->_is_historic = $historic;
 	}
 
 	/**
