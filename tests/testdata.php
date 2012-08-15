@@ -1,6 +1,6 @@
 <?php
 
-function testdata($var)
+function testdata($var1, $var2 = false)
 {
 	static $_data = array(
 		'definition' => 'interaction.content contains "datasift"',
@@ -8,31 +8,68 @@ function testdata($var)
 
 		'invalid_definition' => 'interactin.content contains "datasift"',
 
-		'stream_id' => 10121,
-		'stream_name' => 'DataSift API Test',
-		'stream_description' => 'This stream is used by the official DataSift API tests.',
-
-		'stream_versions' => array(
-				1 => array(
-						'message' => '',
-						'definition' => 'interaction.content contains "datasift"',
-						'definition_hash' => '947b690ec9dca525fb8724645e088d79',
-						'created_at' => 1305817598,
+		'historic_playback_id'	=> 'b665761917bbcb7afd3105761917bbcb',
+		'historic_name'			=> 'my historic',
+		'historic_start_date'	=> 1335869526,
+		'historic_end_date'		=> 1335870126,
+		'historic_sources'		=> array('twitter', 'facebook'),
+		'historic_sample'		=> 1.56,
+		'historic_id'			=> '4ef7c852a96d6352764f',
+		'historic_dpus'			=> 2334.6916666667,
+		'historic_status'		=> 'queued',
+		'historic_availability' => array(
+			'start' => 12345678,
+			'end' => 124356376,
+			'sources' => array(
+				'twitter' => array(
+					'status' => '99%',
+					'versions' => [3],
+					'augmentations' => array(
+						'klout' => '50%',
+						'links' => '100%' 
 					),
-				2 => array(
-						'message' => 'Added Klout score condition.',
-						'definition' => 'interaction.content contains "datasift" and klout.score > 50',
-						'definition_hash' => '2554e156165157ff7a55879615756f49',
-						'created_at' => 1305927524,
+				),
+				'facebook' => array(
+					'status' => '99%',
+					'versions' => [2,3],
+					'augmentations' => array(
+						'links' => '95%' 
 					),
-				3 => array(
-						'message' => 'Removed the Klout score condition.',
-						'definition' => 'interaction.content contains "datasift"',
-						'definition_hash' => '947b690ec9dca525fb8724645e088d79',
-						'created_at' => 1305927551,
-					),
+				),
 			),
-		);
+		),
 
-	return (isset($_data[$var]) ? $_data[$var] : null);
+		'push_id'					=> 'b665761917bbcb7afd3102b4a645b41e',
+		'push_created_at'			=> 1335869526,
+		'push_hash_stream_type'		=> 'stream',
+		'push_hash_historic_type'	=> 'historic',
+		'push_hash'					=> '947b690ec9dca525fb8724645e088d79',
+		'push_hash_type'			=> 'stream',
+		'push_name'					=> 'mypush',
+		'push_status'				=> 'active',
+		'push_output_type'			=> 'http',
+		'push_output_params'		=> array(
+			'delivery_frequency'	=> 10,
+			'url'					=> 'http://www.example.com/push_endpoint',
+			'auth.type'				=> 'basic',
+			'auth.username'			=> 'frood',
+			'auth.password'			=> 'towel42',
+		),
+		'push_last_request'			=> 1343121477,
+		'push_last_success'			=> 1343121477,
+	);
+
+	if ($var2 !== false) {
+		if (isset($_data[$var1][$var2])) {
+			return $_data[$var1][$var2];
+		} else {
+			throw new Exception('Undefined testdata: '.$var1.' => '.$var2);
+		}
+	} else {
+		if (isset($_data[$var1])) {
+			return $_data[$var1];
+		} else {
+			throw new Exception('Undefined testdata: '.$var1);
+		}
+	}
 }

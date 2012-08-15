@@ -19,7 +19,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 
 	public function testConstruction()
 	{
-		$def = new DataSift_Definition($this->user);
+		$def = $this->user->createDefinition();
 
 		$this->assertInstanceOf(
 			'DataSift_Definition',
@@ -32,7 +32,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 
 	public function testConstructionWithDefinition()
 	{
-		$def = new DataSift_Definition($this->user, testdata('definition'));
+		$def = $this->user->createDefinition(testdata('definition'));
 
 		$this->assertInstanceOf(
 			'DataSift_Definition',
@@ -383,7 +383,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		$def = new DataSift_Definition($this->user, testdata('definition'));
 		$this->assertEquals($def->get(), testdata('definition'));
 
-		$consumer = $def->getConsumer();
+		$consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, new DummyEventHandler());
 		$this->assertInstanceOf(
 			'DataSift_StreamConsumer',
 			$consumer,
@@ -420,4 +420,17 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 			$this->fail('Unhandled exception: '.$e->getMessage().' ('.$e->getCode().')');
 		}
 	}
+}
+
+require_once dirname(__FILE__) . '/../lib/DataSift/IStreamConsumerEventHandler.php';
+class DummyEventHandler implements DataSift_IStreamConsumerEventHandler
+{
+	public function onConnect($consumer) { }
+	public function onInteraction($consumer, $interaction, $hash) { }
+	public function onDeleted($consumer, $interaction, $hash) { }
+	public function onStatus($consumer, $type, $info) { }
+	public function onWarning($consumer, $message) { }
+	public function onError($consumer, $message) { }
+	public function onDisconnect($consumer) { }
+	public function onStopped($consumer, $reason) { }
 }

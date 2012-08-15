@@ -1,6 +1,6 @@
 <?php
 /**
- * This script lists push subscriptions in your account.
+ * This script lists Historics queries in your account.
  *
  * NB: Most of the error handling (exception catching) has been removed for
  * the sake of simplicity. Nearly everything in this library may throw
@@ -15,15 +15,15 @@ require dirname(__FILE__).'/env.php';
 // user object, and provides access to both along with helper functions
 $env = new Env();
 
-// Get subscriptions
+// Get historics
 try {
-	$subscriptions = $env->user->listPushSubscriptions();
+	$historics = $env->user->listHistorics();
 
-	if (count($subscriptions['subscriptions']) == 0) {
-		echo 'No subscriptions exist in your account.'.PHP_EOL;
+	if (count($historics['historics']) == 0) {
+		echo 'No Historics exist in your account.'.PHP_EOL;
 	} else {
-		foreach ($subscriptions['subscriptions'] as $sub) {
-			$env->displaySubscriptionDetails($sub);
+		foreach ($historics['historics'] as $sub) {
+			$env->displayHistoricDetails($sub);
 			echo '--'.PHP_EOL;
 		}
 	}

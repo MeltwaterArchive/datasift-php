@@ -62,8 +62,8 @@ class DataSift_User
 	protected $_rate_limit_remaining = -1;
 
 	/**
-	 * The class to use as the API client
-	 *.
+	 * The class to use as the API client.
+	 *
 	 * @var string
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
@@ -182,10 +182,6 @@ class DataSift_User
 	{
 		$retval = false;
 
-		if (!in_array($period, array('hour', 'day'))) {
-			throw new DataSift_Exception_InvalidData('The period parameter must be either "hour" or "day"!');
-		}
-
 		$retval = $this->callAPI('usage', array('period' => $period));
 		return $retval;
 	}
@@ -200,6 +196,55 @@ class DataSift_User
 	public function createDefinition($definition = '')
 	{
 		return new DataSift_Definition($this, $definition);
+	}
+
+	/**
+	 * Create a historic query based on a stream hash.
+	 *
+	 * @param string $hash    The stream hash.
+	 * @param int    $start   The timestamp from which to start the query.
+	 * @param int    $end     The timestamp at which to end the query.
+	 * @param array  $sources An array of sources required.
+	 * @param string $name    A friendly name for this query.
+	 * @param float  $name    An optional sample rate for this query.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 */
+	public function createHistoric($hash, $start, $end, $sources, $name, $sample = DataSift_Historic::DEFAULT_SAMPLE)
+	{
+		return new DataSift_Historic($this, $hash, $start, $end, $sources, $name, $sample);
+	}
+
+	/**
+	 * Get an existing historic from the API.
+	 *
+	 * @param string $playback_id The historic playback ID.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function getHistoric($playback_id)
+	{
+		return new DataSift_Historic($this, $playback_id);
+	}
+
+	/**
+	 * Get a list of Historics queries in your account.
+	 *
+	 * @param int $page The page number to get.
+	 * @param int $per_page The number of items per page.
+	 *
+	 * @return array Of DataSift_Historic objects.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function listHistorics($page = 1, $per_page = 20)
+	{
+		return DataSift_Historic::listHistorics($this, $page, $per_page);
 	}
 
 	/**
@@ -332,6 +377,11 @@ class DataSift_User
 				case 401:
 					throw new DataSift_Exception_AccessDenied(
 						empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
+					);
+				case 413:
+					// Request Too Large
+					throw new DataSift_Exception_APIError(
+						'The API request contained too much data - try reducing the size of your CSDL'
 					);
 				case 403:
 					if ($this->_rate_limit_remaining == 0) {

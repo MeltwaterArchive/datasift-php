@@ -1,8 +1,4 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
-
 /**
  * This script displays push subscription logs from your account.
  *
@@ -53,5 +49,5 @@ try {
 			die('Only one subscription ID can be specified!'.PHP_EOL);
 	}
 } catch (Exception $e) {
-	echo $e->getMessage().PHP_EOL;
+	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }

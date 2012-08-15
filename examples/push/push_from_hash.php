@@ -1,8 +1,4 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
-
 /**
  * This script lists push subscriptions in your account.
  *
@@ -61,7 +57,7 @@ try {
 	// Display the details of the new subscription
 	$env->displaySubscriptionDetails($push_sub);
 } catch (Exception $e) {
-	echo 'ERR: '.$e->getMessage().PHP_EOL;
+	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
 function usage($message = '', $exit = true)

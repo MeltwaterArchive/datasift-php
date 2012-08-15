@@ -1,8 +1,4 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
-
 /**
  * This script lists push subscriptions in your account.
  *
@@ -30,8 +26,8 @@ $start_date    = $env->args[1];
 $end_date      = $env->args[2];
 $sources       = $env->args[3];
 $sample        = $env->args[4];
-$output_type   = $env->args[5];
-$name          = $env->args[6];
+$name          = $env->args[5];
+$output_type   = $env->args[6];
 
 // The rest of the args will be output parameters, and we'll use them later
 
@@ -58,18 +54,18 @@ if (!$csdl) {
 $stream_definition = $env->user->createDefinition($csdl);
 
 try {
-	$historic = $stream_definition->createHistoric($start_date, $end_date, $sources, $sample);
+	$historic = $stream_definition->createHistoric($start_date, $end_date, explode(',', $sources), $sample);
 
 	$push_definition = $env->user->createPushDefinition();
 	$push_definition->setOutputType($output_type);
 
 	// Now add the output_type-specific args from the command line
-	for ($i = 4; $i < count($env->args); $i++) {
+	for ($i = 7; $i < count($env->args); $i++) {
 		$bits = explode('=', $env->args[$i], 2);
 		if (count($bits) != 2) {
 			usage('Invalid output_param: '.$env->args[$i]);
 		}
-		$push_definition.setOutputParam($bits[0], $bits[1]);
+		$push_definition->setOutputParam($bits[0], $bits[1]);
 	}
 
 	// Subscribe the push definition to the historic query
@@ -81,7 +77,7 @@ try {
 	// Display the details of the new subscription
 	$env->displaySubscriptionDetails($push_sub);
 } catch (Exception $e) {
-	echo 'ERR: '.$e->getMessage().PHP_EOL;
+	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
 function parseDate($date)
@@ -105,15 +101,20 @@ function usage($message = '', $exit = true)
 	}
 	echo PHP_EOL;
 	echo 'Usage: push_historic_from_csdl \\'.PHP_EOL;
-	echo '            <username> <api_key> <csdl_filename> <output_type> <name> ...'.PHP_EOL;
+	echo '            <username> <api_key> <csdl_filename> <start_date> <end_date>'.PHP_EOL;
+	echo '            <sources> <sample> <output_type> <name> ...'.PHP_EOL;
 	echo PHP_EOL;
 	echo 'Where: csdl_filename = a file containing the CSDL'.PHP_EOL;
-	echo '       output_type   = http (currently only http is supported)'.PHP_EOL;
+	echo '       start_date    = the start date for the query (YYYYMMDDHHMMSS)'.PHP_EOL;
+	echo '       end_date      = the end date for the query (YYYYMMDDHHMMSS)'.PHP_EOL;
+	echo '       sources       = comma-separated list of data sources (e.g. twitter)'.PHP_EOL;
+	echo '       sample        = the percentage of the data required'.PHP_EOL;
 	echo '       name          = a friendly name for the subscription'.PHP_EOL;
 	echo '       key=val       = output_type-specific arguments'.PHP_EOL;
 	echo PHP_EOL;
 	echo 'Example'.PHP_EOL;
-	echo '       push_historic_from_csdl csdl.txt http \"Push Name\" delivery_frequency=10 \\'.PHP_EOL;
+	echo '       push_historic_from_csdl csdl.txt http 20120801120000 20120801130000 \\'.PHP_EOL;
+	echo '                      twitter 100 \"Push Name\" delivery_frequency=10 \\'.PHP_EOL;
 	echo '                      url=http://www.example.com/push_endpoint auth.type=none'.PHP_EOL;
 	echo PHP_EOL;
 	if ($exit) {

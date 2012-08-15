@@ -1,6 +1,6 @@
 <?php
 /**
- * This script deletes push subscriptions from your account.
+ * This script starts Historics queries in your account.
  *
  * NB: Most of the error handling (exception catching) has been removed for
  * the sake of simplicity. Nearly everything in this library may throw
@@ -15,21 +15,20 @@ require dirname(__FILE__).'/env.php';
 // user object, and provides access to both along with helper functions
 $env = new Env();
 
-// Make sure we have at least one subscription ID
+// Make sure we have at least one playback ID
 if (count($env->args) == 0) {
-	die('Please specify at least one subscription ID!'.PHP_EOL);
+	die('Please specify at least one playback ID!'.PHP_EOL);
 }
 
 // Cycle through the IDs passed on the command line
-foreach ($env->args as $sub_id) {
-	echo 'Deleting '.$sub_id.': ';
+foreach ($env->args as $playback_id) {
 	try {
-		$sub = $env->user->getPushSubscription($sub_id);
-		echo $sub->getName().'...';
-		$sub->delete();
-		echo 'done';
+		echo 'Starting '.$playback_id.'...';
+		$hist = $env->user->getHistoric($playback_id);
+		$hist->start();
+		echo 'done'.PHP_EOL;
 	} catch (Exception $e) {
-		echo get_class($e).' '.$e->getMessage();
+		echo get_class($e).' '.$e->getMessage().PHP_EOL;
 	}
-	echo PHP_EOL;
+	echo '--'.PHP_EOL;
 }

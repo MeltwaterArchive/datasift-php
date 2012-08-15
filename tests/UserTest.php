@@ -114,12 +114,6 @@ class UserTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($response['data'], $usage, 'Usage data for the specified day is not as expected');
 	}
 
-	public function testGetUsageWithInvalidPeriod()
-	{
-		$this->setExpectedException('DataSift_Exception_InvalidData');
-		$usage = $this->user->getUsage(time());
-	}
-
 	public function testGetUsageApiErrors()
 	{
 		// Bad request from user supplied data

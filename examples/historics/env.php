@@ -7,8 +7,8 @@
 	require dirname(__FILE__).'/../../lib/datasift.php';
 
 	/**
-	 * This class is used by the push examples to remove the noise of dealing
-	 * with command line arguments.
+	 * This class is used by the Historics examples to remove the noise of
+	 * dealing with command line arguments.
 	 */
 	class Env {
 		public $user = null;
@@ -39,19 +39,17 @@
 			$this->args = $args;
 		}
 		
-		public function displaySubscriptionDetails($sub)
+		public function displayHistoricDetails($hist)
 		{
-			echo 'ID:            '.$sub->getId().PHP_EOL;
-			echo 'Name:          '.$sub->getName().PHP_EOL;
-			echo 'Status:        '.$sub->getStatus().PHP_EOL;
-			echo 'Created at:    '.(is_null($sub->getCreatedAt()) ? 'null' : date('r', $sub->getCreatedAt())).PHP_EOL;
-			echo 'Last request:  '.(is_null($sub->getLastRequest()) ? 'null' : date('r', $sub->getLastRequest())).PHP_EOL;
-			echo 'Last success:  '.(is_null($sub->getLastSuccess()) ? 'null' : date('r', $sub->getLastSuccess())).PHP_EOL;
-			echo 'Output Type:   '.$sub->getOutputType().PHP_EOL;
-
-			echo 'Output Params:'.PHP_EOL;
-			foreach ($sub->getOutputParams() as $key => $val) {
-				echo '  '.$key.' = '.$val.PHP_EOL;
-			}
+			echo 'Playback ID: '.$hist->getHash().PHP_EOL;
+			echo 'Stream hash: '.$hist->getStreamHash().PHP_EOL;
+			echo 'Name:        '.$hist->getName().PHP_EOL;
+			echo 'Start time:  '.date('r', $hist->getStartDate()).PHP_EOL;
+			echo 'End time:    '.date('r', $hist->getEndDate()).PHP_EOL;
+			$sources = $hist->getSources();
+			echo 'Source'.(count($sources) == 1 ? ': ' : 's:').'     '.implode(', ', $sources).PHP_EOL;
+			echo 'Sample:      '.$hist->getSample().PHP_EOL;
+			echo 'Created at:  '.(is_null($hist->getCreatedAt()) ? 'null' : date('r', $hist->getCreatedAt())).PHP_EOL;
+			echo 'Status:      '.$hist->getStatus().PHP_EOL;
 		}
 	}

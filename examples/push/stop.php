@@ -1,8 +1,4 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
-
 /**
  * This script stops push subscriptions in your account.
  *
@@ -33,7 +29,7 @@ foreach ($env->args as $sub_id) {
 		$sub->stop();
 		echo $sub->getStatus();
 	} catch (Exception $e) {
-		echo $e->getMessage();
+		echo get_class($e).' '.$e->getMessage();
 	}
 	echo PHP_EOL;
 }

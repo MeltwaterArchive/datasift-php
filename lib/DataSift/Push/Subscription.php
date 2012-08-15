@@ -277,52 +277,54 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	protected function init($data)
 	{
-		if (!in_array('id', $data)) {
+		if (!isset($data['id'])) {
 			throw new DataSift_Exception_InvalidData('No id found');
 		}
 		$this->_id = $data['id'];
 		
-		if (!in_array('name', $data)) {
+		if (!isset($data['name'])) {
 			throw new DataSift_Exception_InvalidData('No name found');
 		}
 		$this->_name = $data['name'];
 		
-		if (!in_array('created_at', $data)) {
+		if (!isset($data['created_at'])) {
 			throw new DataSift_Exception_InvalidData('No created_at found');
 		}
 		$this->_created_at = $data['created_at'];
 		
-		if (!in_array('status', $data)) {
+		if (!isset($data['status'])) {
 			throw new DataSift_Exception_InvalidData('No status found');
 		}
 		$this->_status = $data['status'];
 		
-		if (!in_array('hash_type', $data)) {
+		if (!isset($data['hash_type'], $data)) {
 			throw new DataSift_Exception_InvalidData('No hash_type found');
 		}
 		$this->_hash_type = $data['hash_type'];
 		
-		if (!in_array('hash', $data)) {
+		if (!isset($data['hash'])) {
 			throw new DataSift_Exception_InvalidData('No hash found');
 		}
 		$this->_hash = $data['hash'];
 		
-		if (!in_array('last_request', $data)) {
-			throw new DataSift_Exception_InvalidData('No last_request found');
+		if (!isset($data['last_request'])) {
+			$this->_last_request = 0;
+		} else {
+			$this->_last_request = $data['last_request'];
 		}
-		$this->_last_request = $data['last_request'];
 		
-		if (!in_array('last_success', $data)) {
-			throw new DataSift_Exception_InvalidData('No last_success found');
+		if (!isset($data['last_success'])) {
+			$this->_last_success = 0;
+		} else {
+			$this->_last_success = $data['last_success'];
 		}
-		$this->_last_success = $data['last_success'];
 		
-		if (!in_array('output_type', $data)) {
+		if (!isset($data['output_type'])) {
 			throw new DataSift_Exception_InvalidData('No output_type found');
 		}
 		$this->_output_type = $data['output_type'];
 		
-		if (!in_array('output_params', $data)) {
+		if (!isset($data['output_params'])) {
 			throw new DataSift_Exception_InvalidData('No output_params found');
 		}
 		$this->_output_params = $this->parseOutputParams($data['output_params']);

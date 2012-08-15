@@ -1,8 +1,4 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
-
 /**
  * This script displays the details of push subscriptions in your account.
  *
@@ -30,7 +26,7 @@ foreach ($env->args as $sub_id) {
 		$sub = $env->user->getPushSubscription($sub_id);
 		$env->displaySubscriptionDetails($sub);
 	} catch (Exception $e) {
-		echo $e->getMessage().PHP_EOL;
+		echo get_class($e).' '.$e->getMessage().PHP_EOL;
 	}
 	echo '--'.PHP_EOL;
 }
