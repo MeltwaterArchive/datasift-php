@@ -363,6 +363,24 @@ class DataSift_Definition
 	}
 
 	/**
+	 * Create a historic based on this CSDL.
+	 *
+	 * @param int    $start   The timestamp from which to start the query.
+	 * @param int    $end     The timestamp at which to end the query.
+	 * @param array  $sources An array of sources required.
+	 * @param string $name    An optional name for this historic.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_CompileError
+	 */
+	public function createHistoric($start, $end, $sources, $name, $sample = DataSift_Historic::DEFAULT_SAMPLE)
+	{
+		return new DataSift_Historic($this->_user, $this->getHash(), $start, $end, $sources, $name, $sample);
+	}
+
+	/**
 	 * Returns a DataSift_StreamConsumer-derived object for this definition,
 	 * for the given type.
 	 *
@@ -372,8 +390,8 @@ class DataSift_Definition
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getConsumer($type, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this->_user, $type, $this, $eventHandler);
 	}
 }

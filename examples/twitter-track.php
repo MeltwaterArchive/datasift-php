@@ -1,4 +1,8 @@
 <?php
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
 /**
  * This example mimics the Twitter track functionality. Run the script with
  * any number of words or phrases as arguments and the script will create
@@ -21,6 +25,105 @@ if ($_SERVER['argc'] < 2) {
 	die("ERR: Please specify the words and/or phrases to track!\n\n");
 }
 
+// This class will handle the events
+class EventHandler implements DataSift_IStreamConsumerEventHandler
+{
+	/**
+	 * Called when the stream is connected.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 */
+	public function onConnect($consumer)
+	{
+		echo 'Connected'.PHP_EOL.'--'.PHP_EOL;
+	}
+
+	/**
+	 * Handle incoming data.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param array $interaction The interaction data.
+	 */
+	public function onInteraction($consumer, $interaction, $hash)
+	{
+		echo $interaction['interaction']['content'].PHP_EOL.'--'.PHP_EOL;
+	}
+
+	/**
+	 * Handle DELETE requests.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param array $interaction The interaction data.
+	 */
+	public function onDeleted($consumer, $interaction, $hash)
+	{
+		echo 'DELETE request for interaction ' . $interaction['interaction']['id']
+			. ' of type ' . $interaction['interaction']['type']
+			. '. Please delete it from your archive.'.PHP_EOL.'--'.PHP_EOL;
+	}
+
+	/**
+	 * Called when a status message is received.
+	 *
+	 * @param DataSift_StreamConsumer $consumer    The consumer sending the
+	 *                                             event.
+	 * @param string                  $type        The status type.
+	 * @param array                   $info        The data sent with the
+	 *                                             status message.
+	 */
+	public function onStatus($consumer, $type, $info)
+	{
+		switch ($type) {
+			default:
+				echo 'STATUS: '.$type.PHP_EOL;
+				break;
+		}
+	}
+
+	/**
+	 * Called when a warning occurs or is received down the stream.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param string $message The warning message.
+	 */
+	public function onWarning($consumer, $message)
+	{
+		echo 'WARNING: '.$message.PHP_EOL;
+	}
+
+	/**
+	 * Called when a error occurs or is received down the stream.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param string $message The error message.
+	 */
+	public function onError($consumer, $message)
+	{
+		echo 'ERROR: '.$message.PHP_EOL;
+	}
+
+	/**
+	 * Called when the stream is disconnected.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 */
+	public function onDisconnect($consumer)
+	{
+		echo 'Disconnected'.PHP_EOL;
+	}
+
+	/**
+	 * Called when the consumer has stopped.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param string $reason The reason the consumer stopped.
+	 */
+	public function onStopped($consumer, $reason)
+	{
+		echo PHP_EOL.'Stopped: '.$reason.PHP_EOL.PHP_EOL;
+	}
+}
+
 // Drop the script name from the command line arguments
 array_shift($_SERVER['argv']);
 
@@ -36,32 +139,10 @@ $definition = new DataSift_Definition($user, $csdl);
 
 // Create the consumer
 echo "Getting the consumer...\n";
-$consumer = $definition->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, 'display', 'stopped');
+$consumer = $definition->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, new EventHandler());
 
 // And start consuming
 echo "Consuming...\n--\n";
 $consumer->consume();
 
 // The consumer will never end
-
-/**
- * Handle incoming data.
- *
- * @param DataSift_StreamConsumer $consumer The consumer object
- * @param array $interaction The interaction data
- */
-function display($consumer, $interaction)
-{
-	echo $interaction['interaction']['content']."\n--\n";
-}
-
-/**
- * Called when the consumer has stopped. In this example this should never
- * be called.
- *
- * @param DataSift_StreamConsumer $consumer The consumer object
- */
-function stopped($consumer, $reason)
-{
-	echo "\nStopped: $reason\n\n";
-}

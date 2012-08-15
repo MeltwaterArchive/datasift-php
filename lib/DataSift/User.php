@@ -28,7 +28,7 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/1.3.0';
+	const USER_AGENT      = 'DataSiftPHP/2.0.0';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 
@@ -41,6 +41,11 @@ class DataSift_User
 	 * @var string
 	 */
 	protected $_api_key = '';
+
+	/**
+	 * @var boolean
+	 */
+	protected $_use_ssl = true;
 
 	/**
 	 * Stores the X-RateLimit-Limit value from the last API call.
@@ -57,8 +62,8 @@ class DataSift_User
 	protected $_rate_limit_remaining = -1;
 
 	/**
-	 * The class to use as the API client
-	 *.
+	 * The class to use as the API client.
+	 *
 	 * @var string
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
@@ -72,7 +77,7 @@ class DataSift_User
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
-	public function __construct($username, $api_key)
+	public function __construct($username, $api_key, $use_ssl = true)
 	{
 		if (strlen(trim($username)) == 0) {
 			throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
@@ -84,6 +89,7 @@ class DataSift_User
 
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
+		$this->_use_ssl  = $use_ssl;
 	}
 
 	/**
@@ -123,6 +129,27 @@ class DataSift_User
 	}
 
 	/**
+	 * Set whether stream connections should use SSL.
+	 *
+	 * @param bool $enable_ssl Set to true to enable SSL.
+	 *
+	 * @return void
+	 */
+	public function enableSSL($use_ssl = true)
+	{
+		$this->_use_ssl = $use_ssl;
+	}
+
+	/**
+	 * Returns whether SSL should be used where supported.
+	 * 
+	 * @return bool True if SSL should be used.
+	 */
+	public function useSSL() {
+		return $this->_use_ssl;
+	}
+
+	/**
 	 * Returns the rate limit returned by the last API call.
 	 *
 	 * @return int The rate limit.
@@ -155,10 +182,6 @@ class DataSift_User
 	{
 		$retval = false;
 
-		if (!in_array($period, array('hour', 'day'))) {
-			throw new DataSift_Exception_InvalidData('The period parameter must be either "hour" or "day"!');
-		}
-
 		$retval = $this->callAPI('usage', array('period' => $period));
 		return $retval;
 	}
@@ -176,6 +199,65 @@ class DataSift_User
 	}
 
 	/**
+	 * Create a historic query based on a stream hash.
+	 *
+	 * @param string $hash    The stream hash.
+	 * @param int    $start   The timestamp from which to start the query.
+	 * @param int    $end     The timestamp at which to end the query.
+	 * @param array  $sources An array of sources required.
+	 * @param string $name    A friendly name for this query.
+	 * @param float  $name    An optional sample rate for this query.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 */
+	public function createHistoric($hash, $start, $end, $sources, $name, $sample = DataSift_Historic::DEFAULT_SAMPLE)
+	{
+		return new DataSift_Historic($this, $hash, $start, $end, $sources, $name, $sample);
+	}
+
+	/**
+	 * Get an existing historic from the API.
+	 *
+	 * @param string $playback_id The historic playback ID.
+	 *
+	 * @return DataSift_Historic
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function getHistoric($playback_id)
+	{
+		return new DataSift_Historic($this, $playback_id);
+	}
+
+	/**
+	 * Get a list of Historics queries in your account.
+	 *
+	 * @param int $page The page number to get.
+	 * @param int $per_page The number of items per page.
+	 *
+	 * @return array Of DataSift_Historic objects.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function listHistorics($page = 1, $per_page = 20)
+	{
+		return DataSift_Historic::listHistorics($this, $page, $per_page);
+	}
+
+	/**
+	 * Creates and returns a new Push_Definition object.
+	 *
+	 * @return DataSift_Push_Definition
+	 */
+	public function createPushDefinition()
+	{
+		return new DataSift_Push_Definition($this);
+	}
+
+	/**
 	 * Returns a DataSift_StreamConsumer-derived object for the given hash,
 	 * for the given type.
 	 *
@@ -186,9 +268,9 @@ class DataSift_User
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $eventHandler);
 	}
 
 	/**
@@ -202,9 +284,54 @@ class DataSift_User
 	 * @throws DataSift_Exception_InvalidData
 	 * @see DataSift_StreamConsumer
 	 */
-	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $onInteraction = false, $onStopped = false, $onDeleted = false)
+	public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $eventHandler)
 	{
-		return DataSift_StreamConsumer::factory($this, $type, $hashes, $onInteraction, $onStopped, $onDeleted);
+		return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
+	}
+
+    /**
+     * Get a single push subscription.
+     * 
+     * @param string $id The ID of the subscription to fetch.
+     * @return DataSift_Push_Subscription
+     * @throws DataSift_Exception_InvalidData 
+     * @throws DataSift_Exception_AccessDenied 
+     * @throws DataSift_Exception_APIError 
+     */
+    public function getPushSubscription($id)
+    {
+    	return DataSift_Push_Subscription::get($this, $id);
+    }
+    
+	/**
+	 * Get a list of push subscriptions in your account.
+	 * 
+	 * @return array Of DataSift_Push_Subscription objects.
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function listPushSubscriptions($page = 1, $per_page = 100, $order_by = DataSift_Push_Subscription::ORDERBY_CREATED_AT, $order_dir = DataSift_Push_Subscription::ORDERDIR_ASC, $include_finished = false)
+	{
+		return DataSift_Push_Subscription::listSubscriptions($this, $page, $per_page, $order_by, $order_dir, $include_finished);
+	}
+
+	/**
+	 * Page throu gh recent push subscription log entries, specifying the sort
+	 * order.
+	 * 
+	 * @param int    page      Which page to fetch.
+	 * @param int    per_page  Based on this page size.
+	 * @param String order_by  Which field to sort by.
+	 * @param String order_dir In asc[ending] or desc[ending] order.
+	 * @return ArrayList<LogEntry>
+	 * @throws DataSift_Exception_AccessDenied 
+	 * @throws DataSift_Exception_InvalidData 
+	 * @throws DataSift_Exception_APIError 
+	 */
+	public function getPushSubscriptionLogs($page = 1, $per_page = 100, $order_by = DataSift_Push_Subscription::ORDERBY_REQUEST_TIME, $order_dir = DataSift_Push_Subscription::ORDERDIR_DESC)
+	{
+		return DataSift_Push_Subscription::getLogs($this, $page, $per_page, $order_by, $order_dir);
 	}
 
 	/**
@@ -243,11 +370,18 @@ class DataSift_User
 
 		switch ($res['response_code']) {
 				case 200:
+				case 202:
+				case 204:
 					$retval = $res['data'];
 					break;
 				case 401:
 					throw new DataSift_Exception_AccessDenied(
 						empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
+					);
+				case 413:
+					// Request Too Large
+					throw new DataSift_Exception_APIError(
+						'The API request contained too much data - try reducing the size of your CSDL'
 					);
 				case 403:
 					if ($this->_rate_limit_remaining == 0) {

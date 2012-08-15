@@ -41,7 +41,7 @@ class DataSift_ApiClient
 	{
 		// Curl is required
 		if (!function_exists('curl_init')) {
-			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_User::callAPI');
+			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_ApiClient');
 		}
 
 		// Build the full endpoint URL
@@ -52,28 +52,27 @@ class DataSift_ApiClient
 		curl_setopt($ch, CURLOPT_HEADER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$username.':'.$api_key, 'Expect:'));
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 		$res = curl_exec($ch);
 		$info = curl_getinfo($ch);
 
-		if (!$res) {
+		if ($info['http_code'] != 204 && !$res) {
 			throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
 		}
 
 		curl_close($ch);
-
 		$res = self::parseHTTPResponse($res);
 
 		$retval = array(
 			'response_code'        => $info['http_code'],
-			'data'                 => json_decode($res['body'], true),
+			'data'                 => (strlen($res['body']) == 0 ? array() : json_decode($res['body'], true)),
 			'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
 			'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
 		);
 
-		if (!$retval['data']) {
+		if ($info['http_code'] != 204 && !$retval['data']) {
 			throw new DataSift_Exception_APIError('Failed to decode the response', -1);
 		}
 
