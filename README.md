@@ -18,16 +18,33 @@ prints the content to the screen as they come in.
 
 ```php
 <?php
-	require 'lib/datasift.php';
-	$user = new DataSift_User('your username', 'your api_key');
-	$def = $user->createDefinition('interaction.content contains "datasift"');
-	$consumer = $def->getConsumer(
-		DataSift_StreamConsumer::TYPE_HTTP,
-		function($consumer, $data) {
-			echo $data['interaction']['content']."\n";
-		}
-	);
-	$consumer->consume();
+  // Load the library
+  require 'lib/datasift.php';
+  // An object of this type will receive events
+  class EventHandler implements DataSift_IStreamConsumerEventHandler
+  {
+    public function onInteraction($consumer, $interaction, $hash)
+    {
+      echo $data['interaction']['content']."\n";
+    }
+
+    // Ignore the other events for the purposes of this example.
+    public function onConnect($consumer)                      { }
+    public function onDeleted($consumer, $interaction, $hash) { }
+    public function onStatus($consumer, $type, $info)         { }
+    public function onWarning($consumer, $message)            { }
+    public function onError($consumer, $message)              { }
+    public function onDisconnect($consumer)                   { }
+    public function onStopped($consumer, $reason)             { }
+  }
+  // Create the user
+  $user = new DataSift_User('your username', 'your api_key');
+  // Create a definition looking for the word "datasift"
+  $def = $user->createDefinition('interaction.content contains "datasift"');
+  // Get an HTTP stream consumer for that definition
+  $consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, new EventHandler());
+  // Consume it - this will not return unless the stream gets disconnected
+  $consumer->consume();
 ?>
 ```
 
@@ -38,19 +55,38 @@ http://dev.datasift.com/docs/targets/twitter/tweet-output-format
 Requirements
 ------------
 
-* PHP 5 with the cURL extension enabled
+* PHP 5 with the cURL extension enabled and openssl for SSL support
 * JSON (included in PHP 5.2+, otherwise use http://pecl.php.net/package/json)
+
+The library will use SSL connections by default. While we recommend using SSL
+you may disable it if required by passing false as the third parameter when
+creating a user, or by calling $user->enableSSL(false) on the user object.
 
 License
 -------
 
-All code contained in this repository is Copyright 2011 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2012 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the LICENSE file for
 more details.
 
 Changelog
 ---------
+
+* v.2.1.0 Added support for Historics and Push delivery. (2012-08-17)
+
+* v.2.0.0 Changed event handling to an object instead of functions. Added SSL
+          support for streams. (2012-06-18)
+
+  Consumers no longer take functions for event handling. Instead you define a
+  class that implements the DataSift_IStreamConsumerEventHandler interface and
+  pass an instance of that. In addition to switching to an object-based event
+  handler we have also introduced the following new events: onConnect,
+  onDisconnect and onStatus.
+
+  SSL is enabled by default and can be disabled by passing false as the third
+  parameter to the User constructor, or calling enableSSL(false) on the User
+  object.
 
 * Added the develop branch as required by git flow (2012-05-24)
 

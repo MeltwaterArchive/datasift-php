@@ -1,5 +1,9 @@
 <?php
-	/**
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
+
+/**
  * This example constructs a DataSift_Definition object with CSDL that looks
  * for anything containing the word "football". It then sits in a loop,
  * getting buffered interactions once every 10 seconds until it's retrieved
