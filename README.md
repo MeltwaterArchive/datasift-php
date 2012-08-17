@@ -65,7 +65,7 @@ creating a user, or by calling $user->enableSSL(false) on the user object.
 License
 -------
 
-All code contained in this repository is Copyright 2011 MediaSift Ltd.
+All code contained in this repository is Copyright 2011-2012 MediaSift Ltd.
 
 This code is released under the BSD license. Please see the LICENSE file for
 more details.
@@ -73,8 +73,10 @@ more details.
 Changelog
 ---------
 
-* v.2.0.0 Changed event handling to an object instead of functions. Implemented
-          historic streaming. Added SSL support for streams. (2012-06-18)
+* v.2.1.0 Added support for Historics and Push delivery. (2012-08-17)
+
+* v.2.0.0 Changed event handling to an object instead of functions. Added SSL
+          support for streams. (2012-06-18)
 
   Consumers no longer take functions for event handling. Instead you define a
   class that implements the DataSift_IStreamConsumerEventHandler interface and
