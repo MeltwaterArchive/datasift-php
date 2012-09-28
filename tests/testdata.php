@@ -23,17 +23,17 @@ function testdata($var1, $var2 = false)
 			'sources' => array(
 				'twitter' => array(
 					'status' => '99%',
-					'versions' => [3],
+					'versions' => array(3),
 					'augmentations' => array(
 						'klout' => '50%',
-						'links' => '100%' 
+						'links' => '100%'
 					),
 				),
 				'facebook' => array(
 					'status' => '99%',
-					'versions' => [2,3],
+					'versions' => array(2,3),
 					'augmentations' => array(
-						'links' => '95%' 
+						'links' => '95%'
 					),
 				),
 			),

@@ -142,7 +142,7 @@ class DataSift_User
 
 	/**
 	 * Returns whether SSL should be used where supported.
-	 * 
+	 *
 	 * @return bool True if SSL should be used.
 	 */
 	public function useSSL() {
@@ -291,21 +291,21 @@ class DataSift_User
 
     /**
      * Get a single push subscription.
-     * 
+     *
      * @param string $id The ID of the subscription to fetch.
      * @return DataSift_Push_Subscription
-     * @throws DataSift_Exception_InvalidData 
-     * @throws DataSift_Exception_AccessDenied 
-     * @throws DataSift_Exception_APIError 
+     * @throws DataSift_Exception_InvalidData
+     * @throws DataSift_Exception_AccessDenied
+     * @throws DataSift_Exception_APIError
      */
     public function getPushSubscription($id)
     {
     	return DataSift_Push_Subscription::get($this, $id);
     }
-    
+
 	/**
 	 * Get a list of push subscriptions in your account.
-	 * 
+	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -319,15 +319,15 @@ class DataSift_User
 	/**
 	 * Page throu gh recent push subscription log entries, specifying the sort
 	 * order.
-	 * 
+	 *
 	 * @param int    page      Which page to fetch.
 	 * @param int    per_page  Based on this page size.
 	 * @param String order_by  Which field to sort by.
 	 * @param String order_dir In asc[ending] or desc[ending] order.
 	 * @return ArrayList<LogEntry>
-	 * @throws DataSift_Exception_AccessDenied 
-	 * @throws DataSift_Exception_InvalidData 
-	 * @throws DataSift_Exception_APIError 
+	 * @throws DataSift_Exception_AccessDenied
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
 	 */
 	public function getPushSubscriptionLogs($page = 1, $per_page = 100, $order_by = DataSift_Push_Subscription::ORDERBY_REQUEST_TIME, $order_dir = DataSift_Push_Subscription::ORDERDIR_DESC)
 	{
@@ -385,7 +385,7 @@ class DataSift_User
 					);
 				case 403:
 					if ($this->_rate_limit_remaining == 0) {
-						throw new DataSift_Exception_RateLimitExceeded($res['data']['comment']);
+						throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
 					}
 					// Deliberate fall-through
 				default:
