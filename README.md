@@ -72,6 +72,9 @@ more details.
 
 Changelog
 ---------
+* v.2.1.1 Fixed issue #10 "Bug in api" by @salehsed
+
+  Fixed syntax error in tests/testdata.php
 
 * v.2.1.0 Added support for Historics and Push delivery. (2012-08-17)
 
