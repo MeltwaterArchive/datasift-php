@@ -49,7 +49,7 @@ try {
 		if (count($bits) != 2) {
 			usage('Invalid output_param: '.$env->args[$i]);
 		}
-		$push_definition.setOutputParam($bits[0], $bits[1]);
+		$push_definition->setOutputParam($bits[0], $bits[1]);
 	}
 
 	// Subscribe the push definition to the stream definition
