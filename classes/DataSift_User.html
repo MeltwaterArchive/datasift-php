@@ -1,0 +1,673 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \DataSift_User</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/PHP-client.html"><i class="icon-folder-open"></i> PHP-client</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">126</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Constructor."><span class="description">Constructor.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_callAPI" title="callAPI :: Make a call to a DataSift API endpoint."><span class="description">Make a call to a DataSift API endpoint.</span><pre>callAPI()</pre></a></li>
+<li class="method public "><a href="#method_createDefinition" title="createDefinition :: Creates and returns an empty Definition object."><span class="description">Creates and returns an empty Definition object.</span><pre>createDefinition()</pre></a></li>
+<li class="method public "><a href="#method_createHistoric" title="createHistoric :: Create a historic query based on a stream hash."><span class="description">Create a historic query based on a stream hash.</span><pre>createHistoric()</pre></a></li>
+<li class="method public "><a href="#method_createPushDefinition" title="createPushDefinition :: Creates and returns a new Push_Definition object."><span class="description">Creates and returns a new Push_Definition object.</span><pre>createPushDefinition()</pre></a></li>
+<li class="method public "><a href="#method_enableSSL" title="enableSSL :: Set whether stream connections should use SSL."><span class="description">Set whether stream connections should use SSL.</span><pre>enableSSL()</pre></a></li>
+<li class="method public "><a href="#method_getAPIKey" title="getAPIKey :: Returns the API key."><span class="description">Returns the API key.</span><pre>getAPIKey()</pre></a></li>
+<li class="method public "><a href="#method_getConsumer" title="getConsumer :: Returns a DataSift_StreamConsumer-derived object for the given hash,
+for the given type."><span class="description">Returns a DataSift_StreamConsumer-derived object for the given hash,
+for the given type.</span><pre>getConsumer()</pre></a></li>
+<li class="method public "><a href="#method_getHistoric" title="getHistoric :: Get an existing historic from the API."><span class="description">Get an existing historic from the API.</span><pre>getHistoric()</pre></a></li>
+<li class="method public "><a href="#method_getMultiConsumer" title="getMultiConsumer :: Returns a DataSift_StreamConsumer-derived object for the given hashes,
+for the given type."><span class="description">Returns a DataSift_StreamConsumer-derived object for the given hashes,
+for the given type.</span><pre>getMultiConsumer()</pre></a></li>
+<li class="method public "><a href="#method_getPushSubscription" title="getPushSubscription :: Get a single push subscription."><span class="description">Get a single push subscription.</span><pre>getPushSubscription()</pre></a></li>
+<li class="method public "><a href="#method_getPushSubscriptionLogs" title="getPushSubscriptionLogs :: Page throu gh recent push subscription log entries, specifying the sort
+order."><span class="description">Page throu gh recent push subscription log entries, specifying the sort
+order.</span><pre>getPushSubscriptionLogs()</pre></a></li>
+<li class="method public "><a href="#method_getRateLimit" title="getRateLimit :: Returns the rate limit returned by the last API call."><span class="description">Returns the rate limit returned by the last API call.</span><pre>getRateLimit()</pre></a></li>
+<li class="method public "><a href="#method_getRateLimitRemaining" title="getRateLimitRemaining :: Returns the rate limit remaining returned by the last API call."><span class="description">Returns the rate limit remaining returned by the last API call.</span><pre>getRateLimitRemaining()</pre></a></li>
+<li class="method public "><a href="#method_getUsage" title="getUsage :: Returns the usage data for this user."><span class="description">Returns the usage data for this user.</span><pre>getUsage()</pre></a></li>
+<li class="method public "><a href="#method_getUserAgent" title="getUserAgent :: Returns the user agent this library should use for all API calls."><span class="description">Returns the user agent this library should use for all API calls.</span><pre>getUserAgent()</pre></a></li>
+<li class="method public "><a href="#method_getUsername" title="getUsername :: Returns the username."><span class="description">Returns the username.</span><pre>getUsername()</pre></a></li>
+<li class="method public "><a href="#method_listHistorics" title="listHistorics :: Get a list of Historics queries in your account."><span class="description">Get a list of Historics queries in your account.</span><pre>listHistorics()</pre></a></li>
+<li class="method public "><a href="#method_listPushSubscriptions" title="listPushSubscriptions :: Get a list of push subscriptions in your account."><span class="description">Get a list of push subscriptions in your account.</span><pre>listPushSubscriptions()</pre></a></li>
+<li class="method public "><a href="#method_setApiClient" title="setApiClient :: Set the class to use when calling the API"><span class="description">Set the class to use when calling the API</span><pre>setApiClient()</pre></a></li>
+<li class="method public "><a href="#method_useSSL" title="useSSL :: Returns whether SSL should be used where supported."><span class="description">Returns whether SSL should be used where supported.</span><pre>useSSL()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property__api_client" title="$_api_client :: The class to use as the API client."><span class="description"></span><pre>$_api_client</pre></a></li>
+<li class="property protected "><a href="#property__api_key" title="$_api_key :: "><span class="description"></span><pre>$_api_key</pre></a></li>
+<li class="property protected "><a href="#property__rate_limit" title="$_rate_limit :: Stores the X-RateLimit-Limit value from the last API call."><span class="description"></span><pre>$_rate_limit</pre></a></li>
+<li class="property protected "><a href="#property__rate_limit_remaining" title="$_rate_limit_remaining :: Stores the X-RateLimit-Remaining value from the last API call."><span class="description"></span><pre>$_rate_limit_remaining</pre></a></li>
+<li class="property protected "><a href="#property__use_ssl" title="$_use_ssl :: "><span class="description"></span><pre>$_use_ssl</pre></a></li>
+<li class="property protected "><a href="#property__username" title="$_username :: "><span class="description"></span><pre>$_username</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants
+                    <ul>
+<li class="constant  "><a href="#constant_API_BASE_URL" title="API_BASE_URL :: "><span class="description">API_BASE_URL</span><pre>API_BASE_URL</pre></a></li>
+<li class="constant  "><a href="#constant_STREAM_BASE_URL" title="STREAM_BASE_URL :: "><span class="description">STREAM_BASE_URL</span><pre>STREAM_BASE_URL</pre></a></li>
+<li class="constant  "><a href="#constant_USER_AGENT" title="USER_AGENT :: "><span class="description">USER_AGENT</span><pre>USER_AGENT</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\DataSift_User"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/DataSift_User.html">DataSift_User</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">The DataSift_User class represents a user of the API.</p>
+<div class="details">
+<div class="long_description"><p>Applications should
+start their API interactions by creating an instance of this class. Once
+initialised it provides factory methods for all of the functionality in
+the API.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>category</th>
+<td>DataSift</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/PHP-client.html">PHP-client</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://www.mediasift.com">http://www.mediasift.com</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Constructor.</h2>
+<pre>__construct(string $username, string $api_key, $use_ssl) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>A username and API key are required when constructing an
+instance of this class.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$username</h4>
+<code>string</code><p>The user's username.</p>
+</div>
+<div class="subelement argument">
+<h4>$api_key</h4>
+<code>string</code><p>The user's API key.</p>
+</div>
+<div class="subelement argument"><h4>$use_ssl</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_callAPI"></a><div class="element clickable method public method_callAPI" data-toggle="collapse" data-target=".method_callAPI .collapse">
+<h2>Make a call to a DataSift API endpoint.</h2>
+<pre>callAPI(string $endpoint, array $params) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$endpoint</h4>
+<code>string</code><p>The endpoint of the API call.</p></div>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>array</code><p>The parameters to be passed along with the request.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_RateLimitExceeded.html">\DataSift_Exception_RateLimitExceeded</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>The response from the server.</div>
+</div></div>
+</div>
+<a id="method_createDefinition"></a><div class="element clickable method public method_createDefinition" data-toggle="collapse" data-target=".method_createDefinition .collapse">
+<h2>Creates and returns an empty Definition object.</h2>
+<pre>createDefinition(string $definition) : <a href="../classes/DataSift_Definition.html">\DataSift_Definition</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$definition</h4>
+<code>string</code><p>Optional definition with which to prime the object.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/DataSift_Definition.html">\DataSift_Definition</a></code>A definition object tied to this user.</div>
+</div></div>
+</div>
+<a id="method_createHistoric"></a><div class="element clickable method public method_createHistoric" data-toggle="collapse" data-target=".method_createHistoric .collapse">
+<h2>Create a historic query based on a stream hash.</h2>
+<pre>createHistoric(string $hash, int $start, int $end, array $sources, string | float $name, $sample) : <a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The stream hash.</p></div>
+<div class="subelement argument">
+<h4>$start</h4>
+<code>int</code><p>The timestamp from which to start the query.</p></div>
+<div class="subelement argument">
+<h4>$end</h4>
+<code>int</code><p>The timestamp at which to end the query.</p></div>
+<div class="subelement argument">
+<h4>$sources</h4>
+<code>array</code><p>An array of sources required.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><code>float</code><p>A friendly name for this query.</p></div>
+<div class="subelement argument"><h4>$sample</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></code></div>
+</div></div>
+</div>
+<a id="method_createPushDefinition"></a><div class="element clickable method public method_createPushDefinition" data-toggle="collapse" data-target=".method_createPushDefinition .collapse">
+<h2>Creates and returns a new Push_Definition object.</h2>
+<pre>createPushDefinition() : <a href="../classes/DataSift_Push_Definition.html">\DataSift_Push_Definition</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/DataSift_Push_Definition.html">\DataSift_Push_Definition</a></code></div>
+</div></div>
+</div>
+<a id="method_enableSSL"></a><div class="element clickable method public method_enableSSL" data-toggle="collapse" data-target=".method_enableSSL .collapse">
+<h2>Set whether stream connections should use SSL.</h2>
+<pre>enableSSL($use_ssl) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$use_ssl</h4></div>
+</div></div>
+</div>
+<a id="method_getAPIKey"></a><div class="element clickable method public method_getAPIKey" data-toggle="collapse" data-target=".method_getAPIKey .collapse">
+<h2>Returns the API key.</h2>
+<pre>getAPIKey() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The API key.</div>
+</div></div>
+</div>
+<a id="method_getConsumer"></a><div class="element clickable method public method_getConsumer" data-toggle="collapse" data-target=".method_getConsumer .collapse">
+<h2>Returns a DataSift_StreamConsumer-derived object for the given hash,
+for the given type.</h2>
+<pre>getConsumer(string $type, string $hash, $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>see</th>
+<td><a href="">\global\DataSift_StreamConsumer</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The consumer type for which to construct a consumer.</p></div>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The hash to be consumed.</p></div>
+<div class="subelement argument"><h4>$eventHandler</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></code>The consumer object.</div>
+</div></div>
+</div>
+<a id="method_getHistoric"></a><div class="element clickable method public method_getHistoric" data-toggle="collapse" data-target=".method_getHistoric .collapse">
+<h2>Get an existing historic from the API.</h2>
+<pre>getHistoric(string $playback_id) : <a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$playback_id</h4>
+<code>string</code><p>The historic playback ID.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></code></div>
+</div></div>
+</div>
+<a id="method_getMultiConsumer"></a><div class="element clickable method public method_getMultiConsumer" data-toggle="collapse" data-target=".method_getMultiConsumer .collapse">
+<h2>Returns a DataSift_StreamConsumer-derived object for the given hashes,
+for the given type.</h2>
+<pre>getMultiConsumer(string $type, string $hashes, $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>see</th>
+<td><a href="">\global\DataSift_StreamConsumer</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The consumer type for which to construct a consumer.</p></div>
+<div class="subelement argument">
+<h4>$hashes</h4>
+<code>string</code><p>An array containing hashes and/or Definition objects to be consumed.</p>
+</div>
+<div class="subelement argument"><h4>$eventHandler</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></code>The consumer object.</div>
+</div></div>
+</div>
+<a id="method_getPushSubscription"></a><div class="element clickable method public method_getPushSubscription" data-toggle="collapse" data-target=".method_getPushSubscription .collapse">
+<h2>Get a single push subscription.</h2>
+<pre>getPushSubscription(string $id) : <a href="../classes/DataSift_Push_Subscription.html">\DataSift_Push_Subscription</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$id</h4>
+<code>string</code><p>The ID of the subscription to fetch.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/DataSift_Push_Subscription.html">\DataSift_Push_Subscription</a></code></div>
+</div></div>
+</div>
+<a id="method_getPushSubscriptionLogs"></a><div class="element clickable method public method_getPushSubscriptionLogs" data-toggle="collapse" data-target=".method_getPushSubscriptionLogs .collapse">
+<h2>Page throu gh recent push subscription log entries, specifying the sort
+order.</h2>
+<pre>getPushSubscriptionLogs(int $page, int $per_page, String $order_by, String $order_dir) : \ArrayList&lt;LogEntry&gt;</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>page Which page to fetch.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>per_page Based on this page size.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>String</code><p>order_by Which field to sort by.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>String</code><p>order_dir In asc[ending] or desc[ending] order.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\ArrayList&lt;LogEntry&gt;</code></div>
+</div></div>
+</div>
+<a id="method_getRateLimit"></a><div class="element clickable method public method_getRateLimit" data-toggle="collapse" data-target=".method_getRateLimit .collapse">
+<h2>Returns the rate limit returned by the last API call.</h2>
+<pre>getRateLimit() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The rate limit.</div>
+</div></div>
+</div>
+<a id="method_getRateLimitRemaining"></a><div class="element clickable method public method_getRateLimitRemaining" data-toggle="collapse" data-target=".method_getRateLimitRemaining .collapse">
+<h2>Returns the rate limit remaining returned by the last API call.</h2>
+<pre>getRateLimitRemaining() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The rate limit remaining.</div>
+</div></div>
+</div>
+<a id="method_getUsage"></a><div class="element clickable method public method_getUsage" data-toggle="collapse" data-target=".method_getUsage .collapse">
+<h2>Returns the usage data for this user.</h2>
+<pre>getUsage(string $period) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$period</h4>
+<code>string</code><p>Either 'hour' or 'day'.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>The usage data from the API.</div>
+</div></div>
+</div>
+<a id="method_getUserAgent"></a><div class="element clickable method public method_getUserAgent" data-toggle="collapse" data-target=".method_getUserAgent .collapse">
+<h2>Returns the user agent this library should use for all API calls.</h2>
+<pre>getUserAgent() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getUsername"></a><div class="element clickable method public method_getUsername" data-toggle="collapse" data-target=".method_getUsername .collapse">
+<h2>Returns the username.</h2>
+<pre>getUsername() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The username.</div>
+</div></div>
+</div>
+<a id="method_listHistorics"></a><div class="element clickable method public method_listHistorics" data-toggle="collapse" data-target=".method_listHistorics .collapse">
+<h2>Get a list of Historics queries in your account.</h2>
+<pre>listHistorics(int $page, int $per_page) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page number to get.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of items per page.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of DataSift_Historic objects.</div>
+</div></div>
+</div>
+<a id="method_listPushSubscriptions"></a><div class="element clickable method public method_listPushSubscriptions" data-toggle="collapse" data-target=".method_listPushSubscriptions .collapse">
+<h2>Get a list of push subscriptions in your account.</h2>
+<pre>listPushSubscriptions($page, $per_page, $order_by, $order_dir, $include_finished) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$page</h4></div>
+<div class="subelement argument"><h4>$per_page</h4></div>
+<div class="subelement argument"><h4>$order_by</h4></div>
+<div class="subelement argument"><h4>$order_dir</h4></div>
+<div class="subelement argument"><h4>$include_finished</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of DataSift_Push_Subscription objects.</div>
+</div></div>
+</div>
+<a id="method_setApiClient"></a><div class="element clickable method public method_setApiClient" data-toggle="collapse" data-target=".method_setApiClient .collapse">
+<h2>Set the class to use when calling the API</h2>
+<pre>setApiClient(string $api_client) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$api_client</h4>
+<code>string</code><p>The class to use.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_useSSL"></a><div class="element clickable method public method_useSSL" data-toggle="collapse" data-target=".method_useSSL .collapse">
+<h2>Returns whether SSL should be used where supported.</h2>
+<pre>useSSL() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>True if SSL should be used.</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__api_client"> </a><div class="element clickable property protected property__api_client" data-toggle="collapse" data-target=".property__api_client .collapse">
+<h2></h2>
+<pre>$_api_client : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__api_key"> </a><div class="element clickable property protected property__api_key" data-toggle="collapse" data-target=".property__api_key .collapse">
+<h2></h2>
+<pre>$_api_key : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__rate_limit"> </a><div class="element clickable property protected property__rate_limit" data-toggle="collapse" data-target=".property__rate_limit .collapse">
+<h2></h2>
+<pre>$_rate_limit : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__rate_limit_remaining"> </a><div class="element clickable property protected property__rate_limit_remaining" data-toggle="collapse" data-target=".property__rate_limit_remaining .collapse">
+<h2></h2>
+<pre>$_rate_limit_remaining : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__use_ssl"> </a><div class="element clickable property protected property__use_ssl" data-toggle="collapse" data-target=".property__use_ssl .collapse">
+<h2></h2>
+<pre>$_use_ssl : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__username"> </a><div class="element clickable property protected property__username" data-toggle="collapse" data-target=".property__username .collapse">
+<h2></h2>
+<pre>$_username : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_API_BASE_URL"> </a><div class="element clickable constant  constant_API_BASE_URL" data-toggle="collapse" data-target=".constant_API_BASE_URL .collapse">
+<h2>API_BASE_URL</h2>
+<pre>API_BASE_URL </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STREAM_BASE_URL"> </a><div class="element clickable constant  constant_STREAM_BASE_URL" data-toggle="collapse" data-target=".constant_STREAM_BASE_URL .collapse">
+<h2>STREAM_BASE_URL</h2>
+<pre>STREAM_BASE_URL </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_USER_AGENT"> </a><div class="element clickable constant  constant_USER_AGENT" data-toggle="collapse" data-target=".constant_USER_AGENT .collapse">
+<h2>USER_AGENT</h2>
+<pre>USER_AGENT </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2012-11-21T21:52:19Z.<br></footer></div>
+</div>
+</body>
+</html>

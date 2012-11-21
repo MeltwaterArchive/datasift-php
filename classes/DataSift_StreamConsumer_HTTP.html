@@ -1,0 +1,664 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \DataSift_StreamConsumer_HTTP</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/PHP-client.html"><i class="icon-folder-open"></i> PHP-client</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">126</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Constructor."><span class="description">Constructor.</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#method_consume" title="consume :: Once an instance of a StreamConsumer is ready for use, call this to
+start consuming."><span class="description">Once an instance of a StreamConsumer is ready for use, call this to
+start consuming.</span><pre>consume()</pre></a></li>
+<li class="method public inherited"><a href="#method_factory" title="factory :: Factory function."><span class="description">Factory function.</span><pre>factory()</pre></a></li>
+<li class="method public "><a href="#method_setAutoReconnect" title="setAutoReconnect :: Set whether to automatically reconnect to the stream if the connection
+is dropped."><span class="description">Set whether to automatically reconnect to the stream if the connection
+is dropped.</span><pre>setAutoReconnect()</pre></a></li>
+<li class="method public inherited"><a href="#method_stop" title="stop :: This method can be called at any time to *request* that the consumer
+stop consuming."><span class="description">This method can be called at any time to *request* that the consumer
+stop consuming.</span><pre>stop()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected inherited"><a href="#method_onConnect" title="onConnect :: This is called when the underlying stream is connected."><span class="description">This is called when the underlying stream is connected.</span><pre>onConnect()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onData" title="onData :: This is called when a complete JSON item is received."><span class="description">This is called when a complete JSON item is received.</span><pre>onData()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onDeleted" title="onDeleted :: This is called for each DELETE request received from the stream and must
+be implemented in extending classes."><span class="description">This is called for each DELETE request received from the stream and must
+be implemented in extending classes.</span><pre>onDeleted()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onDisconnect" title="onDisconnect :: This is called when the underlying stream is disconnected."><span class="description">This is called when the underlying stream is disconnected.</span><pre>onDisconnect()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onError" title="onError :: This is called when an error notification is received on a stream
+connection."><span class="description">This is called when an error notification is received on a stream
+connection.</span><pre>onError()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onInteraction" title="onInteraction :: This is called for each interaction received from the stream and must
+be implemented in extending classes."><span class="description">This is called for each interaction received from the stream and must
+be implemented in extending classes.</span><pre>onInteraction()</pre></a></li>
+<li class="method protected "><a href="#method_onStart" title="onStart :: SetUp"><span class="description">SetUp</span><pre>onStart()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onStatus" title="onStatus :: Called for each status message received from the stream."><span class="description">Called for each status message received from the stream.</span><pre>onStatus()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onStop" title="onStop :: Default implementation of onStop."><span class="description">Default implementation of onStop.</span><pre>onStop()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onStopped" title="onStopped :: This is called when the consumer is stopped."><span class="description">This is called when the consumer is stopped.</span><pre>onStopped()</pre></a></li>
+<li class="method protected inherited"><a href="#method_onWarning" title="onWarning :: This is called when a warning notification is received on a scream
+connection."><span class="description">This is called when a warning notification is received on a scream
+connection.</span><pre>onWarning()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_connect" title="connect :: Connect to the DataSift HTTP stream"><span class="description">Connect to the DataSift HTTP stream</span><pre>connect()</pre></a></li>
+<li class="method private "><a href="#method_disconnect" title="disconnect :: Disconnect from the DataSift stream"><span class="description">Disconnect from the DataSift stream</span><pre>disconnect()</pre></a></li>
+<li class="method private "><a href="#method_reconnect" title="reconnect :: Reconnect to the DataSift stream"><span class="description">Reconnect to the DataSift stream</span><pre>reconnect()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property__auto_reconnect" title="$_auto_reconnect :: "><span class="description">Automatically reconnect if the connection is dropped</span><pre>$_auto_reconnect</pre></a></li>
+<li class="property protected "><a href="#property__connect_timeout" title="$_connect_timeout :: "><span class="description">Connect timeout in seconds</span><pre>$_connect_timeout</pre></a></li>
+<li class="property protected inherited"><a href="#property__definition" title="$_definition :: "><span class="description"></span><pre>$_definition</pre></a></li>
+<li class="property protected inherited"><a href="#property__eventHandler" title="$_eventHandler :: "><span class="description">The event handler object.</span><pre>$_eventHandler</pre></a></li>
+<li class="property protected inherited"><a href="#property__hashes" title="$_hashes :: "><span class="description">The array of hashes to be consumed if using multi</span><pre>$_hashes</pre></a></li>
+<li class="property protected inherited"><a href="#property__is_multi" title="$_is_multi :: "><span class="description">True if this is consuming multiple hashes</span><pre>$_is_multi</pre></a></li>
+<li class="property protected "><a href="#property__max_line_length" title="$_max_line_length :: "><span class="description">Max allowable line size from the stream</span><pre>$_max_line_length</pre></a></li>
+<li class="property protected "><a href="#property__read_timeout" title="$_read_timeout :: "><span class="description">Read timeout in seconds</span><pre>$_read_timeout</pre></a></li>
+<li class="property protected inherited"><a href="#property__state" title="$_state :: "><span class="description"></span><pre>$_state</pre></a></li>
+<li class="property protected inherited"><a href="#property__user" title="$_user :: "><span class="description"></span><pre>$_user</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul><li class="property private "><a href="#property__conn" title="$_conn :: "><span class="description">The HTTP connection resource</span><pre>$_conn</pre></a></li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants
+                    <ul>
+<li class="constant  inherited"><a href="#constant_STATE_RUNNING" title="STATE_RUNNING :: "><span class="description">STATE_RUNNING</span><pre>STATE_RUNNING</pre></a></li>
+<li class="constant  inherited"><a href="#constant_STATE_STARTING" title="STATE_STARTING :: "><span class="description">STATE_STARTING</span><pre>STATE_STARTING</pre></a></li>
+<li class="constant  inherited"><a href="#constant_STATE_STOPPED" title="STATE_STOPPED :: "><span class="description">STATE_STOPPED</span><pre>STATE_STOPPED</pre></a></li>
+<li class="constant  inherited"><a href="#constant_STATE_STOPPING" title="STATE_STOPPING :: "><span class="description">STATE_STOPPING</span><pre>STATE_STOPPING</pre></a></li>
+<li class="constant  inherited"><a href="#constant_TYPE_HTTP" title="TYPE_HTTP :: "><span class="description">TYPE_HTTP</span><pre>TYPE_HTTP</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\DataSift_StreamConsumer_HTTP"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/DataSift_StreamConsumer_HTTP.html">DataSift_StreamConsumer_HTTP</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">The DataSift_StreamConsumer_HTTP class extends DataSift_StreamConsumer
+and implements HTTP streaming.</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>category</th>
+<td>DataSift</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/PHP-client.html">PHP-client</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://www.mediasift.com">http://www.mediasift.com</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Constructor.</h2>
+<pre>__construct(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, mixed $definition, mixed $eventHandler) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Do not use this directly, use the factory method instead.</p></div>
+<table class="table table-bordered"><tr>
+<th>see</th>
+<td><a href="">\global\DataSift_StreamConsumer::__construct</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The authenticated user</p></div>
+<div class="subelement argument">
+<h4>$definition</h4>
+<code>mixed</code><p>CSDL string, Definition object, or array of hashes</p></div>
+<div class="subelement argument">
+<h4>$eventHandler</h4>
+<code>mixed</code><p>An object that implements IStreamConsumerEventHandler</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code>\DataSift_Exceotion_CompileFailed</code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_consume"></a><div class="element clickable method public method_consume" data-toggle="collapse" data-target=".method_consume .collapse">
+<h2>Once an instance of a StreamConsumer is ready for use, call this to
+start consuming.</h2>
+<pre>consume(boolean $auto_reconnect) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Extending classes should implement onStart to handle
+actually starting.</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::consume()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$auto_reconnect</h4>
+<code>boolean</code><p>Whether to reconnect automatically</p></div>
+</div></div>
+</div>
+<a id="method_factory"></a><div class="element clickable method public method_factory" data-toggle="collapse" data-target=".method_factory .collapse">
+<h2>Factory function.</h2>
+<pre>factory($user, string $type, mixed $definition, string $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Creates a StreamConsumer-derived object for the given
+type.</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::factory()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user</h4></div>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>Use the TYPE_ constants</p></div>
+<div class="subelement argument">
+<h4>$definition</h4>
+<code>mixed</code><p>CSDL string or a Definition object.</p></div>
+<div class="subelement argument">
+<h4>$eventHandler</h4>
+<code>string</code><p>The object that will receive events.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></code>The consumer object</div>
+</div></div>
+</div>
+<a id="method_setAutoReconnect"></a><div class="element clickable method public method_setAutoReconnect" data-toggle="collapse" data-target=".method_setAutoReconnect .collapse">
+<h2>Set whether to automatically reconnect to the stream if the connection
+is dropped.</h2>
+<pre>setAutoReconnect(bool $reconnect) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$reconnect</h4>
+<code>bool</code><p>True to enable automatic reconnection</p></div>
+</div></div>
+</div>
+<a id="method_stop"></a><div class="element clickable method public method_stop" data-toggle="collapse" data-target=".method_stop .collapse">
+<h2>This method can be called at any time to *request* that the consumer
+stop consuming.</h2>
+<pre>stop() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>This method sets the state to STATE_STOPPING and it's
+up to the consumer implementation to notice that this has changed, stop
+consuming and call the onStopped method.</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::stop()</td>
+</tr></table>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\DataSift_Exception_InalidData</code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_onConnect"></a><div class="element clickable method protected method_onConnect" data-toggle="collapse" data-target=".method_onConnect .collapse">
+<h2>This is called when the underlying stream is connected.</h2>
+<pre>onConnect() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onConnect()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_onData"></a><div class="element clickable method protected method_onData" data-toggle="collapse" data-target=".method_onData .collapse">
+<h2>This is called when a complete JSON item is received.</h2>
+<pre>onData($json) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onData()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$json</h4><p>The JSON data.</p></div>
+</div></div>
+</div>
+<a id="method_onDeleted"></a><div class="element clickable method protected method_onDeleted" data-toggle="collapse" data-target=".method_onDeleted .collapse">
+<h2>This is called for each DELETE request received from the stream and must
+be implemented in extending classes.</h2>
+<pre>onDeleted(array $interaction, $hash) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onDeleted()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$interaction</h4>
+<code>array</code><p>The interaction data structure</p></div>
+<div class="subelement argument"><h4>$hash</h4></div>
+</div></div>
+</div>
+<a id="method_onDisconnect"></a><div class="element clickable method protected method_onDisconnect" data-toggle="collapse" data-target=".method_onDisconnect .collapse">
+<h2>This is called when the underlying stream is disconnected.</h2>
+<pre>onDisconnect() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onDisconnect()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_onError"></a><div class="element clickable method protected method_onError" data-toggle="collapse" data-target=".method_onError .collapse">
+<h2>This is called when an error notification is received on a stream
+connection.</h2>
+<pre>onError(string $message) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onError()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>The error message</p></div>
+</div></div>
+</div>
+<a id="method_onInteraction"></a><div class="element clickable method protected method_onInteraction" data-toggle="collapse" data-target=".method_onInteraction .collapse">
+<h2>This is called for each interaction received from the stream and must
+be implemented in extending classes.</h2>
+<pre>onInteraction(array $interaction, $hash) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onInteraction()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$interaction</h4>
+<code>array</code><p>The interaction data structure</p></div>
+<div class="subelement argument"><h4>$hash</h4></div>
+</div></div>
+</div>
+<a id="method_onStart"></a><div class="element clickable method protected method_onStart" data-toggle="collapse" data-target=".method_onStart .collapse">
+<h2>SetUp</h2>
+<pre>onStart() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_onStatus"></a><div class="element clickable method protected method_onStatus" data-toggle="collapse" data-target=".method_onStatus .collapse">
+<h2>Called for each status message received from the stream.</h2>
+<pre>onStatus(string $type, array $info) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onStatus()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The status type.</p></div>
+<div class="subelement argument">
+<h4>$info</h4>
+<code>array</code><p>The data received along with the status message.</p></div>
+</div></div>
+</div>
+<a id="method_onStop"></a><div class="element clickable method protected method_onStop" data-toggle="collapse" data-target=".method_onStop .collapse">
+<h2>Default implementation of onStop.</h2>
+<pre>onStop(string $reason) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>It's unlikely that this method will
+ever be used in isolation, but rather it should be called as the final
+step in the extending class's implementation.</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onStop()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$reason</h4>
+<code>string</code><p>Reason why the stream was stopped</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_onStopped"></a><div class="element clickable method protected method_onStopped" data-toggle="collapse" data-target=".method_onStopped .collapse">
+<h2>This is called when the consumer is stopped.</h2>
+<pre>onStopped(string $reason) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onStopped()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$reason</h4>
+<code>string</code><p>Reason to stop the stream</p></div>
+</div></div>
+</div>
+<a id="method_onWarning"></a><div class="element clickable method protected method_onWarning" data-toggle="collapse" data-target=".method_onWarning .collapse">
+<h2>This is called when a warning notification is received on a scream
+connection.</h2>
+<pre>onWarning(string $message) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::onWarning()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>The warning message</p></div>
+</div></div>
+</div>
+<a id="method_connect"></a><div class="element clickable method private method_connect" data-toggle="collapse" data-target=".method_connect .collapse">
+<h2>Connect to the DataSift HTTP stream</h2>
+<pre>connect() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_disconnect"></a><div class="element clickable method private method_disconnect" data-toggle="collapse" data-target=".method_disconnect .collapse">
+<h2>Disconnect from the DataSift stream</h2>
+<pre>disconnect() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_reconnect"></a><div class="element clickable method private method_reconnect" data-toggle="collapse" data-target=".method_reconnect .collapse">
+<h2>Reconnect to the DataSift stream</h2>
+<pre>reconnect() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__auto_reconnect"> </a><div class="element clickable property protected property__auto_reconnect" data-toggle="collapse" data-target=".property__auto_reconnect .collapse">
+<h2>Automatically reconnect if the connection is dropped</h2>
+<pre>$_auto_reconnect : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__connect_timeout"> </a><div class="element clickable property protected property__connect_timeout" data-toggle="collapse" data-target=".property__connect_timeout .collapse">
+<h2>Connect timeout in seconds</h2>
+<pre>$_connect_timeout : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__definition"> </a><div class="element clickable property protected property__definition" data-toggle="collapse" data-target=".property__definition .collapse">
+<h2></h2>
+<pre>$_definition : <a href="../classes/DataSift_Definition.html">\DataSift_Definition</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_definition</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__eventHandler"> </a><div class="element clickable property protected property__eventHandler" data-toggle="collapse" data-target=".property__eventHandler .collapse">
+<h2>The event handler object.</h2>
+<pre>$_eventHandler : <a href="../classes/DataSift_IStreamConsumerEventHandler.html">\DataSift_IStreamConsumerEventHandler</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_eventHandler</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__hashes"> </a><div class="element clickable property protected property__hashes" data-toggle="collapse" data-target=".property__hashes .collapse">
+<h2>The array of hashes to be consumed if using multi</h2>
+<pre>$_hashes : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_hashes</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__is_multi"> </a><div class="element clickable property protected property__is_multi" data-toggle="collapse" data-target=".property__is_multi .collapse">
+<h2>True if this is consuming multiple hashes</h2>
+<pre>$_is_multi : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_is_multi</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__max_line_length"> </a><div class="element clickable property protected property__max_line_length" data-toggle="collapse" data-target=".property__max_line_length .collapse">
+<h2>Max allowable line size from the stream</h2>
+<pre>$_max_line_length : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__read_timeout"> </a><div class="element clickable property protected property__read_timeout" data-toggle="collapse" data-target=".property__read_timeout .collapse">
+<h2>Read timeout in seconds</h2>
+<pre>$_read_timeout : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__state"> </a><div class="element clickable property protected property__state" data-toggle="collapse" data-target=".property__state .collapse">
+<h2></h2>
+<pre>$_state : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_state</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
+<h2></h2>
+<pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::$$_user</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__conn"> </a><div class="element clickable property private property__conn" data-toggle="collapse" data-target=".property__conn .collapse">
+<h2>The HTTP connection resource</h2>
+<pre>$_conn : resource</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_STATE_RUNNING"> </a><div class="element clickable constant  constant_STATE_RUNNING" data-toggle="collapse" data-target=".constant_STATE_RUNNING .collapse">
+<h2>STATE_RUNNING</h2>
+<pre>STATE_RUNNING </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::STATE_RUNNING</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_STATE_STARTING"> </a><div class="element clickable constant  constant_STATE_STARTING" data-toggle="collapse" data-target=".constant_STATE_STARTING .collapse">
+<h2>STATE_STARTING</h2>
+<pre>STATE_STARTING </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::STATE_STARTING</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_STATE_STOPPED"> </a><div class="element clickable constant  constant_STATE_STOPPED" data-toggle="collapse" data-target=".constant_STATE_STOPPED .collapse">
+<h2>STATE_STOPPED</h2>
+<pre>STATE_STOPPED </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::STATE_STOPPED</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_STATE_STOPPING"> </a><div class="element clickable constant  constant_STATE_STOPPING" data-toggle="collapse" data-target=".constant_STATE_STOPPING .collapse">
+<h2>STATE_STOPPING</h2>
+<pre>STATE_STOPPING </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::STATE_STOPPING</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_TYPE_HTTP"> </a><div class="element clickable constant  constant_TYPE_HTTP" data-toggle="collapse" data-target=".constant_TYPE_HTTP .collapse">
+<h2>TYPE_HTTP</h2>
+<pre>TYPE_HTTP </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_StreamConsumer::TYPE_HTTP</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2012-11-21T21:52:19Z.<br></footer></div>
+</div>
+</body>
+</html>

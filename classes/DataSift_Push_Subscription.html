@@ -1,0 +1,1293 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \DataSift_Push_Subscription</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/PHP-client.html"><i class="icon-folder-open"></i> PHP-client</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">126</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Construct a DataSift_Push_Subscription object from an array."><span class="description">Construct a DataSift_Push_Subscription object from an array.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_delete" title="delete :: Delete this subscription."><span class="description">Delete this subscription.</span><pre>delete()</pre></a></li>
+<li class="method public "><a href="#method_get" title="get :: Get a push subscription by ID."><span class="description">Get a push subscription by ID.</span><pre>get()</pre></a></li>
+<li class="method public "><a href="#method_getCreatedAt" title="getCreatedAt :: Get the timestamp when this subscription was created."><span class="description">Get the timestamp when this subscription was created.</span><pre>getCreatedAt()</pre></a></li>
+<li class="method public "><a href="#method_getHash" title="getHash :: Get the hash or playback ID to which this subscription is subscribed."><span class="description">Get the hash or playback ID to which this subscription is subscribed.</span><pre>getHash()</pre></a></li>
+<li class="method public "><a href="#method_getHashType" title="getHashType :: Get the hash type to which this subscription is subscribed."><span class="description">Get the hash type to which this subscription is subscribed.</span><pre>getHashType()</pre></a></li>
+<li class="method public "><a href="#method_getId" title="getId :: Get the subscription ID."><span class="description">Get the subscription ID.</span><pre>getId()</pre></a></li>
+<li class="method public inherited"><a href="#method_getInitialStatus" title="getInitialStatus :: Get the initial status for subscriptions."><span class="description">Get the initial status for subscriptions.</span><pre>getInitialStatus()</pre></a></li>
+<li class="method public "><a href="#method_getLastRequest" title="getLastRequest :: Get the timestamp of the last push request."><span class="description">Get the timestamp of the last push request.</span><pre>getLastRequest()</pre></a></li>
+<li class="method public "><a href="#method_getLastSuccess" title="getLastSuccess :: Get the timestamp of the last successful push request."><span class="description">Get the timestamp of the last successful push request.</span><pre>getLastSuccess()</pre></a></li>
+<li class="method public "><a href="#method_getLog" title="getLog :: Get a page of the log for this subscription order as specified."><span class="description">Get a page of the log for this subscription order as specified.</span><pre>getLog()</pre></a></li>
+<li class="method public "><a href="#method_getLogs" title="getLogs :: Page through recent push subscription log entries, specifying the sort
+order."><span class="description">Page through recent push subscription log entries, specifying the sort
+order.</span><pre>getLogs()</pre></a></li>
+<li class="method public "><a href="#method_getName" title="getName :: Get the subscription name."><span class="description">Get the subscription name.</span><pre>getName()</pre></a></li>
+<li class="method public inherited"><a href="#method_getOutputParam" title="getOutputParam :: Get an output parameter."><span class="description">Get an output parameter.</span><pre>getOutputParam()</pre></a></li>
+<li class="method public inherited"><a href="#method_getOutputParams" title="getOutputParams :: Get all of the output parameters."><span class="description">Get all of the output parameters.</span><pre>getOutputParams()</pre></a></li>
+<li class="method public "><a href="#method_getOutputType" title="getOutputType :: Get the output type."><span class="description">Get the output type.</span><pre>getOutputType()</pre></a></li>
+<li class="method public "><a href="#method_getStatus" title="getStatus :: Get the current status of this subscription."><span class="description">Get the current status of this subscription.</span><pre>getStatus()</pre></a></li>
+<li class="method public "><a href="#method_isDeleted" title="isDeleted :: Returns true if this subscription has been deleted."><span class="description">Returns true if this subscription has been deleted.</span><pre>isDeleted()</pre></a></li>
+<li class="method public "><a href="#method_listByPlaybackId" title="listByPlaybackId :: Get a page of push subscriptions to the given stream playback_id, where
+each page contains up to per_page items."><span class="description">Get a page of push subscriptions to the given stream playback_id, where
+each page contains up to per_page items.</span><pre>listByPlaybackId()</pre></a></li>
+<li class="method public "><a href="#method_listByStreamHash" title="listByStreamHash :: Get a page of push subscriptions to the given stream hash, where
+each page contains up to per_page items."><span class="description">Get a page of push subscriptions to the given stream hash, where
+each page contains up to per_page items.</span><pre>listByStreamHash()</pre></a></li>
+<li class="method public "><a href="#method_listSubscriptions" title="listSubscriptions :: Get a page of push subscriptions in the given user's account, where
+each page contains up to per_page items."><span class="description">Get a page of push subscriptions in the given user's account, where
+each page contains up to per_page items.</span><pre>listSubscriptions()</pre></a></li>
+<li class="method public "><a href="#method_pause" title="pause :: Pause this subscription."><span class="description">Pause this subscription.</span><pre>pause()</pre></a></li>
+<li class="method public "><a href="#method_reload" title="reload :: Re-fetch this subscription from the API."><span class="description">Re-fetch this subscription from the API.</span><pre>reload()</pre></a></li>
+<li class="method public "><a href="#method_resume" title="resume :: Resume this subscription."><span class="description">Resume this subscription.</span><pre>resume()</pre></a></li>
+<li class="method public "><a href="#method_save" title="save :: Save changes to the name and output_parameters of this subscription."><span class="description">Save changes to the name and output_parameters of this subscription.</span><pre>save()</pre></a></li>
+<li class="method public inherited"><a href="#method_setInitialStatus" title="setInitialStatus :: Set the initial status for subscriptions."><span class="description">Set the initial status for subscriptions.</span><pre>setInitialStatus()</pre></a></li>
+<li class="method public "><a href="#method_setOutputParam" title="setOutputParam :: Set an output parameter."><span class="description">Set an output parameter.</span><pre>setOutputParam()</pre></a></li>
+<li class="method public inherited"><a href="#method_setOutputType" title="setOutputType :: Set the output type."><span class="description">Set the output type.</span><pre>setOutputType()</pre></a></li>
+<li class="method public "><a href="#method_stop" title="stop :: Stop this subscription."><span class="description">Stop this subscription.</span><pre>stop()</pre></a></li>
+<li class="method public inherited"><a href="#method_subscribeDefinition" title="subscribeDefinition :: Subscribe this endpoint to a Definition."><span class="description">Subscribe this endpoint to a Definition.</span><pre>subscribeDefinition()</pre></a></li>
+<li class="method public inherited"><a href="#method_subscribeHistoric" title="subscribeHistoric :: Subscribe this endpoint to a Historic."><span class="description">Subscribe this endpoint to a Historic.</span><pre>subscribeHistoric()</pre></a></li>
+<li class="method public inherited"><a href="#method_subscribeHistoricPlaybackId" title="subscribeHistoricPlaybackId :: Subscribe this endpoint to a historic playback ID."><span class="description">Subscribe this endpoint to a historic playback ID.</span><pre>subscribeHistoricPlaybackId()</pre></a></li>
+<li class="method public inherited"><a href="#method_subscribeStreamHash" title="subscribeStreamHash :: Subscribe this endpoint to a stream hash."><span class="description">Subscribe this endpoint to a stream hash.</span><pre>subscribeStreamHash()</pre></a></li>
+<li class="method public inherited"><a href="#method_validate" title="validate :: Validate the output type and parameters with the DataSift API."><span class="description">Validate the output type and parameters with the DataSift API.</span><pre>validate()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method_init" title="init :: Extract data from an array."><span class="description">Extract data from an array.</span><pre>init()</pre></a></li>
+<li class="method protected "><a href="#method_parseOutputParams" title="parseOutputParams :: Recursive method to parse the output_params as received from the API
+into the flattened, dot-notation used by the client libraries."><span class="description">Recursive method to parse the output_params as received from the API
+into the flattened, dot-notation used by the client libraries.</span><pre>parseOutputParams()</pre></a></li>
+<li class="method protected inherited"><a href="#method_subscribe" title="subscribe :: Subscribe this endpoint to a stream hash or historic playback ID."><span class="description">Subscribe this endpoint to a stream hash or historic playback ID.</span><pre>subscribe()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description">The timestamp when this subscription was created.</span><pre>$_created_at</pre></a></li>
+<li class="property protected "><a href="#property__deleted" title="$_deleted :: "><span class="description">True if this subscription has been deleted (becomes read-only).</span><pre>$_deleted</pre></a></li>
+<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description">The hash to which this subscription is subscribed.</span><pre>$_hash</pre></a></li>
+<li class="property protected "><a href="#property__hash_type" title="$_hash_type :: "><span class="description">"stream" or "historic"</span><pre>$_hash_type</pre></a></li>
+<li class="property protected "><a href="#property__id" title="$_id :: "><span class="description">The subscription ID.</span><pre>$_id</pre></a></li>
+<li class="property protected inherited"><a href="#property__initial_status" title="$_initial_status :: An initial status for push subscriptions."><span class="description"></span><pre>$_initial_status</pre></a></li>
+<li class="property protected "><a href="#property__last_request" title="$_last_request :: "><span class="description">The timestamp of the last push request.</span><pre>$_last_request</pre></a></li>
+<li class="property protected "><a href="#property__last_success" title="$_last_success :: "><span class="description">The timestamp of the last successful push request.</span><pre>$_last_success</pre></a></li>
+<li class="property protected "><a href="#property__name" title="$_name :: "><span class="description">The name of this subscription.</span><pre>$_name</pre></a></li>
+<li class="property protected inherited"><a href="#property__output_params" title="$_output_params :: The output parameters."><span class="description"></span><pre>$_output_params</pre></a></li>
+<li class="property protected inherited"><a href="#property__output_type" title="$_output_type :: The output_type of this push definition."><span class="description"></span><pre>$_output_type</pre></a></li>
+<li class="property protected "><a href="#property__status" title="$_status :: "><span class="description">The current status of this subscription.</span><pre>$_status</pre></a></li>
+<li class="property protected inherited"><a href="#property__user" title="$_user :: The user that owns this push definition."><span class="description"></span><pre>$_user</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants
+                    <ul>
+<li class="constant  "><a href="#constant_HASH_TYPE_HISTORIC" title="HASH_TYPE_HISTORIC :: "><span class="description">HASH_TYPE_HISTORIC</span><pre>HASH_TYPE_HISTORIC</pre></a></li>
+<li class="constant  "><a href="#constant_HASH_TYPE_STREAM" title="HASH_TYPE_STREAM :: Hash type constants."><span class="description">Hash type constants.</span><pre>HASH_TYPE_STREAM</pre></a></li>
+<li class="constant  "><a href="#constant_ORDERBY_CREATED_AT" title="ORDERBY_CREATED_AT :: "><span class="description">ORDERBY_CREATED_AT</span><pre>ORDERBY_CREATED_AT</pre></a></li>
+<li class="constant  "><a href="#constant_ORDERBY_ID" title="ORDERBY_ID :: Order by constants."><span class="description">Order by constants.</span><pre>ORDERBY_ID</pre></a></li>
+<li class="constant  "><a href="#constant_ORDERBY_REQUEST_TIME" title="ORDERBY_REQUEST_TIME :: "><span class="description">ORDERBY_REQUEST_TIME</span><pre>ORDERBY_REQUEST_TIME</pre></a></li>
+<li class="constant  "><a href="#constant_ORDERDIR_ASC" title="ORDERDIR_ASC :: Order direction constants."><span class="description">Order direction constants.</span><pre>ORDERDIR_ASC</pre></a></li>
+<li class="constant  "><a href="#constant_ORDERDIR_DESC" title="ORDERDIR_DESC :: "><span class="description">ORDERDIR_DESC</span><pre>ORDERDIR_DESC</pre></a></li>
+<li class="constant  inherited"><a href="#constant_OUTPUT_PARAMS_PREFIX" title="OUTPUT_PARAMS_PREFIX :: The prefix to be used when passing the output_params to API calls."><span class="description">The prefix to be used when passing the output_params to API calls.</span><pre>OUTPUT_PARAMS_PREFIX</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_ACTIVE" title="STATUS_ACTIVE :: Status constants."><span class="description">Status constants.</span><pre>STATUS_ACTIVE</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_DELETED" title="STATUS_DELETED :: "><span class="description">STATUS_DELETED</span><pre>STATUS_DELETED</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_FAILED" title="STATUS_FAILED :: "><span class="description">STATUS_FAILED</span><pre>STATUS_FAILED</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_FINISHED" title="STATUS_FINISHED :: "><span class="description">STATUS_FINISHED</span><pre>STATUS_FINISHED</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_FINISHING" title="STATUS_FINISHING :: "><span class="description">STATUS_FINISHING</span><pre>STATUS_FINISHING</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_PAUSED" title="STATUS_PAUSED :: "><span class="description">STATUS_PAUSED</span><pre>STATUS_PAUSED</pre></a></li>
+<li class="constant  "><a href="#constant_STATUS_STOPPED" title="STATUS_STOPPED :: "><span class="description">STATUS_STOPPED</span><pre>STATUS_STOPPED</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\DataSift_Push_Subscription"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/DataSift_Push_Subscription.html">DataSift_Push_Subscription</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">The DataSift_Push_Subscription class represents a push subscription.</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>category</th>
+<td>DataSift</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/PHP-client.html">PHP-client</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://www.mediasift.com">http://www.mediasift.com</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Construct a DataSift_Push_Subscription object from an array.</h2>
+<pre>__construct(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Takes the user creating the object.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user that owns this subscription.</p></div>
+<div class="subelement argument"><h4>$data</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+<h2>Delete this subscription.</h2>
+<pre>delete() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse">
+<h2>Get a push subscription by ID.</h2>
+<pre>get(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, string $id) : <a href="../classes/DataSift_Push_Subscription.html">\DataSift_Push_Subscription</a></pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user who owns the subscription.</p></div>
+<div class="subelement argument">
+<h4>$id</h4>
+<code>string</code><p>The subscription ID.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/DataSift_Push_Subscription.html">\DataSift_Push_Subscription</a></code></div>
+</div></div>
+</div>
+<a id="method_getCreatedAt"></a><div class="element clickable method public method_getCreatedAt" data-toggle="collapse" data-target=".method_getCreatedAt .collapse">
+<h2>Get the timestamp when this subscription was created.</h2>
+<pre>getCreatedAt() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>int</code></div>
+</div></div>
+</div>
+<a id="method_getHash"></a><div class="element clickable method public method_getHash" data-toggle="collapse" data-target=".method_getHash .collapse">
+<h2>Get the hash or playback ID to which this subscription is subscribed.</h2>
+<pre>getHash() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getHashType"></a><div class="element clickable method public method_getHashType" data-toggle="collapse" data-target=".method_getHashType .collapse">
+<h2>Get the hash type to which this subscription is subscribed.</h2>
+<pre>getHashType() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getId"></a><div class="element clickable method public method_getId" data-toggle="collapse" data-target=".method_getId .collapse">
+<h2>Get the subscription ID.</h2>
+<pre>getId() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getInitialStatus"></a><div class="element clickable method public method_getInitialStatus" data-toggle="collapse" data-target=".method_getInitialStatus .collapse">
+<h2>Get the initial status for subscriptions.</h2>
+<pre>getInitialStatus() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\global\PushSubscription.STATUS_*</a></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::getInitialStatus()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getLastRequest"></a><div class="element clickable method public method_getLastRequest" data-toggle="collapse" data-target=".method_getLastRequest .collapse">
+<h2>Get the timestamp of the last push request.</h2>
+<pre>getLastRequest() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>int</code></div>
+</div></div>
+</div>
+<a id="method_getLastSuccess"></a><div class="element clickable method public method_getLastSuccess" data-toggle="collapse" data-target=".method_getLastSuccess .collapse">
+<h2>Get the timestamp of the last successful push request.</h2>
+<pre>getLastSuccess() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>int</code></div>
+</div></div>
+</div>
+<a id="method_getLog"></a><div class="element clickable method public method_getLog" data-toggle="collapse" data-target=".method_getLog .collapse">
+<h2>Get a page of the log for this subscription order as specified.</h2>
+<pre>getLog(int $page, int $per_page, string $order_by, string $order_dir) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page to get.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of entries per page.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>string</code><p>By which field to order the entries.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>string</code><p>The direction of the sorting ("asc" or "desc").</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getLogs"></a><div class="element clickable method public method_getLogs" data-toggle="collapse" data-target=".method_getLogs .collapse">
+<h2>Page through recent push subscription log entries, specifying the sort
+order.</h2>
+<pre>getLogs(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, int $page, int $per_page, string $order_by, string $order_dir, $id) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user making the request.</p></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>Which page to fetch.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>Based on this page size.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>string</code><p>Which field to sort by.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>string</code><p>In asc[ending] or desc[ending] order.</p>
+</div>
+<div class="subelement argument"><h4>$id</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of LogEntry objects.</div>
+</div></div>
+</div>
+<a id="method_getName"></a><div class="element clickable method public method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+<h2>Get the subscription name.</h2>
+<pre>getName() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getOutputParam"></a><div class="element clickable method public method_getOutputParam" data-toggle="collapse" data-target=".method_getOutputParam .collapse">
+<h2>Get an output parameter.</h2>
+<pre>getOutputParam(string $key) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::getOutputParam()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$key</h4>
+<code>string</code><p>The parameter to get.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getOutputParams"></a><div class="element clickable method public method_getOutputParams" data-toggle="collapse" data-target=".method_getOutputParams .collapse">
+<h2>Get all of the output parameters.</h2>
+<pre>getOutputParams() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::getOutputParams()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getOutputType"></a><div class="element clickable method public method_getOutputType" data-toggle="collapse" data-target=".method_getOutputType .collapse">
+<h2>Get the output type.</h2>
+<pre>getOutputType() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getStatus"></a><div class="element clickable method public method_getStatus" data-toggle="collapse" data-target=".method_getStatus .collapse">
+<h2>Get the current status of this subscription.</h2>
+<pre>getStatus() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Make sure you call reload
+to get the latest data for this subscription first.</p></div>
+<table class="table table-bordered"><tr>
+<th>see</th>
+<td><a href="">\global\self::STATUS_*</a></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_isDeleted"></a><div class="element clickable method public method_isDeleted" data-toggle="collapse" data-target=".method_isDeleted .collapse">
+<h2>Returns true if this subscription has been deleted.</h2>
+<pre>isDeleted() : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a id="method_listByPlaybackId"></a><div class="element clickable method public method_listByPlaybackId" data-toggle="collapse" data-target=".method_listByPlaybackId .collapse">
+<h2>Get a page of push subscriptions to the given stream playback_id, where
+each page contains up to per_page items.</h2>
+<pre>listByPlaybackId(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, $playback_id, int $page, int $per_page, string $order_by, string $order_dir, boolean $include_finished, $hash_type, $hash) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Results will be ordered
+according to the supplied ordering parameters.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user.</p></div>
+<div class="subelement argument"><h4>$playback_id</h4></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page number to fetch.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of items per page.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>string</code><p>The field on which to order the results.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>string</code><p>The direction of the ordering.</p></div>
+<div class="subelement argument">
+<h4>$include_finished</h4>
+<code>boolean</code><p>True to include subscriptions against finished historic queries.</p></div>
+<div class="subelement argument"><h4>$hash_type</h4></div>
+<div class="subelement argument"><h4>$hash</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of DataSift_Push_Subscription objects.</div>
+</div></div>
+</div>
+<a id="method_listByStreamHash"></a><div class="element clickable method public method_listByStreamHash" data-toggle="collapse" data-target=".method_listByStreamHash .collapse">
+<h2>Get a page of push subscriptions to the given stream hash, where
+each page contains up to per_page items.</h2>
+<pre>listByStreamHash(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, $hash, int $page, int $per_page, string $order_by, string $order_dir, boolean $include_finished, $hash_type) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Results will be ordered
+according to the supplied ordering parameters.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user.</p></div>
+<div class="subelement argument"><h4>$hash</h4></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page number to fetch.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of items per page.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>string</code><p>The field on which to order the results.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>string</code><p>The direction of the ordering.</p></div>
+<div class="subelement argument">
+<h4>$include_finished</h4>
+<code>boolean</code><p>True to include subscriptions against finished historic queries.</p></div>
+<div class="subelement argument"><h4>$hash_type</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of DataSift_Push_Subscription objects.</div>
+</div></div>
+</div>
+<a id="method_listSubscriptions"></a><div class="element clickable method public method_listSubscriptions" data-toggle="collapse" data-target=".method_listSubscriptions .collapse">
+<h2>Get a page of push subscriptions in the given user's account, where
+each page contains up to per_page items.</h2>
+<pre>listSubscriptions(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, int $page, int $per_page, string $order_by, string $order_dir, boolean $include_finished, $hash_type, $hash) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Results will be ordered
+according to the supplied ordering parameters.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user.</p></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page number to fetch.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of items per page.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>string</code><p>The field on which to order the results.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>string</code><p>The direction of the ordering.</p></div>
+<div class="subelement argument">
+<h4>$include_finished</h4>
+<code>boolean</code><p>True to include subscriptions against finished historic queries.</p></div>
+<div class="subelement argument"><h4>$hash_type</h4></div>
+<div class="subelement argument"><h4>$hash</h4></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Of DataSift_Push_Subscription objects.</div>
+</div></div>
+</div>
+<a id="method_pause"></a><div class="element clickable method public method_pause" data-toggle="collapse" data-target=".method_pause .collapse">
+<h2>Pause this subscription.</h2>
+<pre>pause() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_reload"></a><div class="element clickable method public method_reload" data-toggle="collapse" data-target=".method_reload .collapse">
+<h2>Re-fetch this subscription from the API.</h2>
+<pre>reload() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_resume"></a><div class="element clickable method public method_resume" data-toggle="collapse" data-target=".method_resume .collapse">
+<h2>Resume this subscription.</h2>
+<pre>resume() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_save"></a><div class="element clickable method public method_save" data-toggle="collapse" data-target=".method_save .collapse">
+<h2>Save changes to the name and output_parameters of this subscription.</h2>
+<pre>save() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_setInitialStatus"></a><div class="element clickable method public method_setInitialStatus" data-toggle="collapse" data-target=".method_setInitialStatus .collapse">
+<h2>Set the initial status for subscriptions.</h2>
+<pre>setInitialStatus(string $status) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\global\PushSubscription.STATUS_*</a></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::setInitialStatus()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$status</h4>
+<code>string</code><p>The initial status.</p></div>
+</div></div>
+</div>
+<a id="method_setOutputParam"></a><div class="element clickable method public method_setOutputParam" data-toggle="collapse" data-target=".method_setOutputParam .collapse">
+<h2>Set an output parameter.</h2>
+<pre>setOutputParam(string $key, string $val) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Checks to see if the subscription has been
+deleted, and if not calls the base class to set the parameter.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$key</h4>
+<code>string</code><p>The output parameter to set.</p></div>
+<div class="subelement argument">
+<h4>$val</h4>
+<code>string</code><p>The value to which to set it.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_setOutputType"></a><div class="element clickable method public method_setOutputType" data-toggle="collapse" data-target=".method_setOutputType .collapse">
+<h2>Set the output type.</h2>
+<pre>setOutputType(string $type) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::setOutputType()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The output type.</p></div>
+</div></div>
+</div>
+<a id="method_stop"></a><div class="element clickable method public method_stop" data-toggle="collapse" data-target=".method_stop .collapse">
+<h2>Stop this subscription.</h2>
+<pre>stop() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_subscribeDefinition"></a><div class="element clickable method public method_subscribeDefinition" data-toggle="collapse" data-target=".method_subscribeDefinition .collapse">
+<h2>Subscribe this endpoint to a Definition.</h2>
+<pre>subscribeDefinition(<a href="../classes/DataSift_Definition.html">\DataSift_Definition</a> $definition, string $name) : \DataSift_PushSubscription</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::subscribeDefinition()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$definition</h4>
+<code><a href="../classes/DataSift_Definition.html">\DataSift_Definition</a></code><p>The definition to which to subscribe.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this subscription.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\DataSift_PushSubscription</code>The new subscription.</div>
+</div></div>
+</div>
+<a id="method_subscribeHistoric"></a><div class="element clickable method public method_subscribeHistoric" data-toggle="collapse" data-target=".method_subscribeHistoric .collapse">
+<h2>Subscribe this endpoint to a Historic.</h2>
+<pre>subscribeHistoric(<a href="../classes/DataSift_Historic.html">\DataSift_Historic</a> $historic, string $name) : \DataSift_PushSubscription</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::subscribeHistoric()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$historic</h4>
+<code><a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></code><p>The historic object to which to subscribe.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this subscription.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\DataSift_PushSubscription</code>The new subscription.</div>
+</div></div>
+</div>
+<a id="method_subscribeHistoricPlaybackId"></a><div class="element clickable method public method_subscribeHistoricPlaybackId" data-toggle="collapse" data-target=".method_subscribeHistoricPlaybackId .collapse">
+<h2>Subscribe this endpoint to a historic playback ID.</h2>
+<pre>subscribeHistoricPlaybackId(string $playback_id, string $name) : \DataSift_PushSubscription</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::subscribeHistoricPlaybackId()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$playback_id</h4>
+<code>string</code><p>The playback ID.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this subscription.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\DataSift_PushSubscription</code>The new subscription.</div>
+</div></div>
+</div>
+<a id="method_subscribeStreamHash"></a><div class="element clickable method public method_subscribeStreamHash" data-toggle="collapse" data-target=".method_subscribeStreamHash .collapse">
+<h2>Subscribe this endpoint to a stream hash.</h2>
+<pre>subscribeStreamHash(string $hash, string $name) : \DataSift_PushSubscription</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::subscribeStreamHash()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The has to which to subscribe.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this subscription.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\DataSift_PushSubscription</code>The new subscription.</div>
+</div></div>
+</div>
+<a id="method_validate"></a><div class="element clickable method public method_validate" data-toggle="collapse" data-target=".method_validate .collapse">
+<h2>Validate the output type and parameters with the DataSift API.</h2>
+<pre>validate() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::validate()</td>
+</tr></table>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_init"></a><div class="element clickable method protected method_init" data-toggle="collapse" data-target=".method_init .collapse">
+<h2>Extract data from an array.</h2>
+<pre>init(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>An array containing the subscription data.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_parseOutputParams"></a><div class="element clickable method protected method_parseOutputParams" data-toggle="collapse" data-target=".method_parseOutputParams .collapse">
+<h2>Recursive method to parse the output_params as received from the API
+into the flattened, dot-notation used by the client libraries.</h2>
+<pre>parseOutputParams(array $params, string $prefix) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$params</h4>
+<code>array</code><p>The parameters to parse.</p></div>
+<div class="subelement argument">
+<h4>$prefix</h4>
+<code>string</code><p>The current key prefix.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_subscribe"></a><div class="element clickable method protected method_subscribe" data-toggle="collapse" data-target=".method_subscribe .collapse">
+<h2>Subscribe this endpoint to a stream hash or historic playback ID.</h2>
+<pre>subscribe(string $hash_type, string $hash, string $name) : \DataSift_PushSubscription</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Note
+that this will activate the subscription if the initial status is set
+to active.</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::subscribe()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$hash_type</h4>
+<code>string</code><p>"hash" or "playback_id"</p>
+</div>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The hash or playback ID.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this subscription.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\DataSift_PushSubscription</code>The new subscription.</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__created_at"> </a><div class="element clickable property protected property__created_at" data-toggle="collapse" data-target=".property__created_at .collapse">
+<h2>The timestamp when this subscription was created.</h2>
+<pre>$_created_at : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__deleted"> </a><div class="element clickable property protected property__deleted" data-toggle="collapse" data-target=".property__deleted .collapse">
+<h2>True if this subscription has been deleted (becomes read-only).</h2>
+<pre>$_deleted : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__hash"> </a><div class="element clickable property protected property__hash" data-toggle="collapse" data-target=".property__hash .collapse">
+<h2>The hash to which this subscription is subscribed.</h2>
+<pre>$_hash : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__hash_type"> </a><div class="element clickable property protected property__hash_type" data-toggle="collapse" data-target=".property__hash_type .collapse">
+<h2>"stream" or "historic"</h2>
+<pre>$_hash_type : String</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__id"> </a><div class="element clickable property protected property__id" data-toggle="collapse" data-target=".property__id .collapse">
+<h2>The subscription ID.</h2>
+<pre>$_id : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__initial_status"> </a><div class="element clickable property protected property__initial_status" data-toggle="collapse" data-target=".property__initial_status .collapse">
+<h2></h2>
+<pre>$_initial_status : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\global\PushSubscription::STATUS_*</a></td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::$$_initial_status</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property__last_request"> </a><div class="element clickable property protected property__last_request" data-toggle="collapse" data-target=".property__last_request .collapse">
+<h2>The timestamp of the last push request.</h2>
+<pre>$_last_request : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__last_success"> </a><div class="element clickable property protected property__last_success" data-toggle="collapse" data-target=".property__last_success .collapse">
+<h2>The timestamp of the last successful push request.</h2>
+<pre>$_last_success : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__name"> </a><div class="element clickable property protected property__name" data-toggle="collapse" data-target=".property__name .collapse">
+<h2>The name of this subscription.</h2>
+<pre>$_name : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__output_params"> </a><div class="element clickable property protected property__output_params" data-toggle="collapse" data-target=".property__output_params .collapse">
+<h2></h2>
+<pre>$_output_params : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::$$_output_params</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__output_type"> </a><div class="element clickable property protected property__output_type" data-toggle="collapse" data-target=".property__output_type .collapse">
+<h2></h2>
+<pre>$_output_type : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::$$_output_type</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property__status"> </a><div class="element clickable property protected property__status" data-toggle="collapse" data-target=".property__status .collapse">
+<h2>The current status of this subscription.</h2>
+<pre>$_status : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
+<h2></h2>
+<pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::$$_user</td>
+</tr></table>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_HASH_TYPE_HISTORIC"> </a><div class="element clickable constant  constant_HASH_TYPE_HISTORIC" data-toggle="collapse" data-target=".constant_HASH_TYPE_HISTORIC .collapse">
+<h2>HASH_TYPE_HISTORIC</h2>
+<pre>HASH_TYPE_HISTORIC </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_HASH_TYPE_STREAM"> </a><div class="element clickable constant  constant_HASH_TYPE_STREAM" data-toggle="collapse" data-target=".constant_HASH_TYPE_STREAM .collapse">
+<h2>Hash type constants.</h2>
+<pre>HASH_TYPE_STREAM </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_ORDERBY_CREATED_AT"> </a><div class="element clickable constant  constant_ORDERBY_CREATED_AT" data-toggle="collapse" data-target=".constant_ORDERBY_CREATED_AT .collapse">
+<h2>ORDERBY_CREATED_AT</h2>
+<pre>ORDERBY_CREATED_AT </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_ORDERBY_ID"> </a><div class="element clickable constant  constant_ORDERBY_ID" data-toggle="collapse" data-target=".constant_ORDERBY_ID .collapse">
+<h2>Order by constants.</h2>
+<pre>ORDERBY_ID </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_ORDERBY_REQUEST_TIME"> </a><div class="element clickable constant  constant_ORDERBY_REQUEST_TIME" data-toggle="collapse" data-target=".constant_ORDERBY_REQUEST_TIME .collapse">
+<h2>ORDERBY_REQUEST_TIME</h2>
+<pre>ORDERBY_REQUEST_TIME </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_ORDERDIR_ASC"> </a><div class="element clickable constant  constant_ORDERDIR_ASC" data-toggle="collapse" data-target=".constant_ORDERDIR_ASC .collapse">
+<h2>Order direction constants.</h2>
+<pre>ORDERDIR_ASC </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_ORDERDIR_DESC"> </a><div class="element clickable constant  constant_ORDERDIR_DESC" data-toggle="collapse" data-target=".constant_ORDERDIR_DESC .collapse">
+<h2>ORDERDIR_DESC</h2>
+<pre>ORDERDIR_DESC </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_OUTPUT_PARAMS_PREFIX"> </a><div class="element clickable constant  constant_OUTPUT_PARAMS_PREFIX" data-toggle="collapse" data-target=".constant_OUTPUT_PARAMS_PREFIX .collapse">
+<h2>The prefix to be used when passing the output_params to API calls.</h2>
+<pre>OUTPUT_PARAMS_PREFIX </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\DataSift_Push_Definition::OUTPUT_PARAMS_PREFIX</td>
+</tr></table>
+</div></div>
+</div>
+<a id="constant_STATUS_ACTIVE"> </a><div class="element clickable constant  constant_STATUS_ACTIVE" data-toggle="collapse" data-target=".constant_STATUS_ACTIVE .collapse">
+<h2>Status constants.</h2>
+<pre>STATUS_ACTIVE </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_DELETED"> </a><div class="element clickable constant  constant_STATUS_DELETED" data-toggle="collapse" data-target=".constant_STATUS_DELETED .collapse">
+<h2>STATUS_DELETED</h2>
+<pre>STATUS_DELETED </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_FAILED"> </a><div class="element clickable constant  constant_STATUS_FAILED" data-toggle="collapse" data-target=".constant_STATUS_FAILED .collapse">
+<h2>STATUS_FAILED</h2>
+<pre>STATUS_FAILED </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_FINISHED"> </a><div class="element clickable constant  constant_STATUS_FINISHED" data-toggle="collapse" data-target=".constant_STATUS_FINISHED .collapse">
+<h2>STATUS_FINISHED</h2>
+<pre>STATUS_FINISHED </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_FINISHING"> </a><div class="element clickable constant  constant_STATUS_FINISHING" data-toggle="collapse" data-target=".constant_STATUS_FINISHING .collapse">
+<h2>STATUS_FINISHING</h2>
+<pre>STATUS_FINISHING </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_PAUSED"> </a><div class="element clickable constant  constant_STATUS_PAUSED" data-toggle="collapse" data-target=".constant_STATUS_PAUSED .collapse">
+<h2>STATUS_PAUSED</h2>
+<pre>STATUS_PAUSED </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_STATUS_STOPPED"> </a><div class="element clickable constant  constant_STATUS_STOPPED" data-toggle="collapse" data-target=".constant_STATUS_STOPPED .collapse">
+<h2>STATUS_STOPPED</h2>
+<pre>STATUS_STOPPED </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2012-11-21T21:52:19Z.<br></footer></div>
+</div>
+</body>
+</html>

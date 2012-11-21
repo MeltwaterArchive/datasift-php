@@ -1,0 +1,658 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \DataSift_Historic</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/PHP-client.html"><i class="icon-folder-open"></i> PHP-client</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">126</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Constructor."><span class="description">Constructor.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_delete" title="delete :: Delete this historic query."><span class="description">Delete this historic query.</span><pre>delete()</pre></a></li>
+<li class="method public "><a href="#method_getAvailability" title="getAvailability :: Returns the data availability information for this historic."><span class="description">Returns the data availability information for this historic.</span><pre>getAvailability()</pre></a></li>
+<li class="method public "><a href="#method_getCreatedAt" title="getCreatedAt :: Returns the created at date."><span class="description">Returns the created at date.</span><pre>getCreatedAt()</pre></a></li>
+<li class="method public "><a href="#method_getDPUs" title="getDPUs :: Returns the DPU cost of running this historic."><span class="description">Returns the DPU cost of running this historic.</span><pre>getDPUs()</pre></a></li>
+<li class="method public "><a href="#method_getEndDate" title="getEndDate :: Returns the end date."><span class="description">Returns the end date.</span><pre>getEndDate()</pre></a></li>
+<li class="method public "><a href="#method_getHash" title="getHash :: Returns the playback ID for this historic."><span class="description">Returns the playback ID for this historic.</span><pre>getHash()</pre></a></li>
+<li class="method public "><a href="#method_getName" title="getName :: Returns the name."><span class="description">Returns the name.</span><pre>getName()</pre></a></li>
+<li class="method public "><a href="#method_getProgress" title="getProgress :: Returns the current progress."><span class="description">Returns the current progress.</span><pre>getProgress()</pre></a></li>
+<li class="method public "><a href="#method_getPushSubscriptions" title="getPushSubscriptions :: Get a page of push subscriptions for this historic query, where each
+page contains up to $per_page items."><span class="description">Get a page of push subscriptions for this historic query, where each
+page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a></li>
+<li class="method public "><a href="#method_getSample" title="getSample :: Returns the sample."><span class="description">Returns the sample.</span><pre>getSample()</pre></a></li>
+<li class="method public "><a href="#method_getSources" title="getSources :: Returns the sources."><span class="description">Returns the sources.</span><pre>getSources()</pre></a></li>
+<li class="method public "><a href="#method_getStartDate" title="getStartDate :: Returns the start date."><span class="description">Returns the start date.</span><pre>getStartDate()</pre></a></li>
+<li class="method public "><a href="#method_getStatus" title="getStatus :: Returns the status."><span class="description">Returns the status.</span><pre>getStatus()</pre></a></li>
+<li class="method public "><a href="#method_getStreamHash" title="getStreamHash :: Returns the stream hash."><span class="description">Returns the stream hash.</span><pre>getStreamHash()</pre></a></li>
+<li class="method public "><a href="#method_listHistorics" title="listHistorics :: "><span class="description">listHistorics()
+        </span><pre>listHistorics()</pre></a></li>
+<li class="method public "><a href="#method_prepare" title="prepare :: Call the DataSift API to prepare this historic query."><span class="description">Call the DataSift API to prepare this historic query.</span><pre>prepare()</pre></a></li>
+<li class="method public "><a href="#method_reloadData" title="reloadData :: Reload the data for this object from the API."><span class="description">Reload the data for this object from the API.</span><pre>reloadData()</pre></a></li>
+<li class="method public "><a href="#method_setName" title="setName :: Sets the name."><span class="description">Sets the name.</span><pre>setName()</pre></a></li>
+<li class="method public "><a href="#method_start" title="start :: Start this historic query."><span class="description">Start this historic query.</span><pre>start()</pre></a></li>
+<li class="method public "><a href="#method_stop" title="stop :: Stop this historic query."><span class="description">Stop this historic query.</span><pre>stop()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method_generateName" title="generateName :: Generate a name based on the current date/time."><span class="description">Generate a name based on the current date/time.</span><pre>generateName()</pre></a></li>
+<li class="method protected "><a href="#method_initFromArray" title="initFromArray :: Initialise this object from the data in the given array."><span class="description">Initialise this object from the data in the given array.</span><pre>initFromArray()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property__availability" title="$_availability :: "><span class="description"></span><pre>$_availability</pre></a></li>
+<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description"></span><pre>$_created_at</pre></a></li>
+<li class="property protected "><a href="#property__deleted" title="$_deleted :: "><span class="description"></span><pre>$_deleted</pre></a></li>
+<li class="property protected "><a href="#property__dpus" title="$_dpus :: "><span class="description"></span><pre>$_dpus</pre></a></li>
+<li class="property protected "><a href="#property__end" title="$_end :: "><span class="description"></span><pre>$_end</pre></a></li>
+<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description"></span><pre>$_hash</pre></a></li>
+<li class="property protected "><a href="#property__name" title="$_name :: "><span class="description"></span><pre>$_name</pre></a></li>
+<li class="property protected "><a href="#property__playback_id" title="$_playback_id :: "><span class="description"></span><pre>$_playback_id</pre></a></li>
+<li class="property protected "><a href="#property__progress" title="$_progress :: "><span class="description"></span><pre>$_progress</pre></a></li>
+<li class="property protected "><a href="#property__sample" title="$_sample :: "><span class="description"></span><pre>$_sample</pre></a></li>
+<li class="property protected "><a href="#property__sources" title="$_sources :: "><span class="description"></span><pre>$_sources</pre></a></li>
+<li class="property protected "><a href="#property__start" title="$_start :: "><span class="description"></span><pre>$_start</pre></a></li>
+<li class="property protected "><a href="#property__status" title="$_status :: "><span class="description"></span><pre>$_status</pre></a></li>
+<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description"></span><pre>$_user</pre></a></li>
+<li class="property protected "><a href="#property__volume_info" title="$_volume_info :: "><span class="description"></span><pre>$_volume_info</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants
+                    <ul><li class="constant  "><a href="#constant_DEFAULT_SAMPLE" title="DEFAULT_SAMPLE :: The default sample rate."><span class="description">The default sample rate.</span><pre>DEFAULT_SAMPLE</pre></a></li></ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\DataSift_Historic"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/DataSift_Historic.html">DataSift_Historic</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">The DataSift_Historic class represents a historic query.</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>category</th>
+<td>DataSift</td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/PHP-client.html">PHP-client</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://www.mediasift.com">http://www.mediasift.com</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Constructor.</h2>
+<pre>__construct(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, string $hash, int $start, int $end, array $sources, string $name, int $sample) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Pass all fields to create a new historic, or provide a
+User object and a playback_id as the $hash parameter to load an
+existing query from the API.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user object.</p></div>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The stream hash for the query.</p></div>
+<div class="subelement argument">
+<h4>$start</h4>
+<code>int</code><p>The start timestamp.</p></div>
+<div class="subelement argument">
+<h4>$end</h4>
+<code>int</code><p>The end timestamp.</p></div>
+<div class="subelement argument">
+<h4>$sources</h4>
+<code>array</code><p>The interaction types to match.</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>A name for this query.</p></div>
+<div class="subelement argument">
+<h4>$sample</h4>
+<code>int</code><p>An optional sample rate for this query.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+<h2>Delete this historic query.</h2>
+<pre>delete() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_getAvailability"></a><div class="element clickable method public method_getAvailability" data-toggle="collapse" data-target=".method_getAvailability .collapse">
+<h2>Returns the data availability information for this historic.</h2>
+<pre>getAvailability() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If the
+historic has not yet been prepared that will be done automagically to
+obtain the cost.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_RateLimitExceeded.html">\DataSift_Exception_RateLimitExceeded</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>The data availability.</div>
+</div></div>
+</div>
+<a id="method_getCreatedAt"></a><div class="element clickable method public method_getCreatedAt" data-toggle="collapse" data-target=".method_getCreatedAt .collapse">
+<h2>Returns the created at date.</h2>
+<pre>getCreatedAt() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>To refresh this from the server call
+reloadData().</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The created at date.</div>
+</div></div>
+</div>
+<a id="method_getDPUs"></a><div class="element clickable method public method_getDPUs" data-toggle="collapse" data-target=".method_getDPUs .collapse">
+<h2>Returns the DPU cost of running this historic.</h2>
+<pre>getDPUs() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If the historic has not
+yet been prepared that will be done automagically to obtain the cost.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_RateLimitExceeded.html">\DataSift_Exception_RateLimitExceeded</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The DPU cost.</div>
+</div></div>
+</div>
+<a id="method_getEndDate"></a><div class="element clickable method public method_getEndDate" data-toggle="collapse" data-target=".method_getEndDate .collapse">
+<h2>Returns the end date.</h2>
+<pre>getEndDate() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The end date.</div>
+</div></div>
+</div>
+<a id="method_getHash"></a><div class="element clickable method public method_getHash" data-toggle="collapse" data-target=".method_getHash .collapse">
+<h2>Returns the playback ID for this historic.</h2>
+<pre>getHash() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If the historic has not yet
+been prepared that will be done automagically to obtain the ID.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_RateLimitExceeded.html">\DataSift_Exception_RateLimitExceeded</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The playback ID.</div>
+</div></div>
+</div>
+<a id="method_getName"></a><div class="element clickable method public method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+<h2>Returns the name.</h2>
+<pre>getName() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The name.</div>
+</div></div>
+</div>
+<a id="method_getProgress"></a><div class="element clickable method public method_getProgress" data-toggle="collapse" data-target=".method_getProgress .collapse">
+<h2>Returns the current progress.</h2>
+<pre>getProgress() : double</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>double</code>The percent progress.</div>
+</div></div>
+</div>
+<a id="method_getPushSubscriptions"></a><div class="element clickable method public method_getPushSubscriptions" data-toggle="collapse" data-target=".method_getPushSubscriptions .collapse">
+<h2>Get a page of push subscriptions for this historic query, where each
+page contains up to $per_page items.</h2>
+<pre>getPushSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Results will be returned in the
+order requested.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user</h4></div>
+<div class="subelement argument"><h4>$page</h4></div>
+<div class="subelement argument"><h4>$per_page</h4></div>
+<div class="subelement argument"><h4>$order_by</h4></div>
+<div class="subelement argument"><h4>$order_dir</h4></div>
+<div class="subelement argument"><h4>$include_finished</h4></div>
+</div></div>
+</div>
+<a id="method_getSample"></a><div class="element clickable method public method_getSample" data-toggle="collapse" data-target=".method_getSample .collapse">
+<h2>Returns the sample.</h2>
+<pre>getSample() : double</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>double</code>The sample.</div>
+</div></div>
+</div>
+<a id="method_getSources"></a><div class="element clickable method public method_getSources" data-toggle="collapse" data-target=".method_getSources .collapse">
+<h2>Returns the sources.</h2>
+<pre>getSources() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The start date.</div>
+</div></div>
+</div>
+<a id="method_getStartDate"></a><div class="element clickable method public method_getStartDate" data-toggle="collapse" data-target=".method_getStartDate .collapse">
+<h2>Returns the start date.</h2>
+<pre>getStartDate() : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The start date.</div>
+</div></div>
+</div>
+<a id="method_getStatus"></a><div class="element clickable method public method_getStatus" data-toggle="collapse" data-target=".method_getStatus .collapse">
+<h2>Returns the status.</h2>
+<pre>getStatus() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>To refresh this from the server call
+reloadData().</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The status.</div>
+</div></div>
+</div>
+<a id="method_getStreamHash"></a><div class="element clickable method public method_getStreamHash" data-toggle="collapse" data-target=".method_getStreamHash .collapse">
+<h2>Returns the stream hash.</h2>
+<pre>getStreamHash() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The hash.</div>
+</div></div>
+</div>
+<a id="method_listHistorics"></a><div class="element clickable method public method_listHistorics" data-toggle="collapse" data-target=".method_listHistorics .collapse">
+<h2>listHistorics()
+        </h2>
+<pre>listHistorics($user, $page, $per_page) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user</h4></div>
+<div class="subelement argument"><h4>$page</h4></div>
+<div class="subelement argument"><h4>$per_page</h4></div>
+</div></div>
+</div>
+<a id="method_prepare"></a><div class="element clickable method public method_prepare" data-toggle="collapse" data-target=".method_prepare .collapse">
+<h2>Call the DataSift API to prepare this historic query.</h2>
+<pre>prepare() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_reloadData"></a><div class="element clickable method public method_reloadData" data-toggle="collapse" data-target=".method_reloadData .collapse">
+<h2>Reload the data for this object from the API.</h2>
+<pre>reloadData() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_AccessDenied.html">\DataSift_Exception_AccessDenied</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_setName"></a><div class="element clickable method public method_setName" data-toggle="collapse" data-target=".method_setName .collapse">
+<h2>Sets the name.</h2>
+<pre>setName(string $name) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>The new name.</p></div>
+</div></div>
+</div>
+<a id="method_start"></a><div class="element clickable method public method_start" data-toggle="collapse" data-target=".method_start .collapse">
+<h2>Start this historic query.</h2>
+<pre>start() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_stop"></a><div class="element clickable method public method_stop" data-toggle="collapse" data-target=".method_stop .collapse">
+<h2>Stop this historic query.</h2>
+<pre>stop() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_generateName"></a><div class="element clickable method protected method_generateName" data-toggle="collapse" data-target=".method_generateName .collapse">
+<h2>Generate a name based on the current date/time.</h2>
+<pre>generateName() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The generated name.</div>
+</div></div>
+</div>
+<a id="method_initFromArray"></a><div class="element clickable method protected method_initFromArray" data-toggle="collapse" data-target=".method_initFromArray .collapse">
+<h2>Initialise this object from the data in the given array.</h2>
+<pre>initFromArray(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>The array of data.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__availability"> </a><div class="element clickable property protected property__availability" data-toggle="collapse" data-target=".property__availability .collapse">
+<h2></h2>
+<pre>$_availability : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__created_at"> </a><div class="element clickable property protected property__created_at" data-toggle="collapse" data-target=".property__created_at .collapse">
+<h2></h2>
+<pre>$_created_at : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__deleted"> </a><div class="element clickable property protected property__deleted" data-toggle="collapse" data-target=".property__deleted .collapse">
+<h2></h2>
+<pre>$_deleted : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__dpus"> </a><div class="element clickable property protected property__dpus" data-toggle="collapse" data-target=".property__dpus .collapse">
+<h2></h2>
+<pre>$_dpus : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__end"> </a><div class="element clickable property protected property__end" data-toggle="collapse" data-target=".property__end .collapse">
+<h2></h2>
+<pre>$_end : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__hash"> </a><div class="element clickable property protected property__hash" data-toggle="collapse" data-target=".property__hash .collapse">
+<h2></h2>
+<pre>$_hash : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__name"> </a><div class="element clickable property protected property__name" data-toggle="collapse" data-target=".property__name .collapse">
+<h2></h2>
+<pre>$_name : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__playback_id"> </a><div class="element clickable property protected property__playback_id" data-toggle="collapse" data-target=".property__playback_id .collapse">
+<h2></h2>
+<pre>$_playback_id : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__progress"> </a><div class="element clickable property protected property__progress" data-toggle="collapse" data-target=".property__progress .collapse">
+<h2></h2>
+<pre>$_progress : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__sample"> </a><div class="element clickable property protected property__sample" data-toggle="collapse" data-target=".property__sample .collapse">
+<h2></h2>
+<pre>$_sample : double</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__sources"> </a><div class="element clickable property protected property__sources" data-toggle="collapse" data-target=".property__sources .collapse">
+<h2></h2>
+<pre>$_sources : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__start"> </a><div class="element clickable property protected property__start" data-toggle="collapse" data-target=".property__start .collapse">
+<h2></h2>
+<pre>$_start : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__status"> </a><div class="element clickable property protected property__status" data-toggle="collapse" data-target=".property__status .collapse">
+<h2></h2>
+<pre>$_status : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
+<h2></h2>
+<pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__volume_info"> </a><div class="element clickable property protected property__volume_info" data-toggle="collapse" data-target=".property__volume_info .collapse">
+<h2></h2>
+<pre>$_volume_info : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_DEFAULT_SAMPLE"> </a><div class="element clickable constant  constant_DEFAULT_SAMPLE" data-toggle="collapse" data-target=".constant_DEFAULT_SAMPLE .collapse">
+<h2>The default sample rate.</h2>
+<pre>DEFAULT_SAMPLE </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2012-11-21T21:52:19Z.<br></footer></div>
+</div>
+</body>
+</html>
