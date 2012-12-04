@@ -527,6 +527,7 @@ class DataSift_Historic
 					'end' => $this->_end,
 					'name' => $this->_name,
 					'sources' => implode(',', $this->_sources),
+					'sample' => $this->_sample,
 				)
 			);
 
