@@ -19,6 +19,8 @@ sets of docs for the GitHub pages for this project.
 
     `sudo apt-get install php5-xsl`
 
+    `sudo apt-get install php5-intl`
+
     `sudo apt-get install graphviz`
 
     `sudo apt-get install wget`
