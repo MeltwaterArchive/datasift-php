@@ -72,6 +72,9 @@ more details.
 
 Changelog
 ---------
+
+* v.2.1.2 Fixed missing 'sample' param from /historics/prepare calls. (2012-12-04)
+
 * v.2.1.1 Fixed issue #10 "Bug in api" by @salehsed
 
   Fixed syntax error in tests/testdata.php
