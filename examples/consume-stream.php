@@ -1,7 +1,17 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
+/**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
 
 /**
  * This simple example demonstrates how to consume a stream using the stream
@@ -13,6 +23,9 @@ if (function_exists('date_default_timezone_set')) {
  * exceptions, and production code should catch them. See the documentation
  * for full details.
  */
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
 
 // Include the DataSift library
 require dirname(__FILE__).'/../lib/datasift.php';
@@ -42,6 +55,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer object.
 	 * @param array $interaction The interaction data.
+         * @param string $hash The stream hash.
 	 */
 	public function onInteraction($consumer, $interaction, $hash)
 	{
@@ -53,6 +67,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer object.
 	 * @param array $interaction The interaction data.
+         * @param string $hash The stream hash.
 	 */
 	public function onDeleted($consumer, $interaction, $hash)
 	{
