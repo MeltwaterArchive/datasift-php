@@ -29,27 +29,27 @@
 class DataSift_Definition
 {
 	/**
-	 * @var DataSift_User DataSift username
+	 * @var DataSift_User The DataSift User object.
 	 */
 	protected $_user = null;
 
 	/**
-	 * @var string CSDL source code
+	 * @var string The CSDL source code.
 	 */
 	protected $_csdl = '';
 
 	/**
-	 * @var string Stream hash
+	 * @var string The stream hash.
 	 */
 	protected $_hash = false;
 
 	/**
-	 * @var int Hash creation time (UNIX timestamp0
+	 * @var int The hash creation time as a UNIX timestamp.
 	 */
 	protected $_created_at = false;
 
 	/**
-	 * @var int Total number of DPUs used
+	 * @var int The total number of DPUs used.
 	 */
 	protected $_total_dpu = false;
 
@@ -181,7 +181,7 @@ class DataSift_Definition
 	 * Returns the total DPU of the stream. If the DPU has not yet been
 	 * obtained it validates the definition first.
 	 *
-	 * @return int The date as a unix timestamp.
+	 * @return int The total DPU.
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_RateLimitExceeded
 	 * @throws DataSift_Exception_InvalidData

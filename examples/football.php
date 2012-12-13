@@ -151,7 +151,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	/**
 	 * Called when the consumer stops for some reason.
 	 *
-	 * @param DataSift_StreamConsumer consumer The consumer sending the event.
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
 	 * @param string $reason The reason the consumer stopped.
 	 *
 	 * @return void

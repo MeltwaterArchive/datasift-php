@@ -33,17 +33,17 @@ abstract class DataSift_StreamConsumer
 	const STATE_STOPPING = 3;
 
 	/**
-	 * @var DataSift_User DataSift username
+	 * @var DataSift_User DataSift object
 	 */
 	protected $_user = null;
 
 	/**
-	 * @var DataSift_Definition 
+	 * @var DataSift_Definition The DataSift stream definition object.
 	 */
 	protected $_definition = false;
 
 	/**
-	 * @var bool
+	 * @var bool Set to true when the client is supposed to reconnect automatically.
 	 */
 	protected $_auto_reconnect = true;
 
@@ -58,7 +58,7 @@ abstract class DataSift_StreamConsumer
 	protected $_hashes = array();
 
 	/**
-	 * @var bool
+	 * @var bool State active or stopped.
 	 */
 	protected $_state = self::STATE_STOPPED;
 
@@ -71,7 +71,7 @@ abstract class DataSift_StreamConsumer
 	 * Factory function. Creates a StreamConsumer-derived object for the given
 	 * type.
 	 *
-	 * @param string $user         DataSift username
+	 * @param string $user         Use DataSift_User object.
 	 * @param string $type         Use the TYPE_ constants
 	 * @param mixed  $definition   CSDL string or a Definition object.
 	 * @param string $eventHandler The object that will receive events.

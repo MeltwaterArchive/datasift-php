@@ -90,7 +90,7 @@ class DataSift_Historic
 	protected $_dpus = false;
 
 	/**
-	 * @var array
+	 * @var array Data availablility information.
 	 */
 	protected $_availability = false;
 
@@ -120,12 +120,12 @@ class DataSift_Historic
 	protected $_sample = false;
 
 	/**
-	 * @var string 
+	 * @var array Data sources.
 	 */
 	protected $_sources = array();
 
 	/**
-	 * @var array Historics query name
+	 * @var string Historics query name.
 	 */
 	protected $_name = false;
 
@@ -140,12 +140,12 @@ class DataSift_Historic
 	protected $_progress = 0;
 
 	/**
-	 * @var array
+	 * @var array Historics data volume information.
 	 */
 	protected $_volume_info = false;
 
 	/**
-	 * @var boolean
+	 * @var boolean Set to true if the Historics query has been deleted.
 	 */
 	protected $_deleted = false;
 
@@ -706,10 +706,12 @@ class DataSift_Historic
 	 * page contains up to $per_page items. Results will be returned in the
 	 * order requested.
 	 *
+	 * @param DataSift_User $user The user object.
          * @param int $page The page number to get.
          * @param int $per_page The number of items per page.
-         * @param String order_by  Which field to sort by.
-         * @param String order_dir In asc[ending] or desc[ending] order.
+         * @param String $order_by  Which field to sort by.
+         * @param String $order_dir In asc[ending] or desc[ending] order.
+         * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 */
 	public function getPushSubscriptions($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false)
 	{

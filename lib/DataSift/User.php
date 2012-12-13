@@ -47,23 +47,17 @@ class DataSift_User
 	protected $_use_ssl = true;
 
 	/**
-	 * Stores the X-RateLimit-Limit value from the last API call.
-	 *
-	 * @var int
+	 * @var int Stores the X-RateLimit-Limit value from the last API call.
 	 */
 	protected $_rate_limit = -1;
 
 	/**
-	 * Stores the X-RateLimit-Remaining value from the last API call.
-	 *
-	 * @var int
+	 * @var int Stores the X-RateLimit-Remaining value from the last API call.
 	 */
 	protected $_rate_limit_remaining = -1;
 
 	/**
-	 * The class to use as the API client.
-	 *
-	 * @var string
+	 * @var string The class to use as the API client.
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
 
@@ -73,6 +67,7 @@ class DataSift_User
 	 *
 	 * @param string $username The user's username.
 	 * @param string $api_key  The user's API key.
+	 * @param bool $use_ssl  Set to true to enable SSL.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
@@ -262,6 +257,7 @@ class DataSift_User
 	 *
 	 * @param string $type The consumer type for which to construct a consumer.
 	 * @param string $hash The hash to be consumed.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData
@@ -278,6 +274,7 @@ class DataSift_User
 	 *
 	 * @param string $type The consumer type for which to construct a consumer.
 	 * @param string $hashes An array containing hashes and/or Definition objects to be consumed.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData
@@ -309,6 +306,7 @@ class DataSift_User
 	 * @param int $per_page The number of items per page.
 	 * @param String order_by  Which field to sort by.
 	 * @param String order_dir In asc[ending] or desc[ending] order.
+	 * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
