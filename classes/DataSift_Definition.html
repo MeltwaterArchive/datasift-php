@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">126</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -82,11 +82,11 @@ for the given type.</span><pre>getConsumer()</pre></a></li>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description"></span><pre>$_created_at</pre></a></li>
-<li class="property protected "><a href="#property__csdl" title="$_csdl :: "><span class="description"></span><pre>$_csdl</pre></a></li>
-<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description"></span><pre>$_hash</pre></a></li>
-<li class="property protected "><a href="#property__total_dpu" title="$_total_dpu :: "><span class="description"></span><pre>$_total_dpu</pre></a></li>
-<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description"></span><pre>$_user</pre></a></li>
+<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description">The hash creation time as a UNIX timestamp.</span><pre>$_created_at</pre></a></li>
+<li class="property protected "><a href="#property__csdl" title="$_csdl :: "><span class="description">The CSDL source code.</span><pre>$_csdl</pre></a></li>
+<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description">The stream hash.</span><pre>$_hash</pre></a></li>
+<li class="property protected "><a href="#property__total_dpu" title="$_total_dpu :: "><span class="description">The total number of DPUs used.</span><pre>$_total_dpu</pre></a></li>
+<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description">The DataSift User object.</span><pre>$_user</pre></a></li>
 </ul>
 </li>
 </ul>
@@ -117,6 +117,10 @@ for the given type.</span><pre>getConsumer()</pre></a></li>
 <tr>
 <th>author</th>
 <td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>copyright</th>
+<td>2011 MediaSift Ltd.</td>
 </tr>
 <tr>
 <th>license</th>
@@ -183,7 +187,7 @@ store the returned hash.</p></div>
 </div>
 <a id="method_createHistoric"></a><div class="element clickable method public method_createHistoric" data-toggle="collapse" data-target=".method_createHistoric .collapse">
 <h2>Create a historic based on this CSDL.</h2>
-<pre>createHistoric(int $start, int $end, array $sources, string $name, $sample) : <a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></pre>
+<pre>createHistoric(int $start, int $end, array $sources, string $name, float $sample) : <a href="../classes/DataSift_Historic.html">\DataSift_Historic</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -200,7 +204,10 @@ store the returned hash.</p></div>
 <div class="subelement argument">
 <h4>$name</h4>
 <code>string</code><p>An optional name for this historic.</p></div>
-<div class="subelement argument"><h4>$sample</h4></div>
+<div class="subelement argument">
+<h4>$sample</h4>
+<code>float</code><p>Sample size (1..100)</p>
+</div>
 <h3>Exceptions</h3>
 <table class="table table-bordered">
 <tr>
@@ -272,7 +279,7 @@ store the returned hash.</p></div>
 <a id="method_getConsumer"></a><div class="element clickable method public method_getConsumer" data-toggle="collapse" data-target=".method_getConsumer .collapse">
 <h2>Returns a DataSift_StreamConsumer-derived object for this definition,
 for the given type.</h2>
-<pre>getConsumer(string $type, $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
+<pre>getConsumer(string $type, <a href="../classes/DataSift_IStreamConsumerEventHandler.html">\DataSift_IStreamConsumerEventHandler</a> $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -284,7 +291,9 @@ for the given type.</h2>
 <div class="subelement argument">
 <h4>$type</h4>
 <code>string</code><p>The consumer type for which to construct a consumer.</p></div>
-<div class="subelement argument"><h4>$eventHandler</h4></div>
+<div class="subelement argument">
+<h4>$eventHandler</h4>
+<code><a href="../classes/DataSift_IStreamConsumerEventHandler.html">\DataSift_IStreamConsumerEventHandler</a></code><p>An instance of DataSift_IStreamConsumerEventHandler</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
@@ -401,7 +410,7 @@ obtained it validates the definition first.</p></div>
 </table>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>int</code>The date as a unix timestamp.</div>
+<code>int</code>The total DPU.</div>
 </div></div>
 </div>
 <a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse">
@@ -460,31 +469,31 @@ the CSDL.</p></div></div></div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a id="property__created_at"> </a><div class="element clickable property protected property__created_at" data-toggle="collapse" data-target=".property__created_at .collapse">
-<h2></h2>
+<h2>The hash creation time as a UNIX timestamp.</h2>
 <pre>$_created_at : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__csdl"> </a><div class="element clickable property protected property__csdl" data-toggle="collapse" data-target=".property__csdl .collapse">
-<h2></h2>
+<h2>The CSDL source code.</h2>
 <pre>$_csdl : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__hash"> </a><div class="element clickable property protected property__hash" data-toggle="collapse" data-target=".property__hash .collapse">
-<h2></h2>
+<h2>The stream hash.</h2>
 <pre>$_hash : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__total_dpu"> </a><div class="element clickable property protected property__total_dpu" data-toggle="collapse" data-target=".property__total_dpu .collapse">
-<h2></h2>
+<h2>The total number of DPUs used.</h2>
 <pre>$_total_dpu : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
-<h2></h2>
+<h2>The DataSift User object.</h2>
 <pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -496,7 +505,7 @@ the CSDL.</p></div></div></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2012-12-05T15:57:47Z.<br></footer></div>
+            generated on 2012-12-13T12:50:27Z.<br></footer></div>
 </div>
 </body>
 </html>

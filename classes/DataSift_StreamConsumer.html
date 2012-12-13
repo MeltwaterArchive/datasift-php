@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">126</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -96,13 +96,13 @@ connection.</span><pre>onWarning()</pre></a></li>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property__auto_reconnect" title="$_auto_reconnect :: "><span class="description"></span><pre>$_auto_reconnect</pre></a></li>
-<li class="property protected "><a href="#property__definition" title="$_definition :: "><span class="description"></span><pre>$_definition</pre></a></li>
+<li class="property protected "><a href="#property__auto_reconnect" title="$_auto_reconnect :: "><span class="description">Set to true when the client is supposed to reconnect automatically.</span><pre>$_auto_reconnect</pre></a></li>
+<li class="property protected "><a href="#property__definition" title="$_definition :: "><span class="description">The DataSift stream definition object.</span><pre>$_definition</pre></a></li>
 <li class="property protected "><a href="#property__eventHandler" title="$_eventHandler :: "><span class="description">The event handler object.</span><pre>$_eventHandler</pre></a></li>
 <li class="property protected "><a href="#property__hashes" title="$_hashes :: "><span class="description">The array of hashes to be consumed if using multi</span><pre>$_hashes</pre></a></li>
 <li class="property protected "><a href="#property__is_multi" title="$_is_multi :: "><span class="description">True if this is consuming multiple hashes</span><pre>$_is_multi</pre></a></li>
-<li class="property protected "><a href="#property__state" title="$_state :: "><span class="description"></span><pre>$_state</pre></a></li>
-<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description"></span><pre>$_user</pre></a></li>
+<li class="property protected "><a href="#property__state" title="$_state :: "><span class="description">State active or stopped.</span><pre>$_state</pre></a></li>
+<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description">DataSift object</span><pre>$_user</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -172,13 +172,15 @@ actually starting.</p></div>
 </div>
 <a id="method_factory"></a><div class="element clickable method public method_factory" data-toggle="collapse" data-target=".method_factory .collapse">
 <h2>Factory function.</h2>
-<pre>factory($user, string $type, mixed $definition, string $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
+<pre>factory(string $user, string $type, mixed $definition, string $eventHandler) : <a href="../classes/DataSift_StreamConsumer.html">\DataSift_StreamConsumer</a></pre>
 <div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Creates a StreamConsumer-derived object for the given
 type.</p></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$user</h4></div>
+<div class="subelement argument">
+<h4>$user</h4>
+<code>string</code><p>Use DataSift_User object.</p></div>
 <div class="subelement argument">
 <h4>$type</h4>
 <code>string</code><p>Use the TYPE_ constants</p></div>
@@ -267,7 +269,7 @@ consuming and call the onStopped method.</p></div>
 <a id="method_onDeleted"></a><div class="element clickable method protected method_onDeleted" data-toggle="collapse" data-target=".method_onDeleted .collapse">
 <h2>This is called for each DELETE request received from the stream and must
 be implemented in extending classes.</h2>
-<pre>onDeleted(array $interaction, $hash) : void</pre>
+<pre>onDeleted(array $interaction, string $hash) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -275,7 +277,9 @@ be implemented in extending classes.</h2>
 <div class="subelement argument">
 <h4>$interaction</h4>
 <code>array</code><p>The interaction data structure</p></div>
-<div class="subelement argument"><h4>$hash</h4></div>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>string</code><p>The stream hash.</p></div>
 </div></div>
 </div>
 <a id="method_onDisconnect"></a><div class="element clickable method protected method_onDisconnect" data-toggle="collapse" data-target=".method_onDisconnect .collapse">
@@ -300,7 +304,7 @@ connection.</h2>
 <a id="method_onInteraction"></a><div class="element clickable method protected method_onInteraction" data-toggle="collapse" data-target=".method_onInteraction .collapse">
 <h2>This is called for each interaction received from the stream and must
 be implemented in extending classes.</h2>
-<pre>onInteraction(array $interaction, $hash) : void</pre>
+<pre>onInteraction(array $interaction, bool $hash) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -308,7 +312,10 @@ be implemented in extending classes.</h2>
 <div class="subelement argument">
 <h4>$interaction</h4>
 <code>array</code><p>The interaction data structure</p></div>
-<div class="subelement argument"><h4>$hash</h4></div>
+<div class="subelement argument">
+<h4>$hash</h4>
+<code>bool</code>
+</div>
 </div></div>
 </div>
 <a id="method_onStart"></a><div class="element clickable method protected method_onStart" data-toggle="collapse" data-target=".method_onStart .collapse">
@@ -385,13 +392,13 @@ connection.</h2>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a id="property__auto_reconnect"> </a><div class="element clickable property protected property__auto_reconnect" data-toggle="collapse" data-target=".property__auto_reconnect .collapse">
-<h2></h2>
+<h2>Set to true when the client is supposed to reconnect automatically.</h2>
 <pre>$_auto_reconnect : bool</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__definition"> </a><div class="element clickable property protected property__definition" data-toggle="collapse" data-target=".property__definition .collapse">
-<h2></h2>
+<h2>The DataSift stream definition object.</h2>
 <pre>$_definition : <a href="../classes/DataSift_Definition.html">\DataSift_Definition</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -415,13 +422,13 @@ connection.</h2>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__state"> </a><div class="element clickable property protected property__state" data-toggle="collapse" data-target=".property__state .collapse">
-<h2></h2>
+<h2>State active or stopped.</h2>
 <pre>$_state : bool</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
-<h2></h2>
+<h2>DataSift object</h2>
 <pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -465,7 +472,7 @@ connection.</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2012-12-05T15:57:46Z.<br></footer></div>
+            generated on 2012-12-13T12:50:27Z.<br></footer></div>
 </div>
 </body>
 </html>

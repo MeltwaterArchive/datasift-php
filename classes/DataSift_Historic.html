@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">126</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -74,8 +74,7 @@ page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a>
 <li class="method public "><a href="#method_getStartDate" title="getStartDate :: Returns the start date."><span class="description">Returns the start date.</span><pre>getStartDate()</pre></a></li>
 <li class="method public "><a href="#method_getStatus" title="getStatus :: Returns the status."><span class="description">Returns the status.</span><pre>getStatus()</pre></a></li>
 <li class="method public "><a href="#method_getStreamHash" title="getStreamHash :: Returns the stream hash."><span class="description">Returns the stream hash.</span><pre>getStreamHash()</pre></a></li>
-<li class="method public "><a href="#method_listHistorics" title="listHistorics :: "><span class="description">listHistorics()
-        </span><pre>listHistorics()</pre></a></li>
+<li class="method public "><a href="#method_listHistorics" title="listHistorics :: List Historics queries."><span class="description">List Historics queries.</span><pre>listHistorics()</pre></a></li>
 <li class="method public "><a href="#method_prepare" title="prepare :: Call the DataSift API to prepare this historic query."><span class="description">Call the DataSift API to prepare this historic query.</span><pre>prepare()</pre></a></li>
 <li class="method public "><a href="#method_reloadData" title="reloadData :: Reload the data for this object from the API."><span class="description">Reload the data for this object from the API.</span><pre>reloadData()</pre></a></li>
 <li class="method public "><a href="#method_setName" title="setName :: Sets the name."><span class="description">Sets the name.</span><pre>setName()</pre></a></li>
@@ -95,21 +94,21 @@ page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="property protected "><a href="#property__availability" title="$_availability :: "><span class="description"></span><pre>$_availability</pre></a></li>
-<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description"></span><pre>$_created_at</pre></a></li>
-<li class="property protected "><a href="#property__deleted" title="$_deleted :: "><span class="description"></span><pre>$_deleted</pre></a></li>
-<li class="property protected "><a href="#property__dpus" title="$_dpus :: "><span class="description"></span><pre>$_dpus</pre></a></li>
-<li class="property protected "><a href="#property__end" title="$_end :: "><span class="description"></span><pre>$_end</pre></a></li>
-<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description"></span><pre>$_hash</pre></a></li>
-<li class="property protected "><a href="#property__name" title="$_name :: "><span class="description"></span><pre>$_name</pre></a></li>
-<li class="property protected "><a href="#property__playback_id" title="$_playback_id :: "><span class="description"></span><pre>$_playback_id</pre></a></li>
-<li class="property protected "><a href="#property__progress" title="$_progress :: "><span class="description"></span><pre>$_progress</pre></a></li>
-<li class="property protected "><a href="#property__sample" title="$_sample :: "><span class="description"></span><pre>$_sample</pre></a></li>
-<li class="property protected "><a href="#property__sources" title="$_sources :: "><span class="description"></span><pre>$_sources</pre></a></li>
-<li class="property protected "><a href="#property__start" title="$_start :: "><span class="description"></span><pre>$_start</pre></a></li>
-<li class="property protected "><a href="#property__status" title="$_status :: "><span class="description"></span><pre>$_status</pre></a></li>
-<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description"></span><pre>$_user</pre></a></li>
-<li class="property protected "><a href="#property__volume_info" title="$_volume_info :: "><span class="description"></span><pre>$_volume_info</pre></a></li>
+<li class="property protected "><a href="#property__availability" title="$_availability :: "><span class="description">Data availablility information.</span><pre>$_availability</pre></a></li>
+<li class="property protected "><a href="#property__created_at" title="$_created_at :: "><span class="description">Historics query creation time</span><pre>$_created_at</pre></a></li>
+<li class="property protected "><a href="#property__deleted" title="$_deleted :: "><span class="description">Set to true if the Historics query has been deleted.</span><pre>$_deleted</pre></a></li>
+<li class="property protected "><a href="#property__dpus" title="$_dpus :: "><span class="description">Number of DPUs consumed</span><pre>$_dpus</pre></a></li>
+<li class="property protected "><a href="#property__end" title="$_end :: "><span class="description">End date and time</span><pre>$_end</pre></a></li>
+<li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description">The stream hash.</span><pre>$_hash</pre></a></li>
+<li class="property protected "><a href="#property__name" title="$_name :: "><span class="description">Historics query name.</span><pre>$_name</pre></a></li>
+<li class="property protected "><a href="#property__playback_id" title="$_playback_id :: "><span class="description">Playback ID</span><pre>$_playback_id</pre></a></li>
+<li class="property protected "><a href="#property__progress" title="$_progress :: "><span class="description">Progress counter</span><pre>$_progress</pre></a></li>
+<li class="property protected "><a href="#property__sample" title="$_sample :: "><span class="description">Sample size</span><pre>$_sample</pre></a></li>
+<li class="property protected "><a href="#property__sources" title="$_sources :: "><span class="description">Data sources.</span><pre>$_sources</pre></a></li>
+<li class="property protected "><a href="#property__start" title="$_start :: "><span class="description">Start date and time</span><pre>$_start</pre></a></li>
+<li class="property protected "><a href="#property__status" title="$_status :: "><span class="description">Historics query creation date and time</span><pre>$_status</pre></a></li>
+<li class="property protected "><a href="#property__user" title="$_user :: "><span class="description">The user object.</span><pre>$_user</pre></a></li>
+<li class="property protected "><a href="#property__volume_info" title="$_volume_info :: "><span class="description">Historics data volume information.</span><pre>$_volume_info</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -144,6 +143,10 @@ page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a>
 <tr>
 <th>author</th>
 <td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
+</tr>
+<tr>
+<th>copyright</th>
+<td>2011 MediaSift Ltd.</td>
 </tr>
 <tr>
 <th>license</th>
@@ -342,18 +345,31 @@ been prepared that will be done automagically to obtain the ID.</p></div>
 <a id="method_getPushSubscriptions"></a><div class="element clickable method public method_getPushSubscriptions" data-toggle="collapse" data-target=".method_getPushSubscriptions .collapse">
 <h2>Get a page of push subscriptions for this historic query, where each
 page contains up to $per_page items.</h2>
-<pre>getPushSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished) </pre>
+<pre>getPushSubscriptions(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, int $page, int $per_page, String $order_by, String $order_dir, bool $include_finished) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Results will be returned in the
 order requested.</p></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$user</h4></div>
-<div class="subelement argument"><h4>$page</h4></div>
-<div class="subelement argument"><h4>$per_page</h4></div>
-<div class="subelement argument"><h4>$order_by</h4></div>
-<div class="subelement argument"><h4>$order_dir</h4></div>
-<div class="subelement argument"><h4>$include_finished</h4></div>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user object.</p></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The page number to get.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The number of items per page.</p></div>
+<div class="subelement argument">
+<h4>$order_by</h4>
+<code>String</code><p>Which field to sort by.</p></div>
+<div class="subelement argument">
+<h4>$order_dir</h4>
+<code>String</code><p>In asc[ending] or desc[ending] order.</p>
+</div>
+<div class="subelement argument">
+<h4>$include_finished</h4>
+<code>bool</code><p>Set to true when you want to include finished subscription in the results.</p></div>
 </div></div>
 </div>
 <a id="method_getSample"></a><div class="element clickable method public method_getSample" data-toggle="collapse" data-target=".method_getSample .collapse">
@@ -413,16 +429,32 @@ reloadData().</p></div>
 </div></div>
 </div>
 <a id="method_listHistorics"></a><div class="element clickable method public method_listHistorics" data-toggle="collapse" data-target=".method_listHistorics .collapse">
-<h2>listHistorics()
-        </h2>
-<pre>listHistorics($user, $page, $per_page) </pre>
+<h2>List Historics queries.</h2>
+<pre>listHistorics(<a href="../classes/DataSift_User.html">\DataSift_User</a> $user, int $page, int $per_page) </pre>
 <div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$user</h4></div>
-<div class="subelement argument"><h4>$page</h4></div>
-<div class="subelement argument"><h4>$per_page</h4></div>
+<div class="subelement argument">
+<h4>$user</h4>
+<code><a href="../classes/DataSift_User.html">\DataSift_User</a></code><p>The user object.</p></div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>The start page.</p></div>
+<div class="subelement argument">
+<h4>$per_page</h4>
+<code>int</code><p>The start page.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered">
+<tr>
+<th><code><a href="../classes/DataSift_Exception_InvalidData.html">\DataSift_Exception_InvalidData</a></code></th>
+<td></td>
+</tr>
+<tr>
+<th><code><a href="../classes/DataSift_Exception_APIError.html">\DataSift_Exception_APIError</a></code></th>
+<td></td>
+</tr>
+</table>
 </div></div>
 </div>
 <a id="method_prepare"></a><div class="element clickable method public method_prepare" data-toggle="collapse" data-target=".method_prepare .collapse">
@@ -548,91 +580,91 @@ reloadData().</p></div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a id="property__availability"> </a><div class="element clickable property protected property__availability" data-toggle="collapse" data-target=".property__availability .collapse">
-<h2></h2>
+<h2>Data availablility information.</h2>
 <pre>$_availability : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__created_at"> </a><div class="element clickable property protected property__created_at" data-toggle="collapse" data-target=".property__created_at .collapse">
-<h2></h2>
+<h2>Historics query creation time</h2>
 <pre>$_created_at : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__deleted"> </a><div class="element clickable property protected property__deleted" data-toggle="collapse" data-target=".property__deleted .collapse">
-<h2></h2>
+<h2>Set to true if the Historics query has been deleted.</h2>
 <pre>$_deleted : boolean</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__dpus"> </a><div class="element clickable property protected property__dpus" data-toggle="collapse" data-target=".property__dpus .collapse">
-<h2></h2>
+<h2>Number of DPUs consumed</h2>
 <pre>$_dpus : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__end"> </a><div class="element clickable property protected property__end" data-toggle="collapse" data-target=".property__end .collapse">
-<h2></h2>
+<h2>End date and time</h2>
 <pre>$_end : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__hash"> </a><div class="element clickable property protected property__hash" data-toggle="collapse" data-target=".property__hash .collapse">
-<h2></h2>
+<h2>The stream hash.</h2>
 <pre>$_hash : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__name"> </a><div class="element clickable property protected property__name" data-toggle="collapse" data-target=".property__name .collapse">
-<h2></h2>
-<pre>$_name : array</pre>
+<h2>Historics query name.</h2>
+<pre>$_name : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__playback_id"> </a><div class="element clickable property protected property__playback_id" data-toggle="collapse" data-target=".property__playback_id .collapse">
-<h2></h2>
+<h2>Playback ID</h2>
 <pre>$_playback_id : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__progress"> </a><div class="element clickable property protected property__progress" data-toggle="collapse" data-target=".property__progress .collapse">
-<h2></h2>
+<h2>Progress counter</h2>
 <pre>$_progress : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__sample"> </a><div class="element clickable property protected property__sample" data-toggle="collapse" data-target=".property__sample .collapse">
-<h2></h2>
+<h2>Sample size</h2>
 <pre>$_sample : double</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__sources"> </a><div class="element clickable property protected property__sources" data-toggle="collapse" data-target=".property__sources .collapse">
-<h2></h2>
-<pre>$_sources : string</pre>
+<h2>Data sources.</h2>
+<pre>$_sources : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__start"> </a><div class="element clickable property protected property__start" data-toggle="collapse" data-target=".property__start .collapse">
-<h2></h2>
+<h2>Start date and time</h2>
 <pre>$_start : int</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__status"> </a><div class="element clickable property protected property__status" data-toggle="collapse" data-target=".property__status .collapse">
-<h2></h2>
+<h2>Historics query creation date and time</h2>
 <pre>$_status : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__user"> </a><div class="element clickable property protected property__user" data-toggle="collapse" data-target=".property__user .collapse">
-<h2></h2>
+<h2>The user object.</h2>
 <pre>$_user : <a href="../classes/DataSift_User.html">\DataSift_User</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 <a id="property__volume_info"> </a><div class="element clickable property protected property__volume_info" data-toggle="collapse" data-target=".property__volume_info .collapse">
-<h2></h2>
+<h2>Historics data volume information.</h2>
 <pre>$_volume_info : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
@@ -652,7 +684,7 @@ reloadData().</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2012-12-05T15:57:47Z.<br></footer></div>
+            generated on 2012-12-13T12:50:27Z.<br></footer></div>
 </div>
 </body>
 </html>

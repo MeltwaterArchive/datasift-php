@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">126</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -91,6 +91,10 @@
 <td><a href="mailto:stuart@3ft9.com">Stuart Dallas</a></td>
 </tr>
 <tr>
+<th>copyright</th>
+<td>2011 MediaSift Ltd.</td>
+</tr>
+<tr>
 <th>license</th>
 <td><a href="http://www.debian.org/misc/bsd.license">BSD License (3 Clause)</a></td>
 </tr>
@@ -103,7 +107,7 @@
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method_call"></a><div class="element clickable method public method_call" data-toggle="collapse" data-target=".method_call .collapse">
 <h2>Make a call to a DataSift API endpoint.</h2>
-<pre>call(string $username, string $api_key, string $endpoint, array $params, $user_agent) : array</pre>
+<pre>call(string $username, string $api_key, string $endpoint, array $params, string $user_agent) : array</pre>
 <div class="labels"><span class="label">Static</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -122,7 +126,10 @@
 <div class="subelement argument">
 <h4>$params</h4>
 <code>array</code><p>The parameters to be passed along with the request.</p></div>
-<div class="subelement argument"><h4>$user_agent</h4></div>
+<div class="subelement argument">
+<h4>$user_agent</h4>
+<code>string</code><p>The HTTP User-Agent header.</p>
+</div>
 <h3>Exceptions</h3>
 <table class="table table-bordered">
 <tr>
@@ -162,7 +169,7 @@ the headers into an associative array.</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2012-12-05T15:57:47Z.<br></footer></div>
+            generated on 2012-12-13T12:50:27Z.<br></footer></div>
 </div>
 </body>
 </html>

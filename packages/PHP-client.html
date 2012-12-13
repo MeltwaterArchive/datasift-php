@@ -32,7 +32,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">126</span></a></li>
+                <span class="label label-info">0</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -62,6 +62,12 @@
 <li class="nav-header">
 <i class="icon-custom icon-function"></i> Functions</li>
 <li class="function  "><a href="#function_datasift_autoloader" title="datasift_autoloader :: Class autoloader."><span class="description">Class autoloader.</span><pre>datasift_autoloader</pre></a></li>
+<li class="function  "><a href="#function_parseDate" title="parseDate :: Date string parser."><span class="description">Date string parser.</span><pre>parseDate</pre></a></li>
+<li class="function  "><a href="#function_usage" title="usage :: Return usage information."><span class="description">Return usage information.</span><pre>usage</pre></a></li>
+<li class="function  "><a href="#function_usage" title="usage :: Return usage information."><span class="description">Return usage information.</span><pre>usage</pre></a></li>
+<li class="function  "><a href="#function_usage" title="usage :: Return usage information."><span class="description">Return usage information.</span><pre>usage</pre></a></li>
+<li class="function  "><a href="#function_usage" title="usage :: Return usage information."><span class="description">Return usage information.</span><pre>usage</pre></a></li>
+<li class="function  "><a href="#function_usage" title="usage :: Return usage information."><span class="description">Return usage information.</span><pre>usage</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-interface"></i> Interfaces</li>
 <li><a href="#DataSift_IStreamConsumerEventHandler" title="The DataSift_IStreamConsumerEvents interface defines the set of methods a
@@ -70,23 +76,27 @@ consumer event handler must implement.">DataSift_IStreamConsumerEventHandler</a>
 <i class="icon-custom icon-class"></i> Classes</li>
 <li><a href="#DataSift_StreamConsumer" title="The DataSift_StreamConsumer class is an abstract base class for various
 stream consumers.">DataSift_StreamConsumer</a></li>
-<li><a href="#DataSift_Exception_StreamError" title="StreamError exception - Indicates that an error occurred while connection or reading from a stream connection.">DataSift_Exception_StreamError</a></li>
-<li><a href="#DataSift_Exception_InvalidData" title="InvalidData exception - Thrown when a piece of code comes across data in an unexpected format.">DataSift_Exception_InvalidData</a></li>
-<li><a href="#DataSift_Exception_CompileFailed" title="CompileFailed exception - Thrown when a compile request fails due to errors in the definition.">DataSift_Exception_CompileFailed</a></li>
-<li><a href="#DataSift_Exception_RateLimitExceeded" title="RateLimitExceeded exception - Indicates that your user has hit the DataSift API rate limit.">DataSift_Exception_RateLimitExceeded</a></li>
-<li><a href="#DataSift_Exception_NotYetImplemented" title="NotYetImplemented exception">DataSift_Exception_NotYetImplemented</a></li>
-<li><a href="#DataSift_Exception_APIError" title="APIError exception - Indicates that an error occurred while making a request to the DataSift API.">DataSift_Exception_APIError</a></li>
-<li><a href="#DataSift_Exception_AccessDenied" title="AccessDenied exception - Thrown if you try to access DataSift data to which you don't have access.">DataSift_Exception_AccessDenied</a></li>
-<li><a href="#DataSift_Definition" title="The DataSift_Definition class represents a stream definition.">DataSift_Definition</a></li>
+<li><a href="#DataSift_User" title="The DataSift_User class represents a user of the API.">DataSift_User</a></li>
+<li><a href="#DataSift_Historic" title="The DataSift_Historic class represents a historic query.">DataSift_Historic</a></li>
+<li><a href="#DataSift_StreamConsumer_HTTP" title="The DataSift_StreamConsumer_HTTP class extends DataSift_StreamConsumer
+and implements HTTP streaming.">DataSift_StreamConsumer_HTTP</a></li>
 <li><a href="#DataSift_MockApiClient" title="The DataSift_MockApiClient class is used in place of DataSift_ApiClient
 in offline unit tests.">DataSift_MockApiClient</a></li>
 <li><a href="#DataSift_ApiClient" title="The DataSift_ApiClient class wraps access to the DataSift API.">DataSift_ApiClient</a></li>
-<li><a href="#DataSift_StreamConsumer_HTTP" title="The DataSift_StreamConsumer_HTTP class extends DataSift_StreamConsumer
-and implements HTTP streaming.">DataSift_StreamConsumer_HTTP</a></li>
-<li><a href="#DataSift_Historic" title="The DataSift_Historic class represents a historic query.">DataSift_Historic</a></li>
-<li><a href="#DataSift_Push_Definition" title="The DataSift_Push_Definition class defines a push endpoint.">DataSift_Push_Definition</a></li>
+<li><a href="#DataSift_Definition" title="The DataSift_Definition class represents a stream definition.">DataSift_Definition</a></li>
+<li><a href="#DataSift_Exception_StreamError" title="StreamError exception - Indicates that an error occurred while connection or reading from a stream connection.">DataSift_Exception_StreamError</a></li>
+<li><a href="#DataSift_Exception_CompileFailed" title="CompileFailed exception - Thrown when a compile request fails due to errors in the definition.">DataSift_Exception_CompileFailed</a></li>
+<li><a href="#DataSift_Exception_InvalidData" title="InvalidData exception - Thrown when a piece of code comes across data in an unexpected format.">DataSift_Exception_InvalidData</a></li>
+<li><a href="#DataSift_Exception_NotYetImplemented" title="NotYetImplemented exception">DataSift_Exception_NotYetImplemented</a></li>
+<li><a href="#DataSift_Exception_RateLimitExceeded" title="RateLimitExceeded exception - Indicates that your user has hit the DataSift API rate limit.">DataSift_Exception_RateLimitExceeded</a></li>
+<li><a href="#DataSift_Exception_APIError" title="APIError exception - Indicates that an error occurred while making a request to the DataSift API.">DataSift_Exception_APIError</a></li>
+<li><a href="#DataSift_Exception_AccessDenied" title="AccessDenied exception - Thrown if you try to access DataSift data to which you don't have access.">DataSift_Exception_AccessDenied</a></li>
 <li><a href="#DataSift_Push_Subscription" title="The DataSift_Push_Subscription class represents a push subscription.">DataSift_Push_Subscription</a></li>
-<li><a href="#DataSift_User" title="The DataSift_User class represents a user of the API.">DataSift_User</a></li>
+<li><a href="#DataSift_Push_Definition" title="The DataSift_Push_Definition class defines a push endpoint.">DataSift_Push_Definition</a></li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants</li>
+<li class="constant  "><a href="#constant_API_KEY" title="API_KEY :: "><span class="description">API_KEY</span><pre>API_KEY</pre></a></li>
+<li class="constant  "><a href="#constant_USERNAME" title="USERNAME :: "><span class="description">USERNAME</span><pre>USERNAME</pre></a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -109,6 +119,93 @@ and implements HTTP streaming.">DataSift_StreamConsumer_HTTP</a></li>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>bool</code>True if the class was successfully loaded.</div>
+</div></div>
+</div>
+<a id="function_parseDate"></a><div class="element clickable function  function_parseDate" data-toggle="collapse" data-target=".function_parseDate .collapse">
+<h2>Date string parser.</h2>
+<pre>parseDate(string $date) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$date</h4>
+<code>string</code><p>Date string.</p></div>
+</div></div>
+</div>
+<a id="function_usage"></a><div class="element clickable function  function_usage" data-toggle="collapse" data-target=".function_usage .collapse">
+<h2>Return usage information.</h2>
+<pre>usage(string $message, bool $exit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Custom message.</p></div>
+<div class="subelement argument">
+<h4>$exit</h4>
+<code>bool</code><p>Set to true if you want to exit the script.</p></div>
+</div></div>
+</div>
+<a id="function_usage"></a><div class="element clickable function  function_usage" data-toggle="collapse" data-target=".function_usage .collapse">
+<h2>Return usage information.</h2>
+<pre>usage(string $message, bool $exit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Custom message.</p></div>
+<div class="subelement argument">
+<h4>$exit</h4>
+<code>bool</code><p>Set to true if you want to exit the script.</p></div>
+</div></div>
+</div>
+<a id="function_usage"></a><div class="element clickable function  function_usage" data-toggle="collapse" data-target=".function_usage .collapse">
+<h2>Return usage information.</h2>
+<pre>usage(string $message, bool $exit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Custom message.</p></div>
+<div class="subelement argument">
+<h4>$exit</h4>
+<code>bool</code><p>Set to true if you want to exit the script.</p></div>
+</div></div>
+</div>
+<a id="function_usage"></a><div class="element clickable function  function_usage" data-toggle="collapse" data-target=".function_usage .collapse">
+<h2>Return usage information.</h2>
+<pre>usage(string $message, bool $exit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Custom message.</p></div>
+<div class="subelement argument">
+<h4>$exit</h4>
+<code>bool</code><p>Set to true if you want to exit the script.</p></div>
+</div></div>
+</div>
+<a id="function_usage"></a><div class="element clickable function  function_usage" data-toggle="collapse" data-target=".function_usage .collapse">
+<h2>Return usage information.</h2>
+<pre>usage(string $message, bool $exit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$message</h4>
+<code>string</code><p>Custom message.</p></div>
+<div class="subelement argument">
+<h4>$exit</h4>
+<code>bool</code><p>Set to true if you want to exit the script.</p></div>
 </div></div>
 </div>
 <h3>
@@ -236,13 +333,27 @@ and implements HTTP streaming.</p>
 <div class="details collapse"></div>
 <a href="../classes/DataSift_User.html" class="more">« More »</a>
 </div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_API_KEY"> </a><div class="element clickable constant  constant_API_KEY" data-toggle="collapse" data-target=".constant_API_KEY .collapse">
+<h2>API_KEY</h2>
+<pre>API_KEY </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_USERNAME"> </a><div class="element clickable constant  constant_USERNAME" data-toggle="collapse" data-target=".constant_USERNAME .collapse">
+<h2>USERNAME</h2>
+<pre>USERNAME </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 </div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2012-12-05T15:57:46Z.<br></footer></div>
+            generated on 2012-12-13T12:50:27Z.<br></footer></div>
 </div>
 </body>
 </html>
