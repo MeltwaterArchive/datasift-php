@@ -36,6 +36,11 @@
 		 */
 		public $args = array();
 	
+                /**
+                 * Env constructor.
+                 *
+                 * @param array $args Arguments
+                 */
 		public function __construct($args = false)
 		{
 			// If no args were passed, use the command line args
@@ -61,6 +66,11 @@
 			$this->args = $args;
 		}
 		
+                /**
+                 * Displays details of a Historics query.
+                 *
+                 * @param DataSift_Push_Subscription $sub A DataSift Push Subscription object
+                 */
 		public function displaySubscriptionDetails($sub)
 		{
 			echo 'ID:            '.$sub->getId().PHP_EOL;

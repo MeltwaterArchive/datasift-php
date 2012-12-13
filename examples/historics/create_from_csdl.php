@@ -83,6 +83,9 @@ try {
 
 /**
  * Return usage information.
+ * 
+ * @param string $message Custom message.
+ * @param bool $exit Set to true if you want to exit the script.
  */
 function usage($message = '', $exit = true)
 {

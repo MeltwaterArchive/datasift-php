@@ -96,6 +96,8 @@ try {
 
 /**
  * Date string parser.
+ *
+ * @param string $date Date string.
  */
 function parseDate($date)
 {
@@ -113,6 +115,9 @@ function parseDate($date)
 
 /**
  * Return usage information.
+ *
+ * @param string $message Custom message.
+ * @param bool $exit Set to true if you want to exit the script.
  */
 function usage($message = '', $exit = true)
 {

@@ -39,6 +39,10 @@ require dirname(__FILE__).'/../config.php';
  */
 class EventHandler implements DataSift_IStreamConsumerEventHandler
 {
+        /**
+         * @var int Timeout in seconds.
+         */
+
 	private $_num = 10;
 
 	/**

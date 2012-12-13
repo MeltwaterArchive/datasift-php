@@ -74,6 +74,12 @@ try {
 	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
+/**
+ * Return usage information.
+ *
+ * @param string $message Custom message.
+ * @param bool $exit Set to true if you want to exit the script.
+ */
 function usage($message = '', $exit = true)
 {
 	if (strlen($message) > 0) {

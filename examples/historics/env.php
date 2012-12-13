@@ -28,9 +28,22 @@
 	 * dealing with command line arguments.
 	 */
 	class Env {
+
+		/**
+		 * @var DataSift_User The DataSift user object.
+		 */
 		public $user = null;
+
+		/**
+		 * @var array Arguments
+		 */
 		public $args = array();
-	
+
+		/**
+		 * Env constructor.
+		 *
+		 * @param array $args Arguments
+		 */
 		public function __construct($args = false)
 		{
 			// If no args were passed, use the command line args
@@ -55,7 +68,12 @@
 			
 			$this->args = $args;
 		}
-		
+
+		/**
+		 * Displays details of a Historics query.
+		 *
+		 * @param DataSift_Historic $hist A DataSift Historics object
+		 */	
 		public function displayHistoricDetails($hist)
 		{
 			echo 'Playback ID: '.$hist->getHash().PHP_EOL;
