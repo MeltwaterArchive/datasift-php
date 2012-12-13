@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="2.0.0a12" title="">
+<project version="2.0.0a12" title="DataSift PHP Client Library">
   <file path="config.php" hash="c63168f5d74b8eacfb0b765fb72604a8" package="PHP-client">
     <docblock line="2">
       <description>DataSift client</description>
