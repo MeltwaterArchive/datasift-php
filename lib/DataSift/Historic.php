@@ -6,6 +6,8 @@
  * by retained intellectual property rights, including copyright.
  * Distribution of this software is strictly forbidden under the terms of this license.
  *
+ * The DataSift_Historic class represents a historic query.
+ *
  * @category  DataSift
  * @package   PHP-client
  * @author    Stuart Dallas <stuart@3ft9.com>
@@ -17,11 +19,12 @@
 /**
  * The DataSift_Historic class represents a historic query.
  *
- * @category DataSift
- * @package  PHP-client
- * @author   Stuart Dallas <stuart@3ft9.com>
- * @license  http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link     http://www.mediasift.com
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
  */
 class DataSift_Historic
 {
@@ -30,6 +33,16 @@ class DataSift_Historic
 	 */
 	const DEFAULT_SAMPLE = 100;
 
+	/**
+	 * List Historics queries.
+	 * 
+	 * @param DataSift_User $user     The user object.
+	 * @param int           $page     The start page.
+	 * @param int           $per_page The start page.
+	 *
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 */
 	static public function listHistorics($user, $page = 1, $per_page = 20)
 	{
 		try {
@@ -63,77 +76,77 @@ class DataSift_Historic
 	}
 
 	/**
-	 * @var DataSift_User
+	 * @var DataSift_User The user object.
 	 */
 	protected $_user = null;
 
 	/**
-	 * @var string
+	 * @var string Playback ID
 	 */
 	protected $_playback_id = false;
 
 	/**
-	 * @var string
+	 * @var string Number of DPUs consumed
 	 */
 	protected $_dpus = false;
 
 	/**
-	 * @var array
+	 * @var array Data availablility information.
 	 */
 	protected $_availability = false;
 
 	/**
-	 * @var string
+	 * @var string The stream hash.
 	 */
 	protected $_hash = false;
 
 	/**
-	 * @var int
+	 * @var int Start date and time
 	 */
 	protected $_start = false;
 
 	/**
-	 * @var int
+	 * @var int End date and time
 	 */
 	protected $_end = false;
 
 	/**
-	 * @var int
+	 * @var int Historics query creation time
 	 */
 	protected $_created_at = false;
 
 	/**
-	 * @var double
+	 * @var double Sample size
 	 */
 	protected $_sample = false;
 
 	/**
-	 * @var string
+	 * @var array Data sources.
 	 */
 	protected $_sources = array();
 
 	/**
-	 * @var array
+	 * @var string Historics query name.
 	 */
 	protected $_name = false;
 
 	/**
-	 * @var string
+	 * @var string Historics query creation date and time
 	 */
 	protected $_status = 'created';
 
 	/**
-	 * @var int
+	 * @var int Progress counter
 	 */
 	protected $_progress = 0;
 
 	/**
-	 * @var array
+	 * @var array Historics data volume information.
 	 */
 	protected $_volume_info = false;
 
 	/**
-	 * @var boolean
+	 * @var boolean Set to true if the Historics query has been deleted.
 	 */
 	protected $_deleted = false;
 
@@ -693,6 +706,13 @@ class DataSift_Historic
 	 * Get a page of push subscriptions for this historic query, where each
 	 * page contains up to $per_page items. Results will be returned in the
 	 * order requested.
+	 *
+	 * @param DataSift_User $user The user object.
+         * @param int $page The page number to get.
+         * @param int $per_page The number of items per page.
+         * @param String $order_by  Which field to sort by.
+         * @param String $order_dir In asc[ending] or desc[ending] order.
+         * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 */
 	public function getPushSubscriptions($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false)
 	{

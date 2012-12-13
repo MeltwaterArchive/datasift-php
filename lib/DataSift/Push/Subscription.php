@@ -4,7 +4,6 @@
  *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
- * Distribution of this software is strictly forbidden under the terms of this license.
  *
  * @category  DataSift
  * @package   PHP-client
@@ -82,6 +81,8 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * @param string        $order_dir        The direction of the ordering.
 	 * @param boolean       $include_finished True to include subscriptions against
 	 *                                        finished historic queries.
+	 * @param string        $hash_type        Stream hash or Historics playback id.
+	 * @param string        $hash             The stream hash or historics subscription id string.
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -128,11 +129,13 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * according to the supplied ordering parameters.
 	 * 
 	 * @param DataSift_User $user             The user.
+	 * @param string        $hash             The stream hash.
 	 * @param int           $page             The page number to fetch.
 	 * @param int           $per_page         The number of items per page.
 	 * @param string        $order_by         The field on which to order the results.
 	 * @param string        $order_dir        The direction of the ordering.
 	 * @param boolean       $include_finished True to include subscriptions against
+	 * @param string        $hash_type        Stream hash or Historics playback id.
 	 *                                        finished historic queries.
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
@@ -150,11 +153,14 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * according to the supplied ordering parameters.
 	 * 
 	 * @param DataSift_User $user             The user.
+	 * @param string        $playback_id      The Historics playback ID.
 	 * @param int           $page             The page number to fetch.
 	 * @param int           $per_page         The number of items per page.
 	 * @param string        $order_by         The field on which to order the results.
 	 * @param string        $order_dir        The direction of the ordering.
 	 * @param boolean       $include_finished True to include subscriptions against
+	 * @param string        $hash_type        Stream hash or Historics playback id.
+	 * @param string        $hash             The stream hash.
 	 *                                        finished historic queries.
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
@@ -175,6 +181,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
      * @param int           $per_page  Based on this page size.
      * @param string        $order_by  Which field to sort by.
      * @param string        $order_dir In asc[ending] or desc[ending] order.
+     * @param string        $id        Push subscription ID.
      * @return array Of LogEntry objects.
      * @throws DataSift_Exception_APIError 
      * @throws DataSift_Exception_InvalidData 
@@ -260,7 +267,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * Construct a DataSift_Push_Subscription object from an array.
 	 * 
 	 * @param DataSift_User $user The user that owns this subscription.
-	 * @param array         $json The JSON object containing the subscription details.
+	 * @param array         $data The JSON object containing the subscription details.
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function __construct($user, $data)

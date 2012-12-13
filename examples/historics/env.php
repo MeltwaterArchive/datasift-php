@@ -1,4 +1,21 @@
 <?php
+/**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
+
+/**
+ * Client environment setup.
+ */
 	if (function_exists('date_default_timezone_set')) {
 		date_default_timezone_set('UTC');
 	}
@@ -11,9 +28,22 @@
 	 * dealing with command line arguments.
 	 */
 	class Env {
+
+		/**
+		 * @var DataSift_User The DataSift user object.
+		 */
 		public $user = null;
+
+		/**
+		 * @var array Arguments
+		 */
 		public $args = array();
-	
+
+		/**
+		 * Env constructor.
+		 *
+		 * @param array $args Arguments
+		 */
 		public function __construct($args = false)
 		{
 			// If no args were passed, use the command line args
@@ -38,7 +68,12 @@
 			
 			$this->args = $args;
 		}
-		
+
+		/**
+		 * Displays details of a Historics query.
+		 *
+		 * @param DataSift_Historic $hist A DataSift Historics object
+		 */	
 		public function displayHistoricDetails($hist)
 		{
 			echo 'Playback ID: '.$hist->getHash().PHP_EOL;
