@@ -94,6 +94,9 @@ try {
 	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
+/**
+ * Date string parser.
+ */
 function parseDate($date)
 {
 	if (strlen($date) != 14) {
@@ -108,6 +111,9 @@ function parseDate($date)
 	);
 }
 
+/**
+ * Return usage information.
+ */
 function usage($message = '', $exit = true)
 {
 	if (strlen($message) > 0) {

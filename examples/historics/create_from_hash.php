@@ -69,6 +69,9 @@ try {
 	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
+/**
+ * Return usage information.
+ */
 function usage($message = '', $exit = true)
 {
 	if (strlen($message) > 0) {

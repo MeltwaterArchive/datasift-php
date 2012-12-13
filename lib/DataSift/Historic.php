@@ -34,6 +34,7 @@ class DataSift_Historic
 	const DEFAULT_SAMPLE = 100;
 
 	/**
+	 * List Historics queries.
 	 * 
 	 * @param DataSift_User $user     The user object.
 	 * @param int           $page     The start page.

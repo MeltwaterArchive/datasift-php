@@ -38,7 +38,9 @@ if ($_SERVER['argc'] < 2) {
 	die("ERR: Please specify the words and/or phrases to track!\n\n");
 }
 
-// This class will handle the events
+/**
+ * This class will handle the events
+ */
 class EventHandler implements DataSift_IStreamConsumerEventHandler
 {
 	/**

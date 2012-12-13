@@ -34,7 +34,9 @@ require dirname(__FILE__).'/../lib/datasift.php';
 // Include the configuration - put your username and API key in this file
 require dirname(__FILE__).'/../config.php';
 
-// This class will handle the events
+/**
+ * This class will handle the events.
+ */
 class EventHandler implements DataSift_IStreamConsumerEventHandler
 {
 	private $_num = 10;

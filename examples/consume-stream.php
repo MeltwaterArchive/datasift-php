@@ -37,7 +37,9 @@ if ($_SERVER['argc'] < 2) {
 	die("ERR: Please specify the stream hash to consume!\n\n");
 }
 
-// This class will handle the events
+/**
+ * This class will handle the events
+ */
 class EventHandler implements DataSift_IStreamConsumerEventHandler
 {
 	/**
