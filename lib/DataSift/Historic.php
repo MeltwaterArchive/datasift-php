@@ -131,7 +131,7 @@ class DataSift_Historic
 	protected $_name = false;
 
 	/**
-	 * @var string Historics query creation date and time
+	 * @var string Historics query status
 	 */
 	protected $_status = 'created';
 
@@ -708,11 +708,11 @@ class DataSift_Historic
 	 * order requested.
 	 *
 	 * @param DataSift_User $user The user object.
-         * @param int $page The page number to get.
-         * @param int $per_page The number of items per page.
-         * @param String $order_by  Which field to sort by.
-         * @param String $order_dir In asc[ending] or desc[ending] order.
-         * @param bool $include_finished Set to true when you want to include finished subscription in the results.
+   * @param int $page The page number to get.
+   * @param int $per_page The number of items per page.
+   * @param String $order_by  Which field to sort by.
+   * @param String $order_dir In asc[ending] or desc[ending] order.
+   * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 */
 	public function getPushSubscriptions($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false)
 	{

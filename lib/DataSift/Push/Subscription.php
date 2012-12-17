@@ -30,7 +30,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	const HASH_TYPE_HISTORIC = 'historic';
 	
 	/**
-	 * Status constants.
+	 * Push subscription status constants.
 	 */
 	const STATUS_ACTIVE    = 'active';
 	const STATUS_PAUSED    = 'paused';
@@ -58,6 +58,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * 
 	 * @param DataSift_User $user The user who owns the subscription.
 	 * @param string        $id   The subscription ID.
+	 *
 	 * @return DataSift_Push_Subscription
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_AccessDenied
@@ -83,6 +84,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 *                                        finished historic queries.
 	 * @param string        $hash_type        Stream hash or Historics playback id.
 	 * @param string        $hash             The stream hash or historics subscription id string.
+	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -137,6 +139,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * @param boolean       $include_finished True to include subscriptions against
 	 * @param string        $hash_type        Stream hash or Historics playback id.
 	 *                                        finished historic queries.
+	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -162,6 +165,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * @param string        $hash_type        Stream hash or Historics playback id.
 	 * @param string        $hash             The stream hash.
 	 *                                        finished historic queries.
+	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -182,6 +186,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
      * @param string        $order_by  Which field to sort by.
      * @param string        $order_dir In asc[ending] or desc[ending] order.
      * @param string        $id        Push subscription ID.
+     *
      * @return array Of LogEntry objects.
      * @throws DataSift_Exception_APIError 
      * @throws DataSift_Exception_InvalidData 
@@ -268,6 +273,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * 
 	 * @param DataSift_User $user The user that owns this subscription.
 	 * @param array         $data The JSON object containing the subscription details.
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function __construct($user, $data)
@@ -280,6 +286,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * Extract data from an array.
 	 * 
 	 * @param array $data An array containing the subscription data.
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	protected function init($data)
@@ -343,6 +350,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 *
 	 * @param array  $params The parameters to parse.
 	 * @param string $prefix The current key prefix.
+	 *
 	 * @return array
 	 */
 	protected function parseOutputParams($params, $prefix = '')
@@ -396,6 +404,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * 
 	 * @param string $key The output parameter to set.
 	 * @param string $val The value to which to set it.
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function setOutputParam($key, $val)
@@ -560,6 +569,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 * @param int    $per_page  The number of entries per page.
 	 * @param string $order_by  By which field to order the entries. 
 	 * @param string $order_dir The direction of the sorting ("asc" or "desc").
+	 *
 	 * @return array
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_InvalidData

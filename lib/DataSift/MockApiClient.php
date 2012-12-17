@@ -30,10 +30,9 @@
  */
 class DataSift_MockApiClient
 {
-
-        /**
-         * @var string $_response the API response
-         */
+  /**
+   * @var string $_response the API response
+   */
 	static private $_response = false;
 
 	/**
