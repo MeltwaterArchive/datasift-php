@@ -285,19 +285,19 @@ class DataSift_User
 		return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
 	}
 
-    /**
-     * Get a single push subscription.
-     *
-     * @param string $id The ID of the subscription to fetch.
-     * @return DataSift_Push_Subscription
-     * @throws DataSift_Exception_InvalidData
-     * @throws DataSift_Exception_AccessDenied
-     * @throws DataSift_Exception_APIError
-     */
-    public function getPushSubscription($id)
-    {
-    	return DataSift_Push_Subscription::get($this, $id);
-    }
+  /**
+   * Get a single push subscription.
+   *
+   * @param string $id The ID of the subscription to fetch.
+   * @return DataSift_Push_Subscription
+   * @throws DataSift_Exception_InvalidData
+   * @throws DataSift_Exception_AccessDenied
+   * @throws DataSift_Exception_APIError
+   */
+  public function getPushSubscription($id)
+  {
+  	return DataSift_Push_Subscription::get($this, $id);
+  }
 
 	/**
 	 * Get a list of push subscriptions in your account.
@@ -319,7 +319,7 @@ class DataSift_User
 	}
 
 	/**
-	 * Page throu gh recent push subscription log entries, specifying the sort
+	 * Page through recent push subscription log entries, specifying the sort
 	 * order.
 	 *
 	 * @param int    page      Which page to fetch.

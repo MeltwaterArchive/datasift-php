@@ -88,6 +88,7 @@ class DataSift_ApiClient
 	 * the headers into an associative array.
 	 *
 	 * @param string $str The HTTP response to be parsed.
+	 *
 	 * @return array An array containing headers => array(header => value), and body.
 	 */
 	static private function parseHTTPResponse($str)

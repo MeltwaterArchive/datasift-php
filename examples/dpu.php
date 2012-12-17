@@ -15,7 +15,7 @@
 
 /**
  * This example gets the DPU associated with the stream given on the command
- * line or piped/typed into STDIN. It  presents it in a nice ASCII table.]
+ * line or piped/typed into STDIN. It  presents it in a nice ASCII table.
  * Note that the CSDL must be enclosed in quotes if given on the command line.
  *
  * php dpu.php 'interaction.content contains "football"'
