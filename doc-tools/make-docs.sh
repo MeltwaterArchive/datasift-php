@@ -1,6 +1,6 @@
 #!/bin/sh -v
 if [ -z "$1" ]; then
-    echo 'You must run this script with branch name is its argument, e.g.'
+    echo 'You must run this script with branch name as its argument, e.g.'
     echo 'sh ./make-docs.sh master'
     exit
 fi
