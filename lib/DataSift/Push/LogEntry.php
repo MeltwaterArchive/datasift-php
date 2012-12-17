@@ -48,6 +48,7 @@ class DataSift_Push_LogEntry {
 	 * Construct an instance from the data in an array.
 	 * 
 	 * @param JSONObject json The data.
+	 *
 	 * @throws JSONException
 	 */
 	public __construct($data_or_subscription_id = false, $request_time = false, $success = null, $message = '')

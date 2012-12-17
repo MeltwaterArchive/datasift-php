@@ -4,7 +4,6 @@
  *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
- * Distribution of this software is strictly forbidden under the terms of this license.
  *
  * @category  DataSift
  * @package   PHP-client
@@ -28,43 +27,37 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/2.1.0';
+	const USER_AGENT      = 'DataSiftPHP/2.1.2';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 
 	/**
-	 * @var string
+	 * @var string The DataSift username.
 	 */
 	protected $_username = '';
 
 	/**
-	 * @var string
+	 * @var string The DataSift API Key.
 	 */
 	protected $_api_key = '';
 
 	/**
-	 * @var boolean
+	 * @var boolean Set to true to enable SSL.
 	 */
 	protected $_use_ssl = true;
 
 	/**
-	 * Stores the X-RateLimit-Limit value from the last API call.
-	 *
-	 * @var int
+	 * @var int Stores the X-RateLimit-Limit value from the last API call.
 	 */
 	protected $_rate_limit = -1;
 
 	/**
-	 * Stores the X-RateLimit-Remaining value from the last API call.
-	 *
-	 * @var int
+	 * @var int Stores the X-RateLimit-Remaining value from the last API call.
 	 */
 	protected $_rate_limit_remaining = -1;
 
 	/**
-	 * The class to use as the API client.
-	 *
-	 * @var string
+	 * @var string The class to use as the API client.
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
 
@@ -74,6 +67,7 @@ class DataSift_User
 	 *
 	 * @param string $username The user's username.
 	 * @param string $api_key  The user's API key.
+	 * @param bool $use_ssl  Set to true to enable SSL.
 	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
@@ -131,7 +125,7 @@ class DataSift_User
 	/**
 	 * Set whether stream connections should use SSL.
 	 *
-	 * @param bool $enable_ssl Set to true to enable SSL.
+	 * @param bool $use_ssl Set to true to enable SSL.
 	 *
 	 * @return void
 	 */
@@ -206,7 +200,7 @@ class DataSift_User
 	 * @param int    $end     The timestamp at which to end the query.
 	 * @param array  $sources An array of sources required.
 	 * @param string $name    A friendly name for this query.
-	 * @param float  $name    An optional sample rate for this query.
+	 * @param float  $sample    An optional sample rate for this query.
 	 *
 	 * @return DataSift_Historic
 	 * @throws DataSift_Exception_InvalidData
@@ -263,6 +257,7 @@ class DataSift_User
 	 *
 	 * @param string $type The consumer type for which to construct a consumer.
 	 * @param string $hash The hash to be consumed.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData
@@ -279,6 +274,7 @@ class DataSift_User
 	 *
 	 * @param string $type The consumer type for which to construct a consumer.
 	 * @param string $hashes An array containing hashes and/or Definition objects to be consumed.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData
@@ -289,22 +285,28 @@ class DataSift_User
 		return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
 	}
 
-    /**
-     * Get a single push subscription.
-     *
-     * @param string $id The ID of the subscription to fetch.
-     * @return DataSift_Push_Subscription
-     * @throws DataSift_Exception_InvalidData
-     * @throws DataSift_Exception_AccessDenied
-     * @throws DataSift_Exception_APIError
-     */
-    public function getPushSubscription($id)
-    {
-    	return DataSift_Push_Subscription::get($this, $id);
-    }
+  /**
+   * Get a single push subscription.
+   *
+   * @param string $id The ID of the subscription to fetch.
+   * @return DataSift_Push_Subscription
+   * @throws DataSift_Exception_InvalidData
+   * @throws DataSift_Exception_AccessDenied
+   * @throws DataSift_Exception_APIError
+   */
+  public function getPushSubscription($id)
+  {
+  	return DataSift_Push_Subscription::get($this, $id);
+  }
 
 	/**
 	 * Get a list of push subscriptions in your account.
+	 *
+	 * @param int $page The page number to get.
+	 * @param int $per_page The number of items per page.
+	 * @param String order_by  Which field to sort by.
+	 * @param String order_dir In asc[ending] or desc[ending] order.
+	 * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 *
 	 * @return array Of DataSift_Push_Subscription objects.
 	 * @throws DataSift_Exception_InvalidData
@@ -317,7 +319,7 @@ class DataSift_User
 	}
 
 	/**
-	 * Page throu gh recent push subscription log entries, specifying the sort
+	 * Page through recent push subscription log entries, specifying the sort
 	 * order.
 	 *
 	 * @param int    page      Which page to fetch.
