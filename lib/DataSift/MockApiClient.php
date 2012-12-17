@@ -2,6 +2,9 @@
 /**
  * DataSift client
  *
+ * The DataSift_MockApiClient class is used in place of DataSift_ApiClient
+ * in offline unit tests.
+ *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
  * Distribution of this software is strictly forbidden under the terms of this license.
@@ -18,14 +21,19 @@
  * The DataSift_MockApiClient class is used in place of DataSift_ApiClient
  * in offline unit tests.
  *
- * @category DataSift
- * @package  PHP-client
- * @author   Stuart Dallas <stuart@3ft9.com>
- * @license  http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link     http://www.mediasift.com
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
  */
 class DataSift_MockApiClient
 {
+
+        /**
+         * @var string $_response the API response
+         */
 	static private $_response = false;
 
 	/**

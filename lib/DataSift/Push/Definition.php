@@ -31,27 +31,23 @@ class DataSift_Push_Definition
 	const OUTPUT_PARAMS_PREFIX = 'output_params.';
 
 	/**
-	 * The user that owns this push definition.
-	 * @var DataSift_User
+	 * @var DataSift_User The user that owns this push definition.
 	 */
 	protected $_user = null;
 	
 	/**
-	 * An initial status for push subscriptions.
-	 * @var string
+	 * @var string An initial status for push subscriptions.
 	 * @see PushSubscription::STATUS_*
 	 */
 	protected $_initial_status = '';
 	
 	/**
-	 * The output_type of this push definition.
-	 * @var string
+	 * @var string The output_type of this push definition.
 	 */
 	protected $_output_type = '';
 	
 	/**
-	 * The output parameters.
-	 * @var array
+	 * @var array The output parameters.
 	 */
 	protected $_output_params = array();
 	

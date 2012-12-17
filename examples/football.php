@@ -1,7 +1,17 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
+/**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
 
 /**
  * This example constructs a DataSift_Definition object with CSDL that looks
@@ -14,6 +24,9 @@ if (function_exists('date_default_timezone_set')) {
  * exceptions, and production code should catch them. See the documentation
  * for full details.
  */
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
 
 // Include the DataSift library
 require dirname(__FILE__).'/../lib/datasift.php';
@@ -21,9 +34,15 @@ require dirname(__FILE__).'/../lib/datasift.php';
 // Include the configuration - put your username and API key in this file
 require dirname(__FILE__).'/../config.php';
 
-// This class will handle the events
+/**
+ * This class will handle the events.
+ */
 class EventHandler implements DataSift_IStreamConsumerEventHandler
 {
+        /**
+         * @var int Timeout in seconds.
+         */
+
 	private $_num = 10;
 
 	/**
@@ -138,7 +157,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	/**
 	 * Called when the consumer stops for some reason.
 	 *
-	 * @param DataSift_StreamConsumer consumer The consumer sending the event.
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
 	 * @param string $reason The reason the consumer stopped.
 	 *
 	 * @return void

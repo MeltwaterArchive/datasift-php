@@ -1,5 +1,19 @@
 <?php
 /**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
+
+/**
  * This script lists push subscriptions in your account.
  *
  * NB: Most of the error handling (exception catching) has been removed for
@@ -80,6 +94,11 @@ try {
 	echo 'ERR: '.get_class($e).' '.$e->getMessage().PHP_EOL;
 }
 
+/**
+ * Date string parser.
+ *
+ * @param string $date Date string.
+ */
 function parseDate($date)
 {
 	if (strlen($date) != 14) {
@@ -94,6 +113,12 @@ function parseDate($date)
 	);
 }
 
+/**
+ * Return usage information.
+ *
+ * @param string $message Custom message.
+ * @param bool $exit Set to true if you want to exit the script.
+ */
 function usage($message = '', $exit = true)
 {
 	if (strlen($message) > 0) {
