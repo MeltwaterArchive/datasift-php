@@ -52,7 +52,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer object.
 	 * @param array $interaction The interaction data.
-         * @param string $hash The stream hash.
+   * @param string $hash The stream hash.
 	 */
 	public function onInteraction($consumer, $interaction, $hash)
 	{
@@ -64,7 +64,7 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	 *
 	 * @param DataSift_StreamConsumer $consumer The consumer object.
 	 * @param array $interaction The interaction data.
-         * @param string $hash The stream hash.
+   * @param string $hash The stream hash.
 	 */
 	public function onDeleted($consumer, $interaction, $hash)
 	{

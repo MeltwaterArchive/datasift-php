@@ -219,7 +219,7 @@ abstract class DataSift_StreamConsumer
 	 * be implemented in extending classes.
 	 *
 	 * @param array $interaction The interaction data structure
-         * @param string $hash The stream hash.
+   * @param string $hash The stream hash.
 	 *
 	 * @return void
 	 */
@@ -309,7 +309,6 @@ abstract class DataSift_StreamConsumer
 
 	/**
 	 * Called when the consumer should start consuming the stream.
-	 *
 	 *
 	 * @return void
 	 * @abstract
