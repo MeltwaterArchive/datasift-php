@@ -2,9 +2,10 @@
 /**
  * DataSift client
  *
+ * The DataSift_ApiClient class wraps access to the DataSift API.
+ *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
- * Distribution of this software is strictly forbidden under the terms of this license.
  *
  * @category  DataSift
  * @package   PHP-client
@@ -17,12 +18,14 @@
 /**
  * The DataSift_ApiClient class wraps access to the DataSift API.
  *
- * @category DataSift
- * @package  PHP-client
- * @author   Stuart Dallas <stuart@3ft9.com>
- * @license  http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link     http://www.mediasift.com
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
  */
+
 class DataSift_ApiClient
 {
 	/**
@@ -32,6 +35,7 @@ class DataSift_ApiClient
 	 * @param string $api_key  The user's API key.
 	 * @param string $endpoint The endpoint of the API call.
 	 * @param array  $params   The parameters to be passed along with the request.
+	 * @param string $user_agent The HTTP User-Agent header.
 	 *
 	 * @return array The response from the server.
 	 * @throws DataSift_Exception_APIError
@@ -84,6 +88,7 @@ class DataSift_ApiClient
 	 * the headers into an associative array.
 	 *
 	 * @param string $str The HTTP response to be parsed.
+	 *
 	 * @return array An array containing headers => array(header => value), and body.
 	 */
 	static private function parseHTTPResponse($str)
