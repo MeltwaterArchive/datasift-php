@@ -2,6 +2,8 @@
 /**
  * DataSift client
  *
+ * The DataSift_Definition class represents a stream definition.
+ *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
  * Distribution of this software is strictly forbidden under the terms of this license.
@@ -17,36 +19,37 @@
 /**
  * The DataSift_Definition class represents a stream definition.
  *
- * @category DataSift
- * @package  PHP-client
- * @author   Stuart Dallas <stuart@3ft9.com>
- * @license  http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link     http://www.mediasift.com
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
  */
 class DataSift_Definition
 {
 	/**
-	 * @var DataSift_User
+	 * @var DataSift_User The DataSift User object.
 	 */
 	protected $_user = null;
 
 	/**
-	 * @var string
+	 * @var string The CSDL source code.
 	 */
 	protected $_csdl = '';
 
 	/**
-	 * @var string
+	 * @var string The stream hash.
 	 */
 	protected $_hash = false;
 
 	/**
-	 * @var int
+	 * @var int The hash creation time as a UNIX timestamp.
 	 */
 	protected $_created_at = false;
 
 	/**
-	 * @var int
+	 * @var int The total number of DPUs used.
 	 */
 	protected $_total_dpu = false;
 
@@ -178,7 +181,7 @@ class DataSift_Definition
 	 * Returns the total DPU of the stream. If the DPU has not yet been
 	 * obtained it validates the definition first.
 	 *
-	 * @return int The date as a unix timestamp.
+	 * @return int The total DPU.
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_RateLimitExceeded
 	 * @throws DataSift_Exception_InvalidData
@@ -369,6 +372,7 @@ class DataSift_Definition
 	 * @param int    $end     The timestamp at which to end the query.
 	 * @param array  $sources An array of sources required.
 	 * @param string $name    An optional name for this historic.
+	 * @param float  $sample  Sample size (1..100)
 	 *
 	 * @return DataSift_Historic
 	 * @throws DataSift_Exception_InvalidData
@@ -385,6 +389,7 @@ class DataSift_Definition
 	 * for the given type.
 	 *
 	 * @param string $type The consumer type for which to construct a consumer.
+	 * @param DataSift_IStreamConsumerEventHandler $eventHandler An instance of DataSift_IStreamConsumerEventHandler
 	 *
 	 * @return DataSift_StreamConsumer The consumer object.
 	 * @throws DataSift_Exception_InvalidData

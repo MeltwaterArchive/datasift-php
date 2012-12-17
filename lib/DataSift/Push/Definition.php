@@ -31,27 +31,23 @@ class DataSift_Push_Definition
 	const OUTPUT_PARAMS_PREFIX = 'output_params.';
 
 	/**
-	 * The user that owns this push definition.
-	 * @var DataSift_User
+	 * @var DataSift_User The user that owns this push definition.
 	 */
 	protected $_user = null;
 	
 	/**
-	 * An initial status for push subscriptions.
-	 * @var string
+	 * @var string An initial status for push subscriptions.
 	 * @see PushSubscription::STATUS_*
 	 */
 	protected $_initial_status = '';
 	
 	/**
-	 * The output_type of this push definition.
-	 * @var string
+	 * @var string The output_type of this push definition.
 	 */
 	protected $_output_type = '';
 	
 	/**
-	 * The output parameters.
-	 * @var array
+	 * @var array The output parameters.
 	 */
 	protected $_output_params = array();
 	
@@ -83,6 +79,7 @@ class DataSift_Push_Definition
 	 * Set the initial status for subscriptions.
 	 * 
 	 * @param string $status The initial status.
+	 *
 	 * @see PushSubscription.STATUS_*
 	 */
 	public function setInitialStatus($status)
@@ -115,6 +112,7 @@ class DataSift_Push_Definition
 	 * 
 	 * @param string $key The output parameter to set.
 	 * @param string $val The value to set it to.
+	 *
 	 * @throws DataSift_Exception_InvalidData
 	 */
 	public function setOutputParam($key, $val)
@@ -126,6 +124,7 @@ class DataSift_Push_Definition
 	 * Get an output parameter.
 	 * 
 	 * @param string $key The parameter to get.
+	 *
 	 * @return string
 	 */
 	public function getOutputParam($key)
@@ -173,6 +172,7 @@ class DataSift_Push_Definition
 	 * 
 	 * @param DataSift_Definition $definition The definition to which to subscribe.
 	 * @param string              $name       A name for this subscription.
+	 *
 	 * @return DataSift_PushSubscription      The new subscription.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_AccessDenied
@@ -188,6 +188,7 @@ class DataSift_Push_Definition
 	 * 
 	 * @param string $hash               The has to which to subscribe.
 	 * @param string $name               A name for this subscription.
+	 *
 	 * @return DataSift_PushSubscription The new subscription.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -202,6 +203,7 @@ class DataSift_Push_Definition
 	 * 
 	 * @param DataSift_Historic $historic The historic object to which to subscribe.
 	 * @param string            $name     A name for this subscription.
+	 *
 	 * @return DataSift_PushSubscription  The new subscription.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_AccessDenied
@@ -217,6 +219,7 @@ class DataSift_Push_Definition
 	 * 
 	 * @param string $playback_id         The playback ID.
 	 * @param string $name                A name for this subscription.
+	 *
 	 * @return DataSift_PushSubscription  The new subscription.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError
@@ -235,6 +238,7 @@ class DataSift_Push_Definition
 	 * @param string $hash_type          "hash" or "playback_id"
 	 * @param string $hash               The hash or playback ID.
 	 * @param string $name               A name for this subscription.
+	 *
 	 * @return DataSift_PushSubscription The new subscription.
 	 * @throws DataSift_Exception_InvalidData
 	 * @throws DataSift_Exception_APIError

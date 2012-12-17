@@ -1,11 +1,21 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('UTC');
-}
+/**
+ * DataSift client
+ *
+ * This software is the intellectual property of MediaSift Ltd., and is covered
+ * by retained intellectual property rights, including copyright.
+ *
+ * @category  DataSift
+ * @package   PHP-client
+ * @author    Stuart Dallas <stuart@3ft9.com>
+ * @copyright 2011 MediaSift Ltd.
+ * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
+ * @link      http://www.mediasift.com
+ */
 
 /**
  * This example gets the DPU associated with the stream given on the command
- * line or piped/typed into STDIN. It  presents it in a nice ASCII table.]
+ * line or piped/typed into STDIN. It  presents it in a nice ASCII table.
  * Note that the CSDL must be enclosed in quotes if given on the command line.
  *
  * php dpu.php 'interaction.content contains "football"'
@@ -17,6 +27,9 @@ if (function_exists('date_default_timezone_set')) {
  * exceptions, and production code should catch them. See the documentation
  * for full details.
  */
+if (function_exists('date_default_timezone_set')) {
+	date_default_timezone_set('UTC');
+}
 
 // Include the DataSift library
 require dirname(__FILE__).'/../lib/datasift.php';

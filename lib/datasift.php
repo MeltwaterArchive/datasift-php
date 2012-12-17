@@ -4,7 +4,6 @@
  *
  * This software is the intellectual property of MediaSift Ltd., and is covered
  * by retained intellectual property rights, including copyright.
- * Distribution of this software is strictly forbidden under the terms of this license.
  *
  * @category  DataSift
  * @package   PHP-client
@@ -15,9 +14,9 @@
  */
 
 /**
- * This is the base file for the DataSift API Library. This is the only file
- * you need to include to use the library.
- */
+* This is the base file for the DataSift API Library. This is the only file
+* you need to include to use the library.
+*/
 
 // Set up the class autoloader. If it's available we use
 // spl_autoload_register, if not we load all of the classes now.
