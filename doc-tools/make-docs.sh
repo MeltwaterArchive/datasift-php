@@ -31,7 +31,7 @@ cd phpdoc
 echo 'installing phpDocumentor'
 wget https://raw.github.com/phpDocumentor/phpDocumentor2/develop/installer.php
 sudo php installer.php
-cp ../gh-pages/doc-tools/phpdoc.tpl.xml ./data/
+sudo cp ../gh-pages/doc-tools/phpdoc.tpl.xml ./data/
 sudo php `pwd`/bin/phpdoc.php -d ../code -t ../gh-docs
 sudo php `pwd`/bin/phpdoc.php -d ../code -t ../gh-docs
 cp -a ../gh-docs/* ../gh-pages/
