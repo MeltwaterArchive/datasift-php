@@ -1,43 +1,58 @@
-#!/bin/sh -v
-if [ -z "$1" ]; then
-    echo 'You must run this script with branch name as its argument, e.g.'
-    echo 'sh ./make-docs.sh master'
-    exit
-fi
-echo 'working on branch '$1
+#!/bin/bash
+#-v
 
-echo 'installing tools'
+export BASE_DIR="$( cd "$( dirname $0 )/../../../.." && pwd )/"
+
+source ${BASE_DIR}ms-tools/doc-tools/docathon/sub/make-docs-util-defs.sh
+initialise $*
+
+### PHP-specific parameters
+parameters "php"
+
+### installation of PHP-specific tools
+message "installing tools"
 sudo apt-get install git
 sudo apt-get install php5-cli
 sudo apt-get install php5-xsl
 sudo apt-get install php5-intl
 sudo apt-get install graphviz
 sudo apt-get install wget
-echo 'making temporary directory'
-mkdir tmp
-cd tmp
-echo 'cloning repos'
-git clone https://github.com/datasift/datasift-php.git code
-git clone https://github.com/datasift/datasift-php.git gh-pages
-cd code
-git checkout $1
-cd ..
-cd gh-pages
-git checkout gh-pages
-cd ..
-echo 'making tmp/phpdoc'
-mkdir phpdoc
-cd phpdoc
-echo 'installing phpDocumentor'
-wget https://raw.github.com/phpDocumentor/phpDocumentor2/develop/installer.php
-sudo php installer.php
-sudo cp ../gh-pages/doc-tools/phpdoc.tpl.xml ./data/
-sudo php `pwd`/bin/phpdoc.php -d ../code -t ../gh-docs
-sudo php `pwd`/bin/phpdoc.php -d ../code -t ../gh-docs
-cp -a ../gh-docs/* ../gh-pages/
-cd ../gh-pages
-git add *
-git commit -m 'Updated to reflect the latest changes to '$1
-echo 'You are going to update the gh-pages branch to reflect the latest changes to '$1
-git push origin gh-pages
-echo 'finished'
+
+pre_build
+
+### PHP-specific build steps
+
+message "preparing to build documents"
+export PHPDOC_DIR="${BASE_DIR}tmp/${LABEL}/phpdoc/"
+export GH_DOCS_DIR="${BASE_DIR}tmp/${LABEL}/gh-docs/"
+mkdir ${PHPDOC_DIR} ; stop_on_error
+
+(
+	#message "preparing documents build environment"
+	message 'installing phpDocumentor'
+	cd ${PHPDOC_DIR} ; stop_on_error
+	wget https://raw.github.com/phpDocumentor/phpDocumentor2/develop/installer.php ; stop_on_error
+) || error "stopped parent"
+
+(
+	message "building documents"
+	cd ${PHPDOC_DIR} ; stop_on_error
+	sudo php installer.php ; stop_on_error
+	sudo cp ${GH_PAGES_DIR}doc-tools/phpdoc.tpl.xml ./data/ ; stop_on_error
+	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR} -t ${GH_DOCS_DIR} ; stop_on_error
+	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR} -t ${GH_DOCS_DIR} ; stop_on_error
+) || error "stopped parent"
+(
+	message "copying documents"
+	cd ${PHPDOC_DIR} ; stop_on_error
+	cp -a ${GH_DOCS_DIR}* ${GH_PAGES_DIR} ; stop_on_error
+) || error "stopped parent"
+
+(
+	cd ${GH_PAGES_DIR} ; stop_on_error
+	git add *
+) || error "stopped parent"
+
+post_build
+
+finalise
