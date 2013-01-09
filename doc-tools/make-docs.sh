@@ -1,9 +1,10 @@
 #!/bin/bash
 #-v
 
-export BASE_DIR="$( cd "$( dirname $0 )/../../../.." && pwd )/"
+export BASE_DIR="`pwd`/"
 
 source ${BASE_DIR}ms-tools/doc-tools/docathon/sub/make-docs-util-defs.sh
+export BASE_DIR="/tmp/$(basename $0).$$.tmp/"
 initialise $*
 
 ### PHP-specific parameters
@@ -39,8 +40,8 @@ mkdir ${PHPDOC_DIR} ; stop_on_error
 	cd ${PHPDOC_DIR} ; stop_on_error
 	sudo php installer.php ; stop_on_error
 	sudo cp ${GH_PAGES_DIR}doc-tools/phpdoc.tpl.xml ./data/ ; stop_on_error
-	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR} -t ${GH_DOCS_DIR} ; stop_on_error
-	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR} -t ${GH_DOCS_DIR} ; stop_on_error
+	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR}lib -t ${GH_DOCS_DIR} ; stop_on_error
+	sudo php ${PHPDOC_DIR}bin/phpdoc.php -d ${CODE_DIR}lib -t ${GH_DOCS_DIR} ; stop_on_error
 ) || error "stopped parent"
 (
 	message "copying documents"
