@@ -42,6 +42,11 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	protected $_read_timeout = 5;
 
 	/**
+	 * @var int Stream timeout in seconds
+	 */
+	protected $_stream_timeout = 61;
+
+	/**
 	 * @var int Max allowable line size from the stream
 	 */
 	protected $_max_line_length = 65536;
@@ -121,6 +126,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 				// Set the stream as blocking
 				stream_set_blocking($this->_conn, 1);
+				stream_set_timeout($this->_conn, $this->_stream_timeout);
 
 				// Get the chunk length
 				$len = fgets($this->_conn, $this->_max_line_length);
@@ -146,7 +152,7 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 			}
 
 			$this->onDisconnect();
-		} while ($this->_conn && !feof($this->_conn) and $this->_auto_reconnect and $this->_state == parent::STATE_RUNNING);
+		} while ($this->_conn && (!feof($this->_conn) || $this->_auto_reconnect) && $this->_state == parent::STATE_RUNNING);
 
 		// Make sure we're properly disconnected and in a known state
 		$this->disconnect();

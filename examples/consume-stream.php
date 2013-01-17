@@ -61,6 +61,9 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	 */
 	public function onInteraction($consumer, $interaction, $hash)
 	{
+		if (!isset($interaction['interation']['content'])) {
+			$interaction['interaction']['content'] = 'No interaction.content for this interaction';
+		}
 		echo $hash.': '.$interaction['interaction']['content'].PHP_EOL.'--'.PHP_EOL;
 	}
 
