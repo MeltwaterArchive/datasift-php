@@ -51,6 +51,8 @@ mkdir ${PHPDOC_DIR} ; stop_on_error
 
 (
 	cd ${GH_PAGES_DIR} ; stop_on_error
+	doc-tools/modifyfrontpage.py -i index.html -p doc-tools/frontpagepatch.txt > _new_index.html ; stop_on_error
+	mv _new_index.html index.html ; stop_on_error
 	git add *
 ) || error "stopped parent"
 

@@ -1,0 +1,12 @@
+<div class="well"><ul class="nav nav-list">
+<li class="nav-header">About</li>
+<p>This is the <a href='https://github.com/datasift/datasift-php'>official PHP library</a> for accessing <a href='http://datasift.com/'>DataSift</a>.</p>
+<h3>Source Code</h3>
+<p>The DataSift API Library is available for <a href='https://github.com/datasift/datasift-php'>download</a>.</p>
+<h3>Examples</h3>
+<p>See the <a href='https://github.com/datasift/datasift-php/tree/master/examples'>examples</a> folder for some simple example usage. Make sure you read the example <a href='https://github.com/datasift/datasift-php/blob/master/examples/README.md'>notes</a>.</p>
+<h3>Documentation</h3>
+<p>The DataSift API Library is used to access the <a href='http://datasift.com/'>DataSift</a> platform via its Application Programming Interface. You can learn more about the DataSift API on our <a href='http://dev.datasift.com/docs/'>documentation</a> site.</p>
+<h3>Licensing</h3>
+<p>The DataSift API Library is Open Source software. Please read the <a href='https://github.com/datasift/datasift-php/blob/master/LICENSE'>license</a>.</p>
+</ul></div>
