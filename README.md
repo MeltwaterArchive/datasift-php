@@ -72,6 +72,7 @@ more details.
 
 Changelog
 ---------
+* v.2.1.3 Fixed reconnect issue from server-side disconnects.
 
 * v.2.1.2 Fixed missing 'sample' param from /historics/prepare calls. (2012-12-04)
 
