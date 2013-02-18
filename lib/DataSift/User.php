@@ -360,8 +360,7 @@ class DataSift_User
 	{
 		$res = call_user_func(
 			array($this->_api_client, 'call'),
-			$this->_username,
-			$this->_api_key,
+			$this,
 			$endpoint,
 			$params,
 			$this->getUserAgent()
