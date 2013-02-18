@@ -35,7 +35,7 @@ class DataSift_Historic
 
 	/**
 	 * List Historics queries.
-	 * 
+	 *
 	 * @param DataSift_User $user     The user object.
 	 * @param int           $page     The start page.
 	 * @param int           $per_page The start page.
@@ -149,6 +149,11 @@ class DataSift_Historic
 	 * @var boolean Set to true if the Historics query has been deleted.
 	 */
 	protected $_deleted = false;
+
+	/**
+	 * @var integer The estimated time to completion
+	 */
+	protected $_estimated_time_remaining = 0;
 
 	/**
 	 * Generate a name based on the current date/time.
@@ -335,6 +340,10 @@ class DataSift_Historic
 		}
 		$this->_volume_info = $data['volume_info'];
 
+		if (isset($data['estimated_time_remaining'])) {
+			$this->_estimated_time_remaining = $data['estimated_time_remaining'];
+		}
+
 		if ($this->_status == 'deleted') {
 			$this->_deleted = true;
 		}
@@ -512,6 +521,16 @@ class DataSift_Historic
 	public function getStatus()
 	{
 		return $this->_status;
+	}
+
+	/**
+	 * Returns the estimated time remaining, in seconds
+	 *
+	 * @return integer
+	 */
+	public function getEstimatedTimeRemaining()
+	{
+		return $this->_estimated_time_remaining;
 	}
 
 	/**
