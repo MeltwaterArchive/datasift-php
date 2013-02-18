@@ -372,7 +372,7 @@ class DataSift_Definition
 	 * @param int    $end     The timestamp at which to end the query.
 	 * @param array  $sources An array of sources required.
 	 * @param string $name    An optional name for this historic.
-	 * @param float  $sample  Sample size (1..100)
+	 * @param float  $sample  Sample size (10 or 100)
 	 *
 	 * @return DataSift_Historic
 	 * @throws DataSift_Exception_InvalidData

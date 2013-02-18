@@ -141,11 +141,6 @@ class DataSift_Historic
 	protected $_progress = 0;
 
 	/**
-	 * @var array Historics data volume information.
-	 */
-	protected $_volume_info = false;
-
-	/**
 	 * @var boolean Set to true if the Historics query has been deleted.
 	 */
 	protected $_deleted = false;
@@ -334,11 +329,6 @@ class DataSift_Historic
 			throw new DataSift_Exception_APIError('No smaple in the response');
 		}
 		$this->_sample = $data['sample'];
-
-		if (!isset($data['volume_info'])) {
-			throw new DataSift_Exception_APIError('No volume info in the response');
-		}
-		$this->_volume_info = $data['volume_info'];
 
 		if (isset($data['estimated_time_remaining'])) {
 			$this->_estimated_time_remaining = $data['estimated_time_remaining'];
