@@ -514,7 +514,7 @@ class DataSift_Historic
 	}
 
 	/**
-	 * Returns the estimated time remaining, in seconds
+	 * Returns the estimated completion in UTC timestamp
 	 *
 	 * @return integer
 	 */
