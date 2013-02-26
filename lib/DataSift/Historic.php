@@ -146,9 +146,9 @@ class DataSift_Historic
 	protected $_deleted = false;
 
 	/**
-	 * @var integer The estimated time to completion
+	 * @var integer The estimated completion timestamp
 	 */
-	protected $_estimated_time_remaining = 0;
+	protected $_estimated_completion = 0;
 
 	/**
 	 * Generate a name based on the current date/time.
@@ -330,8 +330,8 @@ class DataSift_Historic
 		}
 		$this->_sample = $data['sample'];
 
-		if (isset($data['estimated_time_remaining'])) {
-			$this->_estimated_time_remaining = $data['estimated_time_remaining'];
+		if (isset($data['estimated_completion'])) {
+			$this->_estimated_completion = $data['estimated_completion'];
 		}
 
 		if ($this->_status == 'deleted') {
@@ -518,9 +518,9 @@ class DataSift_Historic
 	 *
 	 * @return integer
 	 */
-	public function getEstimatedTimeRemaining()
+	public function getEstimatedCompletion()
 	{
-		return $this->_estimated_time_remaining;
+		return $this->_estimated_completion;
 	}
 
 	/**
