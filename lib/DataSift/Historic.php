@@ -35,7 +35,7 @@ class DataSift_Historic
 
 	/**
 	 * List Historics queries.
-	 * 
+	 *
 	 * @param DataSift_User $user     The user object.
 	 * @param int           $page     The start page.
 	 * @param int           $per_page The start page.
@@ -141,14 +141,14 @@ class DataSift_Historic
 	protected $_progress = 0;
 
 	/**
-	 * @var array Historics data volume information.
-	 */
-	protected $_volume_info = false;
-
-	/**
 	 * @var boolean Set to true if the Historics query has been deleted.
 	 */
 	protected $_deleted = false;
+
+	/**
+	 * @var integer The estimated completion timestamp
+	 */
+	protected $_estimated_completion = 0;
 
 	/**
 	 * Generate a name based on the current date/time.
@@ -330,10 +330,9 @@ class DataSift_Historic
 		}
 		$this->_sample = $data['sample'];
 
-		if (!isset($data['volume_info'])) {
-			throw new DataSift_Exception_APIError('No volume info in the response');
+		if (isset($data['estimated_completion'])) {
+			$this->_estimated_completion = $data['estimated_completion'];
 		}
-		$this->_volume_info = $data['volume_info'];
 
 		if ($this->_status == 'deleted') {
 			$this->_deleted = true;
@@ -512,6 +511,16 @@ class DataSift_Historic
 	public function getStatus()
 	{
 		return $this->_status;
+	}
+
+	/**
+	 * Returns the estimated completion in UTC timestamp
+	 *
+	 * @return integer
+	 */
+	public function getEstimatedCompletion()
+	{
+		return $this->_estimated_completion;
 	}
 
 	/**

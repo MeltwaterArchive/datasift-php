@@ -27,7 +27,7 @@
  */
 class DataSift_User
 {
-	const USER_AGENT      = 'DataSiftPHP/2.1.2';
+	const USER_AGENT      = 'DataSiftPHP/2.1.3';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
 
@@ -360,8 +360,7 @@ class DataSift_User
 	{
 		$res = call_user_func(
 			array($this->_api_client, 'call'),
-			$this->_username,
-			$this->_api_key,
+			$this,
 			$endpoint,
 			$params,
 			$this->getUserAgent()

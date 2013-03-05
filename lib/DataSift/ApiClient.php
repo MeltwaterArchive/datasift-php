@@ -41,7 +41,7 @@ class DataSift_ApiClient
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_RateLimitExceeded
 	 */
-	static public function call($username, $api_key, $endpoint, $params = array(), $user_agent = 'DataSiftPHP/1.0')
+	static public function call($user, $endpoint, $params = array(), $user_agent = DataSift_User::USER_AGENT)
 	{
 		// Curl is required
 		if (!function_exists('curl_init')) {
@@ -49,12 +49,12 @@ class DataSift_ApiClient
 		}
 
 		// Build the full endpoint URL
-		$url = 'http://'.DataSift_User::API_BASE_URL.$endpoint.'.json';
+		$url = 'http'.($user->useSSL() ? 's' : '').'://'.DataSift_User::API_BASE_URL.$endpoint.'.json';
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$username.':'.$api_key, 'Expect:'));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:'));
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
