@@ -20,33 +20,33 @@
 <path fill="none" stroke="gray" d="M8,-56C8,-50 14,-44 20,-44"/>
 <text text-anchor="middle" x="272" y="-860.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">global</text>
 </g>
-<!-- \\DataSift_IStreamConsumerEventHandler -->
-<g id="node2" class="node"><title>\\DataSift_IStreamConsumerEventHandler</title>
-<a xlink:href="DataSift.IStreamConsumerEventHandler.html" xlink:title="DataSift_IStreamConsumerEventHandler" target="_parent">
-<polygon fill="none" stroke="black" points="528,-844 268,-844 268,-808 528,-808 528,-844"/>
-<text text-anchor="middle" x="398" y="-823.1" font-family="Courier,monospace" font-size="11.00">DataSift_IStreamConsumerEventHandler</text>
+<!-- \\DataSift_ApiClient -->
+<g id="node2" class="node"><title>\\DataSift_ApiClient</title>
+<a xlink:href="DataSift.ApiClient.html" xlink:title="DataSift_ApiClient" target="_parent">
+<polygon fill="none" stroke="black" points="467,-844 329,-844 329,-808 467,-808 467,-844"/>
+<text text-anchor="middle" x="398" y="-823.1" font-family="Courier,monospace" font-size="11.00">DataSift_ApiClient</text>
 </a>
 </g>
-<!-- \\DataSift_StreamConsumer -->
-<g id="node3" class="node"><title>\\DataSift_StreamConsumer</title>
-<a xlink:href="DataSift.StreamConsumer.html" xlink:title="«abstract»&lt;br/&gt;DataSift_StreamConsumer" target="_parent">
-<polygon fill="none" stroke="black" points="192,-682 20,-682 20,-646 192,-646 192,-682"/>
-<text text-anchor="start" x="72" y="-669.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="28" y="-656.233" font-family="Courier,monospace" font-size="11.00">DataSift_StreamConsumer</text>
+<!-- \\DataSift_Definition -->
+<g id="node3" class="node"><title>\\DataSift_Definition</title>
+<a xlink:href="DataSift.Definition.html" xlink:title="DataSift_Definition" target="_parent">
+<polygon fill="none" stroke="black" points="470,-790 326,-790 326,-754 470,-754 470,-790"/>
+<text text-anchor="middle" x="398" y="-769.1" font-family="Courier,monospace" font-size="11.00">DataSift_Definition</text>
 </a>
 </g>
 <!-- \\DataSift_User -->
 <g id="node4" class="node"><title>\\DataSift_User</title>
 <a xlink:href="DataSift.User.html" xlink:title="DataSift_User" target="_parent">
-<polygon fill="none" stroke="black" points="450,-790 346,-790 346,-754 450,-754 450,-790"/>
-<text text-anchor="middle" x="398" y="-769.1" font-family="Courier,monospace" font-size="11.00">DataSift_User</text>
+<polygon fill="none" stroke="black" points="450,-736 346,-736 346,-700 450,-700 450,-736"/>
+<text text-anchor="middle" x="398" y="-715.1" font-family="Courier,monospace" font-size="11.00">DataSift_User</text>
 </a>
 </g>
-<!-- \\DataSift_Historic -->
-<g id="node5" class="node"><title>\\DataSift_Historic</title>
-<a xlink:href="DataSift.Historic.html" xlink:title="DataSift_Historic" target="_parent">
-<polygon fill="none" stroke="black" points="463,-736 333,-736 333,-700 463,-700 463,-736"/>
-<text text-anchor="middle" x="398" y="-715.1" font-family="Courier,monospace" font-size="11.00">DataSift_Historic</text>
+<!-- \\DataSift_StreamConsumer -->
+<g id="node5" class="node"><title>\\DataSift_StreamConsumer</title>
+<a xlink:href="DataSift.StreamConsumer.html" xlink:title="«abstract»&lt;br/&gt;DataSift_StreamConsumer" target="_parent">
+<polygon fill="none" stroke="black" points="192,-682 20,-682 20,-646 192,-646 192,-682"/>
+<text text-anchor="start" x="72" y="-669.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="28" y="-656.233" font-family="Courier,monospace" font-size="11.00">DataSift_StreamConsumer</text>
 </a>
 </g>
 <!-- \\DataSift_StreamConsumer_HTTP -->
@@ -61,32 +61,11 @@
 <path fill="none" stroke="black" d="M294.641,-664C264.849,-664 232.461,-664 203.065,-664"/>
 <polygon fill="none" stroke="black" points="202.801,-660.5 192.801,-664 202.801,-667.5 202.801,-660.5"/>
 </g>
-<!-- \\DataSift_MockApiClient -->
-<g id="node7" class="node"><title>\\DataSift_MockApiClient</title>
-<a xlink:href="DataSift.MockApiClient.html" xlink:title="DataSift_MockApiClient" target="_parent">
-<polygon fill="none" stroke="black" points="480,-628 316,-628 316,-592 480,-592 480,-628"/>
-<text text-anchor="middle" x="398" y="-607.1" font-family="Courier,monospace" font-size="11.00">DataSift_MockApiClient</text>
-</a>
-</g>
-<!-- \\DataSift_ApiClient -->
-<g id="node8" class="node"><title>\\DataSift_ApiClient</title>
-<a xlink:href="DataSift.ApiClient.html" xlink:title="DataSift_ApiClient" target="_parent">
-<polygon fill="none" stroke="black" points="467,-574 329,-574 329,-538 467,-538 467,-574"/>
-<text text-anchor="middle" x="398" y="-553.1" font-family="Courier,monospace" font-size="11.00">DataSift_ApiClient</text>
-</a>
-</g>
-<!-- \\DataSift_Definition -->
-<g id="node9" class="node"><title>\\DataSift_Definition</title>
-<a xlink:href="DataSift.Definition.html" xlink:title="DataSift_Definition" target="_parent">
-<polygon fill="none" stroke="black" points="470,-520 326,-520 326,-484 470,-484 470,-520"/>
-<text text-anchor="middle" x="398" y="-499.1" font-family="Courier,monospace" font-size="11.00">DataSift_Definition</text>
-</a>
-</g>
-<!-- \\DataSift_Exception_StreamError -->
-<g id="node10" class="node"><title>\\DataSift_Exception_StreamError</title>
-<a xlink:href="DataSift.Exception.StreamError.html" xlink:title="DataSift_Exception_StreamError" target="_parent">
-<polygon fill="none" stroke="black" points="507,-412 289,-412 289,-376 507,-376 507,-412"/>
-<text text-anchor="middle" x="398" y="-391.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_StreamError</text>
+<!-- \\DataSift_Exception_AccessDenied -->
+<g id="node7" class="node"><title>\\DataSift_Exception_AccessDenied</title>
+<a xlink:href="DataSift.Exception.AccessDenied.html" xlink:title="DataSift_Exception_AccessDenied" target="_parent">
+<polygon fill="none" stroke="black" points="511,-574 285,-574 285,-538 511,-538 511,-574"/>
+<text text-anchor="middle" x="398" y="-553.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_AccessDenied</text>
 </a>
 </g>
 <!-- \\Exception -->
@@ -94,33 +73,69 @@
 <ellipse fill="none" stroke="black" cx="106" cy="-18" rx="62.9325" ry="18.3848"/>
 <text text-anchor="middle" x="106" y="-14.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Exception</text>
 </g>
-<!-- \\DataSift_Exception_StreamError&#45;&gt;\\Exception -->
-<g id="edge5" class="edge"><title>\\DataSift_Exception_StreamError&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M288.374,-381.533C280.906,-377.69 273.985,-372.914 268,-367 162.146,-262.403 300.01,-146.432 196,-40 190.388,-34.257 183.542,-29.9172 176.157,-26.6518"/>
-<polygon fill="none" stroke="black" points="177.159,-23.2899 166.566,-23.0655 174.707,-29.8464 177.159,-23.2899"/>
+<!-- \\DataSift_Exception_AccessDenied&#45;&gt;\\Exception -->
+<g id="edge5" class="edge"><title>\\DataSift_Exception_AccessDenied&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M284.914,-542.313C278.706,-538.674 272.982,-534.283 268,-529 117.282,-369.182 343.901,-202.428 196,-40 190.594,-34.0627 183.873,-29.6044 176.557,-26.274"/>
+<polygon fill="none" stroke="black" points="177.616,-22.9319 167.025,-22.6325 175.118,-29.4709 177.616,-22.9319"/>
 </g>
-<!-- \\DataSift_Exception_CompileFailed -->
-<g id="node11" class="node"><title>\\DataSift_Exception_CompileFailed</title>
-<a xlink:href="DataSift.Exception.CompileFailed.html" xlink:title="DataSift_Exception_CompileFailed" target="_parent">
-<polygon fill="none" stroke="black" points="514,-358 282,-358 282,-322 514,-322 514,-358"/>
-<text text-anchor="middle" x="398" y="-337.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_CompileFailed</text>
+<!-- \\DataSift_Exception_RateLimitExceeded -->
+<g id="node8" class="node"><title>\\DataSift_Exception_RateLimitExceeded</title>
+<a xlink:href="DataSift.Exception.RateLimitExceeded.html" xlink:title="DataSift_Exception_RateLimitExceeded" target="_parent">
+<polygon fill="none" stroke="black" points="528,-520 268,-520 268,-484 528,-484 528,-520"/>
+<text text-anchor="middle" x="398" y="-499.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_RateLimitExceeded</text>
 </a>
 </g>
-<!-- \\DataSift_Exception_CompileFailed&#45;&gt;\\Exception -->
-<g id="edge7" class="edge"><title>\\DataSift_Exception_CompileFailed&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M281.398,-323.228C276.602,-320.276 272.098,-316.886 268,-313 176.947,-226.657 285.53,-127.922 196,-40 190.271,-34.3736 183.353,-30.105 175.929,-26.8786"/>
-<polygon fill="none" stroke="black" points="176.899,-23.5057 166.306,-23.3254 174.475,-30.0724 176.899,-23.5057"/>
+<!-- \\DataSift_Exception_RateLimitExceeded&#45;&gt;\\Exception -->
+<g id="edge7" class="edge"><title>\\DataSift_Exception_RateLimitExceeded&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M278.397,-483.948C274.68,-481.296 271.193,-478.326 268,-475 132.285,-333.638 329.224,-183.712 196,-40 190.541,-34.1111 183.788,-29.6824 176.455,-26.3683"/>
+<polygon fill="none" stroke="black" points="177.499,-23.021 166.908,-22.7404 175.012,-29.5644 177.499,-23.021"/>
 </g>
 <!-- \\DataSift_Exception_InvalidData -->
-<g id="node12" class="node"><title>\\DataSift_Exception_InvalidData</title>
+<g id="node9" class="node"><title>\\DataSift_Exception_InvalidData</title>
 <a xlink:href="DataSift.Exception.InvalidData.html" xlink:title="DataSift_Exception_InvalidData" target="_parent">
-<polygon fill="none" stroke="black" points="507,-304 289,-304 289,-268 507,-268 507,-304"/>
-<text text-anchor="middle" x="398" y="-283.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_InvalidData</text>
+<polygon fill="none" stroke="black" points="507,-466 289,-466 289,-430 507,-430 507,-466"/>
+<text text-anchor="middle" x="398" y="-445.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_InvalidData</text>
 </a>
 </g>
 <!-- \\DataSift_Exception_InvalidData&#45;&gt;\\Exception -->
 <g id="edge9" class="edge"><title>\\DataSift_Exception_InvalidData&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M288.391,-272.545C281.014,-268.909 274.103,-264.451 268,-259 191.58,-190.752 271.215,-109.573 196,-40 190.105,-34.5473 183.087,-30.3847 175.608,-27.2163"/>
+<path fill="none" stroke="black" d="M288.483,-435.888C280.941,-431.975 273.976,-427.085 268,-421 147.246,-298.052 314.586,-165.04 196,-40 190.474,-34.1736 183.681,-29.783 176.325,-26.4897"/>
+<polygon fill="none" stroke="black" points="177.351,-23.136 166.759,-22.8796 174.88,-29.6851 177.351,-23.136"/>
+</g>
+<!-- \\DataSift_Exception_APIError -->
+<g id="node10" class="node"><title>\\DataSift_Exception_APIError</title>
+<a xlink:href="DataSift.Exception.APIError.html" xlink:title="DataSift_Exception_APIError" target="_parent">
+<polygon fill="none" stroke="black" points="497,-412 299,-412 299,-376 497,-376 497,-412"/>
+<text text-anchor="middle" x="398" y="-391.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_APIError</text>
+</a>
+</g>
+<!-- \\DataSift_Exception_APIError&#45;&gt;\\Exception -->
+<g id="edge11" class="edge"><title>\\DataSift_Exception_APIError&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M298.478,-386.066C287.153,-381.659 276.608,-375.506 268,-367 162.146,-262.403 300.01,-146.432 196,-40 190.388,-34.257 183.542,-29.9172 176.157,-26.6518"/>
+<polygon fill="none" stroke="black" points="177.159,-23.2899 166.566,-23.0655 174.707,-29.8464 177.159,-23.2899"/>
+</g>
+<!-- \\DataSift_Exception_StreamError -->
+<g id="node11" class="node"><title>\\DataSift_Exception_StreamError</title>
+<a xlink:href="DataSift.Exception.StreamError.html" xlink:title="DataSift_Exception_StreamError" target="_parent">
+<polygon fill="none" stroke="black" points="507,-358 289,-358 289,-322 507,-322 507,-358"/>
+<text text-anchor="middle" x="398" y="-337.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_StreamError</text>
+</a>
+</g>
+<!-- \\DataSift_Exception_StreamError&#45;&gt;\\Exception -->
+<g id="edge13" class="edge"><title>\\DataSift_Exception_StreamError&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M288.33,-327.103C280.92,-323.348 274.022,-318.71 268,-313 176.947,-226.657 285.53,-127.922 196,-40 190.271,-34.3736 183.353,-30.105 175.929,-26.8786"/>
+<polygon fill="none" stroke="black" points="176.899,-23.5057 166.306,-23.3254 174.475,-30.0724 176.899,-23.5057"/>
+</g>
+<!-- \\DataSift_Exception_CompileFailed -->
+<g id="node12" class="node"><title>\\DataSift_Exception_CompileFailed</title>
+<a xlink:href="DataSift.Exception.CompileFailed.html" xlink:title="DataSift_Exception_CompileFailed" target="_parent">
+<polygon fill="none" stroke="black" points="514,-304 282,-304 282,-268 514,-268 514,-304"/>
+<text text-anchor="middle" x="398" y="-283.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_CompileFailed</text>
+</a>
+</g>
+<!-- \\DataSift_Exception_CompileFailed&#45;&gt;\\Exception -->
+<g id="edge15" class="edge"><title>\\DataSift_Exception_CompileFailed&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M281.38,-268.747C276.621,-265.916 272.126,-262.685 268,-259 191.58,-190.752 271.215,-109.573 196,-40 190.105,-34.5473 183.087,-30.3847 175.608,-27.2163"/>
 <polygon fill="none" stroke="black" points="176.531,-23.8283 165.937,-23.7124 174.147,-30.4097 176.531,-23.8283"/>
 </g>
 <!-- \\DataSift_Exception_NotYetImplemented -->
@@ -131,64 +146,49 @@
 </a>
 </g>
 <!-- \\DataSift_Exception_NotYetImplemented&#45;&gt;\\Exception -->
-<g id="edge11" class="edge"><title>\\DataSift_Exception_NotYetImplemented&#45;&gt;\\Exception</title>
+<g id="edge17" class="edge"><title>\\DataSift_Exception_NotYetImplemented&#45;&gt;\\Exception</title>
 <path fill="none" stroke="black" d="M281.187,-213.921C276.541,-211.302 272.116,-208.342 268,-205 205.889,-154.561 257.219,-91.5165 196,-40 189.788,-34.7723 182.526,-30.7509 174.871,-27.6632"/>
 <polygon fill="none" stroke="black" points="175.976,-24.342 165.382,-24.3417 173.664,-30.949 175.976,-24.342"/>
 </g>
-<!-- \\DataSift_Exception_RateLimitExceeded -->
-<g id="node14" class="node"><title>\\DataSift_Exception_RateLimitExceeded</title>
-<a xlink:href="DataSift.Exception.RateLimitExceeded.html" xlink:title="DataSift_Exception_RateLimitExceeded" target="_parent">
-<polygon fill="none" stroke="black" points="528,-196 268,-196 268,-160 528,-160 528,-196"/>
-<text text-anchor="middle" x="398" y="-175.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_RateLimitExceeded</text>
+<!-- \\DataSift_Push_Definition -->
+<g id="node14" class="node"><title>\\DataSift_Push_Definition</title>
+<a xlink:href="DataSift.Push.Definition.html" xlink:title="DataSift_Push_Definition" target="_parent">
+<polygon fill="none" stroke="black" points="195,-628 17,-628 17,-592 195,-592 195,-628"/>
+<text text-anchor="middle" x="106" y="-607.1" font-family="Courier,monospace" font-size="11.00">DataSift_Push_Definition</text>
 </a>
-</g>
-<!-- \\DataSift_Exception_RateLimitExceeded&#45;&gt;\\Exception -->
-<g id="edge13" class="edge"><title>\\DataSift_Exception_RateLimitExceeded&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M283.728,-159.975C278.229,-157.36 272.946,-154.384 268,-151 219.47,-117.794 243.942,-74.0495 196,-40 189.287,-35.2324 181.661,-31.4918 173.754,-28.5581"/>
-<polygon fill="none" stroke="black" points="174.606,-25.1543 164.014,-25.3651 172.426,-31.806 174.606,-25.1543"/>
-</g>
-<!-- \\DataSift_Exception_APIError -->
-<g id="node15" class="node"><title>\\DataSift_Exception_APIError</title>
-<a xlink:href="DataSift.Exception.APIError.html" xlink:title="DataSift_Exception_APIError" target="_parent">
-<polygon fill="none" stroke="black" points="497,-142 299,-142 299,-106 497,-106 497,-142"/>
-<text text-anchor="middle" x="398" y="-121.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_APIError</text>
-</a>
-</g>
-<!-- \\DataSift_Exception_APIError&#45;&gt;\\Exception -->
-<g id="edge15" class="edge"><title>\\DataSift_Exception_APIError&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M298.476,-108.365C287.957,-105.238 277.606,-101.49 268,-97 231.025,-79.7188 232.667,-57.9249 196,-40 187.829,-36.0054 178.876,-32.702 169.886,-29.9795"/>
-<polygon fill="none" stroke="black" points="170.725,-26.5799 160.151,-27.2481 168.834,-33.3196 170.725,-26.5799"/>
-</g>
-<!-- \\DataSift_Exception_AccessDenied -->
-<g id="node16" class="node"><title>\\DataSift_Exception_AccessDenied</title>
-<a xlink:href="DataSift.Exception.AccessDenied.html" xlink:title="DataSift_Exception_AccessDenied" target="_parent">
-<polygon fill="none" stroke="black" points="511,-88 285,-88 285,-52 511,-52 511,-88"/>
-<text text-anchor="middle" x="398" y="-67.1" font-family="Courier,monospace" font-size="11.00">DataSift_Exception_AccessDenied</text>
-</a>
-</g>
-<!-- \\DataSift_Exception_AccessDenied&#45;&gt;\\Exception -->
-<g id="edge17" class="edge"><title>\\DataSift_Exception_AccessDenied&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M296.692,-51.9589C254.534,-44.4513 206.874,-35.9639 169.747,-29.3522"/>
-<polygon fill="none" stroke="black" points="170.027,-25.847 159.568,-27.5395 168.799,-32.7386 170.027,-25.847"/>
 </g>
 <!-- \\DataSift_Push_Subscription -->
-<g id="node17" class="node"><title>\\DataSift_Push_Subscription</title>
+<g id="node15" class="node"><title>\\DataSift_Push_Subscription</title>
 <a xlink:href="DataSift.Push.Subscription.html" xlink:title="DataSift_Push_Subscription" target="_parent">
-<polygon fill="none" stroke="black" points="494,-466 302,-466 302,-430 494,-430 494,-466"/>
-<text text-anchor="middle" x="398" y="-445.1" font-family="Courier,monospace" font-size="11.00">DataSift_Push_Subscription</text>
-</a>
-</g>
-<!-- \\DataSift_Push_Definition -->
-<g id="node18" class="node"><title>\\DataSift_Push_Definition</title>
-<a xlink:href="DataSift.Push.Definition.html" xlink:title="DataSift_Push_Definition" target="_parent">
-<polygon fill="none" stroke="black" points="195,-466 17,-466 17,-430 195,-430 195,-466"/>
-<text text-anchor="middle" x="106" y="-445.1" font-family="Courier,monospace" font-size="11.00">DataSift_Push_Definition</text>
+<polygon fill="none" stroke="black" points="494,-628 302,-628 302,-592 494,-592 494,-628"/>
+<text text-anchor="middle" x="398" y="-607.1" font-family="Courier,monospace" font-size="11.00">DataSift_Push_Subscription</text>
 </a>
 </g>
 <!-- \\DataSift_Push_Subscription&#45;&gt;\\DataSift_Push_Definition -->
 <g id="edge19" class="edge"><title>\\DataSift_Push_Subscription&#45;&gt;\\DataSift_Push_Definition</title>
-<path fill="none" stroke="black" d="M301.984,-448C271.219,-448 237.088,-448 206.043,-448"/>
-<polygon fill="none" stroke="black" points="205.642,-444.5 195.642,-448 205.642,-451.5 205.642,-444.5"/>
+<path fill="none" stroke="black" d="M301.984,-610C271.219,-610 237.088,-610 206.043,-610"/>
+<polygon fill="none" stroke="black" points="205.642,-606.5 195.642,-610 205.642,-613.5 205.642,-606.5"/>
+</g>
+<!-- \\DataSift_IStreamConsumerEventHandler -->
+<g id="node16" class="node"><title>\\DataSift_IStreamConsumerEventHandler</title>
+<a xlink:href="DataSift.IStreamConsumerEventHandler.html" xlink:title="DataSift_IStreamConsumerEventHandler" target="_parent">
+<polygon fill="none" stroke="black" points="528,-196 268,-196 268,-160 528,-160 528,-196"/>
+<text text-anchor="middle" x="398" y="-175.1" font-family="Courier,monospace" font-size="11.00">DataSift_IStreamConsumerEventHandler</text>
+</a>
+</g>
+<!-- \\DataSift_MockApiClient -->
+<g id="node17" class="node"><title>\\DataSift_MockApiClient</title>
+<a xlink:href="DataSift.MockApiClient.html" xlink:title="DataSift_MockApiClient" target="_parent">
+<polygon fill="none" stroke="black" points="480,-142 316,-142 316,-106 480,-106 480,-142"/>
+<text text-anchor="middle" x="398" y="-121.1" font-family="Courier,monospace" font-size="11.00">DataSift_MockApiClient</text>
+</a>
+</g>
+<!-- \\DataSift_Historic -->
+<g id="node18" class="node"><title>\\DataSift_Historic</title>
+<a xlink:href="DataSift.Historic.html" xlink:title="DataSift_Historic" target="_parent">
+<polygon fill="none" stroke="black" points="463,-88 333,-88 333,-52 463,-52 463,-88"/>
+<text text-anchor="middle" x="398" y="-67.1" font-family="Courier,monospace" font-size="11.00">DataSift_Historic</text>
+</a>
 </g>
 </g>
 </svg>

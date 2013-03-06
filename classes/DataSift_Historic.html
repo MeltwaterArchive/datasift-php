@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">0</span></a></li>
+                <span class="label label-info">6</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -62,6 +62,7 @@
 <li class="method public "><a href="#method_getCreatedAt" title="getCreatedAt :: Returns the created at date."><span class="description">Returns the created at date.</span><pre>getCreatedAt()</pre></a></li>
 <li class="method public "><a href="#method_getDPUs" title="getDPUs :: Returns the DPU cost of running this historic."><span class="description">Returns the DPU cost of running this historic.</span><pre>getDPUs()</pre></a></li>
 <li class="method public "><a href="#method_getEndDate" title="getEndDate :: Returns the end date."><span class="description">Returns the end date.</span><pre>getEndDate()</pre></a></li>
+<li class="method public "><a href="#method_getEstimatedCompletion" title="getEstimatedCompletion :: Returns the estimated completion in UTC timestamp"><span class="description">Returns the estimated completion in UTC timestamp</span><pre>getEstimatedCompletion()</pre></a></li>
 <li class="method public "><a href="#method_getHash" title="getHash :: Returns the playback ID for this historic."><span class="description">Returns the playback ID for this historic.</span><pre>getHash()</pre></a></li>
 <li class="method public "><a href="#method_getName" title="getName :: Returns the name."><span class="description">Returns the name.</span><pre>getName()</pre></a></li>
 <li class="method public "><a href="#method_getProgress" title="getProgress :: Returns the current progress."><span class="description">Returns the current progress.</span><pre>getProgress()</pre></a></li>
@@ -98,6 +99,7 @@ page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a>
 <li class="property protected "><a href="#property__deleted" title="$_deleted :: "><span class="description">Set to true if the Historics query has been deleted.</span><pre>$_deleted</pre></a></li>
 <li class="property protected "><a href="#property__dpus" title="$_dpus :: "><span class="description">Number of DPUs consumed</span><pre>$_dpus</pre></a></li>
 <li class="property protected "><a href="#property__end" title="$_end :: "><span class="description">End date and time</span><pre>$_end</pre></a></li>
+<li class="property protected "><a href="#property__estimated_completion" title="$_estimated_completion :: "><span class="description">The estimated completion timestamp</span><pre>$_estimated_completion</pre></a></li>
 <li class="property protected "><a href="#property__hash" title="$_hash :: "><span class="description">The stream hash.</span><pre>$_hash</pre></a></li>
 <li class="property protected "><a href="#property__name" title="$_name :: "><span class="description">Historics query name.</span><pre>$_name</pre></a></li>
 <li class="property protected "><a href="#property__playback_id" title="$_playback_id :: "><span class="description">Playback ID</span><pre>$_playback_id</pre></a></li>
@@ -107,7 +109,6 @@ page contains up to $per_page items.</span><pre>getPushSubscriptions()</pre></a>
 <li class="property protected "><a href="#property__start" title="$_start :: "><span class="description">Start date and time</span><pre>$_start</pre></a></li>
 <li class="property protected "><a href="#property__status" title="$_status :: "><span class="description">Historics query status</span><pre>$_status</pre></a></li>
 <li class="property protected "><a href="#property__user" title="$_user :: "><span class="description">The user object.</span><pre>$_user</pre></a></li>
-<li class="property protected "><a href="#property__volume_info" title="$_volume_info :: "><span class="description">Historics data volume information.</span><pre>$_volume_info</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -290,6 +291,16 @@ yet been prepared that will be done automagically to obtain the cost.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>int</code>The end date.</div>
+</div></div>
+</div>
+<a id="method_getEstimatedCompletion"></a><div class="element clickable method public method_getEstimatedCompletion" data-toggle="collapse" data-target=".method_getEstimatedCompletion .collapse">
+<h2>Returns the estimated completion in UTC timestamp</h2>
+<pre>getEstimatedCompletion() : integer</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>integer</code></div>
 </div></div>
 </div>
 <a id="method_getHash"></a><div class="element clickable method public method_getHash" data-toggle="collapse" data-target=".method_getHash .collapse">
@@ -608,6 +619,12 @@ reloadData().</p></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="property__estimated_completion"> </a><div class="element clickable property protected property__estimated_completion" data-toggle="collapse" data-target=".property__estimated_completion .collapse">
+<h2>The estimated completion timestamp</h2>
+<pre>$_estimated_completion : integer</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property__hash"> </a><div class="element clickable property protected property__hash" data-toggle="collapse" data-target=".property__hash .collapse">
 <h2>The stream hash.</h2>
 <pre>$_hash : string</pre>
@@ -662,12 +679,6 @@ reloadData().</p></div>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="property__volume_info"> </a><div class="element clickable property protected property__volume_info" data-toggle="collapse" data-target=".property__volume_info .collapse">
-<h2>Historics data volume information.</h2>
-<pre>$_volume_info : array</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
 <h3>
 <i class="icon-custom icon-constant"></i> Constants</h3>
 <a id="constant_DEFAULT_SAMPLE"> </a><div class="element clickable constant  constant_DEFAULT_SAMPLE" data-toggle="collapse" data-target=".constant_DEFAULT_SAMPLE .collapse">
@@ -683,7 +694,7 @@ reloadData().</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-01-08T17:16:08Z.<br></footer></div>
+            generated on 2013-03-06T13:46:09Z.<br></footer></div>
 </div>
 </body>
 </html>
