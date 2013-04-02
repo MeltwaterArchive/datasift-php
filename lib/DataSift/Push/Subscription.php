@@ -119,7 +119,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 
 		$retval = array('count' => $res['count'], 'subscriptions' => array());
 		foreach ($res['subscriptions'] as $sub) {
-			$retval['subscriptions'][] = new self($sub);
+			$retval['subscriptions'][] = new self($user,$sub);
 		}
 		
 		return $retval;
