@@ -51,10 +51,10 @@ class DataSift_Push_LogEntry {
 	 *
 	 * @throws JSONException
 	 */
-	public __construct($data_or_subscription_id = false, $request_time = false, $success = null, $message = '')
+	public function __construct($data_or_subscription_id = false, $request_time = false, $success = null, $message = '')
 	{
 		if ($data === false) {
-			throw new DataSift_Exception_InvalidData('Please provide a log entry for the constructor.')
+			throw new DataSift_Exception_InvalidData('Please provide a log entry for the constructor.');
 		}
 
 		if (is_array($data)) {
