@@ -72,6 +72,8 @@ more details.
 
 Changelog
 ---------
+* v.2.1.5 Fixed minor typo in consume-stream.php example. (2013-04-17)
+
 * v.2.1.4 Added support for new Historics field 'estimated_completion'. 
   
   Made API requests default to using SSL.
