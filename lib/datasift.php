@@ -60,7 +60,7 @@ function datasift_autoloader($classname)
 	static $libdir    = false;
 	static $libdirlen = false;
 	if ($libdir === false) {
-		$libdir    = realpath(dirname(__FILE__)).'/';
+		$libdir    = realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR;
 		$libdirlen = strlen($libdir);
 	}
 
@@ -68,7 +68,7 @@ function datasift_autoloader($classname)
 
 	if (substr($classname, 0, 9) == 'DataSift_') {
 		// The realpath function will return false if the file does not exist
-		$filename = realpath($libdir.str_replace('_', '/', $classname).'.php');
+		$filename = realpath($libdir.str_replace('_', DIRECTORY_SEPARATOR, $classname).'.php');
 		if ($filename !== false) {
 			assert($libdir == substr($filename, 0, $libdirlen));
 			include $filename;
