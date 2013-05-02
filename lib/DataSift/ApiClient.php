@@ -49,7 +49,7 @@ class DataSift_ApiClient
 		}
 
 		// Build the full endpoint URL
-		$url = 'http'.($user->useSSL() ? 's' : '').'://'.DataSift_User::API_BASE_URL.$endpoint.'.json';
+		$url = 'http'.($user->useSSL() ? 's' : '').'://'.DataSift_User::API_BASE_URL. 'v' . DataSift_User::API_VERSION . '/'.$endpoint.'.json';
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
