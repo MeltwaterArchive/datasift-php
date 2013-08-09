@@ -18,14 +18,17 @@ prints the content to the screen as they come in.
 
 ```php
 <?php
-  // Load the library
+  // Load the library (If you're using this library standalone)
   require 'lib/datasift.php';
+  // Load the library via Composer
+  //require '/path/to/vendor/autoload.php';
+ 
   // An object of this type will receive events
   class EventHandler implements DataSift_IStreamConsumerEventHandler
   {
     public function onInteraction($consumer, $interaction, $hash)
     {
-      echo $data['interaction']['content']."\n";
+      echo $interaction['interaction']['content']."\n";
     }
 
     // Ignore the other events for the purposes of this example.
