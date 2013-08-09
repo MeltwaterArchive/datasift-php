@@ -1,0 +1,9 @@
+{
+    "name": "datasift/datasift-php",
+    "require": {
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "classmap": ["lib"]
+    }
+}
