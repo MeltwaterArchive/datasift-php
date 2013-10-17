@@ -27,7 +27,6 @@
  */
 class DataSift_User
 {
-	const API_VERSION	  = 1;
 	const USER_AGENT      = 'DataSiftPHP/2.1.6';
 	const API_BASE_URL    = 'api.datasift.com/';
 	const STREAM_BASE_URL = 'stream.datasift.com/';
@@ -62,6 +61,8 @@ class DataSift_User
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
 
+	public $apiVersion = 1.1;
+
 	/**
 	 * Constructor. A username and API key are required when constructing an
 	 * instance of this class.
@@ -85,6 +86,15 @@ class DataSift_User
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
 		$this->_use_ssl  = $use_ssl;
+	}
+
+	public function setApiVersion($version)
+	{
+		return $this->apiVersion=$version;
+	}
+
+	public function getApiVersion(){
+		return $this->apiVersion;
 	}
 
 	/**
