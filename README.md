@@ -75,6 +75,8 @@ more details.
 
 Changelog
 ---------
+* v.2.1.7 Added Composer support; removed deprecated/redundant code from ApiClient; fixed live API tests (2014-02-18)
+
 * v.2.1.6 Updated autoloader to use DIRECTORY_SEPARATOR for Windows interoperability (2013-04-24)
 
 * v.2.1.5 Fixed minor typo in consume-stream.php example. (2013-04-17)
