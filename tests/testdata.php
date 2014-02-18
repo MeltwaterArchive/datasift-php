@@ -4,7 +4,7 @@ function testdata($var1, $var2 = false)
 {
 	static $_data = array(
 		'definition' => 'interaction.content contains "datasift"',
-		'definition_hash' => '947b690ec9dca525fb8724645e088d79',
+		'definition_hash' => '2f3304a18d4ed5e5d20b8e62c2403551',
 
 		'invalid_definition' => 'interactin.content contains "datasift"',
 
