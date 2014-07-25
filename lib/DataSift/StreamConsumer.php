@@ -352,4 +352,14 @@ abstract class DataSift_StreamConsumer
 		$this->_state = self::STATE_STOPPED;
 		$this->onStopped($reason);
 	}
+	
+	/**
+	 * Called every 30 seconds while stream is connected.
+	 *
+	 * @return void
+	 */
+	protected function onHeartbeat()
+	{
+		$this->_eventHandler->onHeartbeat($this);
+	}
 }
