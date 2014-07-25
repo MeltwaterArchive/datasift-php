@@ -98,6 +98,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 */
 	protected function onStart()
 	{
+		//initilising hearbeat counter
+		$this->_heartbeat_last_call_time = time();
+
 		do {
 			// Disconnect and reconnect
 			$this->reconnect();
