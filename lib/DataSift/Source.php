@@ -291,6 +291,29 @@ class DataSift_Source
 	}
 
 	/**
+	 * Adds authorization credentials for this DataSift_Source using the auth/add
+	 *
+	 * @param array $auth An array of authorization credentials, appropriate to
+	 *                    the Source type
+	 */
+	public function addAuth(array $auth, $validate=false){
+		$response = $this->getUser()->callAPI('source/auth/add', array('id' => $this->getId(), 'auth' => $auth, 'validate' => $validate));
+
+		$this->auth = $response['auth'];
+	}
+
+	/**
+	 * Removes authorization credentials for this DataSift_Source using the auth/remove
+	 *
+	 * @param array $authIds An array of authorization IDs to be removed
+	 */
+	public function removeAuth(array $authIds){
+		$response = $this->getUser()->callAPI('source/auth/remove', array('id' => $this->getId(), 'auth_ids' => $authIds));
+
+		$this->auth = $response['auth'];
+	}
+
+	/**
 	 * Gets the resources for this DataSift_Source
 	 *
 	 * @return array
@@ -309,6 +332,29 @@ class DataSift_Source
 	public function setResources(array $resources)
 	{
 		$this->resources = $resources;
+	}
+
+	/**
+	 * Adds resources for this DataSift_Source using the resource/add
+	 *
+	 * @param array $resources An array of authorization credentials, appropriate to
+	 *                    the Source type
+	 */
+	public function addResource(array $resources, $validate=false){
+		$response = $this->getUser()->callAPI('source/resource/add', array('id' => $this->getId(), 'resources' => $resources, 'validate' => $validate));
+
+		$this->resources = $response['resources'];
+	}
+
+	/**
+	 * Removes resources for this DataSift_Source using the resource/remove
+	 *
+	 * @param array $resourceIds An array of resource IDs to be removed
+	 */
+	public function removeResource(array $resourceIds){
+		$response = $this->getUser()->callAPI('source/resource/remove', array('id' => $this->getId(), 'resource_ids' => $resourceIds));
+
+		$this->resources = $response['resources'];
 	}
 
 	/**

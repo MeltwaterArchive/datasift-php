@@ -12,8 +12,9 @@ $user = new DataSift_User(USERNAME, API_KEY);
 //create params
 $params = array(
 	'likes' => true,
+	'page_likes' => true,
 	'comments' => true,
-	'posts_by_others' => true
+	'posts_by_others' => true,
 );
 
 //can create using an stdClass if preferred
@@ -49,6 +50,7 @@ $source = new DataSift_Source($user, array(
 	'parameters' => $params,
 	'auth' => $auth,
 	'resources' => $resources,
+	'validate'	=> true
 ));
 
 //create the managed source - note the same method is used to update an existing
