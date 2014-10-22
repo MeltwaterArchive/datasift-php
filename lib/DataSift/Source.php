@@ -456,6 +456,18 @@ class DataSift_Source
 
 		return $this;
 	}
+	/**
+	 * Returns the logs for this source
+	 *
+	 * @return array
+	 *
+	 * @param integer $page
+	 * @param integer $perPage
+	 *
+	 */
+	public function getLogs($page = 1, $perPage = 20){
+		return $this->getUser()->callAPI('source/log', array('id' => $this->getId(), 'page' => $page, 'per_page' => $perPage));
+	}
 
 	/**
 	 * Hydrates this Source from an array of API responses

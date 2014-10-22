@@ -71,3 +71,7 @@ $resources = $source->getResources();
 
 //remove the first resource
 $source->removeResource(array($resources[0]['resource_id']));
+
+//Check for log messages
+$logs = $source->getLogs();
+
