@@ -71,13 +71,40 @@ class DataSift_ApiClient
 
 		$retval = array(
 			'response_code'        => $info['http_code'],
-			'data'                 => (strlen($res['body']) == 0 ? array() : json_decode($res['body'], true)),
+			'data'                 => (strlen($res['body']) == 0 ? array() : self::decodeBody($res)),
 			'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
 			'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
 		);
 
 		if ($info['http_code'] != 204 && !$retval['data']) {
 			throw new DataSift_Exception_APIError('Failed to decode the response', -1);
+		}
+
+		return $retval;
+	}
+
+	/**
+	 * Decode the JSON response depending on the format.
+	 *
+	 * @param array $res The parsed HTTP response.
+	 *
+	 * @return array An array of the decoded JSON response
+	 */
+	static protected function decodeBody(array $res)
+	{
+
+		$format = isset($res['headers']['x-datasift-format']) ? $res['headers']['x-datasift-format'] : $res['headers']['content-type'];
+		$retval = array();
+
+		if (strtolower($format) == 'json_new_line') 
+		{
+			foreach (explode("\n", $res['body']) as $json_string) {
+				$retval[] = json_decode($json_string, true);
+			}
+		}
+		else
+		{
+			$retval = json_decode($res['body'], true);
 		}
 
 		return $retval;

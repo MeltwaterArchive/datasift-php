@@ -29,7 +29,7 @@ echo "Creating user...\n";
 $user = new DataSift_User(USERNAME, API_KEY);
 
 //Define some CSDL
-$csdl = 'interaction.content contains "coffee"';
+$csdl = 'interaction.content contains "coffee" AND interaction.type == "twitter"';
 
 // Create the stream definition
 $stream_definition = $user->createDefinition($csdl);
@@ -43,16 +43,19 @@ $push_sub = $push_definition->subscribeDefinition($stream_definition, 'My PHP pu
 echo "Pull subscription created, ID: ".$push_sub->getId()."\n";
 
 //Pull 10 times every 2 seconds
-for ($i=0; $i < 10; $i++) { 
-	try {
-		sleep(2);
-		var_dump($push_sub->pull());
-	}
-	catch (Exception $e){
-		echo $e;
+for ($i=1; $i <= 10; $i++) { 
+	sleep(2);
+	echo "Pull number $i\n";
+	$interactions = $push_sub->pull();
+
+	foreach ($interactions as $interaction) {
+		if (isset($interaction['interaction']['content'])) {
+			echo "{$interaction['interaction']['content']}\n";
+		}
 	}
 }
 
+//Delete the subscription
 $push_sub->delete();
 
 ?>
