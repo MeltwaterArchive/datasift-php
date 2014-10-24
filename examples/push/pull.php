@@ -42,7 +42,7 @@ $push_sub = $push_definition->subscribeDefinition($stream_definition, 'My PHP pu
 
 echo "Pull subscription created, ID: ".$push_sub->getId()."\n";
 
-//Pull 10 times every 2 seconds
+//Pull 10 times, every 2 seconds
 for ($i=1; $i <= 10; $i++) { 
 	sleep(2);
 	echo "Pull number $i\n";
