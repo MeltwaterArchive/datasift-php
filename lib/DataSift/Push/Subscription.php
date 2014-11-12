@@ -147,7 +147,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	static public function listByStreamHash($user, $hash, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false, $hash_type = false, $hash = false)
 	{
-		return $this->listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'hash', $hash);
+		return self::listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'hash', $hash);
 	}
 	
 	/**
@@ -173,7 +173,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	static public function listByPlaybackId($user, $playback_id, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false, $hash_type = false, $hash = false)
 	{
-		return $this->listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'playback_id', $playback_id);
+		return self::listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'playback_id', $playback_id);
 	}
 	
     /**
@@ -375,7 +375,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function reload()
 	{
-		init($this->_user->callAPI('push/get', array('id' => $this->getId())));
+		$this->init($this->_user->callAPI('push/get', array('id' => $this->getId())));
 	}
 	
 	/**
