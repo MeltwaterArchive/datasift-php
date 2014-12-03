@@ -72,6 +72,8 @@ more details.
 
 Changelog
 ---------
+* v.2.1.8 Added support for pull, historics/pause, historics/resume, source/add, source/remove and source/log.
+
 * v.2.1.6 Updated autoloader to use DIRECTORY_SEPARATOR for Windows interoperability (2013-04-24)
 
 * v.2.1.5 Fixed minor typo in consume-stream.php example. (2013-04-17)
