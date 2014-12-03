@@ -147,7 +147,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	static public function listByStreamHash($user, $hash, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false, $hash_type = false, $hash = false)
 	{
-		return $this->listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'hash', $hash);
+		return self::listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'hash', $hash);
 	}
 	
 	/**
@@ -173,7 +173,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	static public function listByPlaybackId($user, $playback_id, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false, $hash_type = false, $hash = false)
 	{
-		return $this->listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'playback_id', $playback_id);
+		return self::listSubscriptions($user, $page, $per_page, $order_by, $order_dir, $include_finished, 'playback_id', $playback_id);
 	}
 	
     /**
@@ -375,7 +375,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function reload()
 	{
-		init($this->_user->callAPI('push/get', array('id' => $this->getId())));
+		$this->init($this->_user->callAPI('push/get', array('id' => $this->getId())));
 	}
 	
 	/**
@@ -560,6 +560,33 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 		// The delete API call doesn't return the object, so set the status
 		// manually
 		$this->_status = self::STATUS_DELETED;
+	}
+
+	/**
+	 * Pull data from this subscription.
+	 *
+	 * @param int    $size   The maximum amount of data that DataSift will send in a single batch. Can be any value from 1 byte through 20971520 bytes.
+	 * @param string $cursor A pointer into the Push queue associated with the current Push subscription.
+	 * 
+	 * @return array
+	 * @throws DataSift_Exception_InvalidData
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_AccessDenied
+	 */
+	public function pull($size = 20971520, $cursor = false)
+	{	
+		//Check that the output type of this subscription is a pull
+		if (strtolower($this->_output_type) != 'pull') {
+			throw new DataSift_Exception_InvalidData("Output type is not pull");
+		}
+
+		$params = array('id' => $this->getId(), 'size' => $size);
+
+		if ($cursor !== false) {
+			$params['cursor'] = $cursor;
+		}
+
+		return $this->_user->callAPI('pull', $params);
 	}
 	
 	/**
