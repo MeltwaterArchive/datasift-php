@@ -91,8 +91,12 @@ more details.
 
 Changelog
 ---------
+<<<<<<< HEAD
+* v.2.1.8 Added support for pull, historics/pause, historics/resume, source/add, source/remove and source/log.
+=======
 
 * v.2.1.7 Added Composer support; removed deprecated/redundant code from ApiClient; fixed live API tests (2014-02-18)
+>>>>>>> develop
 
 * v.2.1.6 Updated autoloader to use DIRECTORY_SEPARATOR for Windows interoperability (2013-04-24)
 

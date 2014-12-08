@@ -61,6 +61,8 @@ class DataSift_User
 	 */
 	protected $_api_client = 'DataSift_ApiClient';
 
+	public $apiVersion = 1.1;
+
 	/**
 	 * Constructor. A username and API key are required when constructing an
 	 * instance of this class.
@@ -84,6 +86,15 @@ class DataSift_User
 		$this->_username = $username;
 		$this->_api_key  = $api_key;
 		$this->_use_ssl  = $use_ssl;
+	}
+
+	public function setApiVersion($version)
+	{
+		return $this->apiVersion=$version;
+	}
+
+	public function getApiVersion(){
+		return $this->apiVersion;
 	}
 
 	/**
@@ -371,6 +382,7 @@ class DataSift_User
 
 		switch ($res['response_code']) {
 				case 200:
+				case 201:
 				case 202:
 				case 204:
 					$retval = $res['data'];
