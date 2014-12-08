@@ -15,139 +15,332 @@
  * @link      http://www.mediasift.com
  */
 
-/**
- * The DataSift_ApiClient class wraps access to the DataSift API.
- *
- * @category  DataSift
- * @package   PHP-client
- * @author    Stuart Dallas <stuart@3ft9.com>
- * @copyright 2011 MediaSift Ltd.
- * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link      http://www.mediasift.com
- */
-
 class DataSift_ApiClient
 {
-	/**
-	 * Make a call to a DataSift API endpoint.
-	 *
-	 * @param string $username The user's username.
-	 * @param string $api_key  The user's API key.
-	 * @param string $endpoint The endpoint of the API call.
-	 * @param array  $params   The parameters to be passed along with the request.
-	 * @param string $user_agent The HTTP User-Agent header.
-	 *
-	 * @return array The response from the server.
-	 * @throws DataSift_Exception_APIError
-	 * @throws DataSift_Exception_RateLimitExceeded
-	 */
-	static public function call($user, $endpoint, $params = array(), $user_agent = DataSift_User::USER_AGENT)
-	{
-		// Curl is required
-		if (!function_exists('curl_init')) {
-			throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_ApiClient');
-		}
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_NO_CONTENT = 204;
+    const HTTP_NOT_FOUND = 404;
+    const HTTP_CONFLICT = 409;
+    const HTTP_GONE = 410;
+    
+    /**
+     * Make a call to a DataSift API endpoint.
+     *
+     * @param DataSift_User $user          The user's username.
+     * @param string        $endPoint      The endpoint of the API call.
+     * @param array         $headers       The headers to be sent.
+     * @param array         $successCode   The codes defined as a success for the call.
+     * @param array         $params        The parameters to be passed along with the request.
+     * @param string        $userAgent     The HTTP User-Agent header.
+     *
+     * @return array The response from the server.
+     * @throws DataSift_Exception_APIError
+     * @throws DataSift_Exception_RateLimitExceeded
+     * @throws DataSift_Exception_NotYetImplemented
+     */
+    static private function genericCall(
+        DataSift_User $user, 
+        $endPoint,
+        $method,
+        $headers = array(), 
+        $successCode = array(),
+        $params = array(), 
+        $userAgent = DataSift_User::USER_AGENT,
+        $qs = array()
+    ) {
+        $decodeCode = array(
+            self::HTTP_OK, self::HTTP_NO_CONTENT
+        );
+        
+        // Curl is required
+        if (!function_exists('curl_init')) {
+            throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_ApiClient');
+        }
+        
+        $ssl = $user->useSSL();
 
-		// Build the full endpoint URL
-		$url = 'http'.($user->useSSL() ? 's' : '').'://'.DataSift_User::API_BASE_URL. 'v' . $user->getApiVersion() . '/'.$endpoint.'.json';
+        // Build the full endpoint URL
+        $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). 'v' . $user->getApiVersion() . '/'. $endPoint;
 
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_HEADER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:'));
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-		$res = curl_exec($ch);
-		$info = curl_getinfo($ch);
+        $ch = self::initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs);
+        
+        $res = curl_exec($ch);
+        $info = curl_getinfo($ch);
 
-		if ($info['http_code'] != 204 && !$res) {
-			throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
-		}
+        if (!in_array($info['http_code'], $successCode) && !$res) {
+            throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
+        }
 
-		curl_close($ch);
-		$res = self::parseHTTPResponse($res);
+        curl_close($ch);
+        $res = self::parseHTTPResponse($res);
 
-		$retval = array(
-			'response_code'        => $info['http_code'],
-			'data'                 => (strlen($res['body']) == 0 ? array() : self::decodeBody($res)),
-			'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
-			'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
-		);
+        if ($user->getDebug()) {
+            $log['headers'] = $res['headers'];
+            $log['status'] = $info['http_code'];
+            $log['body'] = self::decodeBody($res);
+            $user->setLastResponse($log);
+        }
 
-		if ($info['http_code'] != 204 && !$retval['data']) {
-			throw new DataSift_Exception_APIError('Failed to decode the response', -1);
-		}
+        $retval = array(
+            'response_code'        => $info['http_code'],
+            'data'                 => (strlen($res['body']) == 0 ? array() : self::decodeBody($res)),
+            'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
+            'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
+        );
 
-		return $retval;
-	}
+        if (!in_array($info['http_code'], $decodeCode) && !$retval['data']) {
+            throw new DataSift_Exception_APIError('Failed to decode the response', -1);
+        }
 
-	/**
-	 * Decode the JSON response depending on the format.
-	 *
-	 * @param array $res The parsed HTTP response.
-	 *
-	 * @return array An array of the decoded JSON response
-	 */
-	static protected function decodeBody(array $res)
-	{
+        return $retval;
+    }
+    
+    /**
+     * Initalize the cURL connection.
+     * 
+     * @param string    $method    The HTTP method to use.
+     * @param boolean   $ssl       Is SSL Enabled.
+     * @param string    $url       The URL of the call.
+     * @param array     $headers   The headers to be sent.
+     * @param array     $params    The parameters to be passed along with the request.
+     * @param string    $userAgent The HTTP User-Agent header.
+     * 
+     * @return resource The cURL resource
+     * @throws DataSift_Exception_NotYetImplemented
+     */
+    static private function initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs)
+    {
+        $ch = curl_init();
+        
+        switch (strtolower($method)) {
+            case 'post': {
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+                break;
+            }
+        
+            case 'get': {
+                curl_setopt($ch, CURLOPT_HTTPGET, true);
+                break;
+            }
+            
+            case 'put': {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+                break;
+            }
+            
+            case 'delete': {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                break;
+            }
+            
+            default: {
+                throw new DataSift_Exception_NotYetImplemented('Method not of valid type');
+            }
+        }
 
-		$format = isset($res['headers']['x-datasift-format']) ? $res['headers']['x-datasift-format'] : $res['headers']['content-type'];
-		$retval = array();
+        $url = self::appendQueryString($url, $qs);
 
-		if (strtolower($format) == 'json_new_line') 
-		{
-			foreach (explode("\n", $res['body']) as $json_string) {
-				$retval[] = json_decode($json_string, true);
-			}
-		}
-		else
-		{
-			$retval = json_decode($res['body'], true);
-		}
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+        
+        if($ssl) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); 
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
+        }
+        
+        return $ch;
+    }
+    
+    /**
+     * Make a call to a DataSift API endpoint.
+     *
+     * @param Datasift_User $user      The user's username.
+     * @param string        $endpoint  The endpoint of the API call.
+     * @param array         $params    The parameters to be passed along with the request.
+     * @param string        $userAgent The HTTP User-Agent header.
+     *
+     * @return array The response from the server.
+     * @throws DataSift_Exception_APIError
+     * @throws DataSift_Exception_RateLimitExceeded
+     */
+    static public function call(
+        DataSift_User $user, 
+        $endpoint,
+        $params = array(),
+        $userAgent = DataSift_User::USER_AGENT,
+        $successCode = array(self::HTTP_NO_CONTENT)
+    ) {
+        $headers = array(
+            'Auth: '.$user->getUsername().':'.$user->getAPIKey(), 
+            'Expect:', 'Content-Type: application/json'
+        );
 
-		return $retval;
-	}
+        return self::genericCall($user, $endpoint, 'post', $headers, $successCode, $params, $userAgent);
+    }
+    
+    /**
+     * Make a POST call to a DataSift API endpoint.
+     * 
+     * @param Datasift_User $user           The user's username.
+     * @param string        $endpoint       The endpoint of the API call.
+     * @param array         $params         The parameters to be passed along with the request.
+     * @param string        $userAgent      The HTTP User-Agent header.
+     * @param array         $successCode    The HTTP Code of a successful response
+     *
+     * @return array The response from the server.
+     */
+    static public function post(
+        DataSift_User $user, 
+        $endpoint,
+        $params = array(),
+        $userAgent = DataSift_User::USER_AGENT,
+        $successCode = array(self::HTTP_NO_CONTENT)
+    ) {
+        return self::call($user, $endpoint, $params, $userAgent, $successCode);
+    }
 
-	/**
-	 * Parse an HTTP response. Separates the headers from the body and puts
-	 * the headers into an associative array.
-	 *
-	 * @param string $str The HTTP response to be parsed.
-	 *
-	 * @return array An array containing headers => array(header => value), and body.
-	 */
-	static private function parseHTTPResponse($str)
-	{
-		$retval = array(
-			'headers' => array(),
-			'body'    => '',
-		);
-		$lastfield = false;
-		$fields    = explode("\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $str));
-		foreach ($fields as $field) {
-			if (strlen(trim($field)) == 0) {
-				$lastfield = ':body';
-			} elseif ($lastfield == ':body') {
-				$retval['body'] .= $field."\n";
-			} else {
-				if (($field[0] == ' ' or $field[0] == "\t") and $lastfield !== false) {
-					$retval['headers'][$lastfield] .= ' '.$field;
-				} elseif (preg_match('/([^:]+): (.+)/m', $field, $match)) {
-					$match[1] = strtolower($match[1]);
-					if (isset($retval['headers'][$match[1]])) {
-						if (is_array($retval['headers'][$match[1]])) {
-							$retval['headers'][$match[1]][] = $match[2];
-						} else {
-							$retval['headers'][$match[1]] = array($retval['headers'][$match[1]], $match[2]);
-						}
-					} else {
-						$retval['headers'][$match[1]] = trim($match[2]);
-					}
-				}
-			}
-		}
-		return $retval;
-	}
+    /**
+     * Make a GET call to a DataSift API endpoint.
+     *
+     * @param DataSift_User $user           The user's username.
+     * @param string        $endpoint       The endpoint of the API call.
+     * @param string        $userAgent      The HTTP User-Agent header.
+     * @param array         $successCode    The HTTP Code of a successful response
+     *
+     * @return array The response from the server.
+     * @throws DataSift_Exception_APIError
+     * @throws DataSift_Exception_RateLimitExceeded
+     */
+    static public function get(
+        DataSift_User $user, 
+        $endpoint, 
+        $params = array(), 
+        $userAgent = DataSift_User::USER_AGENT, 
+        $successCode = array(self::HTTP_NO_CONTENT, self::HTTP_OK), 
+        $qs = array()
+    ) {
+        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:');
+
+        return self::genericCall($user, $endpoint, 'get', $headers, $successCode, $params, $userAgent, $qs);
+    }
+    
+    /**
+     * Make a PUT call to a DataSift API endpoint.
+     * 
+     * @param DataSift_User $user           The user's username.
+     * @param string        $endpoint       The endpoint of the API call.
+     * @param array         $params         The parameters to be passed along with the request.
+     * @param string        $userAgent      The HTTP User-Agent header.
+     * @param array         $successCode    The HTTP Code of a successful response
+     * 
+     * @return array The response from the server.
+     */
+    static public function put(
+        DataSift_User $user, 
+        $endpoint, 
+        $params = array(), 
+        $userAgent = DataSift_User::USER_AGENT,
+        $successCode
+    ) {
+        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:', 'Content-Type: application/json');
+        
+        return self::genericCall($user, $endpoint, 'put', $headers, $successCode, $params, $userAgent);
+    }
+
+    /**
+     * Make a DELETE call to a DataSift API endpoint.
+     * 
+     * @param DataSift_User $user           The user's username.
+     * @param string        $endpoint       The endpoint of the API call.
+     * @param string        $userAgent      The HTTP User-Agent header.
+     * @param array         $successCode    The HTTP Code of a successful response
+     * 
+     * @return array The response from the server.
+     */
+    static public function delete(DataSift_User $user, $endpoint, $params = array(), $userAgent = DataSift_User::USER_AGENT, $successCode)
+    {
+        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:');
+        
+        return self::genericCall($user, $endpoint, 'delete', $headers, $successCode, $params, $userAgent);
+    }
+
+    static public function appendQueryString($url, $qs)
+    {
+        if(count($qs) > 0) {
+            return $url . '?' . http_build_query($qs);
+        }
+        
+        return $url;
+    }
+
+    /**
+     * Decode the JSON response depending on the format.
+     *
+     * @param array $res The parsed HTTP response.
+     *
+     * @return array An array of the decoded JSON response
+    */
+    static protected function decodeBody(array $res)
+    {
+        $format = isset($res['headers']['x-datasift-format']) ? $res['headers']['x-datasift-format'] : $res['headers']['content-type'];
+        $retval = array();
+
+        if (strtolower($format) == 'json_new_line') {
+            foreach (explode("\n", $res['body']) as $json_string) {
+                $retval[] = json_decode($json_string, true);
+            }
+        } else {
+            $retval = json_decode($res['body'], true);
+        }
+
+        return $retval;
+    }
+
+    /**
+     * Parse an HTTP response. Separates the headers from the body and puts
+     * the headers into an associative array.
+     *
+     * @param string $str The HTTP response to be parsed.
+     *
+     * @return array An array containing headers => array(header => value), and body.
+     */
+    static private function parseHTTPResponse($str)
+    {
+        $retval = array(
+            'headers' => array(),
+            'body'    => '',
+        );
+        $lastfield = false;
+        $fields    = explode("\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $str));
+        foreach ($fields as $field) {
+                if (strlen(trim($field)) == 0) {
+                    $lastfield = ':body';
+                } elseif ($lastfield == ':body') {
+                    $retval['body'] .= $field."\n";
+                } else {
+                    if (($field[0] == ' ' or $field[0] == "\t") and $lastfield !== false) {
+                        $retval['headers'][$lastfield] .= ' '.$field;
+                    } elseif (preg_match('/([^:]+): (.+)/m', $field, $match)) {
+                        $match[1] = strtolower($match[1]);
+                        if (isset($retval['headers'][$match[1]])) {
+                            if (is_array($retval['headers'][$match[1]])) {
+                                $retval['headers'][$match[1]][] = $match[2];
+                            } else {
+                                $retval['headers'][$match[1]] = array($retval['headers'][$match[1]], $match[2]);
+                            }
+                        } else {
+                            $retval['headers'][$match[1]] = trim($match[2]);
+                        }
+                    }
+                }
+        }
+        return $retval;
+    }
 }

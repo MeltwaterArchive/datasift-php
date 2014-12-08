@@ -92,6 +92,8 @@ more details.
 Changelog
 ---------
 
+* v.2.2.0 Added support for PYLON, CLI has been added for testing purposes along with some changes to the API client.
+
 * v.2.1.8 Added support for pull, historics/pause, historics/resume, source/add, source/remove and source/log.
 
 * v.2.1.7 Added Composer support; removed deprecated/redundant code from ApiClient; fixed live API tests (2014-02-18)
