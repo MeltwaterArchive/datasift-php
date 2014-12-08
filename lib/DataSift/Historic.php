@@ -16,16 +16,7 @@
  * @link      http://www.mediasift.com
  */
 
-/**
- * The DataSift_Historic class represents a historic query.
- *
- * @category  DataSift
- * @package   PHP-client
- * @author    Stuart Dallas <stuart@3ft9.com>
- * @copyright 2011 MediaSift Ltd.
- * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link      http://www.mediasift.com
- */
+
 class DataSift_Historic
 {
 	/**
@@ -669,6 +660,88 @@ class DataSift_Historic
 	}
 
 	/**
+	 * Pause this historic query.
+	 *
+	 * @param  string  $reason	Your reason for pausing the Historics query.
+	 *
+	 * @return void
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_InvalidData
+	 */
+	public function pause($reason = false)
+	{
+		if ($this->_deleted) {
+			throw new DataSift_Exception_InvalidData('Cannot pause a deleted Historic.');
+		}
+
+		if ($this->_playback_id === false || strlen($this->_playback_id) == 0) {
+			throw new DataSift_Exception_InvalidData('Cannot pause a historic query that hasn\'t been prepared.');
+		}
+
+		try {
+			$params = array('id' => $this->_playback_id);
+			if ($reason) {
+				$params['reason'] = $reason;
+			}
+			$res = $this->_user->callAPI('historics/pause', $params);
+
+		} catch (DataSift_Exception_APIError $e) {
+			switch ($e->getCode()) {
+				case 400:
+					// Missing or invalid parameters
+					throw new DataSift_Exception_InvalidData($e->getMessage());
+
+				case 404:
+					// Historic query not found
+					throw new DataSift_Exception_InvalidData($e->getMessage());
+
+				default:
+					throw new DataSift_Exception_APIError(
+						'Unexpected APIError code: ' . $e->getCode() . ' [' . $e->getMessage() . ']'
+					);
+			}
+		}
+	}
+
+	/**
+	 * Resumes this historic query.
+	 *
+	 * @return void
+	 * @throws DataSift_Exception_APIError
+	 * @throws DataSift_Exception_InvalidData
+	 */
+	public function resume()
+	{
+		if ($this->_deleted) {
+			throw new DataSift_Exception_InvalidData('Cannot resume a deleted Historic.');
+		}
+
+		if ($this->_playback_id === false || strlen($this->_playback_id) == 0) {
+			throw new DataSift_Exception_InvalidData('Cannot resume a historic query that hasn\'t been prepared.');
+		}
+
+		try {
+			$res = $this->_user->callAPI('historics/resume', array('id' => $this->_playback_id));
+
+		} catch (DataSift_Exception_APIError $e) {
+			switch ($e->getCode()) {
+				case 400:
+					// Missing or invalid parameters
+					throw new DataSift_Exception_InvalidData($e->getMessage());
+
+				case 404:
+					// Historic query not found
+					throw new DataSift_Exception_InvalidData($e->getMessage());
+
+				default:
+					throw new DataSift_Exception_APIError(
+						'Unexpected APIError code: ' . $e->getCode() . ' [' . $e->getMessage() . ']'
+					);
+			}
+		}
+	}
+
+	/**
 	 * Delete this historic query.
 	 *
 	 * @return void
@@ -717,11 +790,11 @@ class DataSift_Historic
 	 * order requested.
 	 *
 	 * @param DataSift_User $user The user object.
-   * @param int $page The page number to get.
-   * @param int $per_page The number of items per page.
-   * @param String $order_by  Which field to sort by.
-   * @param String $order_dir In asc[ending] or desc[ending] order.
-   * @param bool $include_finished Set to true when you want to include finished subscription in the results.
+   	 * @param int $page The page number to get.
+   	 * @param int $per_page The number of items per page.
+   	 * @param String $order_by  Which field to sort by.
+   	 * @param String $order_dir In asc[ending] or desc[ending] order.
+   	 * @param bool $include_finished Set to true when you want to include finished subscription in the results.
 	 */
 	public function getPushSubscriptions($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC, $include_finished = false)
 	{
