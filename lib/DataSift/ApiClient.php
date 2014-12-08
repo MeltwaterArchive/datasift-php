@@ -135,7 +135,7 @@ class DataSift_ApiClient
 				if (($field[0] == ' ' or $field[0] == "\t") and $lastfield !== false) {
 					$retval['headers'][$lastfield] .= ' '.$field;
 				} elseif (preg_match('/([^:]+): (.+)/m', $field, $match)) {
-					$match[1] = strtolower(preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1]))));
+					$match[1] = strtolower($match[1]);
 					if (isset($retval['headers'][$match[1]])) {
 						if (is_array($retval['headers'][$match[1]])) {
 							$retval['headers'][$match[1]][] = $match[2];

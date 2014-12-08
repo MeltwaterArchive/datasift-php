@@ -4,11 +4,16 @@ DataSift PHP Client Library
 This is the official PHP library for accessing [Datasift](http://datasift.com/). See the examples
 folder for some simple example usage.
 
-The unit tests should be run with phpunit.
 
-All examples and tests use the username and API key in config.php.
+Getting Started
+---------------
 
-Note that we use [git flow](https://github.com/nvie/gitflow) to manage development.
+**Read our [PHP Getting Started Guide](http://dev.datasift.com/quickstart/php) to get started with the DataSift platform.** This guide will take you through creating a [DataSift](http://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
+
+Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
+
+If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
+
 
 Simple example
 --------------
@@ -18,14 +23,17 @@ prints the content to the screen as they come in.
 
 ```php
 <?php
-  // Load the library
+  // Load the library (If you're using this library standalone)
   require 'lib/datasift.php';
+  // Load the library via Composer
+  //require '/path/to/vendor/autoload.php';
+ 
   // An object of this type will receive events
   class EventHandler implements DataSift_IStreamConsumerEventHandler
   {
     public function onInteraction($consumer, $interaction, $hash)
     {
-      echo $data['interaction']['content']."\n";
+      echo $interaction['interaction']['content']."\n";
     }
 
     // Ignore the other events for the purposes of this example.
@@ -52,6 +60,17 @@ See the DataSift documentation for full details of the data contained within
 each interaction. See this page on our developer site for an example tweet:
 http://dev.datasift.com/docs/targets/twitter/tweet-output-format
 
+
+Contributing
+------------
+
+Please feel free to contribute to this repository using pull requests.
+
+The unit tests should be run with phpunit.
+
+Note that we use [git flow](https://github.com/nvie/gitflow) to manage development.
+
+
 Requirements
 ------------
 
@@ -72,7 +91,12 @@ more details.
 
 Changelog
 ---------
+<<<<<<< HEAD
 * v.2.1.8 Added support for pull, historics/pause, historics/resume, source/add, source/remove and source/log.
+=======
+
+* v.2.1.7 Added Composer support; removed deprecated/redundant code from ApiClient; fixed live API tests (2014-02-18)
+>>>>>>> develop
 
 * v.2.1.6 Updated autoloader to use DIRECTORY_SEPARATOR for Windows interoperability (2013-04-24)
 

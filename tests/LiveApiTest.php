@@ -34,7 +34,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
 		}
 
 		// We should now have a hash
-		$this->assertTrue($def->getHash() == testdata('definition_hash'), 'Incorrect hash');
+		$this->assertEquals(testdata('definition_hash'), $def->getHash(), 'Incorrect hash');
 	}
 
 	public function testCompile_Failure()
@@ -70,7 +70,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		}
 
-		$this->assertEquals($def->getHash(), testdata('definition_hash'), 'Hash is not correct');
+		$this->assertEquals(testdata('definition_hash'), $def->getHash(), 'Hash is not correct');
 
 		// Now set the invalid definition in that same object
 		$def->set(testdata('invalid_definition'));
