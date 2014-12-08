@@ -1,8 +1,4 @@
 .DS_Store
 sftp-config.json
-<<<<<<< HEAD
 *.iml
 *.idea/*
-=======
-vendor
->>>>>>> develop
