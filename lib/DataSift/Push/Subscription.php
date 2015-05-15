@@ -586,7 +586,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 			$params['cursor'] = $cursor;
 		}
 
-		return $this->_user->callAPI('pull', $params);
+		return $this->_user->get('pull', $params);
 	}
 	
 	/**

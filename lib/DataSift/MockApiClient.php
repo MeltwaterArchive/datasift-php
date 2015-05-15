@@ -65,4 +65,24 @@ class DataSift_MockApiClient
 		}
 		return self::$_response;
 	}
+
+    static public function get(DataSift_User $user, $endpoint, $params = array(), $userAgent = DataSift_User::USER_AGENT, $successCode) 
+    {
+        return self::call($user, $endpoint, $params, $userAgent);
+    }
+   
+    static public function post(DataSift_User $user, $endpoint, $params, $userAgent = DataSift_User::USER_AGENT, $successCode)
+    {
+        return self::call($user, $endpoint, $params, $userAgent);
+    }
+
+    static public function put(DataSift_User $user, $endpoint, $params, $userAgent = DataSift_User::USER_AGENT, $successCode)
+    {
+        return self::call($user, $endpoint, $params, $userAgent);
+    }
+
+    static public function delete(DataSift_User $user, $endpoint, $params = array(), $userAgent = DataSift_User::USER_AGENT, $successCode) 
+    {
+        return self::call($user, $endpoint, $params, $userAgent);
+    }
 }
