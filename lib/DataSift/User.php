@@ -27,7 +27,7 @@
  */
 class DataSift_User
 {
-    const USER_AGENT      = 'DataSiftPHP/2.2.0';
+    const USER_AGENT      = 'DataSiftPHP/2.2.1';
 
     /**
      * @var string The api url of the user.
@@ -546,8 +546,10 @@ class DataSift_User
             array($this->_api_client, 'get'),
             $this,
             $endpoint,
-            $params,
-            $this->getUserAgent()
+            array(),
+            $this->getUserAgent(),
+            array(DataSift_ApiClient::HTTP_OK),
+            $params
         );
 
         $this->_rate_limit = $res['rate_limit'];
