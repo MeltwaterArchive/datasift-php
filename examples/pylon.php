@@ -49,11 +49,25 @@ $pylon->stop();
 
 //Set the analyze parameters
 $parameters = array(
-	'analysis_type'	=> 'freqDist',
-	'parameters' => array(
-		'threshold'	=> 5,
-		'target'	=> 'fb.author.age'
-	)
+    'analysis_type' => 'freqDist',
+    'parameters' => array(
+        'threshold' => 3,
+        'target' => 'fb.author.gender'
+    ),
+    'child' => array(
+        'analysis_type' => 'freqDist',
+        'parameters' => array(
+            'threshold' => 3,
+            'target' => 'fb.author.age'
+        ),
+        'child' => array(
+            'analysis_type' => 'freqDist',
+            'parameters' => array(
+                'threshold' => 3,
+                'target' => 'fb.author.highest_education'
+            )
+        )
+    )
 );
 
 //Choose a filter
