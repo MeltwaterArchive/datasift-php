@@ -158,6 +158,11 @@ class DataSift_Source
 	private $createdAt;
 
 	/**
+	 * @var boolean Should validation be enabled
+	 */
+	private $validate = true;
+
+	/**
 	 * Constructs a new DataSift_Source
 	 *
 	 * @param DataSift_User $user
@@ -340,7 +345,7 @@ class DataSift_Source
 	 * @param array $resources An array of authorization credentials, appropriate to
 	 *                    the Source type
 	 */
-	public function addResource(array $resources, $validate=false){
+	public function addResource(array $resources, $validate = false){
 		$response = $this->getUser()->callAPI('source/resource/add', array('id' => $this->getId(), 'resources' => $resources, 'validate' => $validate));
 
 		$this->resources = $response['resources'];
@@ -398,6 +403,26 @@ class DataSift_Source
 	}
 
 	/**
+	 * Ssets the validate status
+	 *
+	 * @return boolean
+	 */
+	public function getValidate()
+	{
+		return $this->validate();
+	}
+
+	/**
+	 * Ssets the validate status
+	 *
+	 * @param boolean $validate
+	 */
+	public function setValidate($validate)
+	{
+		$this->validate = $validate;
+	}
+
+	/**
 	 * Save this Source
 	 *
 	 * @return DataSift_Source
@@ -405,8 +430,12 @@ class DataSift_Source
 	 * @throws DataSift_Exception_APIError
 	 * @throws DataSift_Exception_AccessDenied
 	 */
-	public function save()
+	public function save($validate = true)
 	{
+		if ($this->getValidate() != $validate) {
+			$this->setValidate($validate);
+		}
+
 		$endpoint = ($this->getId() ? 'source/update' : 'source/create');
 		$this->fromArray($this->getUser()->callAPI($endpoint, $this->toArray()));
 
@@ -486,7 +515,8 @@ class DataSift_Source
 			'parameters' => 'setParameters',
 			'auth' => 'setAuth',
 			'resources' => 'setResources',
-			'created_at' => 'setCreatedAt'
+			'created_at' => 'setCreatedAt',
+			'validate' => 'setValidate'
 		);
 
 		foreach ($map as $key => $setter) {
@@ -514,7 +544,8 @@ class DataSift_Source
 			'parameters' => 'getParameters',
 			'auth' => 'getAuth',
 			'resources' => 'getResources',
-			'created_at' => 'getCreatedAt'
+			'created_at' => 'getCreatedAt',
+			'validate' => 'getValidate'
 		);
 
 		foreach ($map as $key => $getter) {
