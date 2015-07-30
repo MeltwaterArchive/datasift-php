@@ -39,13 +39,12 @@ class DataSift_ApiClient
      * @throws DataSift_Exception_RateLimitExceeded
      * @throws DataSift_Exception_NotYetImplemented
      */
-    static private function genericCall(
+    static public function call(
         DataSift_User $user, 
         $endPoint,
         $method,
-        $headers = array(), 
-        $successCode = array(),
-        $params = array(), 
+        $params = array(),
+        $headers = array(),
         $userAgent = DataSift_User::USER_AGENT,
         $qs = array()
     ) {
@@ -57,7 +56,14 @@ class DataSift_ApiClient
         if (!function_exists('curl_init')) {
             throw new DataSift_Exception_NotYetImplemented('Curl is required for DataSift_ApiClient');
         }
-        
+
+        if (empty($headers)) {
+            $headers = array(
+                'Auth: '.$user->getUsername().':'.$user->getAPIKey(), 
+                'Expect:', 'Content-Type: application/json'
+            );
+        }
+
         $ssl = $user->useSSL();
 
         // Build the full endpoint URL
@@ -67,10 +73,6 @@ class DataSift_ApiClient
         
         $res = curl_exec($ch);
         $info = curl_getinfo($ch);
-
-        if (!in_array($info['http_code'], $successCode) && !$res) {
-            throw new DataSift_Exception_APIError(curl_error($ch), curl_errno($ch));
-        }
 
         curl_close($ch);
         $res = self::parseHTTPResponse($res);
@@ -88,10 +90,6 @@ class DataSift_ApiClient
             'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
             'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
         );
-
-        if (!in_array($info['http_code'], $decodeCode) && !$retval['data']) {
-            throw new DataSift_Exception_APIError('Failed to decode the response', -1);
-        }
 
         return $retval;
     }
@@ -112,7 +110,7 @@ class DataSift_ApiClient
     static private function initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs)
     {
         $ch = curl_init();
-        
+
         switch (strtolower($method)) {
             case 'post': {
                 curl_setopt($ch, CURLOPT_POST, true);
@@ -156,119 +154,6 @@ class DataSift_ApiClient
         }
         
         return $ch;
-    }
-    
-    /**
-     * Make a call to a DataSift API endpoint.
-     *
-     * @param Datasift_User $user      The user's username.
-     * @param string        $endpoint  The endpoint of the API call.
-     * @param array         $params    The parameters to be passed along with the request.
-     * @param string        $userAgent The HTTP User-Agent header.
-     *
-     * @return array The response from the server.
-     * @throws DataSift_Exception_APIError
-     * @throws DataSift_Exception_RateLimitExceeded
-     */
-    static public function call(
-        DataSift_User $user, 
-        $endpoint,
-        $params = array(),
-        $userAgent = DataSift_User::USER_AGENT,
-        $successCode = array(self::HTTP_NO_CONTENT)
-    ) {
-        $headers = array(
-            'Auth: '.$user->getUsername().':'.$user->getAPIKey(), 
-            'Expect:', 'Content-Type: application/json'
-        );
-
-        return self::genericCall($user, $endpoint, 'post', $headers, $successCode, $params, $userAgent);
-    }
-    
-    /**
-     * Make a POST call to a DataSift API endpoint.
-     * 
-     * @param Datasift_User $user           The user's username.
-     * @param string        $endpoint       The endpoint of the API call.
-     * @param array         $params         The parameters to be passed along with the request.
-     * @param string        $userAgent      The HTTP User-Agent header.
-     * @param array         $successCode    The HTTP Code of a successful response
-     *
-     * @return array The response from the server.
-     */
-    static public function post(
-        DataSift_User $user, 
-        $endpoint,
-        $params = array(),
-        $userAgent = DataSift_User::USER_AGENT,
-        $successCode = array(self::HTTP_NO_CONTENT)
-    ) {
-        return self::call($user, $endpoint, $params, $userAgent, $successCode);
-    }
-
-    /**
-     * Make a GET call to a DataSift API endpoint.
-     *
-     * @param DataSift_User $user           The user's username.
-     * @param string        $endpoint       The endpoint of the API call.
-     * @param string        $userAgent      The HTTP User-Agent header.
-     * @param array         $successCode    The HTTP Code of a successful response
-     *
-     * @return array The response from the server.
-     * @throws DataSift_Exception_APIError
-     * @throws DataSift_Exception_RateLimitExceeded
-     */
-    static public function get(
-        DataSift_User $user, 
-        $endpoint, 
-        $params = array(), 
-        $userAgent = DataSift_User::USER_AGENT, 
-        $successCode = array(self::HTTP_NO_CONTENT, self::HTTP_OK), 
-        $qs = array()
-    ) {
-        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:');
-
-        return self::genericCall($user, $endpoint, 'get', $headers, $successCode, $params, $userAgent, $qs);
-    }
-    
-    /**
-     * Make a PUT call to a DataSift API endpoint.
-     * 
-     * @param DataSift_User $user           The user's username.
-     * @param string        $endpoint       The endpoint of the API call.
-     * @param array         $params         The parameters to be passed along with the request.
-     * @param string        $userAgent      The HTTP User-Agent header.
-     * @param array         $successCode    The HTTP Code of a successful response
-     * 
-     * @return array The response from the server.
-     */
-    static public function put(
-        DataSift_User $user, 
-        $endpoint, 
-        $params = array(), 
-        $userAgent = DataSift_User::USER_AGENT,
-        $successCode
-    ) {
-        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:', 'Content-Type: application/json');
-        
-        return self::genericCall($user, $endpoint, 'put', $headers, $successCode, $params, $userAgent);
-    }
-
-    /**
-     * Make a DELETE call to a DataSift API endpoint.
-     * 
-     * @param DataSift_User $user           The user's username.
-     * @param string        $endpoint       The endpoint of the API call.
-     * @param string        $userAgent      The HTTP User-Agent header.
-     * @param array         $successCode    The HTTP Code of a successful response
-     * 
-     * @return array The response from the server.
-     */
-    static public function delete(DataSift_User $user, $endpoint, $params = array(), $userAgent = DataSift_User::USER_AGENT, $successCode)
-    {
-        $headers = array('Auth: '.$user->getUsername().':'.$user->getAPIKey(), 'Expect:');
-        
-        return self::genericCall($user, $endpoint, 'delete', $headers, $successCode, $params, $userAgent);
     }
 
     static public function appendQueryString($url, $qs)

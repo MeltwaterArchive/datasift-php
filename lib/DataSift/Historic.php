@@ -37,7 +37,7 @@ class DataSift_Historic
 	static public function listHistorics($user, $page = 1, $per_page = 20)
 	{
 		try {
-			$res = $user->callAPI(
+			$res = $user->post(
 				'historics/get',
 				array(
 					'page' => $page,
@@ -245,7 +245,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$this->initFromArray($this->_user->callAPI('historics/get', array('id' => $this->_playback_id)));
+			$this->initFromArray($this->_user->post('historics/get', array('id' => $this->_playback_id)));
 		} catch (DataSift_Exception_APIError $e) {
 			switch ($e->getCode()) {
 				case 400:
@@ -471,7 +471,7 @@ class DataSift_Historic
 		if ($this->_playback_id === false) {
 			$this->_name = $name;
 		} else {
-			$res = $this->_user->callAPI(
+			$res = $this->_user->post(
 				'historics/update',
 				array(
 					'id' => $this->_playback_id,
@@ -532,7 +532,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$res = $this->_user->callAPI(
+			$res = $this->_user->post(
 				'historics/prepare',
 				array(
 					'hash' => $this->_hash,
@@ -593,7 +593,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$res = $this->_user->callAPI(
+			$res = $this->_user->post(
 				'historics/start',
 				array(
 					'id' => $this->_playback_id,
@@ -635,7 +635,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$res = $this->_user->callAPI(
+			$res = $this->_user->post(
 				'historics/stop',
 				array(
 					'id' => $this->_playback_id,
@@ -683,7 +683,7 @@ class DataSift_Historic
 			if ($reason) {
 				$params['reason'] = $reason;
 			}
-			$res = $this->_user->callAPI('historics/pause', $params);
+			$res = $this->_user->post('historics/pause', $params);
 
 		} catch (DataSift_Exception_APIError $e) {
 			switch ($e->getCode()) {
@@ -721,7 +721,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$res = $this->_user->callAPI('historics/resume', array('id' => $this->_playback_id));
+			$res = $this->_user->post('historics/resume', array('id' => $this->_playback_id));
 
 		} catch (DataSift_Exception_APIError $e) {
 			switch ($e->getCode()) {
@@ -759,7 +759,7 @@ class DataSift_Historic
 		}
 
 		try {
-			$res = $this->_user->callAPI(
+			$res = $this->_user->post(
 				'historics/delete',
 				array(
 					'id' => $this->_playback_id,
