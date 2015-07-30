@@ -67,7 +67,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	static public function get($user, $id)
 	{
 		$params = array('id' => $id);
-		return new self($user, $user->callAPI('push/get', $params));
+		return new self($user, $user->post('push/get', $params));
 	}
 
 	/**
@@ -115,7 +115,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 			$params['include_finished'] = '1';
 		}
 
-		$res = $user->callAPI('push/get', $params);
+		$res = $user->post('push/get', $params);
 
 		$retval = array('count' => $res['count'], 'subscriptions' => array());
 		foreach ($res['subscriptions'] as $sub) {
@@ -212,7 +212,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 		$params['order_by'] = $order_by;
 		$params['order_dir'] = $order_dir;
 
-		$res = $user->callAPI('push/log', $params);
+		$res = $user->post('push/log', $params);
 
 		$retval = array('count' => $res['count'], 'log_entries' => array());
 		foreach ($res['log_entries'] as $log) {
@@ -375,7 +375,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function reload()
 	{
-		$this->init($this->_user->callAPI('push/get', array('id' => $this->getId())));
+		$this->init($this->_user->post('push/get', array('id' => $this->getId())));
 	}
 	
 	/**
@@ -509,7 +509,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 		}
 
 		// Call the API and pass the returned object into init to update this object
-		$this->init($this->_user->callAPI('push/update', $params));
+		$this->init($this->_user->post('push/update', $params));
 	}
 	
 	/**
@@ -521,7 +521,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function pause()
 	{
-		$this->init($this->_user->callAPI('push/pause', array('id' => $this->getId())));
+		$this->init($this->_user->post('push/pause', array('id' => $this->getId())));
 	}
 	
 	/**
@@ -533,7 +533,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function resume()
 	{
-		$this->init($this->_user->callAPI('push/resume', array('id' => $this->getId())));
+		$this->init($this->_user->post('push/resume', array('id' => $this->getId())));
 	}
 	
 	/**
@@ -545,7 +545,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function stop()
 	{
-		$this->init($this->_user->callAPI('push/stop', array('id' => $this->getId())));
+		$this->init($this->_user->post('push/stop', array('id' => $this->getId())));
 	}
 	
 	/**
@@ -556,7 +556,7 @@ class DataSift_Push_Subscription extends DataSift_Push_Definition {
 	 */
 	public function delete()
 	{
-		$this->_user->callAPI('push/delete', array('id' => $this->getId()));
+		$this->_user->post('push/delete', array('id' => $this->getId()));
 		// The delete API call doesn't return the object, so set the status
 		// manually
 		$this->_status = self::STATUS_DELETED;

@@ -34,11 +34,8 @@ class DataSift_Account_Identity_Token extends DataSift_Account
      * @return mixed
      */
     public function get($identity, $service) 
-    {
-        $successCode = array(DataSift_ApiClient::HTTP_OK);
-        
-        $response = $this->call('get', 'account/identity/' . $identity . '/token/' . $service, $successCode);
-        return $this->processResponse($response, $successCode);
+    {   
+        return $this->_user->get('account/identity/' . $identity . '/token/' . $service);
     }
     
     /**
@@ -52,14 +49,12 @@ class DataSift_Account_Identity_Token extends DataSift_Account
      */
     public function getAll($identity, $page = 1, $perPage = 25)
     {
-        $qs = array(
+        $params = array(
             'page' => $page,
             'per_page' => $perPage
         );
-        $successCode = array(DataSift_ApiClient::HTTP_OK);
         
-        $response = $this->call('get', 'account/identity/' . $identity . '/token', $successCode, array(), $qs);
-        return $this->processResponse($response, $successCode);
+        $response = $this->_user->get('account/identity/' . $identity . '/token', $params);
     }
     
     /**
@@ -74,15 +69,13 @@ class DataSift_Account_Identity_Token extends DataSift_Account
      */
     public function create($identity, $service, $token) 
     {
-        $successCode = array(DataSift_ApiClient::HTTP_CREATED);
         
         $params = array(
             'service'       => $service,
             'token'         => $token,
         );
         
-        $response = $this->call('post', 'account/identity/' . $identity . '/token', $successCode, $params);
-        return $this->processResponse($response, $successCode);
+        return $this->_user->post('account/identity/' . $identity . '/token', $params);
     }
     
     /**
@@ -96,13 +89,12 @@ class DataSift_Account_Identity_Token extends DataSift_Account
      */
     public function update($identity, $service, $token)
     {
-        $successCode = array(DataSift_ApiClient::HTTP_CREATED, DataSift_ApiClient::HTTP_OK);
         
         $params = array(
             'token' => $token,
         );
         
-        $response = $this->call('put', 'account/identity/' . $identity . '/token/' . $service, $successCode, $params);
+        $response = $this->_user->put('account/identity/' . $identity . '/token/' . $service, $successCode, $params);
         return $this->processResponse($response, $successCode);
     }
     

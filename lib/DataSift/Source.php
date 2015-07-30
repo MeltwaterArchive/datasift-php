@@ -64,7 +64,7 @@ class DataSift_Source
 				$params['source_type'] = $sourceType;
 			}
 
-			$res = $user->callAPI(
+			$res = $user->post(
 				'source/get',
 				$params
 			);
@@ -104,7 +104,7 @@ class DataSift_Source
 	public static function get(DataSift_User $user, $id)
 	{
 		$params = array('id' => $id);
-		return new self($user, $user->callAPI('source/get', $params));
+		return new self($user, $user->post('source/get', $params));
 	}
 
 	/**
@@ -297,7 +297,7 @@ class DataSift_Source
 	 *                    the Source type
 	 */
 	public function addAuth(array $auth, $validate=false){
-		$response = $this->getUser()->callAPI('source/auth/add', array('id' => $this->getId(), 'auth' => $auth, 'validate' => $validate));
+		$response = $this->getUser()->post('source/auth/add', array('id' => $this->getId(), 'auth' => $auth, 'validate' => $validate));
 
 		$this->auth = $response['auth'];
 	}
@@ -308,7 +308,7 @@ class DataSift_Source
 	 * @param array $authIds An array of authorization IDs to be removed
 	 */
 	public function removeAuth(array $authIds){
-		$response = $this->getUser()->callAPI('source/auth/remove', array('id' => $this->getId(), 'auth_ids' => $authIds));
+		$response = $this->getUser()->post('source/auth/remove', array('id' => $this->getId(), 'auth_ids' => $authIds));
 
 		$this->auth = $response['auth'];
 	}
@@ -341,7 +341,7 @@ class DataSift_Source
 	 *                    the Source type
 	 */
 	public function addResource(array $resources, $validate=false){
-		$response = $this->getUser()->callAPI('source/resource/add', array('id' => $this->getId(), 'resources' => $resources, 'validate' => $validate));
+		$response = $this->getUser()->post('source/resource/add', array('id' => $this->getId(), 'resources' => $resources, 'validate' => $validate));
 
 		$this->resources = $response['resources'];
 	}
@@ -352,7 +352,7 @@ class DataSift_Source
 	 * @param array $resourceIds An array of resource IDs to be removed
 	 */
 	public function removeResource(array $resourceIds){
-		$response = $this->getUser()->callAPI('source/resource/remove', array('id' => $this->getId(), 'resource_ids' => $resourceIds));
+		$response = $this->getUser()->post('source/resource/remove', array('id' => $this->getId(), 'resource_ids' => $resourceIds));
 
 		$this->resources = $response['resources'];
 	}
@@ -408,7 +408,7 @@ class DataSift_Source
 	public function save()
 	{
 		$endpoint = ($this->getId() ? 'source/update' : 'source/create');
-		$this->fromArray($this->getUser()->callAPI($endpoint, $this->toArray()));
+		$this->fromArray($this->getUser()->post($endpoint, $this->toArray()));
 
 		return $this;
 	}
@@ -423,7 +423,7 @@ class DataSift_Source
 	 */
 	public function stop()
 	{
-		$this->fromArray($this->getUser()->callAPI('source/stop', array('id' => $this->getId())));
+		$this->fromArray($this->getUser()->post('source/stop', array('id' => $this->getId())));
 
 		return $this;
 	}
@@ -438,7 +438,7 @@ class DataSift_Source
 	 */
 	public function start()
 	{
-		$this->fromArray($this->getUser()->callAPI('source/start', array('id' => $this->getId())));
+		$this->fromArray($this->getUser()->post('source/start', array('id' => $this->getId())));
 	}
 
 	/**
@@ -451,7 +451,7 @@ class DataSift_Source
 	 */
 	public function delete()
 	{
-		$this->getUser()->callAPI('source/delete', array('id' => $this->getId()));
+		$this->getUser()->post('source/delete', array('id' => $this->getId()));
 		$this->setStatus(self::STATUS_DELETED);
 
 		return $this;
@@ -466,7 +466,7 @@ class DataSift_Source
 	 *
 	 */
 	public function getLogs($page = 1, $perPage = 20){
-		return $this->getUser()->callAPI('source/log', array('id' => $this->getId(), 'page' => $page, 'per_page' => $perPage));
+		return $this->getUser()->post('source/log', array('id' => $this->getId(), 'page' => $page, 'per_page' => $perPage));
 	}
 
 	/**

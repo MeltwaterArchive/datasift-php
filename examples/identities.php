@@ -41,14 +41,6 @@ try {
     echo $res['id'] . " - " . $res['label'] ."\n";
     unset($res);
 
-    echo "\nGetting tokens...\n";
-    $res = $token->getAll($id);
-
-    foreach ($res['tokens'] as $r) {
-        echo $r['service'] . " - " . $r['token'] . "\n";        
-    }
-    unset($res);
-
     echo "\nCreating token....\n";
     $res = $token->create($id, $service, md5('test'));
     echo $res['service'] . " - " . $res['token'] . "\n";
@@ -72,14 +64,6 @@ try {
     echo $res['service'] . " - " . $res['token'] . "\n";
     unset($res);
 
-    echo "\nGetting limits...\n";
-    $res = $limit->getAll($service);
-
-    foreach ($res['limits'] as $r) {
-        echo $r['id'] . " - " . $r['service'] . " - " . $r['total_allowance'] . "\n";
-    }
-    unset($res);
-
     echo "\nCreating limit...\n";
     $res = $limit->create($id, $service, 2000);
     echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . "\n";
@@ -88,6 +72,14 @@ try {
     echo "\nGetting limit...\n";
     $res = $limit->get($id, $service);
     echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . "\n";
+    unset($res);
+
+    echo "\nGetting limits...\n";
+    $res = $limit->getAll($service);
+
+    foreach ($res['limits'] as $r) {
+        echo $r['id'] . " - " . $r['service'] . " - " . $r['total_allowance'] . "\n";
+    }
     unset($res);
 
     echo "\nUpdating limit...\n";

@@ -172,7 +172,7 @@ class DataSift_Pylon
      */
     static public function validate($user, $csdl)
     {
-        return $user->callAPI('pylon/validate', array('csdl' => $csdl));
+        return $user->post('pylon/validate', array('csdl' => $csdl));
     }
 
     /**
@@ -281,7 +281,7 @@ class DataSift_Pylon
             throw new DataSift_Exception_InvalidData('Cannot compile an empty definition.');
         }
 
-        $res = $this->_user->callAPI('pylon/compile', array('csdl' => $this->_csdl));
+        $res = $this->_user->post('pylon/compile', array('csdl' => $this->_csdl));
 
         $this->_hash = $res['hash'];
 
@@ -317,7 +317,7 @@ class DataSift_Pylon
             $params['name'] = $this->_name;
         }
 
-        $this->_user->callAPI('pylon/start', $params);
+        $this->_user->post('pylon/start', $params);
     }
 
     /**
@@ -335,7 +335,7 @@ class DataSift_Pylon
             throw new DataSift_Exception_InvalidData('Cannot stop a recording without a hash');
         }
         
-        $this->_user->callAPI('pylon/stop', array('hash' => $this->_hash));
+        $this->_user->post('pylon/stop', array('hash' => $this->_hash));
     }
 
 
@@ -382,7 +382,7 @@ class DataSift_Pylon
             $params['end'] = $end;
         }
 
-        return $this->_user->callAPI('pylon/analyze', $params);
+        return $this->_user->post('pylon/analyze', $params);
     }
 
     /**
