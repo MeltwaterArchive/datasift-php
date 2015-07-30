@@ -425,6 +425,8 @@ class DataSift_Source
 	/**
 	 * Save this Source
 	 *
+	 * @param boolean $validate
+	 *
 	 * @return DataSift_Source
 	 *
 	 * @throws DataSift_Exception_APIError
