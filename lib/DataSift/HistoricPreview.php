@@ -328,7 +328,7 @@ class DataSift_HistoricPreview
 		if (is_int($this->end)) {
 			$params['end'] = $this->getEnd();
 		}
-		$this->fromResponse($this->getUser()->callAPI('preview/create', $params));
+		$this->fromResponse($this->getUser()->post('preview/create', $params));
 	}
 
 	/**
@@ -345,6 +345,6 @@ class DataSift_HistoricPreview
 	public static function get(DataSift_User $user, $id)
 	{
 		$params = array('id' => $id);
-		return new self($user, $user->callAPI('preview/get', $params));
+		return new self($user, $user->post('preview/get', $params));
 	}
 }

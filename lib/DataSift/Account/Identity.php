@@ -33,11 +33,8 @@ class DataSift_Account_Identity extends DataSift_Account
      * @return mixed
      */
     public function get($identity)
-    {
-        $successCode = array(DataSift_ApiClient::HTTP_OK);
-        
-        $response = $this->call('get', 'account/identity/' . $identity, $successCode);
-        return $this->processResponse($response, $successCode);
+    {        
+        return $this->_user->get('account/identity/'. $identity);
     }
 
     /**
@@ -50,15 +47,12 @@ class DataSift_Account_Identity extends DataSift_Account
      */
     public function getAll($label = null, $page = 1, $perPage = 25)
     {
-        $qs = array(
+        $params = array(
             'page' => $page,
             'per_page' => $perPage
         );
-
-        $successCode = array(DataSift_ApiClient::HTTP_OK);
         
-        $response = $this->call('get', 'account/identity', $successCode, array(), $qs);
-        return $this->processResponse($response, $successCode);
+        return $this->_user->get('account/identity', $params);
     }
     
     /**
@@ -72,16 +66,14 @@ class DataSift_Account_Identity extends DataSift_Account
      */
     public function create($label, $master = false, $status = 'active')
     {
-        $successCode = array(DataSift_ApiClient::HTTP_CREATED);
-        
+
         $params = array(
             'label'     => $label,
             'master'    => $master,
             'status'    => $status
         );
         
-        $response = $this->call('post', 'account/identity', $successCode, $params);
-        return $this->processResponse($response, $successCode);
+        return  $this->_user->post('account/identity', $params);
     }
     
     /**
@@ -96,22 +88,19 @@ class DataSift_Account_Identity extends DataSift_Account
      */
     public function update($identity, $label = null, $master = null, $status = null) 
     {
-        $successCode = array(DataSift_ApiClient::HTTP_OK);
         
-        $params = array(
-            'label'     => $label,
-            'master'    => $master,
-            'status'    => $status
-        );
-        
-        foreach ($params as $k => $v) {
-            if ($v == null) {
-                unset($params[$k]);
-            }
+        $params = array();
+        if (!is_null($label)) {
+            $params['label'] = $label;
+        }
+        if (!is_null($master)) {
+            $params['master'] = $master;
+        }
+        if (!is_null($status)) {
+            $params['status'] = $status;
         }
         
-        $response = $this->call('put', 'account/identity/' . $identity, $successCode, $params);
-        return $this->processResponse($response, $successCode);
+        return $this->_user->put('account/identity/' . $identity, $params);
     }
     
     /**
@@ -123,9 +112,6 @@ class DataSift_Account_Identity extends DataSift_Account
      */
     public function delete($identity)
     {
-        $successCode = array(DataSift_ApiClient::HTTP_NO_CONTENT);
-        
-        $response = $this->call('delete', 'account/identity/' . $identity, $successCode);
-        return $this->processResponse($response, $successCode);
+       return $response = $this->_user->delete('account/identity/' . $identity);
     }
 }

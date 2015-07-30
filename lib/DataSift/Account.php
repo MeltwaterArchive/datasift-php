@@ -37,7 +37,7 @@ class DataSift_Account
      * 
      * @var DataSift_User 
      */
-    protected $user = null;
+    protected $_user = null;
     
     /**
      * Constructor
@@ -46,69 +46,7 @@ class DataSift_Account
      */
     public function __construct(DataSift_User $user) 
     {
-        $this->user = $user;
-    }
-
-    /**
-     * Set the class to use when calling the API
-     *
-     * @param string $apiClient The class to use.
-     *
-     * @return void
-     * @throws DataSift_Exception_InvalidData
-     */
-    public function setApiClient($apiClient)
-    {
-        if (!class_exists($apiClient) or !method_exists($apiClient, 'call')) {
-            throw new DataSift_Exception_InvalidData('Class "'.$apiClient.'" does not exist');
-        }
-        $this->apiClient = $apiClient;
-    }
-    
-    /**
-     * Central call handling
-     * 
-     * @param string    $method
-     * @param string    $endPoint
-     * @param array     $params
-     * 
-     * @return type
-     */
-    protected function call($method, $endPoint, $successCode, $params = array(), $qs = array())
-    {
-        $res = call_user_func(
-            array($this->apiClient, $method),
-            $this->user,
-            $endPoint,
-            $params,
-            $this->getUserAgent(),
-            $successCode,
-            $qs
-        );
-        
-        return $res;
-    }
-    
-    /**
-     * Process the response
-     * 
-     * @param array $response
-     * @param array $successCode
-     */
-    protected function processResponse($response, $successCode) 
-    {
-        if (in_array($response['response_code'], $successCode)) {
-            if(count($response['data']) > 0) {
-                return $response['data'];
-            }
-            
-            return true;
-        }
-
-        return array(
-            'response_code' => $response['response_code'],
-            'error' => $response['data']['error']
-        );
+        $this->_user = $user;
     }
     
     /**
