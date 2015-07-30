@@ -409,7 +409,7 @@ class DataSift_Source
 	 */
 	public function getValidate()
 	{
-		return $this->validate();
+		return $this->validate;
 	}
 
 	/**
