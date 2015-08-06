@@ -414,7 +414,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
-        $result = $identity->delete($identityId, $service);
+        $result = $identity->delete($identityId);
 
         $this->assertEquals($expectedResult, $result);
     }
