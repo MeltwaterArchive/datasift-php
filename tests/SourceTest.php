@@ -95,11 +95,12 @@ class SourceTest extends PHPUnit_Framework_TestCase
 	public function testCreateSource(){
 
 		$source = $this->createSource();
-
+		$resources = $source->getResources();
+		$auth = $source->getAuth();
 		$this->assertEquals($source->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID did not match');
 		$this->assertEquals($source->getName(), 'My PHP managed source', 'Name did not match');
-		$this->assertEquals($source->getResources()[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
-		$this->assertEquals($source->getAuth()[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
+		$this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
+		$this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
 		
 	}
 
@@ -179,11 +180,14 @@ class SourceTest extends PHPUnit_Framework_TestCase
 		
 		$source->save();
 
+		$resources = $source->getResources();
+		$auth = $source->getAuth();
+
 		$this->assertEquals($source->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID did not match');
 		$this->assertEquals($source->getName(), 'My Updated PHP managed source', 'Name did not match');
-		$this->assertEquals($source->getResources()[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
-		$this->assertEquals($source->getResources()[1]['parameters']['id'], 10513536389, 'Resource ID did not match');
-		$this->assertEquals($source->getAuth()[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
+		$this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
+		$this->assertEquals($resources[1]['parameters']['id'], 10513536389, 'Resource ID did not match');
+		$this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
 		
 	}
 
@@ -235,8 +239,10 @@ class SourceTest extends PHPUnit_Framework_TestCase
 		DataSift_MockApiClient::setResponse($response);
 
 		$sources = DataSift_Source::listSources($this->user);
+
+		$source1 = $sources['sources'][0];
 		
-		$this->assertEquals($sources['sources'][0]->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID differs to test data');
+		$this->assertEquals($source1->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID differs to test data');
 		$this->assertEquals($sources['count'], 1, 'Count differs to test data');
 		
 	}
@@ -283,10 +289,13 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
 		$source = DataSift_Source::get($this->user, '78b3601ef667466d95f19570dcb74699');
 
+		$resources = $source->getResources();
+		$auth = $source->getAuth();
+
 		$this->assertEquals($source->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID did not match');
 		$this->assertEquals($source->getName(), 'My PHP managed source', 'Name did not match');
-		$this->assertEquals($source->getResources()[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
-		$this->assertEquals($source->getAuth()[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
+		$this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
+		$this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
 		
 	}
 
@@ -319,9 +328,11 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
 		$source->addAuth($new_auth);
 
+		$auth = $source->getAuth();
+
 		$this->assertCount(2, $source->getAuth(), 'Expecting 2 auth objects to be returned');
-		$this->assertArrayHasKey('identity_id', $source->getAuth()[0], 'First auth had no ID');
-		$this->assertArrayHasKey('identity_id', $source->getAuth()[1], 'Second auth had no ID');
+		$this->assertArrayHasKey('identity_id', $auth[0], 'First auth had no ID');
+		$this->assertArrayHasKey('identity_id', $auth[1], 'Second auth had no ID');
 
 		//Now remove the original auth
 
@@ -340,8 +351,10 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
 		$source->removeAuth(array('7b1be3a398e646bbb3c7a5cb9717ba45'));
 
+		$auth = $source->getAuth();
+
 		$this->assertCount(1, $source->getAuth(), 'Expecting 1 auth object to be returned');
-		$this->assertArrayHasKey('identity_id', $source->getAuth()[0], 'First auth had no ID');
+		$this->assertArrayHasKey('identity_id', $auth[0], 'First auth had no ID');
 
 	}
 
@@ -380,9 +393,11 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
 		$source->addResource($new_resource);
 
+		$resources = $source->getResources();
+
 		$this->assertCount(2, $source->getResources(), 'Expecting 2 auth objects to be returned');
-		$this->assertArrayHasKey('id', $source->getResources()[0]['parameters'], 'First auth had no ID');
-		$this->assertArrayHasKey('id', $source->getResources()[1]['parameters'], 'Second auth had no ID');
+		$this->assertArrayHasKey('id', $resources[0]['parameters'], 'First auth had no ID');
+		$this->assertArrayHasKey('id', $resources[1]['parameters'], 'Second auth had no ID');
 
 		//Now remove the original auth
 
@@ -399,9 +414,11 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
 		DataSift_MockApiClient::setResponse($response);
 
+		$resources = $source->getResources();
+
 		$source->removeResource(array('30bc448896de44b88604ac223cb7f26f'));
 		$this->assertCount(1, $source->getResources(), 'Expecting 1 auth object to be returned');
-		$this->assertArrayHasKey('id', $source->getResources()[0]['parameters'], 'First auth had no ID');
+		$this->assertArrayHasKey('id', $resources[0]['parameters'], 'First auth had no ID');
 	}
 	
 }
