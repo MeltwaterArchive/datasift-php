@@ -391,6 +391,8 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'data' => array(
                         'error' => 'The Identity with the supplied id has been deleted'
                     ),
+                    'rate_limit' => 200,
+                    'rate_limit_remaining' => 150,
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
