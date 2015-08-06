@@ -104,7 +104,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
         
@@ -159,8 +159,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'Not found',
-                    'type'  => 'exception'
+                    'error' => 'Not found'
                 )
             )
         );
@@ -175,7 +174,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
         
@@ -234,8 +233,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
-                    'error' => 'An Identity with label test already exists',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with label test already exists'
                 )
             )
         );
@@ -251,7 +249,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
         
@@ -312,8 +310,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -331,8 +328,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
-                    'error' => 'An Identity with the label "test" already exists',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the label "test" already exists'
                 )
             ),
         );
@@ -348,7 +344,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
         
@@ -385,8 +381,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -399,8 +394,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -416,7 +410,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -492,8 +486,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     ),
                     'expected_result' => array(
                         'response_code' => self::HTTP_NOT_FOUND,
-                        'error' => 'An Identity with the supplied id was not found',
-                        'type'  => 'exception'
+                        'error' => 'An Identity with the supplied id was not found'
                     )
                 ),
                 array(
@@ -510,8 +503,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     ),
                     'expected_result' => array(
                         'response_code' => self::HTTP_GONE,
-                        'error' => 'The Identity with the supplied id has been deleted',
-                        'type'  => 'exception'
+                        'error' => 'The Identity with the supplied id has been deleted'
                     )
                 )
             ),
@@ -528,7 +520,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -580,8 +572,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -597,8 +588,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -614,7 +604,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -667,8 +657,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -685,8 +674,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
-                    'error' => 'A token for test already exists for that Identity',
-                    'type'  => 'exception'
+                    'error' => 'A token for test already exists for that Identity'
                 )
             ),
             array(
@@ -703,8 +691,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -720,7 +707,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -797,8 +784,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -815,8 +801,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -832,7 +817,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -871,8 +856,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -888,8 +872,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'A token for test was not found for the Identity',
-                    'type'  => 'exception'
+                    'error' => 'A token for test was not found for the Identity'
                 )
             ),
             array(
@@ -905,8 +888,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             ),
             array(
@@ -922,8 +904,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => "The Identity's token for <service> has been deleted",
-                    'type'  => 'exception'
+                    'error' => "The Identity's token for <service> has been deleted"
                 )
             )
         ); 
@@ -939,7 +920,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -986,8 +967,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -1003,8 +983,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'A limit for test was not found for the Identity',
-                    'type'  => 'exception'
+                    'error' => 'A limit for test was not found for the Identity'
                 )
             ),
             array(
@@ -1020,8 +999,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             ),
         );     
@@ -1038,7 +1016,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -1107,8 +1085,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -1125,8 +1102,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
-                    'error' => 'A limit for test already exists for that Identity',
-                    'type'  => 'exception'
+                    'error' => 'A limit for test already exists for that Identity'
                 )
             ),
             array(
@@ -1143,8 +1119,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             ),
         );
@@ -1160,7 +1135,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -1209,8 +1184,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -1227,8 +1201,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
-                    'error' => 'A limit for test already exists for that Identity',
-                    'type'  => 'exception'
+                    'error' => 'A limit for test already exists for that Identity'
                 )
             ),
             array(
@@ -1245,8 +1218,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -1262,7 +1234,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
@@ -1311,8 +1283,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -1329,8 +1300,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'A limit for test was not found for the Identity',
-                    'type'  => 'exception'
+                    'error' => 'A limit for test was not found for the Identity'
                 )
             ),
             array(
@@ -1347,8 +1317,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
@@ -1364,7 +1333,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         DataSift_MockApiClient::setResponse($apiResult);
 
-        if ($expectedResult['type'] == 'exception') {
+        if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }        
 
@@ -1403,8 +1372,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'An Identity with the supplied id was not found',
-                    'type'  => 'exception'
+                    'error' => 'An Identity with the supplied id was not found'
                 )
             ),
             array(
@@ -1420,8 +1388,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
-                    'error' => 'A limit for test was not found for the Identity',
-                    'type'  => 'exception'
+                    'error' => 'A limit for test was not found for the Identity'
                 )
             ),
             array(
@@ -1437,8 +1404,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 ),
                 'expected_result' => array(
                     'response_code' => self::HTTP_GONE,
-                    'error' => 'The Identity with the supplied id has been deleted',
-                    'type'  => 'exception'
+                    'error' => 'The Identity with the supplied id has been deleted'
                 )
             )
         );
