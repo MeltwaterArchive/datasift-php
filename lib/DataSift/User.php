@@ -492,6 +492,10 @@ class DataSift_User
         case 204:
             $retval = $res['data'];
             break;
+        case 400:
+            throw new DataSift_Exception_InvalidData(
+                empty($res['data']['error']) ? 'Bad request' : $res['data']['error']
+            );
         case 401:
             throw new DataSift_Exception_AccessDenied(
                 empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
@@ -508,7 +512,6 @@ class DataSift_User
             // Deliberate fall-through
         default:
             $error =  empty($res['data']['error']) ? $res['data'] : $res['data']['error'];
-            $error .= " - {$res['response_code']}";
             throw new DataSift_Exception_APIError(
                 empty($error) ? 'Unknown error' : $error,
                 $res['response_code']

@@ -114,16 +114,15 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		);
 		DataSift_MockApiClient::setResponse($response);
 
-		$this->setExpectedException('DataSift_Exception_CompileFailed');
+		$this->setExpectedException('DataSift_Exception_InvalidData');
 
 		$def = new DataSift_Definition($this->user, testdata('invalid_definition'));
 		$this->assertEquals($def->get(), testdata('invalid_definition'), 'Definition string not set correctly');
 
 		try {
 			$def->compile();
-		} catch (DataSift_Exception_InvalidData $e) {
-			$this->fail('InvalidData: '.$e->getMessage().' ('.$e->getCode().')');
-		} catch (DataSift_Exception_APIError $e) {
+		}
+		catch (DataSift_Exception_APIError $e) {
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		}
 
@@ -181,12 +180,11 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		try {
 			$def->compile();
 			$this->fail('CompileFailed exception expected, but not thrown');
-		} catch (DataSift_Exception_CompileFailed $e) {
+		} catch (DataSift_Exception_InvalidData $e) {
 			// Check the error message
 			$this->assertEquals($e->getMessage(), $response['data']['error']);
-		} catch (DataSift_Exception_InvalidData $e) {
-			$this->fail('InvalidData: '.$e->getMessage().' ('.$e->getCode().')');
-		} catch (DataSift_Exception_APIError $e) {
+		}
+		catch (DataSift_Exception_APIError $e) {
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		} catch (Exception $e) {
 			$this->fail('Unhandled exception: '.$e->getMessage().' ('.$e->getCode().')');
@@ -409,12 +407,11 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 		try {
 			$def->getDPUBreakdown();
 			$this->fail('CompileFailed exception expected, but not thrown');
-		} catch (DataSift_Exception_CompileFailed $e) {
+		} catch (DataSift_Exception_InvalidData $e) {
 			// Check the error message
 			$this->assertEquals($e->getMessage(), $response['data']['error']);
-		} catch (DataSift_Exception_InvalidData $e) {
-			$this->fail('InvalidData: '.$e->getMessage().' ('.$e->getCode().')');
-		} catch (DataSift_Exception_APIError $e) {
+		}
+		catch (DataSift_Exception_APIError $e) {
 			$this->fail('APIError: '.$e->getMessage().' ('.$e->getCode().')');
 		} catch (Exception $e) {
 			$this->fail('Unhandled exception: '.$e->getMessage().' ('.$e->getCode().')');

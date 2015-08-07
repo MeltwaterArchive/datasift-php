@@ -54,7 +54,7 @@ class DataSift_Account_Identity_Token extends DataSift_Account
             'per_page' => $perPage
         );
         
-        $response = $this->_user->get('account/identity/' . $identity . '/token', $params);
+        return $this->_user->get('account/identity/' . $identity . '/token', $params);
     }
     
     /**
@@ -94,8 +94,7 @@ class DataSift_Account_Identity_Token extends DataSift_Account
             'token' => $token,
         );
         
-        $response = $this->_user->put('account/identity/' . $identity . '/token/' . $service, $successCode, $params);
-        return $this->processResponse($response, $successCode);
+        return $this->_user->put('account/identity/' . $identity . '/token/' . $service, $params);
     }
     
     /**
@@ -110,7 +109,6 @@ class DataSift_Account_Identity_Token extends DataSift_Account
     {
         $successCode = array(DataSift_ApiClient::HTTP_NO_CONTENT);
         
-        $response = $this->call('delete', 'account/identity/' . $identity . '/token/' . $service, $successCode);
-        return $this->processResponse($response, $successCode);
+        return $this->_user->delete('account/identity/' . $identity . '/token/' . $service);
     }
 }

@@ -129,9 +129,9 @@ class UserTest extends PHPUnit_Framework_TestCase
 			DataSift_MockApiClient::setResponse($response);
 			$usage = $this->user->getUsage();
 			// Should have had an exception
-			$this->fail('Expected ApiError exception did not get thrown');
-		} catch (DataSift_Exception_ApiError $e) {
-			$this->assertEquals($response['data']['error'], $e->getMessage(), '400 exception message is not as expected');
+			$this->fail('Expected DataSift_Exception_InvalidData exception did not get thrown');
+		} catch (DataSift_Exception_InvalidData $e) {
+			$this->assertEquals($response['data']['error'], $e->getMessage(), 'Bad request from user supplied data');
 		}
 
 		// Unauthorised or banned
