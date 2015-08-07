@@ -1,6 +1,8 @@
 DataSift PHP Client Library
 ===========================
 
+![Build Status](https://api.travis-ci.org/datasift/datasift-php.svg)
+
 This is the official PHP library for accessing [Datasift](http://datasift.com/). See the examples
 folder for some simple example usage.
 
