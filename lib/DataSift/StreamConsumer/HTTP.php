@@ -55,6 +55,11 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 * @var bool Automatically reconnect if the connection is dropped
 	 */
 	protected $_auto_reconnect = true;
+	
+	/**
+	 * @var int lasttime heartbeat was called
+	 */
+	protected $_heartbeat_last_call_time = 0;
 
 	/**
 	 * Constructor.
@@ -93,6 +98,9 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 	 */
 	protected function onStart()
 	{
+		//initilising hearbeat counter
+		$this->_heartbeat_last_call_time = time();
+
 		do {
 			// Disconnect and reconnect
 			$this->reconnect();
@@ -137,6 +145,14 @@ class DataSift_StreamConsumer_HTTP extends DataSift_StreamConsumer
 
 				// Read and process each line
 				while ($this->_state == parent::STATE_RUNNING and ($line = fgets($this->_conn, $this->_max_line_length)) !== false) {
+					
+					//calling onHeartbeat method every 30 seconds
+					if(time()-$this->_heartbeat_last_call_time>=30)
+					{
+						$this->_heartbeat_last_call_time = time();
+						$this->onHeartbeat();
+					}
+					
 					if (strlen($line) == 0) {
 						// End of the chunk
 						break;

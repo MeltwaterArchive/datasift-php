@@ -139,6 +139,17 @@ class EventHandler implements DataSift_IStreamConsumerEventHandler
 	{
 		echo PHP_EOL.'Stopped: '.$reason.PHP_EOL.PHP_EOL;
 	}
+	
+	/**
+	 * Called every 30 seconds during stream consumption
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer object.
+	 * @param string $reason The reason the consumer stopped.
+	 */
+	public function onHeartbeat($consumer)
+	{
+		echo PHP_EOL.'Heartbeat: '.PHP_EOL.PHP_EOL;
+	}
 }
 
 // Drop the script name from the command line arguments

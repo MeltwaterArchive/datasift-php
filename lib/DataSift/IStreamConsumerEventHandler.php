@@ -112,4 +112,13 @@ interface DataSift_IStreamConsumerEventHandler
 	 * @return void
 	 */
 	public function onStopped($consumer, $reason);
+	
+	/**
+	 * Called every 30 seconds while the stream is connected.
+	 *
+	 * @param DataSift_StreamConsumer $consumer The consumer sending the event.
+	 *
+	 * @return void
+	 */
+	public function onHeartbeat($consumer);
 }
