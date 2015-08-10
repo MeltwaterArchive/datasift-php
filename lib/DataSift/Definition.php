@@ -218,7 +218,7 @@ class DataSift_Definition
 		}
 
 		try {
-			$res = $this->_user->callAPI('compile', array('csdl' => $this->_csdl));
+			$res = $this->_user->post('compile', array('csdl' => $this->_csdl));
 			if (isset($res['hash'])) {
 				$this->_hash = $res['hash'];
 			} else {
@@ -270,7 +270,7 @@ class DataSift_Definition
 		}
 
 		try {
-			$res = $this->_user->callAPI('validate', array('csdl' => $this->_csdl));
+			$res = $this->_user->post('validate', array('csdl' => $this->_csdl));
 
 			if (isset($res['created_at'])) {
 				$this->_created_at = strtotime($res['created_at']);
@@ -322,7 +322,7 @@ class DataSift_Definition
 			throw new DataSift_Exception_InvalidData('Cannot get the DPU for an empty definition.');
 		}
 
-		$retval = $this->_user->callAPI('dpu', array('hash' => $this->getHash()));
+		$retval = $this->_user->post('dpu', array('hash' => $this->getHash()));
 		$this->_total_dpu = $retval['dpu'];
 		return $retval;
 	}
@@ -354,7 +354,7 @@ class DataSift_Definition
 			$params['interaction_id'] = $from_id;
 		}
 
-		$retval = $this->_user->callAPI('stream', $params);
+		$retval = $this->_user->post('stream', $params);
 
 		if (isset($retval['stream'])) {
 			$retval = $retval['stream'];

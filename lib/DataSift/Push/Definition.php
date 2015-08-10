@@ -161,7 +161,7 @@ class DataSift_Push_Definition
 		}
 
 		try {
-			$retval = $this->_user->callAPI('push/validate', $params);
+			$retval = $this->_user->post('push/validate', $params);
 		} catch (DataSift_Exception_APIError $e) {
 			throw new DataSift_Exception_InvalidData($e->getMessage());
 		}
@@ -265,6 +265,6 @@ class DataSift_Push_Definition
 
 		// Call the API and create a new PushSubscription from the returned
 		// object
-		return new DataSift_Push_Subscription($this->_user, $this->_user->callAPI('push/create', $params));
+		return new DataSift_Push_Subscription($this->_user, $this->_user->post('push/create', $params));
 	}
 }

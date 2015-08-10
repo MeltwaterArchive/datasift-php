@@ -237,7 +237,7 @@ class DataSift_User
     {
         $retval = false;
 
-        $retval = $this->callAPI('usage', array('period' => $period));
+        $retval = $this->post('usage', array('period' => $period));
         return $retval;
     }
 
@@ -477,6 +477,50 @@ class DataSift_User
         return $this->_debug;
     }
 
+    private function handleResponse($res)
+    {   
+        $retval = array();
+        switch ($res['response_code']) {
+        case 200:
+        case 201:
+            if (empty($res['data'])) {
+                throw new DataSift_Exception_APIError(
+                    "Content was expected but nothing was returned (Status: 201 and no data)"
+                );
+            }
+        case 202:
+        case 204:
+            $retval = $res['data'];
+            break;
+        case 400:
+            throw new DataSift_Exception_InvalidData(
+                empty($res['data']['error']) ? 'Bad request' : $res['data']['error']
+            );
+        case 401:
+            throw new DataSift_Exception_AccessDenied(
+                empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
+            );
+        case 413:
+            // Request Too Large
+            throw new DataSift_Exception_APIError(
+                'The API request contained too much data - try reducing the size of your CSDL'
+            );
+        case 403:
+            if ($this->_rate_limit_remaining == 0) {
+                throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
+            }
+            // Deliberate fall-through
+        default:
+            $error =  empty($res['data']['error']) ? $res['data'] : $res['data']['error'];
+            throw new DataSift_Exception_APIError(
+                empty($error) ? 'Unknown error' : $error,
+                $res['response_code']
+            );
+        }
+
+        return $retval;
+    }
+
     /**
      * Make a call to a DataSift API endpoint.
      *
@@ -487,47 +531,23 @@ class DataSift_User
      * @throws DataSift_Exception_APIError
      * @throws DataSift_Exception_RateLimitExceeded
      */
-    public function callAPI($endpoint, $params = array())
+    public function post($endpoint, $params = array(), $headers = array())
     {
         $res = call_user_func(
             array($this->_api_client, 'call'),
             $this,
             $endpoint,
+            'post',
             $params,
+            $headers,
             $this->getUserAgent()
         );
 
         $this->_rate_limit = $res['rate_limit'];
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
-        switch ($res['response_code']) {
-                case 200:
-                case 201:
-                case 202:
-                case 204:
-                    $retval = $res['data'];
-                    break;
-                case 401:
-                    throw new DataSift_Exception_AccessDenied(
-                        empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
-                    );
-                case 413:
-                    // Request Too Large
-                    throw new DataSift_Exception_APIError(
-                        'The API request contained too much data - try reducing the size of your CSDL'
-                    );
-                case 403:
-                    if ($this->_rate_limit_remaining == 0) {
-                        throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
-                    }
-                    // Deliberate fall-through
-                default:
-                    throw new DataSift_Exception_APIError(
-                        empty($res['data']['error']) ? 'Unknown error' : $res['data']['error'], $res['response_code']
-                    );
-        }
+        return $this->handleResponse($res);
 
-        return $retval;
     }
 
     /**
@@ -540,43 +560,81 @@ class DataSift_User
      * @throws DataSift_Exception_APIError
      * @throws DataSift_Exception_RateLimitExceeded
      */
-    public function get($endpoint, $params = array())
+    public function get($endpoint, $params = array(), $headers = array())
     {
         $res = call_user_func(
-            array($this->_api_client, 'get'),
+            array($this->_api_client, 'call'),
             $this,
             $endpoint,
+            'get',
             array(),
+            $headers,
             $this->getUserAgent(),
-            array(DataSift_ApiClient::HTTP_OK),
             $params
         );
 
         $this->_rate_limit = $res['rate_limit'];
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
-        switch ($res['response_code']) {
-                case 200:
-                case 201:
-                case 202:
-                case 204:
-                    $retval = $res['data'];
-                    break;
-                case 401:
-                    throw new DataSift_Exception_AccessDenied(
-                        empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
-                    );
-                case 403:
-                    if ($this->_rate_limit_remaining == 0) {
-                        throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
-                    }
-                    // Deliberate fall-through
-                default:
-                    throw new DataSift_Exception_APIError(
-                        empty($res['data']['error']) ? 'Unknown error' : $res['data']['error'], $res['response_code']
-                    );
-        }
+        return $this->handleResponse($res);
 
-        return $retval;
+    }
+
+    /**
+     * Make a PUT call to a DataSift API endpoint.
+     *
+     * @param string $endpoint The endpoint of the API call.
+     * @param array  $params   The parameters to be passed along with the request.
+     *
+     * @return array The response from the server.
+     * @throws DataSift_Exception_APIError
+     * @throws DataSift_Exception_RateLimitExceeded
+     */
+    public function put($endpoint, $params = array(), $headers = array())
+    {
+        $res = call_user_func(
+            array($this->_api_client, 'call'),
+            $this,
+            $endpoint,
+            'put',
+            $params,
+            $headers,
+            $this->getUserAgent()
+        );
+
+        $this->_rate_limit = $res['rate_limit'];
+        $this->_rate_limit_remaining = $res['rate_limit_remaining'];
+
+        return $this->handleResponse($res);
+
+    }
+
+    /**
+     * Make a Delete call to a DataSift API endpoint.
+     *
+     * @param string $endpoint The endpoint of the API call.
+     * @param array  $params   The parameters to be passed along with the request.
+     *
+     * @return array The response from the server.
+     * @throws DataSift_Exception_APIError
+     * @throws DataSift_Exception_RateLimitExceeded
+     */
+    public function delete($endpoint, $params = array(), $headers = array())
+    {
+        $res = call_user_func(
+            array($this->_api_client, 'call'),
+            $this,
+            $endpoint,
+            'delete',
+            array(),
+            $headers,
+            $this->getUserAgent()
+        );
+
+        $this->_rate_limit = $res['rate_limit'];
+        $this->_rate_limit_remaining = $res['rate_limit_remaining'];
+
+        return $this->handleResponse($res);
+
     }
 }

@@ -54,7 +54,11 @@ $source = new DataSift_Source($user, array(
 
 //create the managed source - note the same method is used to update an existing
 //managed source if an ID is set on the object
+try {
 $source->save();
+} catch (Exception $e) {
+print_r($e->getMessage());
+}
 //after saving the source will have an ID, created at time etc...
 echo 'Created managed source ==> ' . $source->getId();
 
