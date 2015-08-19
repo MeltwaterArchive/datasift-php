@@ -59,8 +59,8 @@ prints the content to the screen as they come in.
 ```
 
 See the DataSift documentation for full details of the data contained within
-each interaction. See this page on our developer site for an example tweet:
-http://dev.datasift.com/docs/targets/twitter/tweet-output-format
+each interaction. See this page on our developer site for an example interaction:
+http://dev.datasift.com/docs/targets/interaction/mapping
 
 
 Contributing
@@ -93,6 +93,8 @@ more details.
 
 Changelog
 ---------
+
+* v.2.2.1 Upgraded the API version to 1.2, removed some obsolete files.
 
 * v.2.2.0 Added support for PYLON, CLI has been added for testing purposes along with some changes to the API client.
 
@@ -153,12 +155,3 @@ Changelog
   NB: the callback functions will be called with an additional parameter which
   gives the hash of the stream that matched the interaction.
 
-* v.1.1.0 Twitter Compliance (2012-02-23)
-
-  The consumer now has an onDeleted method to which you can assign a block
-  that will be called to handle DELETE requests from Twitter. See deletes.php
-  in the examples folder for a sample implementation.
-  (@see http://dev.datasift.com/docs/twitter-deletes)
-
-  NB: if you are storing tweets you must implement this method in your code
-  and take appropriate action to maintain compliance with the Twitter license.

@@ -29,7 +29,7 @@ echo "Creating user...\n";
 $user = new DataSift_User(USERNAME, API_KEY);
 
 //Define some CSDL
-$csdl = 'interaction.content contains "coffee" AND interaction.type == "twitter"';
+$csdl = 'interaction.content contains "coffee" AND interaction.type == "tumblr"';
 
 // Create the stream definition
 $stream_definition = $user->createDefinition($csdl);

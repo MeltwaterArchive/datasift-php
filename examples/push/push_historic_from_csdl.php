@@ -132,14 +132,14 @@ function usage($message = '', $exit = true)
 	echo 'Where: csdl_filename = a file containing the CSDL'.PHP_EOL;
 	echo '       start_date    = the start date for the query (YYYYMMDDHHMMSS)'.PHP_EOL;
 	echo '       end_date      = the end date for the query (YYYYMMDDHHMMSS)'.PHP_EOL;
-	echo '       sources       = comma-separated list of data sources (e.g. twitter)'.PHP_EOL;
+	echo '       sources       = comma-separated list of data sources (e.g. tumblr)'.PHP_EOL;
 	echo '       sample        = the percentage of the data required'.PHP_EOL;
 	echo '       name          = a friendly name for the subscription'.PHP_EOL;
 	echo '       key=val       = output_type-specific arguments'.PHP_EOL;
 	echo PHP_EOL;
 	echo 'Example'.PHP_EOL;
 	echo '       push_historic_from_csdl csdl.txt http 20120801120000 20120801130000 \\'.PHP_EOL;
-	echo '                      twitter 100 \"Push Name\" delivery_frequency=10 \\'.PHP_EOL;
+	echo '                      tumblr 100 \"Push Name\" delivery_frequency=10 \\'.PHP_EOL;
 	echo '                      url=http://www.example.com/push_endpoint auth.type=none'.PHP_EOL;
 	echo PHP_EOL;
 	if ($exit) {

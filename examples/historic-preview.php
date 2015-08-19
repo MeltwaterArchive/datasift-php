@@ -13,7 +13,7 @@ $preview = new DataSift_HistoricPreview($user, array(
 	'start' => time() - 14400, //4hrs ago
 	'end' => time() - 7200, //optional and can be omitted
 	'hash' => '03e12600b2c417347c5028f34ecda005',
-	'parameters' => array('interaction.author.link', 'targetVol', 'hour;twitter.user.lang'),
+	'parameters' => array('interaction.author.link', 'targetVol', 'hour;interaction.author.language'),
 ));
 
 echo "Creating historics preview\n";

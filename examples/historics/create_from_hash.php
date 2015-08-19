@@ -87,13 +87,13 @@ function usage($message = '', $exit = true)
 	echo 'Where: hash    = the stream hash the query should run'.PHP_EOL;
 	echo '       start   = the start date for the query (unix timestamp or parsable string)'.PHP_EOL;
 	echo '       end     = the end date for the query (unix timestamp or parsable string)'.PHP_EOL;
-	echo '       sources = comma separated list of data sources (e.g. twitter)'.PHP_EOL;
+	echo '       sources = comma separated list of data sources (e.g. tumblr)'.PHP_EOL;
 	echo '       name    = a friendly name for the query'.PHP_EOL;
 	echo '       sample  = the sample rate'.PHP_EOL;
 	echo PHP_EOL;
 	echo 'Example'.PHP_EOL;
 	echo '       create_from_hash <hash> \"2012-01-01 00:00:00\" \"2012-01-01 23:59:59\" \\'.PHP_EOL;
-	echo '                      twitter \"historics query 123\" 100'.PHP_EOL;
+	echo '                      tumblr \"historics query 123\" 100'.PHP_EOL;
 	echo PHP_EOL;
 	if ($exit) {
 		exit;
