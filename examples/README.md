@@ -37,14 +37,6 @@ This example does the same as football.php but it uses API calls to get the data
 
     php football-buffered.php
 
-## twitter-track.php
-
-Once upon a time, when the Twitter streaming API was barely out of diapers, they introduced a feature that enabled you to receive everything that mentioned one or more words. This example implements that functionality.
-
-Call the script with the words or phrases you're interested in as command line arguments and it will display matching tweets as they are received.
-
-    php twitter-track.php olympics london2012 "london 2012" "boris johnson" locog
-
 ## historics.php
 
 This script is a utility for calling the individual commands in the historics folder. To use it you pass in your username and API key, followed by the command you want to run and the arguments that command expects.
@@ -58,7 +50,7 @@ This script is a utility for calling the individual commands in the historics fo
    Creates a new historic query from a file containing CSDL. Call this command without any arguments for usage information, or refer to the usage function in the code.
 
         php historics.php your_username your_api_key create_from_csdl \
-            csdl.txt "2012-08-01 12:00:00" "2012-08-01 13:00:00" twitter \
+            csdl.txt "2012-08-01 12:00:00" "2012-08-01 13:00:00" tumblr \
             "nexus 7" 100
 
 * **create\_from\_hash**
@@ -67,7 +59,7 @@ This script is a utility for calling the individual commands in the historics fo
 
         php historics.php your_username your_api_key create_from_hash \
             0a4c11d2e90ddee8483e2c68061cbbf5 "2012-08-01 12:00:00" \
-            "2012-08-01 13:00:00" twitter "nexus 7" 100
+            "2012-08-01 13:00:00" tumblr "nexus 7" 100
 
 * **delete**
 
@@ -130,7 +122,7 @@ This script is a utility for calling the individual commands in the push folder.
   Creates a new Historics query from the supplied CSDL, creates a Push subscription to receive the data, and starts the Historics query.
 
         php push.php your_username your_api_key push_historic_from_csdl \
-            csdl.txt 20120801120000 20120801130000 twitter 100 \
+            csdl.txt 20120801120000 20120801130000 tumblr 100 \
             "Nexus 7 Historic Push" http delivery_frequency=10 \
             url=http://www.example.com/push_endpoint auth.type=none
 

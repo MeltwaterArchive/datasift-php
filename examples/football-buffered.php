@@ -43,7 +43,7 @@ $csdl = 'interaction.content contains "football"';
 echo "Creating definition...\n  $csdl\n";
 $definition = new DataSift_Definition($user, $csdl);
 
-// Get buffered tweets until we've had 10
+// Get buffered interactions until we've had 10
 echo "Getting buffered interactions...\n--\n";
 $num = 10;
 $from_id = false;
