@@ -94,7 +94,7 @@ more details.
 Changelog
 ---------
 
-* v.2.2.1 Upgraded the API version to 1.2, removed some obsolete files.
+* v.2.2.2 Upgraded the API version to 1.2, removed some obsolete files.
 
 * v.2.2.0 Added support for PYLON, CLI has been added for testing purposes along with some changes to the API client.
 
