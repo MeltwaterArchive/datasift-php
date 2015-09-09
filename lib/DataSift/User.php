@@ -483,7 +483,7 @@ class DataSift_User
         switch ($res['response_code']) {
         case 200:
         case 201:
-            if (empty($res['data'])) {
+            if (is_null($res['data'])) {
                 throw new DataSift_Exception_APIError(
                     "Content was expected but nothing was returned (Status: 201 and no data)"
                 );
