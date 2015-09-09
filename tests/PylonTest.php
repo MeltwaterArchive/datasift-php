@@ -83,6 +83,8 @@ class PylonTest extends PHPUnit_Framework_TestCase
 	        		)
 	    		)
 			)
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
 		);
 
 		DataSift_MockApiClient::setResponse($response);
@@ -200,7 +202,9 @@ class PylonTest extends PHPUnit_Framework_TestCase
 	public function testStart(){
 
 		$response = array(
-			'response_code'			=> 204
+			'response_code'			=> 204,
+			'rate_limit' 	        => 200,
+			'rate_limit_remaining' 	=> 150,
 		);
 
 		DataSift_MockApiClient::setResponse($response);
@@ -228,7 +232,9 @@ class PylonTest extends PHPUnit_Framework_TestCase
 	public function testStop(){
 
 		$response = array(
-			'response_code'			=> 204
+			'response_code'			=> 204,
+			'rate_limit' 	        => 200,
+			'rate_limit_remaining' 	=> 150,
 		);
 
 		DataSift_MockApiClient::setResponse($response);
