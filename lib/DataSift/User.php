@@ -482,6 +482,7 @@ class DataSift_User
         $retval = array();
         switch ($res['response_code']) {
         case 200:
+            $retval = $res['data'];
         case 201:
             if (is_null($res['data'])) {
                 throw new DataSift_Exception_APIError(
@@ -489,8 +490,8 @@ class DataSift_User
                 );
             }
         case 202:
-        case 204:
             $retval = $res['data'];
+        case 204:
             break;
         case 400:
             throw new DataSift_Exception_InvalidData(
