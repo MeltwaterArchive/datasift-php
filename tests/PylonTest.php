@@ -82,7 +82,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 	            		'remaining_account_capacity'	=> 927200
 	        		)
 	    		)
-			)
+			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,
 		);
