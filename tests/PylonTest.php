@@ -546,4 +546,24 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$tags = $pylon->tags($hash);
 	}
 
+	public function testEmptyTags(){
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+
+		DataSift_MockApiClient::setResponse($response);
+
+		$pylon = new DataSift_Pylon($this->user);
+
+		$hash = "1a4268c9b924d2c48ed1946d6a7e6272";
+
+		$tags = $pylon->tags($hash);
+
+		$this->assertCount(0, $tags, 'Amount of tags did not match');
+
+	}
+
 }
