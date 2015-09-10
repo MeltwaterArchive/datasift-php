@@ -67,7 +67,7 @@ class DataSift_ApiClient
         $ssl = $user->useSSL();
 
         // Build the full endpoint URL
-        $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). 'v' . $user->getApiVersion() . '/'. $endPoint;
+        $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). $user->getApiVersion() . '/'. $endPoint;
 
         $ch = self::initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs);
         

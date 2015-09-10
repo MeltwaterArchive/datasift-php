@@ -32,12 +32,12 @@ class DataSift_User
     /**
      * @var string The api url of the user.
      */
-    protected $_api_url = '';
+    protected $_api_url = 'api.datasift.com/';
 
     /**
      * @var string The apu url of the user.
      */
-    protected $_stream_url = '';
+    protected $_stream_url = 'stream.datasift.com/';
 
     /**
      * @var string The DataSift username.
@@ -79,7 +79,7 @@ class DataSift_User
      */
     protected $_last_response = array();
 
-    public $apiVersion = 1.2;
+    protected $_api_version = 'v1.2';
 
     /**
      * Constructor. A username and API key are required when constructing an
@@ -96,7 +96,8 @@ class DataSift_User
         $api_key, 
         $use_ssl = true, 
         $debug_mode = false, 
-        $api_url = false, 
+        $api_url = false,
+        $api_version = false,
         $stream_url = false
     ){ 
         if (strlen(trim($username)) == 0) {
@@ -107,15 +108,15 @@ class DataSift_User
             throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
         }
         
-        if (!$api_url) {
-            $this->_api_url = 'api.datasift.com/';
-        } else {
+        if ($api_url) {
             $this->_api_url = $api_url;
         }
+
+        if ($api_version) {
+            $this->_api_version = $api_version;
+        }
         
-        if (!$stream_url) {
-            $this->_stream_url = 'stream.datasift.com/';
-        } else {
+        if ($stream_url) {
             $this->_stream_url = $stream_url;
         }
         
@@ -133,7 +134,7 @@ class DataSift_User
      */
     public function setApiVersion($version)
     {
-        return $this->apiVersion = $version;
+        return $this->_api_version = $version;
     }
 
     /**
@@ -143,7 +144,7 @@ class DataSift_User
      */
     public function getApiVersion()
     {
-        return $this->apiVersion;
+        return $this->_api_version;
     }
 
     /**
