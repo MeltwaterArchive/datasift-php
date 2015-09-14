@@ -67,7 +67,12 @@ class DataSift_ApiClient
         $ssl = $user->useSSL();
 
         // Build the full endpoint URL
-        $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). $user->getApiVersion() . '/'. $endPoint;
+        if ($method == 'ingest') {
+            $url = 'http'.($ssl ? 's' : '').'://'.$user->getIngestUrl() . $endPoint;
+        }
+        else {
+            $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). $user->getApiVersion() . '/'. $endPoint;
+        }
 
         $ch = self::initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs);
         
@@ -117,6 +122,12 @@ class DataSift_ApiClient
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
                 break;
             }
+
+            case 'ingest': {
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+                break;
+            }
         
             case 'get': {
                 curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -140,6 +151,8 @@ class DataSift_ApiClient
         }
 
         $url = self::appendQueryString($url, $qs);
+
+        var_dump($url);
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, true);
