@@ -151,11 +151,12 @@ class DataSift_Pylon
         $res = $user->get('pylon/get', $params);
 
         $retval = array(
-            'analyses' => array()
+            'subscriptions' => array()
         );
         
-        foreach ($res as $pylon) {
-            $retval['analyses'][] = self::fromHash($user, $pylon);
+        foreach ($res['subscriptions'] as $pylon) {
+            $analysis = new DataSift_Pylon($user, $pylon);
+            $retval['subscriptions'][] = $analysis;
         }
         
         return $retval;
