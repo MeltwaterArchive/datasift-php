@@ -29,7 +29,7 @@ prints the content to the screen as they come in.
   require 'lib/datasift.php';
   // Load the library via Composer
   //require '/path/to/vendor/autoload.php';
- 
+
   // An object of this type will receive events
   class EventHandler implements DataSift_IStreamConsumerEventHandler
   {
@@ -94,6 +94,8 @@ more details.
 Changelog
 ---------
 
+* v.2.3.0 The DataSift_Pylon::getAll() method now returns a raw response; added DataSift_Pylon::find and DataSift_Pylon::findAll methods
+
 * v.2.2.2 Upgraded the API version to 1.2, removed some obsolete files.
 
 * v.2.2.0 Added support for PYLON, CLI has been added for testing purposes along with some changes to the API client.
@@ -106,10 +108,10 @@ Changelog
 
 * v.2.1.5 Fixed minor typo in consume-stream.php example. (2013-04-17)
 
-* v.2.1.4 Added support for new Historics field 'estimated_completion'. 
-  
+* v.2.1.4 Added support for new Historics field 'estimated_completion'.
+
   Made API requests default to using SSL.
-  
+
   Modified Historics the 'sample' param. (2013-03-05)
 
 * v.2.1.3 Fixed reconnect issue from server-side disconnects.
