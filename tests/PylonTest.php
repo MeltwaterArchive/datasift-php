@@ -19,7 +19,36 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		DataSift_MockApiClient::setResponse(false);
 	}
 
-	public function testGet(){
+	public function testFind(){
+		$response = array(
+			'response_code' => 200,
+			'data'          => array(
+				'volume'						=> '12300',
+				'start'							=> 1436085514,
+    			'end'							=> 1436089932,
+    			'status'						=> 'stopped',
+    			'name'			 				=> 'birthday sample',
+    			'reached_capacity'				=> false,
+    			'identity_id'					=> '58d783dd98dd6b8bc7a39d73928fa7cf',
+    			'hash'			 				=> '37fdfa811a6fb20785eecb9de9dd2d3e',
+    			'remaining_index_capacity'		=> 1000000,
+    			'remaining_account_capacity'	=> 927200
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+
+		DataSift_MockApiClient::setResponse($response);
+
+        $pylon = new DataSift_Pylon($this->user);
+		$get = $pylon->find($this->user, '37fdfa811a6fb20785eecb9de9dd2d3e');
+
+		$this->assertEquals($get->getHash(), '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
+		$this->assertEquals($get->getName(), 'birthday sample', 'Name did not match');
+
+	}
+
+    public function testGet(){
 		$response = array(
 			'response_code' => 200,
 			'data'          => array(
@@ -44,7 +73,59 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($get['hash'], '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
 		$this->assertEquals($get['name'], 'birthday sample', 'Name did not match');
-		
+
+	}
+
+    public function testFindAll(){
+
+		$response = array(
+			'response_code'	=> 200,
+			'data'			=> array(
+	    		'count' => 2,
+	    		'page'  => 1,
+	    		'pages' => 1,
+	    		'per_page'  => 25,
+	    		'subscriptions' => array(
+	        		array(
+	            		'volume'						=> 12300,
+	            		'start'							=> 1436085514,
+	            		'end'							=> 1436089932,
+	            		'status'						=> 'stopped',
+	            		'name'							=> 'example1',
+	            		'reached_capacity'  			=> false,
+	            		'identity_id'   				=> '58d783dd98dd6b8bc7a39d73928fa7cf',
+	            		'hash'							=> '37fdfa811a6fb20785eecb9de9dd2d3e',
+	            		'remaining_index_capacity'  	=> 998400,
+	            		'remaining_account_capacity'	=> 927200
+	        		),
+	        		array(
+	            		'volume'						=> 14700,
+	            		'start' 						=> 1436087600,
+	            		'end'							=> 1436089999,
+	            		'status'					    => 'stopped',
+	            		'name'							=> 'example2',
+	            		'reached_capacity'				=> false,
+	            		'identity_id'					=> '58d783dd98dd6b8bc7a39d73928fa7cf',
+	            		'hash'							=> '9jrh3nq811a6fb20785eecb9de9dd2d3f',
+	            		'remaining_index_capacity'		=> 986500,
+	            		'remaining_account_capacity'	=> 927200
+	        		)
+	    		)
+			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
+		);
+
+		DataSift_MockApiClient::setResponse($response);
+
+        $pylon = new DataSift_Pylon($this->user);
+		$subscriptions = $pylon->findAll();
+
+		$this->assertCount(2, $subscriptions, 'Expecting 2 subscription arrays');
+		$this->assertEquals($subscriptions[0]->getHash(), '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
+		$this->assertEquals($subscriptions[1]->getHash(), '9jrh3nq811a6fb20785eecb9de9dd2d3f', 'Hash did not match');
+		$this->assertEquals($subscriptions[0]->getName(), 'example1', 'Name did not match');
+
 	}
 
 	public function testGetAll(){
@@ -89,13 +170,13 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		DataSift_MockApiClient::setResponse($response);
 
-		$get = DataSift_Pylon::get($this->user);
+		$get = DataSift_Pylon::getAll($this->user);
 
 		$this->assertCount(2, $get['subscriptions'], 'Expecting 2 subscription arrays');
 		$this->assertEquals($get['subscriptions'][0]['hash'], '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
 		$this->assertEquals($get['subscriptions'][1]['hash'], '9jrh3nq811a6fb20785eecb9de9dd2d3f', 'Hash did not match');
 		$this->assertEquals($get['subscriptions'][0]['name'], 'example1', 'Name did not match');
-		
+
 	}
 
 	public function testCanValidate(){
@@ -128,7 +209,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($validate['created_at'], 1424280706, 'Created at did not match');
 		$this->assertEquals($validate['operator_grouping']['return']['medium'], 5, 'Name did not match');
-		
+
 	}
 
 	public function testFailValidate(){
@@ -150,7 +231,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$csdl = '(fb.contwent any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
 
 		$validate = DataSift_Pylon::validate($this->user, $csdl);
-		
+
 	}
 
 	public function testCanCompile(){
@@ -172,7 +253,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($validate['created_at'], 1424280706, 'Created at did not match');
 		$this->assertEquals($validate['hash'], '1a4268c9b924d2c48ed1946d6a7e6272', 'Name did not match');
-		
+
 	}
 
 	public function testFailCompile(){
@@ -195,8 +276,8 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$pylon = new DataSift_Pylon($this->user);
 
-		$pylon->compile($csdl); 
-		
+		$pylon->compile($csdl);
+
 	}
 
 	public function testStart(){
@@ -214,7 +295,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$hash = '1a4268c9b924d2c48ed1946d6a7e6272';
 
 		$pylon->start($hash, 'My recording name');
-		
+
 	}
 
 	public function testNoHashStart(){
@@ -226,7 +307,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$hash = '';
 
 		$pylon->start($hash, 'My recording name');
-		
+
 	}
 
 	public function testStop(){
@@ -244,7 +325,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$hash = '1a4268c9b924d2c48ed1946d6a7e6272';
 
 		$pylon->stop($hash);
-		
+
 	}
 
 	public function testNoHashStop(){
@@ -256,7 +337,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$hash = '';
 
 		$pylon->stop($hash);
-		
+
 	}
 
 	public function testTimeSeries(){
@@ -360,7 +441,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][0], 'interactions not found in results');
 		$this->assertArrayHasKey('interactions', $analyze['analysis']['results'][1], 'interactions not found in results');
 		$this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][1], 'interactions not found in results');
-		
+
 	}
 
 	public function testAnalyseFilter(){
@@ -521,9 +602,9 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$response = array(
 			'response_code' => 200,
 			'data'          => array(
-				'interaction.tag_tree.automotive.media', 
-				'interaction.tag_tree.motogp.manufacturer', 
-				'interaction.tag_tree.motogp.rider'	
+				'interaction.tag_tree.automotive.media',
+				'interaction.tag_tree.motogp.manufacturer',
+				'interaction.tag_tree.motogp.rider'
 			),
 			'rate_limit'           => 200,
 			'rate_limit_remaining' => 150,

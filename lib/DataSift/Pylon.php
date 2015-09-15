@@ -29,7 +29,7 @@ class DataSift_Pylon
      */
     const ORDERDIR_ASC  = 'asc';
     const ORDERDIR_DESC = 'desc';
-    
+
     /**
      * @var DataSift_User $user The user this DataSift_Pylon belongs to
      */
@@ -71,6 +71,21 @@ class DataSift_Pylon
     private $_volume;
 
     /**
+     * @var boolean Whether this subscription has reached capacity
+     */
+    private $_reached_capacity;
+
+    /**
+     * @var int The remaining capacity for this subscription
+     */
+    private $_remaining_index_capacity;
+
+    /**
+     * @var int The remaining account capacity
+     */
+    private $_remaining_account_capacity;
+
+    /**
      * @var int The time stamp of when this definition was created
      */
     private $_created_at;
@@ -79,7 +94,7 @@ class DataSift_Pylon
      * @var float The amount of interactions recorded
      */
     private $_dpu;
-    
+
     /**
      * Construct the Datasift_Pylon object
      *
@@ -98,6 +113,43 @@ class DataSift_Pylon
     }
 
     /**
+     * Class method to find a Subscription
+     *
+     * @param string $hash
+     *
+     * @return DataSift_Pylon
+     */
+    public function find($hash)
+    {
+        return new self($this->_user, self::get($this->_user, $hash));
+    }
+
+    /**
+     * Class method to find all Subscriptions
+     *
+     * @param string $hash
+     *
+     * @return DataSift_Pylon
+     */
+    public function findAll($page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC)
+    {
+
+        $results = self::getAll($this->_user, $page, $per_page, $order_by, $order_dir);
+
+        if (isset($results['subscriptions'])) { // Cope with pagination
+            $results = $results['subscriptions'];
+        }
+
+        $retval = array();
+
+        foreach ($results as $pylon) {
+            $retval[] = new self($this->_user, $pylon);
+        }
+
+        return $retval;
+    }
+
+    /**
      * Get an existing recordings.
      *
      * @param Datasift_User $user The Datasift user object
@@ -105,16 +157,16 @@ class DataSift_Pylon
      *
      * @throws DataSift_Exception_InvalidData
      *
-     * @return array of existing recordings
+     * @return DataSift_Pylon
      */
-    static public function get($user, $hash=false)
-    {    
+    static public function get($user, $hash = false)
+    {
         $params = array();
-        
+
         if ($hash)  {
             $params['hash'] = $hash;
         }
-        
+
         return $user->get('pylon/get', $params);
     }
 
@@ -122,25 +174,25 @@ class DataSift_Pylon
      * List recordings
      *
      * @param Datasift_User $user The Datasift user object
-     * @param int page The page of recordings to return   
+     * @param int page The page of recordings to return
      * @param int per_page The number of recordings to display per page
      * @param string order_by The field to order the results by
      * @param string order_dir The direction to order the results by (ASC/DESC)
      *
-     * @throws DataSift_Exception_InvalidData     
+     * @throws DataSift_Exception_InvalidData
      *
-     * @return array of existing recordings
-     */ 
+     * @return array
+     */
     static public function getAll($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC)
     {
         if ($page < 1) {
             throw new DataSift_Exception_InvalidData("The specified page number is invalid");
         }
-        
+
         if ($per_page < 1) {
             throw new DataSift_Exception_InvalidData("The specified per_page value is invalid");
         }
-        
+
         $params = array(
             'page' => $page,
             'per_page' => $per_page,
@@ -148,17 +200,7 @@ class DataSift_Pylon
             'order_dir' => $order_dir,
         );
 
-        $res = $user->get('pylon/get', $params);
-
-        $retval = array(
-            'analyses' => array()
-        );
-        
-        foreach ($res as $pylon) {
-            $retval['analyses'][] = self::fromHash($user, $pylon);
-        }
-        
-        return $retval;
+        return $user->get('pylon/get', $params);
     }
 
 
@@ -184,7 +226,7 @@ class DataSift_Pylon
      * @return DataSift_Pylon
      */
     static public function fromHash($user, $hash)
-    {    
+    {
         return new self($user, self::get($user, $hash));
     }
 
@@ -196,7 +238,7 @@ class DataSift_Pylon
      * @throws DataSift_Exception_InvalidData
      */
     private function load($data)
-    {    
+    {
         if (empty($data)) {
             throw new DataSift_Exception_InvalidData('No data found');
         }
@@ -213,7 +255,7 @@ class DataSift_Pylon
      * @throws DataSift_Exception_InvalidData
      */
     public function reload()
-    {    
+    {
         if (strlen($this->_hash) == 0) {
             throw new DataSift_Exception_InvalidData('Unable to reload pylon without a hash');
         }
@@ -251,7 +293,17 @@ class DataSift_Pylon
     public function setName($name)
     {
         $this->_name = trim($name);
-    }    
+    }
+
+    /**
+     * Gets the name of this Subscription
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
 
     /**
      * Gets the Hash
@@ -264,6 +316,86 @@ class DataSift_Pylon
     }
 
     /**
+     * Gets the current volume of this PYLON subscription
+     *
+     * @return integer
+     */
+    public function getVolume()
+    {
+        return $this->_volume;
+    }
+
+    /**
+     * Gets the status of this PYLON subscription
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+
+    /**
+     * Gets the id of the Identity this PYLON subscription is owned by
+     *
+     * @return string
+     */
+    public function getIdentityId()
+    {
+        return $this->_identity_id;
+    }
+
+    /**
+     * Gets the start time of this PYLON subscription
+     *
+     * @return integer
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Gets the end time of this PYLON subscription
+     *
+     * @return integer
+     */
+    public function getEnd()
+    {
+        return $this->_end;
+    }
+
+    /**
+     * Gets the remaining capacity for this PYLON subscription
+     *
+     * @return integer
+     */
+    public function getRemainingIndexCapacity()
+    {
+        return $this->_remaining_index_capacity;
+    }
+
+    /**
+     * Gets the remaining PYLON account capacity
+     *
+     * @return integer
+     */
+    public function getRemainingAccountCapacity()
+    {
+        return $this->_remaining_account_capacity;
+    }
+
+    /**
+     * Has this Subscription reached its capacity?
+     *
+     * @return boolean
+     */
+    public function hasReachedCapacity()
+    {
+        return $this->_reached_capacity;
+    }
+
+    /**
      * Compiles the CSDL of this object
      *
      * @param string $csdl If a CSDL string is passed to compile it will set the CSDL for the object
@@ -272,7 +404,7 @@ class DataSift_Pylon
      *
      */
     public function compile($csdl = false)
-    {    
+    {
         if ($csdl) {
             $this->_csdl = $csdl;
         }
@@ -297,22 +429,22 @@ class DataSift_Pylon
      *
      */
     public function start($hash = false, $name = false)
-    {    
+    {
         if ($hash) {
             $this->_hash = $hash;
         }
-        
+
         if ($name) {
             $this->_name = $name;
         }
-        
+
         if (strlen($this->_hash) == 0) {
             throw new DataSift_Exception_InvalidData('Cannot start a recording without a hash');
         }
 
         $params = array('hash' => $this->_hash);
-        
-        if (!empty($this->_name)) 
+
+        if (!empty($this->_name))
         {
             $params['name'] = $this->_name;
         }
@@ -326,15 +458,15 @@ class DataSift_Pylon
      * @param string $hash If hash is provided it will be set
      */
     public function stop($hash = false)
-    {    
+    {
         if ($hash) {
             $this->_hash = $hash;
         }
-        
+
         if (strlen($this->_hash) == 0) {
             throw new DataSift_Exception_InvalidData('Cannot stop a recording without a hash');
         }
-        
+
         $this->_user->post('pylon/stop', array('hash' => $this->_hash));
     }
 
@@ -351,16 +483,16 @@ class DataSift_Pylon
      * @return array Response from the compile
      */
     public function analyze($parameters, $filter = false, $start = false, $end = false, $hash = false)
-    {    
+    {
         if ($hash) {
             $this->_hash = $hash;
         }
-        
+
         //If parameters is not an array try and decode it
         if (!is_array($parameters)) {
             $parameters = json_decode($parameters);
         }
-        
+
         if (empty($parameters)) {
             throw new DataSift_Exception_InvalidData('Parameters must be supplied as an array or valid JSON');
         }
@@ -373,11 +505,11 @@ class DataSift_Pylon
         if ($filter) {
             $params['filter'] = $filter;
         }
-        
+
         if ($start) {
             $params['start'] = $start;
         }
-        
+
         if ($end) {
             $params['end'] = $end;
         }
@@ -393,15 +525,15 @@ class DataSift_Pylon
      * @return array Response from the tags endpoint
      */
     public function tags($hash=false)
-    {    
+    {
         if ($hash) {
             $this->_hash = $hash;
         }
-        
+
         if (strlen($this->_hash) == 0) {
             throw new DataSift_Exception_InvalidData('Unable to analyze tags without a hash');
         }
-        
+
         return $this->_user->get('pylon/tags', array('hash' => $this->_hash));
     }
 
