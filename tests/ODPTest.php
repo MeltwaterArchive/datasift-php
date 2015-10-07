@@ -12,8 +12,8 @@ class OdpTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		require_once(dirname(_FILE_).'/../lib/datasift.php');
-		require_once(dirname(_FILE_).'/../config.php');
+		require_once(dirname(__FILE__).'/../lib/datasift.php');
+		require_once(dirname(__FILE__).'/../config.php');
 		$this->user = new DataSift_User(USERNAME, API_KEY);
 		$this->user->setApiClient('DataSift_MockApiClient');
 		//$this->odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
