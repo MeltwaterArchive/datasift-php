@@ -1,4 +1,5 @@
 <?php
+
 if (function_exists('date_default_timezone_set')){
 	date_default_timezone_set('UTC');
 }
@@ -7,6 +8,7 @@ class OdpTest extends PHPUnit_Framework_TestCase
 {
 	protected $user = false;
 	protected $source_id = false;
+	protected $odp = false;
 
 	protected function setUp()
 	{
@@ -14,74 +16,58 @@ class OdpTest extends PHPUnit_Framework_TestCase
 		require_once(dirname(_FILE_).'/../config.php');
 		$this->user = new DataSift_User(USERNAME, API_KEY);
 		$this->user->setApiClient('DataSift_MockApiClient');
-		$this->$odp = new DataSift_ODP($user, $source_id, $data_set);
+		//$this->odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
 		DataSift_MockApiClient::setResponse(false);
 	}
 
 	public function testSourceLength(){
+		$odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
 
-		$source_id= '1f1be6565a1d4ef38f9f4aeec9554440'
-
-		$setSource = DataSift_ODP::setSourceId($this->user, $source_id);
-
-		$this->assertCount(32, $source_id, 'Hash does not meet the required length');
-	}
-
-	public function testDataIsJson(){
-		
-		$data = array(
- 			array('id' => '234',
- 				'body' => 'yo'), array(
- 				'id' => '898',
- 				'body' => 'hey'));
-		
-
-		$getSource = DataSift_ODP::get($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
-
-		$this->assertJsonStringEqualsJsonString({{"id": "234", "body": "yo"},{"id": "898", "body": "hey"}}, json_encode($data), 'Data doesnt appear to be JSON');
+		$this->assertEquals($odp->getSourceId(), '1f1be6565a1d4ef38f9f4aeec9554440', 'Hash does not meet the required length');
 	}
 
 	public function testNoSource(){
-		$odp = new DataSift_ODP($this->user);
+		$odp = new DataSift_ODP($this->user, '');
 
 		$this->setExpectedException('DataSift_Exception_InvalidData');
 
-		$source_id = '';
+		$data_set = '[{"id": "234", "body": "yo"}]';
 
-		$odp->ingest($source_id);
+		$odp->ingest($data_set);
+	}
+
+	public function testNoData(){
+		$odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
+
+		$this->setExpectedException('DataSift_Exception_InvalidData');
+
+		$data_set = '';
+
+		$odp->ingest($data_set);
 	}
 
 	public function testIngest(){
 		$response = array(
-			'Cache-Control' => 'private',
-			'Content-Type' => 'application/json',
-			'Server' => 'DataSift Ingestion/1.0',
-			'Content-Length' => '64',
-			'Ingestion-Data-Ratelimit-Reset' => '0',
-			'Ingestion-Request-Ratelimit-Limit' => '10000',
-			'Ingestion-Request-Ratelimit-Reset' => '0',
-			'Ingestion-Data-Ratelimit-Remaining' => '614400',
-			'Ingestion-Request-Ratelimit-Reset-Ttl' => '1443176541',
-			'Ingestion-Data-Ratelimit-Reset-Ttl' => '1443176541',
-			'Ingestion-Data-Ratelimit-Limit' => '614400',
-			'Ingestion-Request-Ratelimit-Remaining' => '10000',
-			'Strict-Transport-Security' => 'max-age=31536000'
+			'response_code' => 200,
+			'data' => array(
+			'accepted' => 1,
+			'total_message_bytes' => 1788,
+			),
 		);
 
 		DataSift_MockApiClient::setResponse($response);
 
-		$data = array(
- 			array('id' => '234',
- 				'body' => 'yo'), array(
- 				'id' => '898',
- 				'body' => 'hey'));
+		$data_set = '[{"id": "234", "body": "yo"}]';
 
-		$hash = '1f1be6565a1d4ef38f9f4aeec9554440'
+		$source_id = '1f1be6565a1d4ef38f9f4aeec9554440';
 
-		$ingest = DataSift_ODP::ingest($this->user, $hash, $data);
+		//$ingest = DataSift_ODP::ingest($this->user, $source_id)->ingest($data_set);
 
-		$this->assertEquals($ingest['source_id'], $hash, 'Hash did not match');
-		$this->assertEquals($ingest['data'], $data, 'Data not valid');
+		$ingest = new DataSift_ODP($this->user, $source_id);
+		$response = $ingest->ingest($data_set);
+
+
+		$this->assertEquals($response['accepted'], 1, 'Not accepted');
 		
 	}
 }

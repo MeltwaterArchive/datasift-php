@@ -28,24 +28,18 @@ class DataSift_ODP
 	*/
 	private $_source_id;
 
-	/**
-	* @var the data set being sent
-	*/
-	private $_data_set;
-
 
 	/**
 	* Construct the DataSift_ODP user object
 	*
 	* @param DataSift_User $user The Datasift user object
-	* @param array $data Data used to populate the attributes of this object
+	* @param String $source_ID The managed source ID used for ODP
 	*
 	*/
-	public function __construct($user, $source_id, $data_set = array())
+	public function __construct($user, $source_id)
 	{
 		$this->_user = $user;
 		$this->_source_id = $source_id;
-		$this->_data_set = $data_set;
 	}
 
 	/**
@@ -69,41 +63,19 @@ class DataSift_ODP
 	}
 
 	/**
-	* Sets the Data Set to be sent
-	*
-	* @param string $data_set the Managed Source ID
-	*/
-	public function setParams($data_set)
-	{
-		$this->_data_set = $data_set;
-	}
-
-	/**
-	* Gets the Data Set
-	*
-	* @return string The Data to be sent in the curl request
-	*/
-	public function getParams()
-	{
-		return $this->_data_set;
-	}
-
-	/**
 	* Generates a curl request to the Ingestion Endpoint 
 	*/
-	public function ingest()
+	public function ingest($data_set)
 	{
 		if (strlen($this->_source_id) == 0) {
-			echo new DataSift_Exception_InvalidData('Cannot initiate curl request without a source ID');
+			throw new DataSift_Exception_InvalidData('Cannot initiate curl request without a source ID');
 		}
-		$data = '';
-		foreach ($this->getParams() as $param) {
-			$data .= json_encode($param)."\n";
+
+		if (empty($data_set)) {
+			throw new DataSift_Exception_InvalidData('Cannot initiate curl request without a valid data set');
 		}
 		
-		return $this->_user->ingest($this->getSourceId(), $data);
+		return $this->_user->ingest($this->getSourceId(), $data_set);
 	}
 }
-
-
 ?>
