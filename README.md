@@ -29,7 +29,7 @@ prints the content to the screen as they come in.
   require 'lib/datasift.php';
   // Load the library via Composer
   //require '/path/to/vendor/autoload.php';
- 
+
   // An object of this type will receive events
   class EventHandler implements DataSift_IStreamConsumerEventHandler
   {
