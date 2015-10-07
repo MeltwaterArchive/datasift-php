@@ -53,6 +53,8 @@ class OdpTest extends PHPUnit_Framework_TestCase
 			'accepted' => 1,
 			'total_message_bytes' => 1788,
 			),
+			'rate_limit'           => 200,
+			'rate_limit_remaining' => 150,
 		);
 
 		DataSift_MockApiClient::setResponse($response);
