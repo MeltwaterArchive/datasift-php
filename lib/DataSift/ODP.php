@@ -19,7 +19,7 @@
 class DataSift_ODP
 {
 	/**
-	* @var DataSIft_User $user The user this DataSift_ODP belong to
+	* @var DataSift_User $user The user this DataSift_ODP belong to
 	*/
 	private $_user;
 
