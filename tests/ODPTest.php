@@ -16,7 +16,6 @@ class OdpTest extends PHPUnit_Framework_TestCase
 		require_once(dirname(__FILE__).'/../config.php');
 		$this->user = new DataSift_User(USERNAME, API_KEY);
 		$this->user->setApiClient('DataSift_MockApiClient');
-		//$this->odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
 		DataSift_MockApiClient::setResponse(false);
 	}
 
@@ -63,11 +62,8 @@ class OdpTest extends PHPUnit_Framework_TestCase
 
 		$source_id = '1f1be6565a1d4ef38f9f4aeec9554440';
 
-		//$ingest = DataSift_ODP::ingest($this->user, $source_id)->ingest($data_set);
-
 		$ingest = new DataSift_ODP($this->user, $source_id);
 		$response = $ingest->ingest($data_set);
-
 
 		$this->assertEquals($response['accepted'], 1, 'Not accepted');
 		
