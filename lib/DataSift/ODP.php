@@ -68,14 +68,14 @@ class DataSift_ODP
 	public function ingest($data_set)
 	{
 		if (strlen($this->_source_id) == 0) {
-			throw new DataSift_Exception_InvalidData('Cannot initiate curl request without a source ID');
+			throw new DataSift_Exception_InvalidData('Cannot make request without a source ID');
 		}
 
 		if (empty($data_set)) {
-			throw new DataSift_Exception_InvalidData('Cannot initiate curl request without a valid data set');
+			throw new DataSift_Exception_InvalidData('Cannot make request without a valid data set');
 		}
 		
-		return $this->_user->ingest($this->getSourceId(), $data_set);
+		return $this->_user->post($this->getSourceId(), $data_set, array(), true);
 	}
 }
 ?>

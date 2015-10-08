@@ -544,35 +544,6 @@ class DataSift_User
     }
 
     /**
-     * Make a call to a DataSift ingestion endpoint.
-     *
-     * @param string $endpoint The endpoint of the API call.
-     * @param array  $params   The parameters to be passed along with the request.
-     *
-     * @return array The response from the server.
-     * @throws DataSift_Exception_APIError
-     * @throws DataSift_Exception_RateLimitExceeded
-     */
-    public function ingest($endpoint, $params = array(), $headers = array())
-    {
-        $res = call_user_func(
-            array($this->_api_client, 'call'),
-            $this,
-            $endpoint,
-            'ingest',
-            $params,
-            $headers,
-            $this->getUserAgent()
-        );
-
-        $this->_rate_limit = $res['rate_limit'];
-        $this->_rate_limit_remaining = $res['rate_limit_remaining'];
-
-        return $this->handleResponse($res);
-
-    }
-
-    /**
      * Make a call to a DataSift API endpoint.
      *
      * @param string $endpoint The endpoint of the API call.
@@ -582,8 +553,8 @@ class DataSift_User
      * @throws DataSift_Exception_APIError
      * @throws DataSift_Exception_RateLimitExceeded
      */
-    public function post($endpoint, $params = array(), $headers = array())
-    {
+    public function post($endpoint, $params = array(), $headers = array(), $ingest = false)
+    {   
         $res = call_user_func(
             array($this->_api_client, 'call'),
             $this,
@@ -591,7 +562,9 @@ class DataSift_User
             'post',
             $params,
             $headers,
-            $this->getUserAgent()
+            $this->getUserAgent(),
+            array(),
+            $ingest
         );
 
         $this->_rate_limit = $res['rate_limit'];
