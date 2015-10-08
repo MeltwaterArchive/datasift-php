@@ -18,30 +18,49 @@
 
  // Autheticate 
  echo "Creating user...\n";
- $user = new DataSift_User(USERNAME, API_KEY);
+ $user = new DataSift_User('USER', 'API');
+
+// Setting up the specific resources of the Managed Source
+$ODPex = new stdClass();
+$ODPex->parameters = new stdClass();
+$ODPex->parameters->category = '6d2420bffa3d4fda9a85ccb47f626890_1';
+$ODPex->parameters->idml = "web.link = id\r\nweb.content = body";
+
+$resources = array($ODPex);
 
 // Create new ODP Managed Source
 $source = new DataSift_Source($user, array(
 			'name' => 'My ODP Managed Source',
 			'source_type' => 'custom',
-			'resources' => 'parameters' = array('category' => '6d2420bffa3d4fda9a85ccb47f626890_1', 'idml' => 'web.link = id\r\nweb.content = body')
-			'auth' => 'USER:API'
+			'resources' => $resources,
 			));
+
+try {
+	$source->save();
+} catch (Exception $e) {
+	print_r($e->getMessage());
+}
 
 // Assign the Source ID to a vaiable
 $source_id = $source->getId();
 
-// Preapre data to be sent to Ingestion Endpoint
-// $data_set = 'cat /tmp/my_private_data.json';
-
- $data_set = array(
+// Setting up a data set array to send to the endpoint
+ $data = array(
  	array('id' => '234',
  			'body' => 'yo'), array(
  			'id' => '898',
  			'body' => 'hey'));
 
- // Create the ODP object
- $odp = new DataSift_ODP($user, $source_id, $data_set);
- //$odp->ingestOdp();
-var_dump($odp->ingest());
+$data_set = "";
+
+ foreach ($data as $entry) {
+ 	$data_set .= json_encode($entry) ."\n";
+ }
+
+// Create the ODP object
+$odp = new DataSift_ODP($user, $source_id);
+
+// Use the ingest function and make an API request
+$response = $odp->ingest($data_set);
+var_dump($response);
 ?>
