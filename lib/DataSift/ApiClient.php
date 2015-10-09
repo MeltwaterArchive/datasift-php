@@ -46,7 +46,8 @@ class DataSift_ApiClient
         $params = array(),
         $headers = array(),
         $userAgent = DataSift_User::USER_AGENT,
-        $qs = array()
+        $qs = array(),
+        $ingest = false
     ) {
         $decodeCode = array(
             self::HTTP_OK, self::HTTP_NO_CONTENT
@@ -67,9 +68,14 @@ class DataSift_ApiClient
         $ssl = $user->useSSL();
 
         // Build the full endpoint URL
-        $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). $user->getApiVersion() . '/'. $endPoint;
+        if ($ingest) {
+            $url = 'http'.($ssl ? 's' : '').'://'.$user->getIngestUrl() . $endPoint;
+        }
+        else {
+            $url = 'http'.($ssl ? 's' : '').'://'.$user->getApiUrl(). $user->getApiVersion() . '/'. $endPoint;
+        }
 
-        $ch = self::initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs);
+        $ch = self::initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs, $ingest);
         
         $res = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -107,14 +113,14 @@ class DataSift_ApiClient
      * @return resource The cURL resource
      * @throws DataSift_Exception_NotYetImplemented
      */
-    static private function initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs)
+    static private function initialize($method, $ssl, $url, $headers, $params, $userAgent, $qs, $raw = false)
     {
         $ch = curl_init();
 
         switch (strtolower($method)) {
             case 'post': {
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+                curl_setopt($ch, CURLOPT_POSTFIELDS, ($raw ? $params : json_encode($params)));
                 break;
             }
         
