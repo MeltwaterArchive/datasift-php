@@ -10,15 +10,15 @@
  * @link      http://www.mediasift.com
  */
 
- // Include the DataSift library
- require dirname(_FILE_) . '/../lib/datasift.php';
+// Include the DataSift library
+require dirname(_FILE_) . '/../lib/datasift.php';
 
 // Include the configuration - put your username and API key in this file
- require dirname(_FILE_) . '/../config.php';
+require dirname(_FILE_) . '/../config.php';
 
- // Autheticate 
- echo "Creating user...\n";
- $user = new DataSift_User('USER', 'API');
+// Autheticate 
+echo "Creating user...\n";
+$user = new DataSift_User('USER', 'API');
 
 // Setting up the specific resources of the Managed Source
 $ODPex = new stdClass();
@@ -46,16 +46,21 @@ $source_id = $source->getId();
 
 // Setting up a data set array to send to the endpoint
  $data = array(
- 	array('id' => '234',
- 			'body' => 'yo'), array(
- 			'id' => '898',
- 			'body' => 'hey'));
+ 	array(
+ 		'id' => '234',
+ 		'body' => 'yo'
+ 	),
+ 	array(
+ 		'id' => '898',
+ 		'body' => 'hey'
+ 	)
+ );
 
 $data_set = "";
 
- foreach ($data as $entry) {
- 	$data_set .= json_encode($entry) ."\n";
- }
+foreach ($data as $entry) {
+	$data_set .= json_encode($entry) ."\n";
+}
 
 // Create the ODP object
 $odp = new DataSift_ODP($user, $source_id);
