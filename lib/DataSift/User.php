@@ -35,6 +35,11 @@ class DataSift_User
     protected $_api_url = 'api.datasift.com/';
 
     /**
+     * @var string The ingestion url of the user.
+     */
+    protected $_ingest_url = 'in.datasift.com/';
+
+    /**
      * @var string The apu url of the user.
      */
     protected $_stream_url = 'stream.datasift.com/';
@@ -98,7 +103,8 @@ class DataSift_User
         $debug_mode = false, 
         $api_url = false,
         $api_version = false,
-        $stream_url = false
+        $stream_url = false,
+        $ingest_url = false
     ){ 
         if (strlen(trim($username)) == 0) {
             throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
@@ -118,6 +124,10 @@ class DataSift_User
         
         if ($stream_url) {
             $this->_stream_url = $stream_url;
+        }
+
+        if ($ingest_url) {
+            $this->_ingest_url = $ingest_url;
         }
         
         $this->_username     = $username;
@@ -439,6 +449,16 @@ class DataSift_User
     }
 
     /**
+     * Returns stream URL.
+     *
+     * @return string
+     */
+    public function getIngestUrl()
+    {
+        return $this->_ingest_url;
+    }
+
+    /**
      * getLastResponse
      * 
      * @return array
@@ -533,8 +553,8 @@ class DataSift_User
      * @throws DataSift_Exception_APIError
      * @throws DataSift_Exception_RateLimitExceeded
      */
-    public function post($endpoint, $params = array(), $headers = array())
-    {
+    public function post($endpoint, $params = array(), $headers = array(), $ingest = false)
+    {   
         $res = call_user_func(
             array($this->_api_client, 'call'),
             $this,
@@ -542,7 +562,9 @@ class DataSift_User
             'post',
             $params,
             $headers,
-            $this->getUserAgent()
+            $this->getUserAgent(),
+            array(),
+            $ingest
         );
 
         $this->_rate_limit = $res['rate_limit'];
