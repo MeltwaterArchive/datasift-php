@@ -1,5 +1,9 @@
 Changelog
 =========================
+##v.2.4.1
+###Fixed
+* Fixed being able to search for identities by label
+
 ##v.2.4.0
 ###Added
 * Support for Open Data Processing
