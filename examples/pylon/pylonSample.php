@@ -38,4 +38,4 @@ $count = 10;
 
 $sample = $pylon->sample($filter, $start, $end, $count);
 
-echo "Sample created successfully"
+echo "Sample created successfully";
