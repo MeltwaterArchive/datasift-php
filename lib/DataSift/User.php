@@ -27,7 +27,7 @@
  */
 class DataSift_User
 {
-    const USER_AGENT      = 'DataSiftPHP/2.4.1';
+    const USER_AGENT = 'DataSiftPHP/2.5.0';
 
     /**
      * @var string The api url of the user.
@@ -97,15 +97,15 @@ class DataSift_User
      * @throws DataSift_Exception_InvalidData
      */
     public function __construct(
-        $username, 
-        $api_key, 
-        $use_ssl = true, 
-        $debug_mode = false, 
+        $username,
+        $api_key,
+        $use_ssl = true,
+        $debug_mode = false,
         $api_url = false,
         $api_version = false,
         $stream_url = false,
         $ingest_url = false
-    ){ 
+    ){
         if (strlen(trim($username)) == 0) {
             throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
         }
@@ -113,7 +113,7 @@ class DataSift_User
         if (strlen(trim($api_key)) == 0) {
             throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
         }
-        
+
         if ($api_url) {
             $this->_api_url = $api_url;
         }
@@ -121,7 +121,7 @@ class DataSift_User
         if ($api_version) {
             $this->_api_version = $api_version;
         }
-        
+
         if ($stream_url) {
             $this->_stream_url = $stream_url;
         }
@@ -129,7 +129,7 @@ class DataSift_User
         if ($ingest_url) {
             $this->_ingest_url = $ingest_url;
         }
-        
+
         $this->_username     = $username;
         $this->_api_key      = $api_key;
         $this->_use_ssl      = $use_ssl;
@@ -138,7 +138,7 @@ class DataSift_User
 
     /**
      * setApiVersion
-     * 
+     *
      * @param string $version
      * @return string
      */
@@ -149,7 +149,7 @@ class DataSift_User
 
     /**
      * getApiVersion
-     * 
+     *
      * @return string
      */
     public function getApiVersion()
@@ -170,7 +170,7 @@ class DataSift_User
         if (!class_exists($api_client) || !method_exists($api_client, 'call')) {
             throw new DataSift_Exception_InvalidData('Class "'.$api_client.'" does not exist');
         }
-        
+
         $this->_api_client = $api_client;
     }
 
@@ -386,10 +386,10 @@ class DataSift_User
      * @throws DataSift_Exception_AccessDenied
      */
     public function listPushSubscriptions(
-        $page = 1, 
-        $per_page = 100, 
-        $order_by = DataSift_Push_Subscription::ORDERBY_CREATED_AT, 
-        $order_dir = DataSift_Push_Subscription::ORDERDIR_ASC, 
+        $page = 1,
+        $per_page = 100,
+        $order_by = DataSift_Push_Subscription::ORDERBY_CREATED_AT,
+        $order_dir = DataSift_Push_Subscription::ORDERDIR_ASC,
         $include_finished = false
     ) {
         return DataSift_Push_Subscription::listSubscriptions($this, $page, $per_page, $order_by, $order_dir, $include_finished);
@@ -409,9 +409,9 @@ class DataSift_User
      * @throws DataSift_Exception_APIError
      */
     public function getPushSubscriptionLogs(
-        $page = 1, 
-        $per_page = 100, 
-        $order_by = DataSift_Push_Subscription::ORDERBY_REQUEST_TIME, 
+        $page = 1,
+        $per_page = 100,
+        $order_by = DataSift_Push_Subscription::ORDERBY_REQUEST_TIME,
         $order_dir = DataSift_Push_Subscription::ORDERDIR_DESC
     ) {
         return DataSift_Push_Subscription::getLogs($this, $page, $per_page, $order_by, $order_dir);
@@ -460,22 +460,22 @@ class DataSift_User
 
     /**
      * getLastResponse
-     * 
+     *
      * @return array
      * @throws Exception
      */
     public function getLastResponse()
-    {    
+    {
         if (!$this->_debug) {
             throw new Exception("Datasift user object must be set to debug mode to use this method", 1);
         }
-        
+
         return $this->_last_response;
     }
 
     /**
      * setLastResponse
-     * 
+     *
      * @param array $last_response
      * @throws Exception
      */
@@ -484,13 +484,13 @@ class DataSift_User
         if (!$this->_debug) {
             throw new Exception("Datasift user object must be set to debug mode to use this method", 1);
         }
-        
+
         $this->_last_response = $last_response;
     }
 
     /**
      * getDebug
-     * 
+     *
      * @return boolean
      */
     public function getDebug()
@@ -499,7 +499,7 @@ class DataSift_User
     }
 
     private function handleResponse($res)
-    {   
+    {
         $retval = array();
         switch ($res['response_code']) {
         case 200:
@@ -554,7 +554,7 @@ class DataSift_User
      * @throws DataSift_Exception_RateLimitExceeded
      */
     public function post($endpoint, $params = array(), $headers = array(), $ingest = false)
-    {   
+    {
         $res = call_user_func(
             array($this->_api_client, 'call'),
             $this,

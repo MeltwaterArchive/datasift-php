@@ -537,4 +537,47 @@ class DataSift_Pylon
         return $this->_user->get('pylon/tags', array('hash' => $this->_hash));
     }
 
+    /**
+     * Returns a list of sample interactions (super-public)
+     *
+     * @param Datasift_User $user The Datasift user object
+     * @param string $hash The hash of the existing pylon
+     * @param string $filter additional CSDL filter
+     * @param int $start the start time of the pylon
+     * @param int $end the end time of the pylon
+     * @param int $count optional value to set the count
+     *
+     * @throws DataSift_Exception_InvalidData
+     *
+     * @return DataSift_Pylon
+     */
+    public function sample($filter = false, $start = false, $end = false, $count = false, $hash = false)
+    {
+        if ($hash) {
+            $this->_hash = $hash;
+        }
+        if (strlen($this->_hash) == 0) {
+            throw new DataSift_Exception_InvalidData('Unable to start sample without a hash');
+        }
+        $params = array('hash' => $this->_hash);
+
+        if ($start) {
+            $params['start'] = $start;
+        }
+
+        if ($end) {
+            $params['end'] = $end;
+        }
+
+        if ($count) {
+            $params['count'] = $count;
+        }
+
+        if ($filter) {
+            $params['filter'] = $filter;
+            return $this->_user->post('pylon/sample', $params);
+        } else {
+            return $this->_user->get('pylon/sample', $params);
+        }
+    }
 }
