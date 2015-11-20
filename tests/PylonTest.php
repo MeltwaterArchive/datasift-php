@@ -653,4 +653,50 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 	}
 
+	public function testSample(){
+		$response = array(
+			'response_code' => 200,
+			'data' => array(
+				'interactions' => array(
+					'interaction' => array(
+						'subtype' => 'reshare',
+						'content' => 'baz the map could'),
+					'fb' => array(
+						'media_type' => 'post',
+						'content' => 'baz the map could, ',
+						'language' => 'en',
+						'topics_ids' => 565634324
+					)
+				)
+			),
+			'rate_limit' => 200,
+			'rate_limit_remaining' => 150
+		);
+
+		DataSift_MockApiClient::setResponse($response);
+
+		$pylon = new DataSift_Pylon($this->user, array('hash' => '1a4268c9b924d2c48ed1946d6a7e6272'));
+
+		$filter = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
+		$start = 1445209200;
+		$end = 1445274000;
+		$count = 10;
+
+		$sample = $pylon->sample($filter, $start, $end, $count);
+
+		$this->assertEquals($sample['interactions']['fb']['content'], 'baz the map could, ', 'Interaction content didnt match');
+	}
+
+	public function testNoHash(){
+		$pylon = new DataSift_Pylon($this->user, array('hash' => ''));
+
+		$this->setExpectedException('DataSift_Exception_InvalidData');
+
+		$filter = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
+		$start = 1445209200;
+		$end = 1445274000;
+		$count = 10;
+
+		$pylon->sample($filter, $start, $end, $count);
+	}
 }

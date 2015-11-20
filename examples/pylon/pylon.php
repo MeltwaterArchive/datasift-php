@@ -12,10 +12,10 @@
  */
 
 // Include the DataSift library
-require dirname(__FILE__) . '/../lib/datasift.php';
+require dirname(__FILE__) . '/../../lib/datasift.php';
 
 // Include the configuration - put your username and API key in this file
-require dirname(__FILE__) . '/../config.php';
+require dirname(__FILE__) . '/../../config.php';
 
 // Authenticate
 echo "Creating user...\n";
@@ -38,7 +38,7 @@ $pylon->setName($pylon_name);
 //Add CSDL to the PYLON
 $pylon->setCsdl($csdl);
 
-$pylon->compile(); 
+$pylon->compile();
 
 //Start the pylon
 $pylon->start();
