@@ -1,5 +1,9 @@
 Changelog
 =========================
+##v.2.5.1
+###Fixed
+* Fixed an issue with ```DataSift_Pylon::getStart```.
+
 ## v.2.5.0
 ### Added
 * Support for the [/pylon/sample API endpoint](http://dev.datasift.com/pylon/docs/api/pylon-api-endpoints/pylonsample)
