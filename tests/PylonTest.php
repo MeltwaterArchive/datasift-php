@@ -699,4 +699,55 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$pylon->sample($filter, $start, $end, $count);
 	}
+
+    /**
+     * DataProvider for testGetters
+     *
+     * @return array
+     */
+    public function gettersProvider()
+    {
+        return array(
+            'Happy Path' => array(
+                'data' => array(
+                    'identity_id' => 'def456def456def456def456def456de',
+                    'start' => 123456789,
+                    'name' => 'testName',
+                    'status' => 'running',
+                    'hash' => 'abc123abc123abc123abc123abc123ab',
+                    'volume' => 123456,
+                    'remaining_account_capacity' => 23456,
+                    'remaining_index_capacity' => 34567,
+                    'reached_capacity' => true
+                ),
+                'expectedGetters' => array(
+                    'getIdentityId' => 'def456def456def456def456def456de',
+                    'getStart' => 123456789,
+                    'getName' => 'testName',
+                    'getStatus' => 'running',
+                    'getHash' => 'abc123abc123abc123abc123abc123ab',
+                    'getVolume' => 123456,
+                    'getRemainingAccountCapacity' => 23456,
+                    'getRemainingIndexCapacity' => 34567,
+                    'hasReachedCapacity' => true
+                )
+            )
+        );
+    }
+
+    /**
+     * Tests the getters on the DataSift_Pylon class
+     *
+     * @dataProvider gettersProvider
+     *
+     * @param array $data
+     * @param array $expectedGetters
+     */
+    public function testGetters(array $data, array $expectedGetters)
+    {
+        $pylon = new DataSift_Pylon($this->user, $data);
+        foreach ($expectedGetters as $getter => $expected) {
+            $this->assertEquals($expected, $pylon->{$getter}());
+        }
+    }
 }

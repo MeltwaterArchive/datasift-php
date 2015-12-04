@@ -352,7 +352,7 @@ class DataSift_Pylon
      */
     public function getStart()
     {
-        return $this->start;
+        return $this->_start;
     }
 
     /**
