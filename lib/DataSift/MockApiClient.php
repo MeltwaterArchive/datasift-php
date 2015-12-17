@@ -60,7 +60,7 @@ class DataSift_MockApiClient extends DataSift_ApiClient
 	 *
 	 * @return void
 	 */
-	public static function call($username, $api_key, $endpoint, $params = array(), $user_agent = 'DataSiftPHP/0.0')
+	public static function call($user, $endpoint, $method, $params = array(), $headers = array(), $userAgent = DataSift_User::USER_AGENT, $qs = array(), $ingest = false)
 	{
 		if (self::$_response === false) {
 			throw new Exception('Expected response not set in mock object');
