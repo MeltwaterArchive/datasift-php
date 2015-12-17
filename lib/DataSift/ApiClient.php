@@ -202,7 +202,7 @@ class DataSift_ApiClient
      *
      * @return array An array containing headers => array(header => value), and body.
      */
-    static private function parseHTTPResponse($str)
+    static protected function parseHTTPResponse($str)
     {
         $retval = array(
             'headers' => array(),

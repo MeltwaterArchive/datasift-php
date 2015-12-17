@@ -750,4 +750,48 @@ class PylonTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($expected, $pylon->{$getter}());
         }
     }
+
+    /**
+     * Tests the sample topics for big ints
+     *
+     * @param array $data
+     * @param array $expectedGetters
+     */
+    public function testBigIntsSample()
+    {
+		$response = <<<EOT
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 16 Dec 2015 12:45:44 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: close
+X-API-Version: 1.2
+P3P: CP="CAO PSA"
+X-RateLimit-Limit: 10000
+X-RateLimit-Remaining: 9875
+X-RateLimit-Cost: 25
+X-RateLimit-Reset: 1450270869
+X-RateLimit-Reset-Ttl: 926
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Content-Type
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE
+X-Served-By: ded2587
+X-Frame-Options: SAMEORIGIN
+
+{"remaining":88,"interactions":[{"fb":{"media_type":"photo","content":"IlovehowtherearseatsfoldflatintheBMWX5","language":"en","hashtags":["bmw"],"topics":{"name":"BMW"},"topic_ids":[5656343234567876543224, 12345]},"interaction":{"subtype":"story","content":"IlovehowtherearseatsfoldflatintheBMWX5"}}]}
+
+EOT;
+
+		DataSift_MockApiClient::setResponse($response);
+
+		$pylon = new DataSift_Pylon($this->user, array('hash' => '1a4268c9b924d2c48ed1946d6a7e6272'));
+
+		$sample = $pylon->sample();
+
+		$this->assertEquals(5656343234567876543224, $sample['interactions'][0]['fb']['topic_ids'][0], 'Topic ids didnt match');
+
+		$this->assertEquals(12345, $sample['interactions'][0]['fb']['topic_ids'][1], 'Topic ids didnt match');
+	}
+        
 }
