@@ -51,6 +51,11 @@ class DataSift_Pylon
     private $_hash;
 
     /**
+     * @var string The ID of this DataSift_Pylon recording
+     */
+    private $_id;
+
+    /**
      * @var string The status of this DataSift_Pylon
      */
     private $_status;
@@ -115,19 +120,18 @@ class DataSift_Pylon
     /**
      * Class method to find a Subscription
      *
-     * @param string $hash
+     * @param string $id
      *
      * @return DataSift_Pylon
      */
-    public function find($hash)
+    public function find($id)
     {
-        return new self($this->_user, self::get($this->_user, $hash));
+        return new self($this->_user, self::get($this->_user, $id));
     }
 
     /**
      * Class method to find all Subscriptions
      *
-     * @param string $hash
      *
      * @return DataSift_Pylon
      */
@@ -153,18 +157,18 @@ class DataSift_Pylon
      * Get an existing recordings.
      *
      * @param Datasift_User $user The Datasift user object
-     * @param string $hash The hash of the existing pylon
+     * @param string $id The id of the existing pylon
      *
      * @throws DataSift_Exception_InvalidData
      *
      * @return DataSift_Pylon
      */
-    static public function get($user, $hash = false)
+    static public function get($user, $id = false)
     {
         $params = array();
 
-        if ($hash)  {
-            $params['hash'] = $hash;
+        if ($id)  {
+            $params['id'] = $id;
         }
 
         return $user->get('pylon/get', $params);
@@ -220,14 +224,16 @@ class DataSift_Pylon
     /**
      * Load an existing pylon from hash
      *
+     * Previously called fromHash
+     *
      * @param Datasift_User $user The Datasift user object
      * @param string $hash The Hash of the recording
      *
      * @return DataSift_Pylon
      */
-    static public function fromHash($user, $hash)
+    static public function fromId($user, $id)
     {
-        return new self($user, self::get($user, $hash));
+        return new self($user, self::get($user, $id));
     }
 
     /**
@@ -239,12 +245,14 @@ class DataSift_Pylon
      */
     private function load($data)
     {
-        if (empty($data)) {
+        if (empty($data)) 
+        {
             throw new DataSift_Exception_InvalidData('No data found');
         }
 
         //Assign the instance variables
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => $value)
+        {
             $this->{'_'.$key} = $value;
         }
     }
@@ -256,11 +264,11 @@ class DataSift_Pylon
      */
     public function reload()
     {
-        if (strlen($this->_hash) == 0) {
-            throw new DataSift_Exception_InvalidData('Unable to reload pylon without a hash');
+        if (strlen($this->_id) == 0) {
+            throw new DataSift_Exception_InvalidData('Unable to reload pylon without an ID');
         }
 
-        $this->load(self::get($this->_user, $this->_hash));
+        $this->load(self::get($this->_user, $this->_id));
     }
 
     /**
@@ -308,11 +316,21 @@ class DataSift_Pylon
     /**
      * Gets the Hash
      *
-     * @return string $name The name of the pylon
+     * @return string $hash The hash of the pylon recording
      */
     public function getHash()
     {
         return $this->_hash;
+    }
+
+    /**
+     * Gets the ID
+     *
+     * @return string $id The ID of the pylon
+     */
+    public function getId()
+    {
+        return $this->_id;
     }
 
     /**
@@ -453,21 +471,32 @@ class DataSift_Pylon
     }
 
     /**
-     * Stops the pylon
+     * Restarts the pylon recording
      *
-     * @param string $hash If hash is provided it will be set
+     * @param string $id If ID is provided it will be set
+     *
      */
-    public function stop($hash = false)
+    public function restart($id = false)
     {
-        if ($hash) {
-            $this->_hash = $hash;
+        if ($id) {
+            $this->_id = $id;
         }
 
-        if (strlen($this->_hash) == 0) {
-            throw new DataSift_Exception_InvalidData('Cannot stop a recording without a hash');
+        $this->_user->put('pylon/start', array('id' => $this->_id));
+    }
+
+    /**
+     * Stops the pylon recording
+     *
+     * @param string $id If ID is provided it will be set
+     */
+    public function stop($id = false)
+    {
+        if ($id) {
+            $this->_id = $id;
         }
 
-        $this->_user->post('pylon/stop', array('hash' => $this->_hash));
+        $this->_user->post('pylon/stop', array('id' => $this->_id));
     }
 
 
@@ -478,14 +507,14 @@ class DataSift_Pylon
      * @param string $filter additional CSDL filter
      * @param int $start the start time of the pylon
      * @param int $end the end time of the pylon
-     * @param string $hash If hash is provided it will be set
+     * @param string $id If id is provided it will be set
      *
      * @return array Response from the compile
      */
-    public function analyze($parameters, $filter = false, $start = false, $end = false, $hash = false)
+    public function analyze($parameters, $filter = false, $start = false, $end = false, $id = false)
     {
-        if ($hash) {
-            $this->_hash = $hash;
+        if ($id) {
+            $this->_id = $id;
         }
 
         //If parameters is not an array try and decode it
@@ -497,7 +526,7 @@ class DataSift_Pylon
             throw new DataSift_Exception_InvalidData('Parameters must be supplied as an array or valid JSON');
         }
         $params = array(
-            'hash'       =>    $this->_hash,
+            'id'       =>    $this->_id,
             'parameters' =>    $parameters
         );
 
@@ -520,28 +549,24 @@ class DataSift_Pylon
     /**
      * Analyze the tags in the data set
      *
-     * @param string $hash If hash is provided it will be set
+     * @param string $id If ID is provided it will be set
      *
      * @return array Response from the tags endpoint
      */
-    public function tags($hash=false)
+    public function tags($id = false)
     {
-        if ($hash) {
-            $this->_hash = $hash;
+        if ($id) {
+            $this->_id = $id;
         }
 
-        if (strlen($this->_hash) == 0) {
-            throw new DataSift_Exception_InvalidData('Unable to analyze tags without a hash');
-        }
-
-        return $this->_user->get('pylon/tags', array('hash' => $this->_hash));
+        return $this->_user->get('pylon/tags', array('id' => $this->_id));
     }
 
     /**
      * Returns a list of sample interactions (super-public)
      *
      * @param Datasift_User $user The Datasift user object
-     * @param string $hash The hash of the existing pylon
+     * @param string $id The id of the existing pylon
      * @param string $filter additional CSDL filter
      * @param int $start the start time of the pylon
      * @param int $end the end time of the pylon
@@ -549,17 +574,15 @@ class DataSift_Pylon
      *
      * @throws DataSift_Exception_InvalidData
      *
-     * @return DataSift_Pylon
+     * @return array Response from the sample endpoint
      */
-    public function sample($filter = false, $start = false, $end = false, $count = false, $hash = false)
+    public function sample($filter = false, $start = false, $end = false, $count = false, $id = false)
     {
-        if ($hash) {
-            $this->_hash = $hash;
+        if ($id) {
+            $this->_id = $id;
         }
-        if (strlen($this->_hash) == 0) {
-            throw new DataSift_Exception_InvalidData('Unable to start sample without a hash');
-        }
-        $params = array('hash' => $this->_hash);
+
+        $params = array('id' => $this->_id);
 
         if ($start) {
             $params['start'] = $start;
@@ -576,8 +599,33 @@ class DataSift_Pylon
         if ($filter) {
             $params['filter'] = $filter;
             return $this->_user->post('pylon/sample', $params);
-        } else {
+        } 
+        else {
             return $this->_user->get('pylon/sample', $params);
         }
     }
+
+    /**
+     * Updates a recording with a new hash and or name
+     *
+     * @param string $id The id of the existing recording
+     * @param string $hash The new hash of the pylon recording
+     * @param string $name The new updated name of the recording
+     *
+     * @throws DataSift_Exception_InvalidData
+     */
+    public function update($id, $hash = false, $name = false)
+    {
+        $params = array('id' => $id);
+
+        if ($hash) {
+            $params['hash'] = $hash;
+        }
+        if ($name) {
+            $params['name'] = $name;
+        }
+
+        $this->_user->put('pylon/update', $params);
+    }
+
 }

@@ -84,7 +84,7 @@ class DataSift_User
      */
     protected $_last_response = array();
 
-    protected $_api_version = 'v1.2';
+    protected $_api_version = 'v1.3';
 
     /**
      * Constructor. A username and API key are required when constructing an
