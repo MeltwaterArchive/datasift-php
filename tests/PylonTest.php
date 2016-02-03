@@ -328,15 +328,15 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 	}
 
-	public function testNoHashStop(){
+	public function testNoIdStop(){
 
 		$pylon = new DataSift_Pylon($this->user);
 
 		$this->setExpectedException('DataSift_Exception_InvalidData');
 
-		$hash = '';
+		$id = '';
 
-		$pylon->stop($hash);
+		$pylon->stop($id);
 
 	}
 
@@ -623,14 +623,14 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 	}
 
-	public function testTagsEmptyHash(){
+	public function testTagsEmptyId(){
 		$pylon = new DataSift_Pylon($this->user);
 
-		$hash = "";
+		$id = "";
 
 		$this->setExpectedException('DataSift_Exception_InvalidData');
 
-		$tags = $pylon->tags($hash);
+		$tags = $pylon->tags($id);
 	}
 
 	public function testEmptyTags(){
@@ -645,9 +645,9 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		$pylon = new DataSift_Pylon($this->user);
 
-		$hash = "1a4268c9b924d2c48ed1946d6a7e6272";
+		$id = "1a4268c9b924d2c48ed1946d6a7e6272";
 
-		$tags = $pylon->tags($hash);
+		$tags = $pylon->tags($id);
 
 		$this->assertCount(0, $tags, 'Amount of tags did not match');
 
@@ -675,7 +675,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
 		DataSift_MockApiClient::setResponse($response);
 
-		$pylon = new DataSift_Pylon($this->user, array('hash' => '1a4268c9b924d2c48ed1946d6a7e6272'));
+		$pylon = new DataSift_Pylon($this->user, array('id' => '1a4268c9b924d2c48ed1946d6a7e6272'));
 
 		$filter = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
 		$start = 1445209200;
@@ -687,8 +687,8 @@ class PylonTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($sample['interactions']['fb']['content'], 'baz the map could, ', 'Interaction content didnt match');
 	}
 
-	public function testNoHash(){
-		$pylon = new DataSift_Pylon($this->user, array('hash' => ''));
+	public function testSampleNoId(){
+		$pylon = new DataSift_Pylon($this->user, array('id' => ''));
 
 		$this->setExpectedException('DataSift_Exception_InvalidData');
 

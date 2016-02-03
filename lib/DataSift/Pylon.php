@@ -495,6 +495,9 @@ class DataSift_Pylon
         if ($id) {
             $this->_id = $id;
         }
+        if (strlen($this->_id) == 0) {
+            throw new DataSift_Exception_InvalidData('Unable to reload pylon without an ID');
+        }
 
         $this->_user->post('pylon/stop', array('id' => $this->_id));
     }
@@ -558,6 +561,9 @@ class DataSift_Pylon
         if ($id) {
             $this->_id = $id;
         }
+        if (strlen($this->_id) == 0) {
+            throw new DataSift_Exception_InvalidData('Unable to get tags without an ID');
+        }
 
         return $this->_user->get('pylon/tags', array('id' => $this->_id));
     }
@@ -580,6 +586,10 @@ class DataSift_Pylon
     {
         if ($id) {
             $this->_id = $id;
+        }
+
+        if (strlen($this->_id) == 0) {
+            throw new DataSift_Exception_InvalidData('Unable to retrieve pylon sample without an ID');
         }
 
         $params = array('id' => $this->_id);
