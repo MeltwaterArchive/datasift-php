@@ -283,9 +283,12 @@ class PylonTest extends PHPUnit_Framework_TestCase
 	public function testStart(){
 
 		$response = array(
-			'response_code'			=> 204,
+			'response_code'			=> 200,
 			'rate_limit' 	        => 200,
 			'rate_limit_remaining' 	=> 150,
+			'data'          		=> array(
+				'id'					=>	'62721a4268c9b924d2c48ed1946d6a7e',
+			)
 		);
 
 		DataSift_MockApiClient::setResponse($response);
