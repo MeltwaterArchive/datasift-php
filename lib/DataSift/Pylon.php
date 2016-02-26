@@ -440,13 +440,31 @@ class DataSift_Pylon
     }
 
     /**
-     * Starts the pylon
+     * Creates a new recording or restarts an existing one if an ID is present
      *
      * @param string $hash If hash is provided it will be set
      * @param string $name If name is provided it will be set
      *
      */
-    public function start($hash = false, $name = false)
+    public function start($hash = false, $name = false) 
+    {
+        if ($hash) {
+            $this->_hash = $hash;
+        }
+
+        if ($name) {
+            $this->_name = $name;
+        }
+
+        if (!empty($this->_id)) {
+            $this->restart();
+        }
+        else {
+            $this->create();
+        }
+    }
+
+    public function create($hash = false, $name = false)
     {
         if ($hash) {
             $this->_hash = $hash;
@@ -467,7 +485,11 @@ class DataSift_Pylon
             $params['name'] = $this->_name;
         }
 
-        $this->_user->post('pylon/start', $params);
+        $response = $this->_user->post('pylon/start', $params);
+
+        $this->load($response);
+
+        return $response;
     }
 
     /**
@@ -624,16 +646,24 @@ class DataSift_Pylon
      *
      * @throws DataSift_Exception_InvalidData
      */
-    public function update($id, $hash = false, $name = false)
+    public function update($id = false, $hash = false, $name = false)
     {
-        $params = array('id' => $id);
 
+        if ($id) {
+            $this->_id = $id;
+        }
         if ($hash) {
-            $params['hash'] = $hash;
+            $this->_hash = $hash;
         }
         if ($name) {
-            $params['name'] = $name;
+            $this->_name = $name;            
         }
+
+        $params = array(
+            'id'    => $this->_id, 
+            'hash'  => $this->_hash, 
+            'name'  => $this->_name
+        );
 
         $this->_user->put('pylon/update', $params);
     }
