@@ -48,6 +48,27 @@ class DataSift_Account
     {
         $this->_user = $user;
     }
+
+    /**
+     * Returns the user agent this library should use for all API calls.
+     *
+     * @return string
+     */
+    public function usage($start = false, $end = false)
+    {
+        $params = array();
+
+        if ($start) 
+        {
+            $params['start'] = $start;
+        }
+        if ($end) 
+        {
+            $params['end'] = $end;
+        }
+
+        return $this->_user->get('account/usage', $params);
+    }
     
     /**
      * Returns the user agent this library should use for all API calls.

@@ -1,5 +1,14 @@
 Changelog
 =========================
+
+##v.2.6.0 (2016-03-02)
+### Added
+* DataSift_Pylon::update added for hotswapping filters
+
+### Changed
+* Pylon endpoints now take and return a recording ID, rather than a hash
+* Moved to v1.3 API
+
 ##v.2.5.1
 ###Fixed
 * Fixed an issue with ```DataSift_Pylon::getStart```.
