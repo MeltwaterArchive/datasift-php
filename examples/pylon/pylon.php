@@ -21,7 +21,7 @@ require dirname(__FILE__) . '/../../config.php';
 echo "Creating user...\n";
 $user = new DataSift_User(USERNAME, API_KEY, false);
 
-$csdl = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
+$csdl = '(fb.content any "coffee, tea" OR fb.hashtags in "tea") AND fb.language in "en"';
 
 //Validate the CSDL
 $validate = DataSift_Pylon::validate($user, $csdl);
@@ -45,6 +45,14 @@ $pylon->start();
 
 //Stop after 10 seconds
 sleep(10);
+
+//Compile some new CSDL
+$pylon->setCsdl('(fb.content any "coffee, tea, flour" OR fb.hashtags in "tea") AND fb.language in "en"');
+$pylon->compile();
+
+//Update the recording with the new definition
+$pylon->update();
+
 $pylon->stop();
 
 //Set the analyze parameters
@@ -80,4 +88,4 @@ $pylon->reload();
 
 echo "There were a total of {$analyze['interactions']} interactions that matched this filter\n";
 
-$reloaded_pylon = DataSift_Pylon::fromHash($user, $pylon->getHash());
+$reloaded_pylon = DataSift_Pylon::fromId($user, $pylon->getId());
