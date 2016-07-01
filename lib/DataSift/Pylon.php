@@ -245,7 +245,7 @@ class DataSift_Pylon
      */
     private function load($data)
     {
-        if (empty($data)) 
+        if (empty($data))
         {
             throw new DataSift_Exception_InvalidData('No data found');
         }
@@ -446,7 +446,7 @@ class DataSift_Pylon
      * @param string $name If name is provided it will be set
      *
      */
-    public function start($hash = false, $name = false) 
+    public function start($hash = false, $name = false)
     {
         if ($hash) {
             $this->_hash = $hash;
@@ -498,13 +498,21 @@ class DataSift_Pylon
      * @param string $id If ID is provided it will be set
      *
      */
-    public function restart($id = false)
+    public function restart($id = false, $hash = false)
     {
         if ($id) {
             $this->_id = $id;
         }
 
-        $this->_user->put('pylon/start', array('id' => $this->_id));
+        $params = array('id' => $this->_id);
+
+        if ($hash) {
+            $params['hash'] = $hash;
+        } else if (!empty($this->_hash)) {
+            $params['hash'] = $this->_hash;
+        }
+
+        $this->_user->put('pylon/start', $params);
     }
 
     /**
@@ -631,7 +639,7 @@ class DataSift_Pylon
         if ($filter) {
             $params['filter'] = $filter;
             return $this->_user->post('pylon/sample', $params);
-        } 
+        }
         else {
             return $this->_user->get('pylon/sample', $params);
         }
@@ -656,12 +664,12 @@ class DataSift_Pylon
             $this->_hash = $hash;
         }
         if ($name) {
-            $this->_name = $name;            
+            $this->_name = $name;
         }
 
         $params = array(
-            'id'    => $this->_id, 
-            'hash'  => $this->_hash, 
+            'id'    => $this->_id,
+            'hash'  => $this->_hash,
             'name'  => $this->_name
         );
 
