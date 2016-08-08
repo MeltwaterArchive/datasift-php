@@ -88,7 +88,7 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
      * Update the limit for an service
      * 
      * @param string    $identity
-     * @param integer   $limit
+     * @param string    $service
      * @param integer   $total_allowance
      * @param integer   $analyze_queries
      * 
