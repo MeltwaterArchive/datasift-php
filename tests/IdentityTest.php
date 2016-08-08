@@ -1156,12 +1156,14 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_CREATED,
                     'data' => array(
                         'identity_id' => 5912,
                         'service' => 'test',
                         'total_allowance' => 200,
+                        'analyze_queries' => 300
                     ),
                     'rate_limit' => 200,
                     'rate_limit_remaining' => 150,
@@ -1170,12 +1172,14 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'identity_id' => 5912,
                     'service' => 'test',
                     'total_allowance' => 200,
+                    'analyze_queries' => 300
                 )
             ),
             array(
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
                     'data' => array(
@@ -1193,6 +1197,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_CONFLICT,
                     'data' => array(
@@ -1210,6 +1215,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_GONE,
                     'data' => array(
@@ -1230,7 +1236,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
      * @dataProvider createLimitProvider
      * @covers Datasift_Account_Identity_Limit::create
      */
-    public function testCreateLimit($identityId, $service, $limit, $apiResult, $expectedResult)
+    public function testCreateLimit($identityId, $service, $limit, $analyze_queries, $apiResult, $expectedResult)
     {
         $identityLimit = new DataSift_Account_Identity_Limit($this->_user);
 
@@ -1240,7 +1246,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('DataSift_Exception_APIError');
         }
 
-        $result = $identityLimit->create($identityId, $service, $limit);
+        $result = $identityLimit->create($identityId, $service, $limit, $analyze_queries);
 
         $this->assertEquals($expectedResult, $result);
     }
@@ -1255,12 +1261,14 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_OK,
                     'data' => array(
                         'identity_id' => 5912,
                         'service' => 'test',
-                        'limit' => 200
+                        'limit' => 200,
+                        'analyze_queries' => 300
                     ),
                     'rate_limit' => 200,
                     'rate_limit_remaining' => 150,
@@ -1268,13 +1276,15 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'expected_result' => array(
                     'identity_id' => 5912,
                     'service' => 'test',
-                    'limit' => 200
+                    'limit' => 200,
+                    'analyze_queries' => 300
                 )
             ),
             array(
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
                     'data' => array(
@@ -1292,6 +1302,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_NOT_FOUND,
                     'data' => array(
@@ -1309,6 +1320,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                 'identity_id' => 5912,
                 'service' => 'test',
                 'limit' => 200,
+                'analyze_queries' => 300,
                 'api_result' => array(
                     'response_code' => self::HTTP_GONE,
                     'data' => array(
@@ -1329,7 +1341,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
      * @dataProvider updateLimitProvider
      * @covers Datasift_Account_Identity_Limit::update
      */
-    public function testUpdateLimit($identityId, $service, $limit, $apiResult, $expectedResult)
+    public function testUpdateLimit($identityId, $service, $limit, $analyze_queries, $apiResult, $expectedResult)
     {
         $identityLimit = new DataSift_Account_Identity_Limit($this->_user);
 
@@ -1339,7 +1351,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
             $this->setExpectedException('DataSift_Exception_APIError');
         }        
 
-        $result = $identityLimit->update($identityId, $service, $limit);
+        $result = $identityLimit->update($identityId, $service, $limit, $analyze_queries);
 
         $this->assertEquals($expectedResult, $result);
     }
