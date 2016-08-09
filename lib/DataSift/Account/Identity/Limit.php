@@ -62,17 +62,24 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
      * 
      * @param string    $identity
      * @param string    $service
-     * @param integer   $limit
+     * @param integer   $total_allowance
+     * @param integer   $analyze_queries
      * 
      * @return mixed
      */
-    public function create($identity, $service, $total_allowance)
+    public function create($identity, $service, $total_allowance = false, $analyze_queries = false)
     {
         
         $params = array(
-            'service'           => $service,
-            'total_allowance'   => $total_allowance
+            'service' => $service,
         );
+
+        if ($total_allowance) {
+            $params['total_allowance'] = $total_allowance;
+        }
+        if ($analyze_queries) {
+            $params['analyze_queries'] = $analyze_queries;
+        }
         
         return $this->_user->post('account/identity/' . $identity . '/limit', $params);
     }
@@ -81,16 +88,22 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
      * Update the limit for an service
      * 
      * @param string    $identity
-     * @param integer   $limit
+     * @param string    $service
+     * @param integer   $total_allowance
+     * @param integer   $analyze_queries
      * 
      * @return mixed
      */
-    public function update($identity, $service, $limit)
+    public function update($identity, $service, $total_allowance = false, $analyze_queries = false)
     {
-        
-        $params = array(
-            'total_allowance'   => $limit
-        );
+        $params = array();
+
+        if ($total_allowance) {
+            $params['total_allowance'] = $total_allowance;
+        }
+        if ($analyze_queries) {
+            $params['analyze_queries'] = $analyze_queries;
+        }
         
         return $response = $this->_user->put('account/identity/' . $identity . '/limit/' . $service, $params);
     }

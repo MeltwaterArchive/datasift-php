@@ -60,31 +60,30 @@ try {
     unset($res);
 
     echo "\nUpdating token...\n";
-    $res = $token->update($id, $service, md5('new'));
+    $res = $token->update($id, $service, md5('test'));
     echo $res['service'] . " - " . $res['token'] . "\n";
     unset($res);
 
     echo "\nCreating limit...\n";
-    $res = $limit->create($id, $service, 2000);
-    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . "\n";
+    $res = $limit->create($id, $service, 2000, 3000);
+    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . " - " . $res['analyze_queries'] . "\n";
     unset($res);
 
     echo "\nGetting limit...\n";
     $res = $limit->get($id, $service);
-    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . "\n";
+    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . " - " . $res['analyze_queries'] . "\n";
     unset($res);
 
     echo "\nGetting limits...\n";
     $res = $limit->getAll($service);
 
-    foreach ($res['limits'] as $r) {
-        echo $r['id'] . " - " . $r['service'] . " - " . $r['total_allowance'] . "\n";
-    }
+    $r = $res['limits'];
+    echo $r['id'] . " - " . $r['service'] . " - " . $r['total_allowance'] . " - " . $res['analyze_queries'] . "\n";
     unset($res);
 
     echo "\nUpdating limit...\n";
     $res = $limit->update($id, $service, 10000);
-    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . "\n";
+    echo $res['id'] . " - " . $res['service'] . " - " . $res['total_allowance'] . " - " . $res['analyze_queries'] . "\n";
     unset($res);
 
     echo "\nDeleting limit...\n";
