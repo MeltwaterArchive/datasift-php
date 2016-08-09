@@ -1,6 +1,10 @@
 Changelog
 =========================
 
+##v.2.7.0 (2016-08-09)
+### Added
+* Added support for analysis query limits on identity limits
+
 ##v.2.6.0 (2016-03-02)
 ### Added
 * DataSift_Pylon::update added for hotswapping filters
