@@ -54,7 +54,7 @@ class DataSift_Account
      *
      * @return string
      */
-    public function usage($start = false, $end = false)
+    public function usage($start = false, $end = false, $period = null)
     {
         $params = array();
 
@@ -65,6 +65,10 @@ class DataSift_Account
         if ($end) 
         {
             $params['end'] = $end;
+        }
+        if (isset($period))
+        {
+            $params['period'] = $period;
         }
 
         return $this->_user->get('account/usage', $params);
