@@ -1,6 +1,10 @@
 Changelog
 =========================
 
+##v.2.7.1 (2016-08-22)
+### Added
+* Added support for the period parameter on account usage end point
+
 ##v.2.7.0 (2016-08-09)
 ### Added
 * Added support for analysis query limits on identity limits

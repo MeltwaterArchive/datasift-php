@@ -27,7 +27,7 @@
  */
 class DataSift_User
 {
-    const USER_AGENT = 'DataSiftPHP/2.7.0';
+    const USER_AGENT = 'DataSiftPHP/2.7.1';
 
     /**
      * @var string The api url of the user.
