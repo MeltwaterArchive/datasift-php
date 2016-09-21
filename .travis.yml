@@ -15,4 +15,7 @@ matrix:
     - php: 7.0
     - php: hhvm
 
-script: phpunit tests/
+script: phpunit --coverage-clover=coverage.xml tests/ 
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
