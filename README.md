@@ -6,15 +6,12 @@ DataSift PHP Client Library
 This is the official PHP library for accessing [Datasift](http://datasift.com/). See the examples
 folder for some simple example usage.
 
+## Getting Started
 
-Getting Started
----------------
+To get started choose one of our quick start guides:
 
-**Read our [PHP Getting Started Guide](http://dev.datasift.com/quickstart/php) to get started with the DataSift platform.** This guide will take you through creating a [DataSift](http://datasift.com) account, and activating data sources which you will need to do before using the DataSift API.
-
-Many of the examples and API endpoints used in this library require you have enabled certain data sources before you can receive any data (you should do this at [datasift.com/source](https://datasift.com/source)). Certain API features, such as [Historics](http://datasift.com/platform/historics/) and [Managed Sources](http://datasift.com/platform/datasources/) will require you have signed up to a monthly subscription before you can access them.
-
-If you are interested in using these features, or would like more information about DataSift, please [get in touch](http://datasift.com/contact-us/)!
+* [STREAM Quick Start](http://dev.datasift.com/docs/products/stream/quick-start/getting-started-php)
+* [PYLON for Facebook Topic Data Quick Start](http://dev.datasift.com/docs/products/pylon-fbtd/get-started/getting-started-php)
 
 
 Simple example
