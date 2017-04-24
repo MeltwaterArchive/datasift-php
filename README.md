@@ -2,7 +2,7 @@ DataSift PHP Client Library
 ===========================
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/datasift/datasift-php.svg?style=flat-square)](https://packagist.org/packages/datasift/datasift-php)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/datasift/datasift-php/master.svg?style=flat-square)](https://travis-ci.org/datasift/datasift-php)
 [![Codecov](https://img.shields.io/codecov/c/github/datasift/datasift-php.svg?style=flat-square)](https://codecov.io/gh/datasift/datasift-php)
 
