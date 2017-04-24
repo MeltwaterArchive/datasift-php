@@ -2,7 +2,7 @@ DataSift PHP Client Library
 ===========================
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/datasift/datasift-php.svg?style=flat-square)](https://packagist.org/packages/datasift/datasift-php)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/datasift/datasift-php/master.svg?style=flat-square)](https://travis-ci.org/datasift/datasift-php)
 [![Codecov](https://img.shields.io/codecov/c/github/datasift/datasift-php.svg?style=flat-square)](https://codecov.io/gh/datasift/datasift-php)
 
@@ -62,17 +62,6 @@ See the DataSift documentation for full details of the data contained within
 each interaction. See this page on our developer site for an example interaction:
 http://dev.datasift.com/docs/targets/interaction/mapping
 
-
-Contributing
-------------
-
-Please feel free to contribute to this repository using pull requests.
-
-The unit tests should be run with phpunit.
-
-Note that we use [git flow](https://github.com/nvie/gitflow) to manage development.
-
-
 Requirements
 ------------
 
@@ -83,11 +72,26 @@ The library will use SSL connections by default. While we recommend using SSL
 you may disable it if required by passing false as the third parameter when
 creating a user, or by calling $user->enableSSL(false) on the user object.
 
+Testing
+-------
+
+To test the library itself, run the tests:
+
+    composer test
+
+Contributing
+------------
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+Credits
+-------
+
+- [All Contributors](../../contributors)
+
 License
 -------
 
 All code contained in this repository is Copyright 2011-2015 MediaSift Ltd.
 
-This code is released under the BSD license. Please see the LICENSE file for
-more details.
-
+This code is released under the MIT License (MIT). Please see [License File](LICENSE.md) for more information.

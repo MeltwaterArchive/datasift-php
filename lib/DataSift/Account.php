@@ -27,24 +27,24 @@ class DataSift_Account
 {
     /**
      * apiClient
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $apiClient = 'DataSift_ApiClient';
-    
+
     /**
      * User
-     * 
-     * @var DataSift_User 
+     *
+     * @var DataSift_User
      */
     protected $_user = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param DataSift_User $user
      */
-    public function __construct(DataSift_User $user) 
+    public function __construct(DataSift_User $user)
     {
         $this->_user = $user;
     }
@@ -58,22 +58,19 @@ class DataSift_Account
     {
         $params = array();
 
-        if ($start) 
-        {
+        if ($start) {
             $params['start'] = $start;
         }
-        if ($end) 
-        {
+        if ($end) {
             $params['end'] = $end;
         }
-        if (isset($period))
-        {
+        if (isset($period)) {
             $params['period'] = $period;
         }
 
         return $this->_user->get('account/usage', $params);
     }
-    
+
     /**
      * Returns the user agent this library should use for all API calls.
      *

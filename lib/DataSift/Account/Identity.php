@@ -34,15 +34,16 @@ class DataSift_Account_Identity extends DataSift_Account
      */
     public function get($identity)
     {
-        return $this->_user->get('account/identity/'. $identity);
+        return $this->_user->get('account/identity/' . $identity);
     }
 
     /**
      * Gets all the identities
      *
-     * @param string    $label
-     * @param integer   $page
-     * @param integer   $perPage
+     * @param string  $label
+     * @param integer $page
+     * @param integer $perPage
+     *
      * @return mixed
      */
     public function getAll($label = null, $page = 1, $perPage = 25)
@@ -62,9 +63,9 @@ class DataSift_Account_Identity extends DataSift_Account
     /**
      * Creates an identity
      *
-     * @param string    $label
-     * @param string    $master
-     * @param string    $status
+     * @param string $label
+     * @param string $master
+     * @param string $status
      *
      * @return mixed
      */
@@ -72,21 +73,21 @@ class DataSift_Account_Identity extends DataSift_Account
     {
 
         $params = array(
-            'label'     => $label,
-            'master'    => $master,
-            'status'    => $status
+            'label' => $label,
+            'master' => $master,
+            'status' => $status
         );
 
-        return  $this->_user->post('account/identity', $params);
+        return $this->_user->post('account/identity', $params);
     }
 
     /**
      * Updates an identity
      *
-     * @param string    $identity
-     * @param string    $master
-     * @param string    $label
-     * @param string    $status
+     * @param string $identity
+     * @param string $master
+     * @param string $label
+     * @param string $status
      *
      * @return mixed
      */
@@ -94,13 +95,13 @@ class DataSift_Account_Identity extends DataSift_Account
     {
 
         $params = array();
-        if (!is_null($label)) {
+        if (! is_null($label)) {
             $params['label'] = $label;
         }
-        if (!is_null($master)) {
+        if (! is_null($master)) {
             $params['master'] = $master;
         }
-        if (!is_null($status)) {
+        if (! is_null($status)) {
             $params['status'] = $status;
         }
 
@@ -110,12 +111,12 @@ class DataSift_Account_Identity extends DataSift_Account
     /**
      * Deletes an identity
      *
-     * @param string    $identity
+     * @param string $identity
      *
      * @return mixed
      */
     public function delete($identity)
     {
-       return $response = $this->_user->delete('account/identity/' . $identity);
+        return $response = $this->_user->delete('account/identity/' . $identity);
     }
 }

@@ -92,7 +92,7 @@ class DataSift_User
      *
      * @param string $username The user's username.
      * @param string $api_key  The user's API key.
-     * @param bool $use_ssl  Set to true to enable SSL.
+     * @param bool   $use_ssl  Set to true to enable SSL.
      *
      * @throws DataSift_Exception_InvalidData
      */
@@ -105,13 +105,17 @@ class DataSift_User
         $api_version = false,
         $stream_url = false,
         $ingest_url = false
-    ){
+    ) {
         if (strlen(trim($username)) == 0) {
-            throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
+            throw new DataSift_Exception_InvalidData(
+                'Please supply valid credentials when creating a DataSift_User object.'
+            );
         }
 
         if (strlen(trim($api_key)) == 0) {
-            throw new DataSift_Exception_InvalidData('Please supply valid credentials when creating a DataSift_User object.');
+            throw new DataSift_Exception_InvalidData(
+                'Please supply valid credentials when creating a DataSift_User object.'
+            );
         }
 
         if ($api_url) {
@@ -130,16 +134,17 @@ class DataSift_User
             $this->_ingest_url = $ingest_url;
         }
 
-        $this->_username     = $username;
-        $this->_api_key      = $api_key;
-        $this->_use_ssl      = $use_ssl;
-        $this->_debug        = $debug_mode;
+        $this->_username = $username;
+        $this->_api_key = $api_key;
+        $this->_use_ssl = $use_ssl;
+        $this->_debug = $debug_mode;
     }
 
     /**
      * setApiVersion
      *
      * @param string $version
+     *
      * @return string
      */
     public function setApiVersion($version)
@@ -167,8 +172,8 @@ class DataSift_User
      */
     public function setApiClient($api_client)
     {
-        if (!class_exists($api_client) || !method_exists($api_client, 'call')) {
-            throw new DataSift_Exception_InvalidData('Class "'.$api_client.'" does not exist');
+        if (! class_exists($api_client) || ! method_exists($api_client, 'call')) {
+            throw new DataSift_Exception_InvalidData('Class "' . $api_client . '" does not exist');
         }
 
         $this->_api_client = $api_client;
@@ -211,7 +216,8 @@ class DataSift_User
      *
      * @return bool True if SSL should be used.
      */
-    public function useSSL() {
+    public function useSSL()
+    {
         return $this->_use_ssl;
     }
 
@@ -272,7 +278,7 @@ class DataSift_User
      * @param int    $end     The timestamp at which to end the query.
      * @param array  $sources An array of sources required.
      * @param string $name    A friendly name for this query.
-     * @param float  $sample    An optional sample rate for this query.
+     * @param float  $sample  An optional sample rate for this query.
      *
      * @return DataSift_Historic
      * @throws DataSift_Exception_InvalidData
@@ -300,7 +306,7 @@ class DataSift_User
     /**
      * Get a list of Historics queries in your account.
      *
-     * @param int $page The page number to get.
+     * @param int $page     The page number to get.
      * @param int $per_page The number of items per page.
      *
      * @return array Of DataSift_Historic objects.
@@ -327,32 +333,38 @@ class DataSift_User
      * Returns a DataSift_StreamConsumer-derived object for the given hash,
      * for the given type.
      *
-     * @param string $type The consumer type for which to construct a consumer.
-     * @param string $hash The hash to be consumed.
+     * @param string                               $type         The consumer type for which to construct a consumer.
+     * @param string                               $hash         The hash to be consumed.
      * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
      *
      * @return DataSift_StreamConsumer The consumer object.
      * @throws DataSift_Exception_InvalidData
      * @see DataSift_StreamConsumer
      */
-    public function getConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hash, $eventHandler)
+    public function getConsumer($type, $hash, $eventHandler)
     {
-        return DataSift_StreamConsumer::factory($this, $type, new DataSift_Definition($this, false, $hash), $eventHandler);
+        return DataSift_StreamConsumer::factory(
+            $this,
+            $type,
+            new DataSift_Definition($this, false, $hash),
+            $eventHandler
+        );
     }
 
     /**
      * Returns a DataSift_StreamConsumer-derived object for the given hashes,
      * for the given type.
      *
-     * @param string $type The consumer type for which to construct a consumer.
-     * @param string $hashes An array containing hashes and/or Definition objects to be consumed.
+     * @param string                               $type         The consumer type for which to construct a consumer.
+     * @param string                               $hashes       An array containing hashes and/or Definition
+     *                                                               objects to be consumed.
      * @param DataSift_IStreamConsumerEventHandler $eventHandler The object that will receive events.
      *
      * @return DataSift_StreamConsumer The consumer object.
      * @throws DataSift_Exception_InvalidData
      * @see DataSift_StreamConsumer
      */
-    public function getMultiConsumer($type = DataSift_StreamConsumer::TYPE_HTTP, $hashes, $eventHandler)
+    public function getMultiConsumer($type, $hashes, $eventHandler)
     {
         return DataSift_StreamConsumer::factory($this, $type, $hashes, $eventHandler);
     }
@@ -361,6 +373,7 @@ class DataSift_User
      * Get a single push subscription.
      *
      * @param string $id The ID of the subscription to fetch.
+     *
      * @return DataSift_Push_Subscription
      * @throws DataSift_Exception_InvalidData
      * @throws DataSift_Exception_AccessDenied
@@ -374,10 +387,10 @@ class DataSift_User
     /**
      * Get a list of push subscriptions in your account.
      *
-     * @param int $page The page number to get.
-     * @param int $per_page The number of items per page.
-     * @param String order_by  Which field to sort by.
-     * @param String order_dir In asc[ending] or desc[ending] order.
+     * @param int  $page             The page number to get.
+     * @param int  $per_page         The number of items per page.
+     * @param      String            order_by  Which field to sort by.
+     * @param      String            order_dir In asc[ending] or desc[ending] order.
      * @param bool $include_finished Set to true when you want to include finished subscription in the results.
      *
      * @return array Of DataSift_Push_Subscription objects.
@@ -392,7 +405,14 @@ class DataSift_User
         $order_dir = DataSift_Push_Subscription::ORDERDIR_ASC,
         $include_finished = false
     ) {
-        return DataSift_Push_Subscription::listSubscriptions($this, $page, $per_page, $order_by, $order_dir, $include_finished);
+        return DataSift_Push_Subscription::listSubscriptions(
+            $this,
+            $page,
+            $per_page,
+            $order_by,
+            $order_dir,
+            $include_finished
+        );
     }
 
     /**
@@ -403,6 +423,7 @@ class DataSift_User
      * @param int    per_page  Based on this page size.
      * @param String order_by  Which field to sort by.
      * @param String order_dir In asc[ending] or desc[ending] order.
+     *
      * @return ArrayList<LogEntry>
      * @throws DataSift_Exception_AccessDenied
      * @throws DataSift_Exception_InvalidData
@@ -466,7 +487,7 @@ class DataSift_User
      */
     public function getLastResponse()
     {
-        if (!$this->_debug) {
+        if (! $this->_debug) {
             throw new Exception("Datasift user object must be set to debug mode to use this method", 1);
         }
 
@@ -477,11 +498,12 @@ class DataSift_User
      * setLastResponse
      *
      * @param array $last_response
+     *
      * @throws Exception
      */
     public function setLastResponse($last_response)
     {
-        if (!$this->_debug) {
+        if (! $this->_debug) {
             throw new Exception("Datasift user object must be set to debug mode to use this method", 1);
         }
 
@@ -502,42 +524,45 @@ class DataSift_User
     {
         $retval = array();
         switch ($res['response_code']) {
-        case 200:
-            $retval = $res['data'];
-        case 201:
-            if (is_null($res['data'])) {
-                throw new DataSift_Exception_APIError(
-                    "Content was expected but nothing was returned (Status: 201 and no data)"
-                );
-            }
-        case 202:
-            $retval = $res['data'];
-        case 204:
-            break;
-        case 400:
-            throw new DataSift_Exception_InvalidData(
-                empty($res['data']['error']) ? 'Bad request' : $res['data']['error']
-            );
-        case 401:
-            throw new DataSift_Exception_AccessDenied(
-                empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
-            );
-        case 413:
-            // Request Too Large
-            throw new DataSift_Exception_APIError(
-                'The API request contained too much data - try reducing the size of your CSDL'
-            );
-        case 403:
-            if ($this->_rate_limit_remaining == 0) {
-                throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
-            }
+            case 200:
+                $retval = $res['data'];
             // Deliberate fall-through
-        default:
-            $error =  empty($res['data']['error']) ? $res['data'] : $res['data']['error'];
-            throw new DataSift_Exception_APIError(
-                empty($error) ? 'Unknown error' : $error,
-                $res['response_code']
-            );
+            case 201:
+                if (is_null($res['data'])) {
+                    throw new DataSift_Exception_APIError(
+                        "Content was expected but nothing was returned (Status: 201 and no data)"
+                    );
+                }
+            // Deliberate fall-through
+            case 202:
+                $retval = $res['data'];
+            // Deliberate fall-through
+            case 204:
+                break;
+            case 400:
+                throw new DataSift_Exception_InvalidData(
+                    empty($res['data']['error']) ? 'Bad request' : $res['data']['error']
+                );
+            case 401:
+                throw new DataSift_Exception_AccessDenied(
+                    empty($res['data']['error']) ? 'Authentication failed' : $res['data']['error']
+                );
+            case 413:
+                // Request Too Large
+                throw new DataSift_Exception_APIError(
+                    'The API request contained too much data - try reducing the size of your CSDL'
+                );
+            case 403:
+                if ($this->_rate_limit_remaining == 0) {
+                    throw new DataSift_Exception_RateLimitExceeded($res['data']['error']);
+                }
+            // Deliberate fall-through
+            default:
+                $error = empty($res['data']['error']) ? $res['data'] : $res['data']['error'];
+                throw new DataSift_Exception_APIError(
+                    empty($error) ? 'Unknown error' : $error,
+                    $res['response_code']
+                );
         }
 
         return $retval;
@@ -571,7 +596,6 @@ class DataSift_User
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
         return $this->handleResponse($res);
-
     }
 
     /**
@@ -601,7 +625,6 @@ class DataSift_User
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
         return $this->handleResponse($res);
-
     }
 
     /**
@@ -630,7 +653,6 @@ class DataSift_User
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
         return $this->handleResponse($res);
-
     }
 
     /**
@@ -659,6 +681,5 @@ class DataSift_User
         $this->_rate_limit_remaining = $res['rate_limit_remaining'];
 
         return $this->handleResponse($res);
-
     }
 }

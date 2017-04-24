@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DataSift client
  *
@@ -23,9 +24,10 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     const HTTP_NOT_FOUND = 404;
     const HTTP_CONFLICT = 409;
     const HTTP_GONE = 410;
-    
+
     /**
      * User
+     *
      * @var DataSift_User
      */
     protected $user = false;
@@ -35,8 +37,8 @@ class IdentityTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        require_once(dirname(__FILE__).'/../lib/datasift.php');
-        require_once(dirname(__FILE__).'/../config.php');
+        require_once(dirname(__FILE__) . '/../lib/datasift.php');
+        require_once(dirname(__FILE__) . '/../config.php');
 
         $this->_user = new DataSift_User(USERNAME, API_KEY);
         $this->_user->setApiClient('DataSift_MockApiClient');
@@ -47,7 +49,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     /**
      * Data provider for testGetAll
      */
-    public function getAllProvider() 
+    public function getAllProvider()
     {
         return array(
             array(
@@ -93,7 +95,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAllProvider
-     * @covers Datasift_Account_Identity::getAll
+     * @covers       Datasift_Account_Identity::getAll
      */
     public function testGetAll($label, $apiResult, $expectedResult)
     {
@@ -107,7 +109,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
         if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
-        
+
         $result = $identity->getAll($label, $page, $perPage);
 
         $this->assertEquals($expectedResult, $result);
@@ -116,7 +118,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     /**
      * Data provider for testGet
      */
-    public function getProvider() 
+    public function getProvider()
     {
         return array(
             array(
@@ -164,9 +166,10 @@ class IdentityTest extends PHPUnit_Framework_TestCase
             )
         );
     }
+
     /**
      * @dataProvider getProvider
-     * @covers Datasift_Account_Identity::get
+     * @covers       Datasift_Account_Identity::get
      */
     public function testGet($identityId, $apiResult, $expectedResult)
     {
@@ -177,7 +180,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
         if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
-        
+
         $result = $identity->get($identityId);
 
         $this->assertEquals($expectedResult, $result);
@@ -241,9 +244,9 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider createProvider
-     * @covers Datasift_Account_Identity::create
+     * @covers       Datasift_Account_Identity::create
      */
-    public function testCreate($label, $master, $active, $apiResult, $expectedResult) 
+    public function testCreate($label, $master, $active, $apiResult, $expectedResult)
     {
         $identity = new DataSift_Account_Identity($this->_user);
 
@@ -252,7 +255,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
         if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
-        
+
         $result = $identity->create($label, $master, $active);
 
         $this->assertEquals($expectedResult, $result);
@@ -336,7 +339,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider updateProvider
-     * @covers Datasift_Account_Identity::update
+     * @covers       Datasift_Account_Identity::update
      */
     public function testUpdate($identityId, $label, $master, $status, $apiResult, $expectedResult)
     {
@@ -347,7 +350,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
         if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
         }
-        
+
         $result = $identity->update($identityId, $label, $master, $status);
 
         $this->assertEquals($expectedResult, $result);
@@ -356,7 +359,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     /**
      * Data provider for testDelete
      */
-    public function deleteProvider() 
+    public function deleteProvider()
     {
         return array(
             array(
@@ -404,7 +407,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider deleteProvider
-     * @covers Datasift_Account_Identity::delete
+     * @covers       Datasift_Account_Identity::delete
      */
     public function testDelete($identityId, $apiResult, $expectedResult)
     {
@@ -511,10 +514,10 @@ class IdentityTest extends PHPUnit_Framework_TestCase
             ),
         );
     }
-    
+
     /**
      * @dataProvider getAllTokensProvider
-     * @covers Datasift_Account_Identity_Token::getAll
+     * @covers       Datasift_Account_Identity_Token::getAll
      */
     public function testGetAllTokens($identityId, $page, $perPage, $apiResult, $expectedResult)
     {
@@ -530,7 +533,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedResult, $result);
     }
-    
+
     /**
      * Data provider for testGetToken
      */
@@ -598,7 +601,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getTokenProvider
-     * @covers Datasift_Account_Identity_Token::get
+     * @covers       Datasift_Account_Identity_Token::get
      */
     public function testGetToken($identityId, $service, $apiResult, $expectedResult)
     {
@@ -701,7 +704,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider createTokenProvider
-     * @covers Datasift_Account_Identity_Token::create
+     * @covers       Datasift_Account_Identity_Token::create
      */
     public function testCreateToken($identityId, $service, $token, $apiResult, $expectedResult)
     {
@@ -740,7 +743,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'rate_limit' => 200,
                     'rate_limit_remaining' => 150,
                 ),
-                'expected_result' => array( 
+                'expected_result' => array(
                     'service' => 'test',
                     'token' => md5('test'),
                     'created_at' => 1429002245,
@@ -764,7 +767,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'rate_limit' => 200,
                     'rate_limit_remaining' => 150,
                 ),
-                'expected_result' => array( 
+                'expected_result' => array(
                     'service' => 'test',
                     'token' => md5('test'),
                     'created_at' => 1429002245,
@@ -811,7 +814,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider updateTokenProvider
-     * @covers Datasift_Account_Identity_Token::update
+     * @covers       Datasift_Account_Identity_Token::update
      */
     public function testUpdateToken($identityId, $service, $token, $apiResult, $expectedResult)
     {
@@ -909,12 +912,12 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'error' => "The Identity's token for <service> has been deleted"
                 )
             )
-        ); 
+        );
     }
 
     /**
      * @dataProvider deleteTokenProvider
-     * @covers Datasift_Account_Identity_Token::delete
+     * @covers       Datasift_Account_Identity_Token::delete
      */
     public function testDeleteToken($identityId, $service, $apiResult, $expectedResult)
     {
@@ -1004,13 +1007,13 @@ class IdentityTest extends PHPUnit_Framework_TestCase
                     'error' => 'The Identity with the supplied id has been deleted'
                 )
             ),
-        );     
+        );
     }
 
 
     /**
      * @dataProvider getLimitProvider
-     * @covers Datasift_Account_Identity_Limit::get
+     * @covers       Datasift_Account_Identity_Limit::get
      */
     public function testGetLimit($identityId, $service, $apiResult, $expectedResult)
     {
@@ -1129,7 +1132,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAllLimitsProvider
-     * @covers Datasift_Account_Identity_Limit::getAll
+     * @covers       Datasift_Account_Identity_Limit::getAll
      */
     public function testGetAllLimits($service, $page, $perPage, $apiResult, $expectedResult)
     {
@@ -1234,7 +1237,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider createLimitProvider
-     * @covers Datasift_Account_Identity_Limit::create
+     * @covers       Datasift_Account_Identity_Limit::create
      */
     public function testCreateLimit($identityId, $service, $limit, $analyze_queries, $apiResult, $expectedResult)
     {
@@ -1254,7 +1257,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     /**
      * Data provider for testUpdateLimit
      */
-    public function updateLimitProvider() 
+    public function updateLimitProvider()
     {
         return array(
             array(
@@ -1339,7 +1342,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider updateLimitProvider
-     * @covers Datasift_Account_Identity_Limit::update
+     * @covers       Datasift_Account_Identity_Limit::update
      */
     public function testUpdateLimit($identityId, $service, $limit, $analyze_queries, $apiResult, $expectedResult)
     {
@@ -1349,7 +1352,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
         if (isset($expectedResult['error'])) {
             $this->setExpectedException('DataSift_Exception_APIError');
-        }        
+        }
 
         $result = $identityLimit->update($identityId, $service, $limit, $analyze_queries);
 
@@ -1359,7 +1362,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
     /**
      * Data provider for testDeleteLimit
      */
-    public function deleteLimitProvider() 
+    public function deleteLimitProvider()
     {
         return array(
             array(
@@ -1426,7 +1429,7 @@ class IdentityTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider deleteLimitProvider
-     * @covers Datasift_Account_Identity_Limit::delete
+     * @covers       Datasift_Account_Identity_Limit::delete
      */
     public function testDeleteLimit($identityId, $service, $apiResult, $expectedResult)
     {
@@ -1435,6 +1438,5 @@ class IdentityTest extends PHPUnit_Framework_TestCase
         DataSift_MockApiClient::setResponse($apiResult);
 
 
-        
     }
 }
