@@ -17,18 +17,7 @@
  * @link      http://www.mediasift.com
  */
 
-/**
- * The DataSift_MockApiClient class is used in place of DataSift_ApiClient
- * in offline unit tests.
- *
- * @category  DataSift
- * @package   PHP-client
- * @author    Stuart Dallas <stuart@3ft9.com>
- * @copyright 2011 MediaSift Ltd.
- * @license   http://www.debian.org/misc/bsd.license BSD License (3 Clause)
- * @link      http://www.mediasift.com
- */
-class DataSift_MockApiClient
+class DataSift_MockApiClient extends DataSift_ApiClient
 {
   /**
    * @var string $_response the API response
@@ -42,8 +31,21 @@ class DataSift_MockApiClient
 	 *
 	 * @return void
 	 */
-	public static function setResponse($r)
-	{
+	public static function setResponse($r, $response_code=200)
+	{	
+		if (is_string($r)) {
+			$res = self::parseHTTPResponse($r);
+
+			$info = array('http_code' => $response_code);
+
+	        $r = array(
+	            'response_code'        => $info['http_code'],
+	            'data'                 => (strlen($res['body']) == 0 ? array() : self::decodeBody($res)),
+	            'rate_limit'           => (isset($res['headers']['x-ratelimit-limit']) ? $res['headers']['x-ratelimit-limit'] : -1),
+	            'rate_limit_remaining' => (isset($res['headers']['x-ratelimit-remaining']) ? $res['headers']['x-ratelimit-remaining'] : -1),
+	        );
+
+		}
 		self::$_response = $r;
 	}
 	
@@ -58,7 +60,16 @@ class DataSift_MockApiClient
 	 *
 	 * @return void
 	 */
-	public static function call($username, $api_key, $endpoint, $params = array(), $user_agent = 'DataSiftPHP/0.0')
+	static public function call(
+        DataSift_User $user, 
+        $endPoint,
+        $method,
+        $params = array(),
+        $headers = array(),
+        $userAgent = DataSift_User::USER_AGENT,
+        $qs = array(),
+        $ingest = false
+    )
 	{
 		if (self::$_response === false) {
 			throw new Exception('Expected response not set in mock object');
