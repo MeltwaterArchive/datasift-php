@@ -24,27 +24,27 @@
  * @link     http://www.mediasift.com
  */
 class DataSift_Account_Identity_Limit extends DataSift_Account
-{    
+{
     /**
      * Returns the limit for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * 
+     *
+     * @param string $identity
+     * @param string $service
+     *
      * @return mixed
      */
     public function get($identity, $service)
-    {   
+    {
         return $this->_user->get('account/identity/' . $identity . '/limit/' . $service);
     }
-    
+
     /**
      * Get all the limits for a service
-     * 
-     * @param string    $service
-     * @param integer   $page
-     * @param integer   $per_page
-     * 
+     *
+     * @param string  $service
+     * @param integer $page
+     * @param integer $per_page
+     *
      * @return mixed
      */
     public function getAll($service, $page = 1, $perPage = 25)
@@ -53,23 +53,23 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
             'page' => $page,
             'per_page' => $perPage
         );
-        
+
         return $this->_user->get('account/identity/limit/' . $service, $params);
     }
-    
+
     /**
      * Create a limit for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * @param integer   $total_allowance
-     * @param integer   $analyze_queries
-     * 
+     *
+     * @param string  $identity
+     * @param string  $service
+     * @param integer $total_allowance
+     * @param integer $analyze_queries
+     *
      * @return mixed
      */
     public function create($identity, $service, $total_allowance = false, $analyze_queries = false)
     {
-        
+
         $params = array(
             'service' => $service,
         );
@@ -80,18 +80,18 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
         if ($analyze_queries) {
             $params['analyze_queries'] = $analyze_queries;
         }
-        
+
         return $this->_user->post('account/identity/' . $identity . '/limit', $params);
     }
-    
+
     /**
      * Update the limit for an service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * @param integer   $total_allowance
-     * @param integer   $analyze_queries
-     * 
+     *
+     * @param string  $identity
+     * @param string  $service
+     * @param integer $total_allowance
+     * @param integer $analyze_queries
+     *
      * @return mixed
      */
     public function update($identity, $service, $total_allowance = false, $analyze_queries = false)
@@ -104,19 +104,20 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
         if ($analyze_queries) {
             $params['analyze_queries'] = $analyze_queries;
         }
-        
+
         return $response = $this->_user->put('account/identity/' . $identity . '/limit/' . $service, $params);
     }
-    
+
     /**
      * Delete the limit for an service
-     * 
-     * @param string    $identity
+     *
+     * @param string $identity
+     *
      * @return mixed
      */
     public function delete($identity, $service)
     {
-        
+
         return $response = $this->_user->delete('account/identity/' . $identity . '/limit/' . $service);
     }
 }

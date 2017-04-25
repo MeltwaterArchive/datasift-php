@@ -3,3 +3,5 @@ sftp-config.json
 *.iml
 *.idea/*
 nbproject
+build
+vendor

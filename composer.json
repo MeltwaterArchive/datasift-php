@@ -1,9 +1,36 @@
 {
     "name": "datasift/datasift-php",
+    "type": "library",
+    "description": "",
+    "keywords": [
+        "client",
+        "API",
+        "datasift"
+    ],
+    "homepage": "https://github.com/datasift/datasift-php",
+    "license": "MIT",
     "require": {
+        "php": ">=5.3.0",
         "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4 - 6",
+        "squizlabs/php_codesniffer": "^2.3"
     },
     "autoload": {
         "classmap": ["lib"]
+    },
+    "autoload-dev": {
+        "classmap": ["tests"]
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -s -p --standard=phpcs.xml --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 lib",
+        "fix-style": "phpcbf -s -p --standard==phpcs.xml --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 lib"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
     }
 }

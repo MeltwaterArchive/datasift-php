@@ -26,5 +26,5 @@
  */
 class DataSift_Exception_AccessDenied extends Exception
 {
-	
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DataSift client
  *
@@ -20,14 +21,14 @@ class DataSift_Pylon
     /**
      * Order by constants.
      */
-    const ORDERBY_ID           = 'id';
-    const ORDERBY_CREATED_AT   = 'created_at';
+    const ORDERBY_ID = 'id';
+    const ORDERBY_CREATED_AT = 'created_at';
     const ORDERBY_REQUEST_TIME = 'request_time';
 
     /**
      * Order direction constants.
      */
-    const ORDERDIR_ASC  = 'asc';
+    const ORDERDIR_ASC = 'asc';
     const ORDERDIR_DESC = 'desc';
 
     /**
@@ -104,7 +105,7 @@ class DataSift_Pylon
      * Construct the Datasift_Pylon object
      *
      * @param Datasift_User $user The Datasift user object
-     * @param array $data Data used to populate the attributes of this object
+     * @param array         $data Data used to populate the attributes of this object
      *
      * @return DataSift_Pylon
      */
@@ -135,9 +136,12 @@ class DataSift_Pylon
      *
      * @return DataSift_Pylon
      */
-    public function findAll($page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC)
-    {
-
+    public function findAll(
+        $page = 1,
+        $per_page = 20,
+        $order_by = self::ORDERBY_CREATED_AT,
+        $order_dir = self::ORDERDIR_ASC
+    ) {
         $results = self::getAll($this->_user, $page, $per_page, $order_by, $order_dir);
 
         if (isset($results['subscriptions'])) { // Cope with pagination
@@ -157,17 +161,17 @@ class DataSift_Pylon
      * Get an existing recordings.
      *
      * @param Datasift_User $user The Datasift user object
-     * @param string $id The id of the existing pylon
+     * @param string        $id   The id of the existing pylon
      *
      * @throws DataSift_Exception_InvalidData
      *
      * @return DataSift_Pylon
      */
-    static public function get($user, $id = false)
+    public static function get($user, $id = false)
     {
         $params = array();
 
-        if ($id)  {
+        if ($id) {
             $params['id'] = $id;
         }
 
@@ -177,18 +181,23 @@ class DataSift_Pylon
     /**
      * List recordings
      *
-     * @param Datasift_User $user The Datasift user object
-     * @param int page The page of recordings to return
-     * @param int per_page The number of recordings to display per page
-     * @param string order_by The field to order the results by
-     * @param string order_dir The direction to order the results by (ASC/DESC)
+     * @param Datasift_User $user  The Datasift user object
+     * @param               int    page The page of recordings to return
+     * @param               int    per_page The number of recordings to display per page
+     * @param               string order_by The field to order the results by
+     * @param               string order_dir The direction to order the results by (ASC/DESC)
      *
      * @throws DataSift_Exception_InvalidData
      *
      * @return array
      */
-    static public function getAll($user, $page = 1, $per_page = 20, $order_by = self::ORDERBY_CREATED_AT, $order_dir = self::ORDERDIR_ASC)
-    {
+    public static function getAll(
+        $user,
+        $page = 1,
+        $per_page = 20,
+        $order_by = self::ORDERBY_CREATED_AT,
+        $order_dir = self::ORDERDIR_ASC
+    ) {
         if ($page < 1) {
             throw new DataSift_Exception_InvalidData("The specified page number is invalid");
         }
@@ -212,11 +221,11 @@ class DataSift_Pylon
      * Validate CSDL
      *
      * @param Datasift_User $user The Datasift user object
-     * @param string $csdl The CSDL to validate
+     * @param string        $csdl The CSDL to validate
      *
      * @return array The response from validating the CSDL
      */
-    static public function validate($user, $csdl)
+    public static function validate($user, $csdl)
     {
         return $user->post('pylon/validate', array('csdl' => $csdl));
     }
@@ -227,11 +236,11 @@ class DataSift_Pylon
      * Previously called fromHash
      *
      * @param Datasift_User $user The Datasift user object
-     * @param string $hash The Hash of the recording
+     * @param string        $hash The Hash of the recording
      *
      * @return DataSift_Pylon
      */
-    static public function fromId($user, $id)
+    public static function fromId($user, $id)
     {
         return new self($user, self::get($user, $id));
     }
@@ -245,15 +254,13 @@ class DataSift_Pylon
      */
     private function load($data)
     {
-        if (empty($data)) 
-        {
+        if (empty($data)) {
             throw new DataSift_Exception_InvalidData('No data found');
         }
 
         //Assign the instance variables
-        foreach ($data as $key => $value)
-        {
-            $this->{'_'.$key} = $value;
+        foreach ($data as $key => $value) {
+            $this->{'_' . $key} = $value;
         }
     }
 
@@ -436,7 +443,6 @@ class DataSift_Pylon
         $this->_hash = $res['hash'];
 
         return $res;
-
     }
 
     /**
@@ -446,7 +452,7 @@ class DataSift_Pylon
      * @param string $name If name is provided it will be set
      *
      */
-    public function start($hash = false, $name = false) 
+    public function start($hash = false, $name = false)
     {
         if ($hash) {
             $this->_hash = $hash;
@@ -456,10 +462,9 @@ class DataSift_Pylon
             $this->_name = $name;
         }
 
-        if (!empty($this->_id)) {
+        if (! empty($this->_id)) {
             $this->restart();
-        }
-        else {
+        } else {
             $this->create();
         }
     }
@@ -480,8 +485,7 @@ class DataSift_Pylon
 
         $params = array('hash' => $this->_hash);
 
-        if (!empty($this->_name))
-        {
+        if (! empty($this->_name)) {
             $params['name'] = $this->_name;
         }
 
@@ -528,11 +532,11 @@ class DataSift_Pylon
     /**
      * Analyze the recording
      *
-     * @param array $parameters the parameter array to be used to analyze the data set
-     * @param string $filter additional CSDL filter
-     * @param int $start the start time of the pylon
-     * @param int $end the end time of the pylon
-     * @param string $id If id is provided it will be set
+     * @param array  $parameters the parameter array to be used to analyze the data set
+     * @param string $filter     additional CSDL filter
+     * @param int    $start      the start time of the pylon
+     * @param int    $end        the end time of the pylon
+     * @param string $id         If id is provided it will be set
      *
      * @return array Response from the compile
      */
@@ -543,7 +547,7 @@ class DataSift_Pylon
         }
 
         //If parameters is not an array try and decode it
-        if (!is_array($parameters)) {
+        if (! is_array($parameters)) {
             $parameters = json_decode($parameters);
         }
 
@@ -551,8 +555,8 @@ class DataSift_Pylon
             throw new DataSift_Exception_InvalidData('Parameters must be supplied as an array or valid JSON');
         }
         $params = array(
-            'id'       =>    $this->_id,
-            'parameters' =>    $parameters
+            'id' => $this->_id,
+            'parameters' => $parameters
         );
 
         //Set optional request parameters
@@ -593,12 +597,12 @@ class DataSift_Pylon
     /**
      * Returns a list of sample interactions (super-public)
      *
-     * @param Datasift_User $user The Datasift user object
-     * @param string $id The id of the existing pylon
-     * @param string $filter additional CSDL filter
-     * @param int $start the start time of the pylon
-     * @param int $end the end time of the pylon
-     * @param int $count optional value to set the count
+     * @param Datasift_User $user   The Datasift user object
+     * @param string        $id     The id of the existing pylon
+     * @param string        $filter additional CSDL filter
+     * @param int           $start  the start time of the pylon
+     * @param int           $end    the end time of the pylon
+     * @param int           $count  optional value to set the count
      *
      * @throws DataSift_Exception_InvalidData
      *
@@ -631,8 +635,7 @@ class DataSift_Pylon
         if ($filter) {
             $params['filter'] = $filter;
             return $this->_user->post('pylon/sample', $params);
-        } 
-        else {
+        } else {
             return $this->_user->get('pylon/sample', $params);
         }
     }
@@ -640,7 +643,7 @@ class DataSift_Pylon
     /**
      * Updates a recording with a new hash and or name
      *
-     * @param string $id The id of the existing recording
+     * @param string $id   The id of the existing recording
      * @param string $hash The new hash of the pylon recording
      * @param string $name The new updated name of the recording
      *
@@ -656,16 +659,15 @@ class DataSift_Pylon
             $this->_hash = $hash;
         }
         if ($name) {
-            $this->_name = $name;            
+            $this->_name = $name;
         }
 
         $params = array(
-            'id'    => $this->_id, 
-            'hash'  => $this->_hash, 
-            'name'  => $this->_name
+            'id' => $this->_id,
+            'hash' => $this->_hash,
+            'name' => $this->_name
         );
 
         $this->_user->put('pylon/update', $params);
     }
-
 }

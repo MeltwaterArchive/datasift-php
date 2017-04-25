@@ -27,24 +27,24 @@ class DataSift_Account_Identity_Token extends DataSift_Account
 {
     /**
      * Gets the token for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * 
+     *
+     * @param string $identity
+     * @param string $service
+     *
      * @return mixed
      */
-    public function get($identity, $service) 
-    {   
+    public function get($identity, $service)
+    {
         return $this->_user->get('account/identity/' . $identity . '/token/' . $service);
     }
-    
+
     /**
      * Get all the tokens for an identity
-     * 
-     * @param string    $identity
-     * @param integer   $page
-     * @param integer   $perPage
-     * 
+     *
+     * @param string  $identity
+     * @param integer $page
+     * @param integer $perPage
+     *
      * @return mixed
      */
     public function getAll($identity, $page = 1, $perPage = 25)
@@ -53,62 +53,62 @@ class DataSift_Account_Identity_Token extends DataSift_Account
             'page' => $page,
             'per_page' => $perPage
         );
-        
+
         return $this->_user->get('account/identity/' . $identity . '/token', $params);
     }
-    
+
     /**
      * Creates a token for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * @param string    $token
-     * @param string    $expiresAt
-     * 
+     *
+     * @param string $identity
+     * @param string $service
+     * @param string $token
+     * @param string $expiresAt
+     *
      * @return mixed
      */
-    public function create($identity, $service, $token) 
+    public function create($identity, $service, $token)
     {
-        
+
         $params = array(
-            'service'       => $service,
-            'token'         => $token,
+            'service' => $service,
+            'token' => $token,
         );
-        
+
         return $this->_user->post('account/identity/' . $identity . '/token', $params);
     }
-    
+
     /**
      * Updates the token for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * @param string    $expiresAt
-     * 
+     *
+     * @param string $identity
+     * @param string $service
+     * @param string $expiresAt
+     *
      * @return mixed
      */
     public function update($identity, $service, $token)
     {
-        
+
         $params = array(
             'token' => $token,
         );
-        
+
         return $this->_user->put('account/identity/' . $identity . '/token/' . $service, $params);
     }
-    
+
     /**
      * Deletes a token for a service
-     * 
-     * @param string    $identity
-     * @param string    $service
-     * 
+     *
+     * @param string $identity
+     * @param string $service
+     *
      * @return mixed
      */
-    public function delete($identity, $service) 
+    public function delete($identity, $service)
     {
         $successCode = array(DataSift_ApiClient::HTTP_NO_CONTENT);
-        
+
         return $this->_user->delete('account/identity/' . $identity . '/token/' . $service);
     }
 }
