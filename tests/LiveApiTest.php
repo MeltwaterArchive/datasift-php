@@ -1,9 +1,15 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class LiveApiTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_Definition;
+use DataSift_Exception_APIError;
+use DataSift_Exception_CompileFailed;
+use DataSift_Exception_InvalidData;
+use DataSift_User;
+use Exception;
+
+class LiveApiTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var DataSift_User
@@ -16,8 +22,8 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
         require_once(dirname(__FILE__) . '/../config.php');
         require_once(dirname(__FILE__) . '/testdata.php');
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     public function testCompile_Success()
@@ -36,7 +42,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         try {
             $def->compile();
@@ -65,7 +71,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('invalid_definition'));
         $this->assertEquals($def->get(), testdata('invalid_definition'), 'Definition string not set correctly');
@@ -94,7 +100,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
@@ -120,7 +126,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def->set(testdata('invalid_definition'));
         $this->assertEquals($def->get(), testdata('invalid_definition'), 'Definition string not set correctly');
@@ -152,7 +158,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
         $created_at = $def->getCreatedAt();
@@ -175,7 +181,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
@@ -200,14 +206,18 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
         $dpu = $def->getDPUBreakdown();
 
         $this->assertEquals(count($dpu['detail']), 1, 'The DPU breakdown is not what was expected');
         $this->assertTrue($dpu['dpu'] > 0, 'The total DPU is not positive');
-        $this->assertEquals($dpu['dpu'], $def->getTotalDPU(), 'The total DPU returned by the definition is not correct');
+        $this->assertEquals(
+            $dpu['dpu'],
+            $def->getTotalDPU(),
+            'The total DPU returned by the definition is not correct'
+        );
     }
 
     public function testGetBuffered()
@@ -225,7 +235,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
 
@@ -241,7 +251,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $interactions = $def->getBuffered();
 
@@ -261,7 +271,7 @@ class LiveApiTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $usage = $this->user->getUsage();
         $this->assertTrue(isset($usage['start']), 'Usage data does not contain a start date');

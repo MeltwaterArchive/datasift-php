@@ -117,7 +117,6 @@ class DataSift_Account_Identity_Limit extends DataSift_Account
      */
     public function delete($identity, $service)
     {
-
         return $response = $this->_user->delete('account/identity/' . $identity . '/limit/' . $service);
     }
 }

@@ -1,9 +1,10 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class HistoricTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_User;
+
+class HistoricTest extends \PHPUnit_Framework_TestCase
 {
     protected $user = false;
 
@@ -13,8 +14,8 @@ class HistoricTest extends PHPUnit_Framework_TestCase
         require_once dirname(__FILE__) . '/../config.php';
         require_once dirname(__FILE__) . '/testdata.php';
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     protected function set204Response()
@@ -25,7 +26,7 @@ class HistoricTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
     }
 
     protected function setResponseToSingleHistoric($changes = array())
@@ -50,12 +51,18 @@ class HistoricTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
     }
 
     public function testConstructionFromHash()
     {
-        $historic = $this->user->createHistoric(testdata('definition_hash'), testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'));
+        $historic = $this->user->createHistoric(
+            testdata('definition_hash'),
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name')
+        );
 
         $this->assertInstanceOf(
             'DataSift_Historic',
@@ -84,9 +91,15 @@ class HistoricTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
-        $historic = $def->createHistoric(testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'), testdata('historic_sample'));
+        $historic = $def->createHistoric(
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name'),
+            testdata('historic_sample')
+        );
 
         $this->assertInstanceOf(
             'DataSift_Historic',
@@ -102,7 +115,13 @@ class HistoricTest extends PHPUnit_Framework_TestCase
 
     public function testPrepare()
     {
-        $historic = $this->user->createHistoric(testdata('definition_hash'), testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'));
+        $historic = $this->user->createHistoric(
+            testdata('definition_hash'),
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name')
+        );
 
         $this->assertInstanceOf(
             'DataSift_Historic',
@@ -126,13 +145,17 @@ class HistoricTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $historic->prepare();
 
         $this->assertEquals($historic->getHash(), testdata('historic_playback_id'), 'The playback ID is incorrect');
         $this->assertEquals($historic->getDPUs(), testdata('historic_dpus'), 'The DPU cost is incorrect');
-        $this->assertEquals($historic->getAvailability(), testdata('historic_availability'), 'The availability data is incorrect');
+        $this->assertEquals(
+            $historic->getAvailability(),
+            testdata('historic_availability'),
+            'The availability data is incorrect'
+        );
 
         // Make sure we can't prepare it twice
         $this->setExpectedException('DataSift_Exception_InvalidData');
@@ -155,12 +178,22 @@ class HistoricTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($historic->getEndDate(), testdata('historic_end_date'), 'The end date is incorrect');
         $this->assertEquals($historic->getSources(), testdata('historic_sources'), 'The sources are incorrect');
         $this->assertEquals($historic->getName(), testdata('historic_name'), 'The name is incorrect');
-        $this->assertEquals($historic->getSample(), testdata('historic_sample'), 'The default sample rate is incorrect');
+        $this->assertEquals(
+            $historic->getSample(),
+            testdata('historic_sample'),
+            'The default sample rate is incorrect'
+        );
     }
 
     public function testSetNameBeforePreparing()
     {
-        $historic = $this->user->createHistoric(testdata('definition_hash'), testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'));
+        $historic = $this->user->createHistoric(
+            testdata('definition_hash'),
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name')
+        );
 
         $this->assertInstanceOf(
             'DataSift_Historic',
@@ -198,7 +231,13 @@ class HistoricTest extends PHPUnit_Framework_TestCase
 
     public function testStart()
     {
-        $historic = $this->user->createHistoric(testdata('definition_hash'), testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'));
+        $historic = $this->user->createHistoric(
+            testdata('definition_hash'),
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name')
+        );
 
         $response = array(
             'response_code' => 200,
@@ -210,7 +249,7 @@ class HistoricTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $historic->prepare();
 

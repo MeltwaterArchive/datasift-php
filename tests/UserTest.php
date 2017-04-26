@@ -1,9 +1,15 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class UserTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_Exception_AccessDenied;
+use DataSift_Exception_APIError;
+use DataSift_Exception_CompileFailed;
+use DataSift_Exception_InvalidData;
+use DataSift_Exception_RateLimitExceeded;
+use DataSift_User;
+
+class UserTest extends \PHPUnit_Framework_TestCase
 {
     protected $config = false;
     protected $user = false;
@@ -14,8 +20,8 @@ class UserTest extends PHPUnit_Framework_TestCase
         require_once(dirname(__FILE__) . '/../config.php');
         require_once(dirname(__FILE__) . '/testdata.php');
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     public function testConstruction()
@@ -69,7 +75,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = $this->user->createDefinition(testdata('definition'));
 
@@ -86,29 +92,41 @@ class UserTest extends PHPUnit_Framework_TestCase
         }
 
         $this->assertNotEquals($this->user->getRateLimit(), -1, 'Rate limit is -1 after calling the API');
-        $this->assertNotEquals($this->user->getRateLimitRemaining(), -1, 'Rate limit remaining is -1 after calling the API');
+        $this->assertNotEquals(
+            $this->user->getRateLimitRemaining(),
+            -1,
+            'Rate limit remaining is -1 after calling the API'
+        );
     }
 
     public function testGetUsage()
     {
         $response = array(
             'response_code' => 200,
-            'data' => json_decode('{"start":"Mon, 07 Nov 2011 10:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000","streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"tumblr":3},"seconds":300}}}', true),
+            'data' => json_decode(
+                '{"start":"Mon, 07 Nov 2011 10:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000",'
+                . '"streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"tumblr":3},"seconds":300}}}',
+                true
+            ),
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $usage = $this->user->getUsage();
         $this->assertEquals($response['data'], $usage, 'Usage data for the specified hour is not as expected');
 
         $response = array(
             'response_code' => 200,
-            'data' => json_decode('{"start":"Mon, 06 Nov 2011 11:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000","streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"tumblr":1354},"seconds":34035}}}', true),
+            'data' => json_decode(
+                '{"start":"Mon, 06 Nov 2011 11:25:00 +0000","end":"Mon, 07 Nov 2011 11:25:00 +0000",'
+                . '"streams":{"6fd9d61afba0149e0f1d42080ccd9075":{"licenses":{"tumblr":1354},"seconds":34035}}}',
+                true
+            ),
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $usage = $this->user->getUsage('day');
         $this->assertEquals($response['data'], $usage, 'Usage data for the specified day is not as expected');
@@ -126,7 +144,7 @@ class UserTest extends PHPUnit_Framework_TestCase
                 'rate_limit' => 200,
                 'rate_limit_remaining' => 150,
             );
-            DataSift_MockApiClient::setResponse($response);
+            MockApiClient::setResponse($response);
             $usage = $this->user->getUsage();
             // Should have had an exception
             $this->fail('Expected DataSift_Exception_InvalidData exception did not get thrown');
@@ -144,12 +162,16 @@ class UserTest extends PHPUnit_Framework_TestCase
                 'rate_limit' => 200,
                 'rate_limit_remaining' => 150,
             );
-            DataSift_MockApiClient::setResponse($response);
+            MockApiClient::setResponse($response);
             $usage = $this->user->getUsage();
             // Should have had an exception
             $this->fail('Expected ApiError exception did not get thrown');
         } catch (DataSift_Exception_AccessDenied $e) {
-            $this->assertEquals($response['data']['error'], $e->getMessage(), '401 exception message is not as expected');
+            $this->assertEquals(
+                $response['data']['error'],
+                $e->getMessage(),
+                '401 exception message is not as expected'
+            );
         }
 
         // Endpoint or data not found
@@ -162,12 +184,16 @@ class UserTest extends PHPUnit_Framework_TestCase
                 'rate_limit' => 200,
                 'rate_limit_remaining' => 150,
             );
-            DataSift_MockApiClient::setResponse($response);
+            MockApiClient::setResponse($response);
             $usage = $this->user->getUsage();
             // Should have had an exception
             $this->fail('Expected ApiError exception did not get thrown');
         } catch (DataSift_Exception_ApiError $e) {
-            $this->assertEquals($response['data']['error'], $e->getMessage(), '404 exception message is not as expected');
+            $this->assertEquals(
+                $response['data']['error'],
+                $e->getMessage(),
+                '404 exception message is not as expected'
+            );
         }
 
         // Problem with an internal service
@@ -180,12 +206,16 @@ class UserTest extends PHPUnit_Framework_TestCase
                 'rate_limit' => 200,
                 'rate_limit_remaining' => 150,
             );
-            DataSift_MockApiClient::setResponse($response);
+            MockApiClient::setResponse($response);
             $usage = $this->user->getUsage();
             // Should have had an exception
             $this->fail('Expected ApiError exception did not get thrown');
         } catch (DataSift_Exception_ApiError $e) {
-            $this->assertEquals($response['data']['error'], $e->getMessage(), '500 exception message is not as expected');
+            $this->assertEquals(
+                $response['data']['error'],
+                $e->getMessage(),
+                '500 exception message is not as expected'
+            );
         }
     }
 }

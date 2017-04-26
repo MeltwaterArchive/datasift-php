@@ -1,9 +1,11 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class SourceTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_Source;
+use DataSift_User;
+
+class SourceTest extends \PHPUnit_Framework_TestCase
 {
     protected $config = false;
     protected $user = false;
@@ -16,8 +18,8 @@ class SourceTest extends PHPUnit_Framework_TestCase
         require_once(dirname(__FILE__) . '/../config.php');
         require_once(dirname(__FILE__) . '/testdata.php');
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     protected function createSource()
@@ -59,7 +61,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $source = new DataSift_Source($this->user, array(
             'name' => 'My PHP managed source',
@@ -94,20 +96,21 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
     public function testCreateSource()
     {
-
         $source = $this->createSource();
         $resources = $source->getResources();
         $auth = $source->getAuth();
         $this->assertEquals($source->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID did not match');
         $this->assertEquals($source->getName(), 'My PHP managed source', 'Name did not match');
         $this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
-        $this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
-
+        $this->assertEquals(
+            $auth[0]['parameters']['value'],
+            '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2',
+            'Auth token did not match'
+        );
     }
 
     public function testUpdateSource()
     {
-
         $source = $this->createSource();
 
         $source->setResources(
@@ -177,8 +180,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $source->save();
 
@@ -189,13 +191,15 @@ class SourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($source->getName(), 'My Updated PHP managed source', 'Name did not match');
         $this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
         $this->assertEquals($resources[1]['parameters']['id'], 10513536389, 'Resource ID did not match');
-        $this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
-
+        $this->assertEquals(
+            $auth[0]['parameters']['value'],
+            '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2',
+            'Auth token did not match'
+        );
     }
 
     public function testSourceList()
     {
-
         $response = array(
             'response_code' => 200,
             'data' => array(
@@ -239,7 +243,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $sources = DataSift_Source::listSources($this->user);
 
@@ -247,7 +251,6 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($source1->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID differs to test data');
         $this->assertEquals($sources['count'], 1, 'Count differs to test data');
-
     }
 
     public function testGetSource()
@@ -289,7 +292,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $source = DataSift_Source::get($this->user, '78b3601ef667466d95f19570dcb74699');
 
@@ -299,8 +302,11 @@ class SourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($source->getId(), '78b3601ef667466d95f19570dcb74699', 'Source ID did not match');
         $this->assertEquals($source->getName(), 'My PHP managed source', 'Name did not match');
         $this->assertEquals($resources[0]['parameters']['id'], 10513336322, 'Resource ID did not match');
-        $this->assertEquals($auth[0]['parameters']['value'], '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2', 'Auth token did not match');
-
+        $this->assertEquals(
+            $auth[0]['parameters']['value'],
+            '363056350669209|09af1ce9c5d8d23147ec4eeb9a33aac2',
+            'Auth token did not match'
+        );
     }
 
     public function testAddRemoveAuth()
@@ -329,7 +335,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $source->addAuth($new_auth);
 
@@ -352,7 +358,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $source->removeAuth(array('7b1be3a398e646bbb3c7a5cb9717ba45'));
 
@@ -360,7 +366,6 @@ class SourceTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $source->getAuth(), 'Expecting 1 auth object to be returned');
         $this->assertArrayHasKey('identity_id', $auth[0], 'First auth had no ID');
-
     }
 
     public function testAddRemoveResource()
@@ -395,7 +400,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $source->addResource($new_resource);
 
@@ -418,7 +423,7 @@ class SourceTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $resources = $source->getResources();
 
@@ -426,5 +431,4 @@ class SourceTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $source->getResources(), 'Expecting 1 auth object to be returned');
         $this->assertArrayHasKey('id', $resources[0]['parameters'], 'First auth had no ID');
     }
-
 }

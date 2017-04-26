@@ -1,9 +1,12 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class PushTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_Push_Definition;
+use DataSift_Push_Subscription;
+use DataSift_User;
+
+class PushTest extends \PHPUnit_Framework_TestCase
 {
     protected $user = false;
     protected $pd = false;
@@ -14,8 +17,8 @@ class PushTest extends PHPUnit_Framework_TestCase
         require_once dirname(__FILE__) . '/../config.php';
         require_once dirname(__FILE__) . '/testdata.php';
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
         $this->pd = new DataSift_Push_Definition($this->user);
     }
 
@@ -54,25 +57,61 @@ class PushTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
     }
 
     protected function checkSubscription($sub)
     {
         $this->assertEquals($sub->getId(), testdata('push_id'), 'The subscription ID is incorrect');
         $this->assertEquals($sub->getName(), testdata('push_name'), 'The subscription name is incorrect');
-        $this->assertEquals($sub->getCreatedAt(), testdata('push_created_at'), 'The subscription created at timestamp is incorrect');
+        $this->assertEquals(
+            $sub->getCreatedAt(),
+            testdata('push_created_at'),
+            'The subscription created at timestamp is incorrect'
+        );
         $this->assertEquals($sub->getStatus(), testdata('push_status'), 'The subscription status is incorrect');
         $this->assertEquals($sub->getHash(), testdata('definition_hash'), 'The subscription hash is incorrect');
         $this->assertEquals($sub->getHashType(), testdata('push_hash_type'), 'The subscription hash type is incorrect');
-        $this->assertEquals($sub->getOutputType(), testdata('push_output_type'), 'The subscription output type is incorrect');
-        $this->assertEquals($sub->getOutputParam('delivery_frequency'), testdata('push_output_params', 'delivery_frequency'), 'The subscription delivery frequency is incorrect');
-        $this->assertEquals($sub->getOutputParam('url'), testdata('push_output_params', 'url'), 'The subscription url is incorrect');
-        $this->assertEquals($sub->getOutputParam('auth.type'), testdata('push_output_params', 'auth.type'), 'The subscription auth type is incorrect');
-        $this->assertEquals($sub->getOutputParam('auth.username'), testdata('push_output_params', 'auth.username'), 'The subscription auth username is incorrect');
-        $this->assertEquals($sub->getOutputParam('auth.password'), testdata('push_output_params', 'auth.password'), 'The subscription auth password is incorrect');
-        $this->assertEquals($sub->getLastRequest(), testdata('push_last_request'), 'The subscription last request timestamp is incorrect');
-        $this->assertEquals($sub->getLastSuccess(), testdata('push_last_success'), 'The subscription last success timestamp is incorrect');
+        $this->assertEquals(
+            $sub->getOutputType(),
+            testdata('push_output_type'),
+            'The subscription output type is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getOutputParam('delivery_frequency'),
+            testdata('push_output_params', 'delivery_frequency'),
+            'The subscription delivery frequency is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getOutputParam('url'),
+            testdata('push_output_params', 'url'),
+            'The subscription url is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getOutputParam('auth.type'),
+            testdata('push_output_params', 'auth.type'),
+            'The subscription auth type is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getOutputParam('auth.username'),
+            testdata('push_output_params', 'auth.username'),
+            'The subscription auth username is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getOutputParam('auth.password'),
+            testdata('push_output_params', 'auth.password'),
+            'The subscription auth password is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getLastRequest(),
+            testdata('push_last_request'),
+            'The subscription last request timestamp is incorrect'
+        );
+        $this->assertEquals(
+            $sub->getLastSuccess(),
+            testdata('push_last_success'),
+            'The subscription last success timestamp is incorrect'
+        );
     }
 
     public function testConstruction()
@@ -90,11 +129,19 @@ class PushTest extends PHPUnit_Framework_TestCase
 
         $this->pd->setInitialStatus(DataSift_Push_Subscription::STATUS_PAUSED);
 
-        $this->assertEquals($this->pd->getInitialStatus(), DataSift_Push_Subscription::STATUS_PAUSED, 'Failed to set the initial status to paused');
+        $this->assertEquals(
+            $this->pd->getInitialStatus(),
+            DataSift_Push_Subscription::STATUS_PAUSED,
+            'Failed to set the initial status to paused'
+        );
 
         $this->pd->setInitialStatus(DataSift_Push_Subscription::STATUS_STOPPED);
 
-        $this->assertEquals($this->pd->getInitialStatus(), DataSift_Push_Subscription::STATUS_STOPPED, 'Failed to set the initial status to stopped');
+        $this->assertEquals(
+            $this->pd->getInitialStatus(),
+            DataSift_Push_Subscription::STATUS_STOPPED,
+            'Failed to set the initial status to stopped'
+        );
     }
 
     public function testOutputType()
@@ -114,7 +161,11 @@ class PushTest extends PHPUnit_Framework_TestCase
 
         $this->pd->setOutputParam('url', 'http://www.example.com/');
 
-        $this->assertEquals($this->pd->getOutputParam('url'), 'http://www.example.com/', 'Failed to set the url output param');
+        $this->assertEquals(
+            $this->pd->getOutputParam('url'),
+            'http://www.example.com/',
+            'Failed to set the url output param'
+        );
 
         $this->assertEquals(count($this->pd->getOutputParams()), 1, 'Number of output parameters is incorrect');
     }
@@ -129,7 +180,7 @@ class PushTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->pd->validate();
     }
@@ -149,7 +200,7 @@ class PushTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
         $this->assertEquals($def->getHash(), testdata('definition_hash'), 'The definition hash is incorrect');
 
         $this->configurePushDefinition();
@@ -174,7 +225,13 @@ class PushTest extends PHPUnit_Framework_TestCase
 
     public function testSubscribeHistoric()
     {
-        $historic = $this->user->createHistoric(testdata('definition_hash'), testdata('historic_start_date'), testdata('historic_end_date'), testdata('historic_sources'), testdata('historic_name'));
+        $historic = $this->user->createHistoric(
+            testdata('definition_hash'),
+            testdata('historic_start_date'),
+            testdata('historic_end_date'),
+            testdata('historic_sources'),
+            testdata('historic_name')
+        );
 
         $this->assertInstanceOf(
             'DataSift_Historic',
@@ -198,13 +255,17 @@ class PushTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $historic->prepare();
 
         $this->assertEquals($historic->getHash(), testdata('historic_playback_id'), 'The playback ID is incorrect');
         $this->assertEquals($historic->getDPUs(), testdata('historic_dpus'), 'The DPU cost is incorrect');
-        $this->assertEquals($historic->getAvailability(), testdata('historic_availability'), 'The availability data is incorrect');
+        $this->assertEquals(
+            $historic->getAvailability(),
+            testdata('historic_availability'),
+            'The availability data is incorrect'
+        );
 
         $this->configurePushDefinition();
 
@@ -226,25 +287,3 @@ class PushTest extends PHPUnit_Framework_TestCase
         $this->checkSubscription($subscription);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

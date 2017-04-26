@@ -1,10 +1,11 @@
 <?php
 
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
+namespace DataSift\Tests;
 
-class OdpTest extends PHPUnit_Framework_TestCase
+use DataSift_ODP;
+use DataSift_User;
+
+class OdpTest extends \PHPUnit_Framework_TestCase
 {
     protected $user = false;
     protected $source_id = false;
@@ -15,15 +16,19 @@ class OdpTest extends PHPUnit_Framework_TestCase
         require_once(dirname(__FILE__) . '/../lib/datasift.php');
         require_once(dirname(__FILE__) . '/../config.php');
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     public function testSourceLength()
     {
         $odp = new DataSift_ODP($this->user, '1f1be6565a1d4ef38f9f4aeec9554440');
 
-        $this->assertEquals($odp->getSourceId(), '1f1be6565a1d4ef38f9f4aeec9554440', 'Hash does not meet the required length');
+        $this->assertEquals(
+            $odp->getSourceId(),
+            '1f1be6565a1d4ef38f9f4aeec9554440',
+            'Hash does not meet the required length'
+        );
     }
 
     public function testNoSource()
@@ -60,7 +65,7 @@ class OdpTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $data_set = '[{"id": "234", "body": "yo"}]';
 
@@ -70,8 +75,5 @@ class OdpTest extends PHPUnit_Framework_TestCase
         $response = $ingest->ingest($data_set);
 
         $this->assertEquals($response['accepted'], 1, 'Not accepted');
-
     }
 }
-
-?>

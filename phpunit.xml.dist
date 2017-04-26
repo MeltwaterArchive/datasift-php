@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit bootstrap="tests/bootstrap.php"
 		 backupGlobals="false"
 		 backupStaticAttributes="false"
 		 colors="true"
@@ -18,6 +18,10 @@
 			<directory suffix=".php">lib/</directory>
 		</whitelist>
     </filter>
+	<php>
+		<env name="USERNAME" value="username"/>
+		<env name="API_KEY" value="apikey"/>
+	</php>
 	<logging>
 		<log type="tap" target="build/report.tap"/>
 		<log type="junit" target="build/report.junit.xml"/>

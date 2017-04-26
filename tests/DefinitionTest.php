@@ -1,9 +1,17 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class DefinitionTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift\Tests\Stubs\StubEventHandler;
+use DataSift_Definition;
+use DataSift_Exception_APIError;
+use DataSift_Exception_CompileFailed;
+use DataSift_Exception_InvalidData;
+use DataSift_StreamConsumer;
+use DataSift_User;
+use Exception;
+
+class DefinitionTest extends \PHPUnit_Framework_TestCase
 {
     protected $user = false;
 
@@ -13,8 +21,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
         require_once dirname(__FILE__) . '/../config.php';
         require_once dirname(__FILE__) . '/testdata.php';
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     public function testConstruction()
@@ -76,7 +84,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
@@ -97,7 +105,11 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(testdata('definition_hash'), $def->getHash(), 'Incorrect hash');
         // And a created_at date
-        $this->assertEquals($response['data']['created_at'], date('Y-m-d H:i:s', $def->getCreatedAt()), 'Incorrect created_at date');
+        $this->assertEquals(
+            $response['data']['created_at'],
+            date('Y-m-d H:i:s', $def->getCreatedAt()),
+            'Incorrect created_at date'
+        );
         // And a DPU
         $this->assertEquals($response['data']['dpu'], $def->getTotalDPU(), 'Incorrect total DPU');
     }
@@ -112,7 +124,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->setExpectedException('DataSift_Exception_InvalidData');
 
@@ -124,8 +136,6 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
         } catch (DataSift_Exception_APIError $e) {
             $this->fail('APIError: ' . $e->getMessage() . ' (' . $e->getCode() . ')');
         }
-
-
     }
 
     public function testCompile_SuccessThenFailure()
@@ -143,7 +153,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         try {
             $def->compile();
@@ -173,7 +183,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         try {
             $def->compile();
@@ -199,12 +209,16 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals(testdata('definition'), $def->get(), 'Definition string not set correctly');
 
-        $this->assertEquals(strtotime($response['data']['created_at']), $def->getCreatedAt(), 'The created_at date is incorrect');
+        $this->assertEquals(
+            strtotime($response['data']['created_at']),
+            $def->getCreatedAt(),
+            'The created_at date is incorrect'
+        );
     }
 
     public function testGetTotalDPU()
@@ -218,7 +232,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
@@ -238,7 +252,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
@@ -264,7 +278,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $dpu = $def->getDPUBreakdown();
 
@@ -284,7 +298,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals($def->get(), testdata('definition'), 'Definition string not set correctly');
@@ -353,7 +367,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $interactions = $def->getBuffered();
 
@@ -372,12 +386,12 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $def = new DataSift_Definition($this->user, testdata('definition'));
         $this->assertEquals($def->get(), testdata('definition'));
 
-        $consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, new DummyEventHandler());
+        $consumer = $def->getConsumer(DataSift_StreamConsumer::TYPE_HTTP, new StubEventHandler());
         $this->assertInstanceOf(
             'DataSift_StreamConsumer',
             $consumer,
@@ -398,7 +412,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         try {
             $def->getDPUBreakdown();
@@ -411,42 +425,5 @@ class DefinitionTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {
             $this->fail('Unhandled exception: ' . $e->getMessage() . ' (' . $e->getCode() . ')');
         }
-    }
-}
-
-require_once dirname(__FILE__) . '/../lib/DataSift/IStreamConsumerEventHandler.php';
-
-class DummyEventHandler implements DataSift_IStreamConsumerEventHandler
-{
-    public function onConnect($consumer)
-    {
-    }
-
-    public function onInteraction($consumer, $interaction, $hash)
-    {
-    }
-
-    public function onDeleted($consumer, $interaction, $hash)
-    {
-    }
-
-    public function onStatus($consumer, $type, $info)
-    {
-    }
-
-    public function onWarning($consumer, $message)
-    {
-    }
-
-    public function onError($consumer, $message)
-    {
-    }
-
-    public function onDisconnect($consumer)
-    {
-    }
-
-    public function onStopped($consumer, $reason)
-    {
     }
 }

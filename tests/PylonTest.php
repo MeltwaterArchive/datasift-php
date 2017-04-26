@@ -1,9 +1,11 @@
 <?php
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('UTC');
-}
 
-class PylonTest extends PHPUnit_Framework_TestCase
+namespace DataSift\Tests;
+
+use DataSift_Pylon;
+use DataSift_User;
+
+class PylonTest extends \PHPUnit_Framework_TestCase
 {
     protected $config = false;
     protected $user = false;
@@ -15,8 +17,8 @@ class PylonTest extends PHPUnit_Framework_TestCase
         require_once(dirname(__FILE__) . '/../lib/datasift.php');
         require_once(dirname(__FILE__) . '/../config.php');
         $this->user = new DataSift_User(USERNAME, API_KEY);
-        $this->user->setApiClient('DataSift_MockApiClient');
-        DataSift_MockApiClient::setResponse(false);
+        $this->user->setApiClient('\DataSift\Tests\MockApiClient');
+        MockApiClient::setResponse(false);
     }
 
     public function testFind()
@@ -39,7 +41,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
         $get = $pylon->find($this->user, '37fdfa811a6fb20785eecb9de9dd2d3e');
@@ -69,18 +71,16 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $get = DataSift_Pylon::get($this->user, '37fdfa811a6fb20785eecb9de9dd2d3e');
 
         $this->assertEquals($get['hash'], '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
         $this->assertEquals($get['name'], 'birthday sample', 'Name did not match');
-
     }
 
     public function testFindAll()
     {
-
         $response = array(
             'response_code' => 200,
             'data' => array(
@@ -119,7 +119,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
         $subscriptions = $pylon->findAll();
@@ -128,7 +128,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($subscriptions[0]->getHash(), '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
         $this->assertEquals($subscriptions[1]->getHash(), '9jrh3nq811a6fb20785eecb9de9dd2d3f', 'Hash did not match');
         $this->assertEquals($subscriptions[0]->getName(), 'example1', 'Name did not match');
-
     }
 
     public function testGetAll()
@@ -172,15 +171,18 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $get = DataSift_Pylon::getAll($this->user);
 
         $this->assertCount(2, $get['subscriptions'], 'Expecting 2 subscription arrays');
         $this->assertEquals($get['subscriptions'][0]['hash'], '37fdfa811a6fb20785eecb9de9dd2d3e', 'Hash did not match');
-        $this->assertEquals($get['subscriptions'][1]['hash'], '9jrh3nq811a6fb20785eecb9de9dd2d3f', 'Hash did not match');
+        $this->assertEquals(
+            $get['subscriptions'][1]['hash'],
+            '9jrh3nq811a6fb20785eecb9de9dd2d3f',
+            'Hash did not match'
+        );
         $this->assertEquals($get['subscriptions'][0]['name'], 'example1', 'Name did not match');
-
     }
 
     public function testCanValidate()
@@ -206,7 +208,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $csdl = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
 
@@ -214,7 +216,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($validate['created_at'], 1424280706, 'Created at did not match');
         $this->assertEquals($validate['operator_grouping']['return']['medium'], 5, 'Name did not match');
-
     }
 
     public function testFailValidate()
@@ -230,14 +231,13 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->setExpectedException('DataSift_Exception_InvalidData');
 
         $csdl = '(fb.contwent any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
 
         $validate = DataSift_Pylon::validate($this->user, $csdl);
-
     }
 
     public function testCanCompile()
@@ -252,7 +252,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $csdl = '(fb.content any "coffee" OR fb.hashtags in "tea") AND fb.language in "en"';
 
@@ -260,7 +260,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($validate['created_at'], 1424280706, 'Created at did not match');
         $this->assertEquals($validate['hash'], '1a4268c9b924d2c48ed1946d6a7e6272', 'Name did not match');
-
     }
 
     public function testFailCompile()
@@ -276,7 +275,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $this->setExpectedException('DataSift_Exception_InvalidData');
 
@@ -285,7 +284,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $pylon = new DataSift_Pylon($this->user);
 
         $pylon->compile($csdl);
-
     }
 
     public function testStart()
@@ -300,19 +298,17 @@ class PylonTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
         $hash = '1a4268c9b924d2c48ed1946d6a7e6272';
 
         $pylon->start($hash, 'My recording name');
-
     }
 
     public function testNoHashStart()
     {
-
         $pylon = new DataSift_Pylon($this->user);
 
         $this->setExpectedException('DataSift_Exception_InvalidData');
@@ -320,31 +316,27 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $hash = '';
 
         $pylon->start($hash, 'My recording name');
-
     }
 
     public function testStop()
     {
-
         $response = array(
             'response_code' => 204,
             'rate_limit' => 200,
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
         $hash = '1a4268c9b924d2c48ed1946d6a7e6272';
 
         $pylon->stop($hash);
-
     }
 
     public function testNoIdStop()
     {
-
         $pylon = new DataSift_Pylon($this->user);
 
         $this->setExpectedException('DataSift_Exception_InvalidData');
@@ -352,12 +344,10 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $id = '';
 
         $pylon->stop($id);
-
     }
 
     public function testTimeSeries()
     {
-
         $response = array(
             'response_code' => 200,
             'data' => array(
@@ -385,7 +375,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
 
         $pylon = new DataSift_Pylon($this->user);
@@ -407,12 +397,10 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][0], 'interactions not found in results');
         $this->assertArrayHasKey('interactions', $analyze['analysis']['results'][1], 'interactions not found in results');
         $this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][1], 'interactions not found in results');
-
     }
 
     public function testFreqDist()
     {
-
         $response = array(
             'response_code' => 200,
             'data' => array(
@@ -436,8 +424,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -458,7 +445,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][0], 'interactions not found in results');
         $this->assertArrayHasKey('interactions', $analyze['analysis']['results'][1], 'interactions not found in results');
         $this->assertArrayHasKey('unique_authors', $analyze['analysis']['results'][1], 'interactions not found in results');
-
     }
 
     public function testAnalyseFilter()
@@ -486,8 +472,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -536,8 +521,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -570,8 +554,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -586,7 +569,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('DataSift_Exception_InvalidData');
 
         $analyze = $pylon->analyze($parameters, '', 1435748400, 1435662000);
-
     }
 
     public function testAnalyseInvalidHash()
@@ -600,8 +582,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -616,7 +597,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('DataSift_Exception_InvalidData');
 
         $analyze = $pylon->analyze($parameters, '', 1435748400, 1435662000);
-
     }
 
     public function testTags()
@@ -632,8 +612,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
-
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -665,7 +644,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150,
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user);
 
@@ -674,7 +653,6 @@ class PylonTest extends PHPUnit_Framework_TestCase
         $tags = $pylon->tags($id);
 
         $this->assertCount(0, $tags, 'Amount of tags did not match');
-
     }
 
     public function testSample()
@@ -698,7 +676,7 @@ class PylonTest extends PHPUnit_Framework_TestCase
             'rate_limit_remaining' => 150
         );
 
-        DataSift_MockApiClient::setResponse($response);
+        MockApiClient::setResponse($response);
 
         $pylon = new DataSift_Pylon($this->user, array('id' => '1a4268c9b924d2c48ed1946d6a7e6272'));
 
@@ -709,7 +687,11 @@ class PylonTest extends PHPUnit_Framework_TestCase
 
         $sample = $pylon->sample($filter, $start, $end, $count);
 
-        $this->assertEquals($sample['interactions']['fb']['content'], 'baz the map could, ', 'Interaction content didnt match');
+        $this->assertEquals(
+            $sample['interactions']['fb']['content'],
+            'baz the map could, ',
+            'Interaction content didnt match'
+        );
     }
 
     public function testSampleNoId()
