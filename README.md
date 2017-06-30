@@ -1,3 +1,9 @@
+- - -
+
+**_This project is no longer actively maintained. Proceed at your own risk!_**
+
+- - -
+
 DataSift PHP Client Library
 ===========================
 
